@@ -1,0 +1,40 @@
+.root {
+    -fx-font-family: "Verdana";
+}
+
+.scroll-pane {
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+    -fx-focus-color: rgba(0,0,0,0.15);
+    -fx-faint-focus-color: transparent;
+}
+
+.scroll-pane:focused {
+    -fx-background-insets: 0;
+}
+
+.scroll-pane .corner {
+    -fx-background-insets: 0;
+}
+
+.scroll-pane {
+}
+
+.scroll-pane .text-field {
+    -fx-focus-color: #039ED3;
+    -fx-faint-focus-color: #039ED322;
+}
+
+.scroll-pane .button {
+    -fx-focus-color: #039ED3;
+    -fx-faint-focus-color: #039ED322;
+}
+
+.scroll-pane .radio-button {
+    -fx-focus-color: #039ED3;
+    -fx-faint-focus-color: #039ED322;
+}
+
+.progress-indicator .percentage {
+    -fx-fill: null;
+}

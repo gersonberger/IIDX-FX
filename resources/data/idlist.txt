@@ -1,0 +1,1442 @@
+//  __  __  ____  _  _     ____  _  _
+// (  )(  )(    \( \/ )___(  __)( \/ )
+//  )(  )(  ) D ( )  ((___)) _)  )  (
+// (__)(__)(____/(_/\_)   (__)  (_/\_)
+//
+// official ID list version 1.1
+//
+//
+22014,AFRO KNUCKLE,,猫叉Master+,Nekomata Master+,AFRO-SAMBA
+22051,Amnolys,,onoken,,ART CORE
+22027,Beat Radiance,,iNO,,NEO CLASSICAL DANCE
+22104,Beat Radiance†,,iNO,,NEO CLASSICAL DANCE
+22068,BEYOND THE EARTH,,猫叉Master,Nekomata Master,WORLD/ELECTRONICA
+22041,Blaze it UP!,,DJ Shimamura,,HARDCORE RAVE
+22039,BLUE MIRAGE,,DJ CHUCKY,,NU STYLE GABBA
+22001,Broken Sword,,金獅子 VS 麒麟,Kinshishi VS kirin,DUAL ANTIQUE
+22025,Chain of pain,,kors k VS 猫叉Master+,kors k VS Nekomata Master+,FULL ON
+22013,chrono diver -fragment-,,猫叉Master feat.三澤秋,Nekomata Master feat. Misawa aki,HEALING DRUM'N'BASS
+22102,chrono diver -fragment-†,,猫叉Master feat.三澤秋,Nekomata Master feat. Misawa aki,HEALING DRUM'N'BASS
+22008,CHRONO DIVER -NORNIR-,,L.E.D.,Led,CYBER DRUM'N'BASS
+22101,CHRONO DIVER -NORNIR-†,,L.E.D.,LED,CYBER DRUM'N'BASS
+22054,Chrono Diver -PENDULUMs-,,猫叉L.E.D.Master+,Nekomata Ledmaster+,CHRONO BREAKS
+22092,Chronos,,TAG,,PROGRESSIVE
+22033,cinder,,PHQUASE,,MAELSTROM
+22029,COLOSSEUM,,劇団レコード,Gekidan rekodo,LOST GROUND
+22006,Cosmic Cat,,8bit Moonside,,FUTURE BASS
+22015,Despair of ELFERIA,,猫叉Master,Nekomata Master,HARD IRISH SYMPHONIC
+22098,Discloze,,lapix,,Hi-TECH PSYTRANCE
+22066,Don't Stop The Music feat.森高千里,Don't Stop The Music feat.Chisato Moritaka,tofubeats,,J-POP
+22089,EBONY & IVORY,EBONY and IVORY,OSTER project,,RAGTIME CHIPTUNE
+22065,entelecheia,,Rche,,SACRED TRANCE
+22075,Erosion Mark,,kors k REASM Des-ROW,,FALLIN APART CORE
+22070,fallen leaves,,猫叉Master,Nekomata Master,WORLD/ELECTRONICA
+22018,FANTASTIC THREE,,ジャカルタファンクブラザーズ,Jakarta Funk Brothers,DUB COMEDY
+22016,Flashes,,Dollscythe,,DRUM'N'BASS
+22053,Gravigazer,,DJ TOTTO,,PROGRESSIVE SCHRANZ
+22028,GUILTY,,D.J.SETUP,,TECHNO
+22049,HELL SCAPER -Last Escape Remix-,,Remixed by DJ TECHNORCH fw. GUHROOVY,,GABBAH
+22061,Hello Happiness,,P*Light feat. mow*2,Plight feat mow2,HAPPY HARDCORE
+22081,Hollywood Galaxy(DJ NAGAI Remix),,Remixed by DJ NAGAI,,GALACTIC J-CORE
+22019,illuminate,,Sota Fujimori,,SYNTHETIC EDM
+22043,IMPLANTATION,,TOMOSUKE,,GOA TRANCE
+22090,In The Breeze,,96 & Sota ft. Mayumi Morinaga,,HYBRID
+//22,in motion,,Ryu☆,,CLICK HOUSE
+22099,Invitation from Mr.C,,C-Show,Cshow,HOLIC
+22052,IXION,,L.E.D.,Led,PSYCHEDELIC TRANCE
+22036,Light My Fire,,GUHROOVY feat. NO+CHIN,,BREAKCORE
+22002,Line 4 Ruin,,Ryu☆,,ELECTRO TECH
+22071,Ludus In Tenebris,,Akhuta,,LIAISON
+22045,m1dy Festival,,m1dy,midy,TOKYO STYLE SPEEDCORE
+22073,Monopole.,,cosMo@暴走P,cosmo boso,ARTCORE ROCK
+22011,NEO GENERATOR SEVEN,,L.E.D.-G, LED-G,MAINSTREAM HARDCORE
+22044,Night sky,,USAO,,PUMPCORE
+22063,No Tears,,RoughSketch feat. Aikapin,,HARD EDM
+22076,On My Wings (Hardstyle IIDX),,kors k,,HARDSTYLE
+22100,PENDUAL TALISMAN,,猫叉L.E.D.Master,Nekomata Ledmaster,SYSTEM BGM
+22078,Rave Saves You feat. Cardz (Exclusive IIDX Mix),,REMO-CON,,HARD DANCE
+22003,Rave*it!! Rave*it!!,raveit raveit rave it rave it,機龍,Ki ryu,EDM SPEED
+22034,Realize Maze,,movies (moimoi×Xceon×Dai.),,SOLITUDE
+22007,Reflux,,Eagle,,TRANCESTEP
+22096,Routing,,かめりあ,Camelia,JAZZY-ELECTRO
+22060,Sakura Mirage,,Ryu☆,,CHIPCORE
+22046,SAMSARA,,SOUND HOLIC feat. Nana Takahashi,,DIMENSION WAVE
+22005,Say YEEEAHH,,kors k,,EDM
+22086,Scarlet Moon,,REDALiCE feat. Ayumi Nomiya,,J-CORE
+22058,Scars of FAUNA,,猫叉Master,Nekomata Master,WORLD/ELECTRONICA
+22004,Shooting Fireball,,dj TAKA,,MUSIC GAME TRADITIONAL
+22050,Sometimes feat. Kanae Asaba,,Y&Co.,Y and co.,EUROBEAT
+22091,Sounds Of Summer,,Hommarju,,UK HARDCORE
+22055,SpaceLand☆TOYBOX,,OSTER project,,RAGTIME FUTURE POP
+22020,subtractive,,Expander,,GLITCH STEP
+22042,Sweet Radar,,DJ Genki feat. Yukacco,,ELECTRO POP
+22017,Symmetry,,猫叉Master,Nekomata Master,EPIC ELECTRONICA
+22056,TA・DA ☆ YO・SHI,TADAYOSHI,Y&Co.,Y and co.,EUROBEAT
+22069,The Least 100sec,,Sasaki Hirofumi,,PROGRESSIVE
+22079,TIEFSEE,,SOUND HOLIC Vs. dj TAKA feat. YURiCa,,DEEP SPECTRUM
+22074,TOXIC VIBRATION,,SOUND HOLIC Vs. T.Kakuta feat. YURiCa,,MELODIC SPEED METAL
+22057,Vulkan,,Hommarju,,GYPSYCORE
+22080,We're so Happy (P*Light Remix) IIDX ver.,,Remixed by P*Light,Remixed by Plight,HAPPY HARDCORE
+22035,X↑X↓,XX XUP XDOWN X UP DOWN,DJ TECHNORCH,,新世紀進歩的羽扇子音楽
+22077,ZZ,,D.J.Amuro,DJAmuro DJ Amuro,INTELLIGENCE
+22040,#The_Relentless,The Relentless,DJ Noriken,,DUBCORE
+22084,妖隠し -あやかしかくし-,Ayakashi kakushi,DJ TOTTO feat.3L,,DRUM'N'WALTZ
+22059,ベィスドロップ・フリークス,Bassdrop freaks,かめりあ feat. ななひら,Camelia feat. Nanahira,A-STYLE DRUM STEP
+22038,紅牡丹,Benibotan,DJ NAGAI feat. a☆ru,,J-CORE
+22062,打打打打打打打打打打,Dadadadadadadadadada,ヒゲドライバー join. SELEN,Higedoraiba join. SELEN,JAPANESE TRADITIONAL
+22023,デンドロビウム,Dendrobium,TAG,,BLOOM FUSION
+22094,ドッキン☆サマーあばんちゅーる,Dokkin summer aventure,L.E.D.-G + Qrispy Joybox + ARM feat. ななひら,Led-g + Qrisby Joybox + ARM feat. Nanahira,ドタバタ☆夏休み
+22072,フェイクアウト,Fake out,Last Note. feat.mirin,,ROCK
+22082,全力 SPECIAL VACATION!! ～限りある休日～,Zenryoku SPECIAL VACATION!! ~kagiri aru kyuujitsu~,DJ GW,,HAPPY VACAY CORE
+22009,表裏一体！？怪盗いいんちょの悩み♥,Hyouriittai!? kaitou iincho no nayami,◇◆謎の怪盗少女ぷらずま☆彡Prim◇◆,mysterious Kaito girl plasma Prim,Hi-FUNK BEATS
+22037,十六夜セツナ,Izayoi setsuna,Xceon feat.Mayumi Morinaga,,HYPER J-POP
+22047,時空トラベローグ,Jikuu travelogue,SWING HOLIC feat. A～YA,,TIME TRIP JAZZ
+22097,灼熱Pt.2 Long Train Running,Shakunetsu Pt2 Long Train Running,DJ Mass MAD Izm*,,BROKEN SAMBA BREAK
+22031,超青少年ノ為ノ超多幸ナ超古典的超舞曲,Chouseishounen no tame no choutakou na choukotenteki choubukyoku,Project B-,,PIECED EUPHORIA
+22105,超青少年ノ為ノ超多幸ナ超古典的超舞曲†,Chouseishounen no tame no choutakou na choukotenteki choubukyoku,Project B-,,PIECED EUPHORIA
+22012,共鳴遊戯の華,Kyoumei yuugi no hana,アイテール魔導士隊,Aiteru mado-shi-tai,ASTRAL DRUM & BASS
+22032,リリーゼと炎龍レーヴァテイン,Lilieze to enryuu Laevateinn,黒猫ダンジョン,Kuro neko danjon,OLDSTYLE GAMEMUSIC
+22010,もっと！モット！ときめき feat. 松下,Motto! Motto! Tokimeki feat. Matsushita,シャイニング度胸兄弟,Shainingu dokyo kyodai,きらめきコア
+22095,夏色DIARY -L.E.D.-G STYLE MIX-,Natsuiro DIARY -L.E.D.-G STYLE MIX-,猫叉王子 feat.L.E.D.-G,Nekomata prince feat. LED-G,HAPPY SUMMER CORE
+22064,鬼天,Onigami,兎々,Usagi,ASURA TEK CORE
+22088,パ→ピ→プ→Yeah!,Pa pi pu Yeah!,ヒゲドライバー join. shully & Nimo,Higedoraiba join. Shully & Nimo,電波ソング
+22048,ぷろぐれっしぶ時空少女！うらしまたろ子ちゃん！,Progressive jikuu shoujo! Urashima Taroko-chan!,ARM(IOSYS) feat. 山本椛,ARM IOSYS feat Yamamoto momiji,ぷろぐれっしぶ電波
+22083,千年ノ理,Sennen no kotowari,猫叉Master,Nekomata Master,WORLD/ELECTRONICA
+22026,白露の風,Shiratsuyu no kaze,Qrispy Joybox feat. 常盤ゆう,Qrispy Joybox feat. Tokiwa Yu,想歌 風
+22093,少年は空を辿る,Shounen wa sora wo tadoru,Power Of Nature,,MURAKUMO
+22087,それは花火のような恋,Sore wa hanabi no youna koi,夏色バーニングラブ☆Prim,Summer color Burning Love Prim,Hi-歌謡コア
+22085,取り残された美術(Arranged:HiZuMi),Torinokosareta bijutsu(Arranged:HiZuMi),幽閉サテライト feat. senya,Yuhei sateraito feat. senya,HYPER J-POP
+22067,とろぴかる倶楽部,Tropical club,HALFBY,,TROPICAL
+22024,恋は白帯、サンシロー,Koi wa shiroobi Sanshiro,星野奏子,Kanako Hoshino,KANA-POP
+22103,恋は白帯、サンシロー†,Koi wa shiroobi Sanshiro,星野奏子,Kanako Hoshino,KANA-POP
+
+21019,Adularia,,DJ TOTTO,,ARTCORE
+21037,ALBA -黎明-,ALBA -reimei-,SOUND HOLIC feat. Nana Takahashi,,HYPER GOTHIC BEAT
+21046,All is Wrecked,,Destron,,INDUSTRIAL METAL
+21069,Ancient Scapes,,Durandal,,DYNASTIC FREEFORM
+21102,Ancient Scapes †LEGGENDARIA,,Durandal,,DYNASTIC FREEFORM
+21023,Atropos,Atropos,sasakure.UK,,NEUTRONIKA
+21044,BLUE DRAGON(雷龍Remix IIDX),BLUE DRAGON(Rairyu Remix IIDX),青龍,Seiryu,RAVERS DANCE SPEED
+21063,BRAINSTORM,,Hardcore United Tokyo(teranoid & DJ TECHNORCH),,TRANCECORE MEETS GABBA
+21051,BRAVE OUT,,nomico / DOWNFORCE,,ELECTRANCE
+21065,Claiomh Solais,,DJ Yoshitaka VS S.S.D.,,ILUZIO
+21085,Cleopatrysm,,ピラミッ℃,Pyramid ℃,PHARAO BEAM STEP
+21012,Close the World feat.a☆ru,,天叢雲剣,Amenomurakumonotsurugi kusanagi,J-CORE
+21100,Close the World feat.a☆ru †LEGGENDARIA,,天叢雲剣,Amenomurakumonotsurugi kusanagi,J-CORE
+21007,Critical Crystal,,青龍,Seiryu blue dragon,DANCE SPEED
+21072,Dark Fall,,黒龍,Kokuryu black dragon,MASSIVE DANCE SPEED
+21005,DARK LEGACY,,BaSTeT,,DARK ELEMENT
+21013,Devilz Sacrifice -贖罪の羊-,Devilz Sacrifice -shokuzai no hitsuji-,OSTER project,,SYMPHONIC BREAK BEATS
+21041,diagram,,Expander,,GLITCH HOP
+21016,Elektrick U-Phoria,,DJ Noriken,,UK HARDCORE
+21004,Element of SPADA,,猫叉Master feat.霜月はるか,Nekomata Master feat. Shimotsuki Haruka,HEALING POP
+21083,Engraved Mark,,Ryu☆ ∞ Des-ROW,,HAPPY SAD CORE
+21009,esrev:eR,,TAG meets "eimy",TAG meets eimy,EMOTIONAL SENTENCE
+21003,EXTREME MACH COLLIDER,,L.E.D.,Led,TECHNO
+21052,Feel The Beat,,Falsion,,HARDCORE RAVE
+21104,Feel The Beat †LEGGENDARIA,,Falsion,,HARDCORE RAVE
+21024,Funny shuffle,,猫叉Master+,Nekomata Master+,JAG GLITCH
+21036,Give Me Your Love,,星野奏子,Kanako Hoshino,KANA-POP
+21077,HYENA,,Hommarju,,BIG BEAT
+21043,Hypersonik,,Eagle,,DRUM&BASS
+21056,I will be back -オレは帰ってきた-,I will be back -ore wa kaettekita-,SUPER STAR 満-MITSURU-,SUPER STAR Mitsuru -MITSURU-,ONLY ONE MOMENT
+21055,Idola,,iconoclasm feat.GUMI,,REPLICANT CORE
+21049,Immortal,,DJ NAGAI,,J-CORE
+21008,Insane Techniques,,kors k,,Hi-TECH FULL ON
+21033,INSOMNIA,,ジャカルタファンクブラザーズ,Jakarta Funk Brothers,FUNKOT
+21039,into the battlefield,,the wandering bard,,SYMPHONIC BREAKS
+21073,invoker,,Caladborg,,TRIBE CORE
+21103,invoker †LEGGENDARIA,,Caladborg,,TRIBE CORE
+21082,IX,9 NINE,dj TAKA VS DJ TOTTO feat.藍,dj TAKA VS DJ TOTTO feat. Ai,BLOOD METAL
+21089,KAISER PHOENIX,,96,,HEAVY METAL
+21087,KHAMEN BREAK,,くふおー,Kufuo,PROGRESSIVE GOSPEL
+21028,LA FESTA LA VITA!!,,GUHROOVY,,DRUM'N'BASS
+21045,Last Dance,,dj TAKA,,HARD STACC
+21026,Lighting Shower,,TAG,,TRANCE POP
+21061,M.D.Injection,,Project B-,,PIECED DOWNBEAT
+21027,m1dy Deluxe,,m1dy,midy,TOKYO STYLE SPEEDCORE
+21022,MAD ATTACK,,HALFBY,,UPBEAT
+21014,MAGIC & LOVE,,DJ Genki feat. Yukacco,,HAPPY CORE
+21015,Miracle 5ympho X,,USAO,,FRENCHCORE
+21071,NEMESIS -gratitude remix- IIDX Edition,,Remixed by PHQUASE,,DRUM'N'BASS
+21025,NPC World,,PON,,ELECTRO POP
+21021,Odin,,Noizenecio,,GABBER
+21018,Overload Frontier,,DJ Shimamura,,HARDCORE RAVE
+21053,Pharaoh,,劇団レコード,Gekidan rekodo,ANCIENT CIVILIZATION
+21076,PUNISHER,,TAG×PON,TAGxPON,VARIANT RAVE
+21047,ra'am,,雷龍,Ikazuchiryu thunder dragon,RAVERS DANCE SPEED
+21001,rainbow guitar weeps,,dj TAKA,,BRIGHTNESS
+21064,Recollection,,Noria,,POPS
+21042,refractive index,,Sota Fujimori,,PSYCHEDELIC TRANCE
+21035,RISE,,Dirty Androids,,DRUMSTEP
+21067,RIZING YOU UP,,Ryu☆,,HAPPY HARDCORE
+21090,SCHWARZSCHILD FIELD,,L.E.D.,Led,FULL ON
+21054,Shattered control,,Vivian,,CONTEMPORARY BREAKS
+21059,Sigmund,,Gram,,REQUIEM PSY
+21101,Sigmund †LEGGENDARIA,,Gram,,REQUIEM PSY
+21057,Smug Face -どうだ[COMMA] オレの生き様は- (ONLY ONE EDITION),Smug Face -douda ore no ikisama wa- (ONLY ONE EDITION),SUPER STAR 満-MITSURU-,SUPER STAR Mitsuru -MITSURU-,ONLY ONE ACT
+21078,Squeeze,,VENUS feat. Mutsuhiko Izumi,,WITHOUT YOU TONIGHT -VI-
+21074,Stella Sinistra,,Akhuta Philharmonic Orchestra,,SYMPHONOVATIVE ROCK
+21068,THE DETONATOR,,teranoid vs. L.E.D.-G,teranoid vs. Led-G,NU STYLE GABBA
+21066,Unicorn tail,,DJ YOSHITAKA,,BREAKBEATS TRANCE
+21020,Valgus,,DJ Myosuke feat.Yukacco,,MAINSTREAM HARDCORE
+21050,Verflucht,,Tyrfing,,HARD NRG
+21106,Verflucht †LEGGENDARIA,,Tyrfing,,HARD NRG
+21070,Votum stellarum -Hommarju Remix-,,Remixed by Hommarju,,UK HARDCORE
+21062,VOX UP,,sampling masters MEGA vs 青龍,sampling masters MEGA vs seiryu Blue Dragon,ROTTERDAM TECHNO
+21010,WOBBLE IMPACT,,Sota Fujimori,,DUBSTEP
+21034,Wonder Girl feat. Kanae Asaba,,Y&Co.,Y and Co.,EUROBEAT
+21060,ATHER,AETHER,TAG underground,,ASTRAL HARDCORE
+21006,牧神笛吹きて,Bokushin fuefukite,楽士ゾディアック,Gakushi zodiakku,ZODIAC ORACLE X
+21058,アルストロメリア,Alstroemeria,TAG,,BLOOM FUSION
+21084,バンブーソード・ガール,BambooSword Girl,cosMo@暴走P,cosmo boso,J-SPEEDMETAL
+21030,超!!遠距離らぶ♡メ～ル,Chou!! enkyori love ma~il,ななひら,Nanahira,乙女EDM
+21017,死神自爆中二妹アイドルももかりん(1歳),Shinigami jibaku chuuni imouto idol Momokarin (1sai),山本椛,Yamamoto momiji,電波METAL
+21032,煉獄のエルフェリア,Rengoku no Elferia,猫叉Master+,Nekomata Master+,HARD SYMPHONIC
+21031,幻想系世界修復少女,Gensoukei sekaishuufuku shoujo,Last Note.,,J-POP
+21080,野球の遊び方　そしてその歴史　～決定版～,Yakyuu no asobikata soshite sono rekishi ~ketteiban~,あさき大監督,Asaki dai kantoku,野球のことがよくわかる
+21079,デッドボヲルdeホームラン,Deadball de homerun,猫叉Masterβ2,Nekomata Master beta2,ELECTRIC MANOUSH SWING
+21048,疾風迅雷,Shippuujinrai,KUMOKIRI,,ORIENTAL CORE
+21105,疾風迅雷 †LEGGENDARIA,Shippuujinrai,KUMOKIRI,,ORIENTAL CORE
+21075,マインド・ゲーム,Mind game,96 with メカショッチョー,96 with mekashotcho,SEISHUN GOUSOKKYUU METAL
+21038,お願いアインシュタイン,Onegai Einstein,中山真斗 feat.桜川めぐ,Nakayama masato feat. Sakuragawa megu,CYBER SYMPHONIC POP
+21086,御千手メディテーション,Osenju meditation,昇天家族,Shoten kazoku,ニューエイジ合掌コア
+21002,旋律のドグマ～Miserables～,Senritsu no dogma ~Miserables~,楓璃夢=ジークフリード=ファイエルローゼン,Kaede Aki yume = jikufurido = faierurozen,JUVENILE DRUM'N'BASS
+21081,轟け！恋のビーンボール！！,Todoroke! Koi no beanball!!,ダイナミック野球兄弟 v.s. クロスファイヤーPrim,Dynamic baseball brothers vs Cross Fire Prim,BASEBALL HEROINE
+21011,罪と罰,Tsumi to batsu,Xceon feat. Mayumi Morinaga,,HYPER J-POP
+21029,廿,Nijuu,DJ TECHNORCH,,新世紀進歩的羽扇子音楽
+21088,海神,Wadatsumi,兎々,Usagi,HYDRO CORE
+
+20032,Ascalon,,Qrispy Joybox,,ELECTRO POP
+20046,Beastie Starter,,GUHROOVY,,SPEEDCORE
+20005,BLUE STRAGGLER,,L.E.D.,Led,HARD DANCE
+20030,BRAVE GLOW,,SOUND HOLIC feat. Nana Takahashi,,SPACY TRANCE
+20045,Breaking Dawn feat. NO+CHIN[COMMA] AYANO,,GUHROOVY,,J-CORE
+20018,CONCEPTUAL,,Sota Fujimori 2nd Season,,HARD REVOLUTION
+20008,Confiserie,,L.E.D. vs S-C-U,Led vs S-C-U,HARD ELECTRIC POP
+20011,connective,,猫叉Master feat.*spiLa*,Nekomata Master feat.spila,LOUNGE POP
+20087,Cookie Bouquets,,L.E.D. vs TOMOSUKE fw.crimm,Led bs TOMOSUKE fw.crimm,BREAK CORE
+20070,DAY DREAM,,Mutsuhiko Izumi,,DARK PROGRESSIVE
+20056,Deceive Your Insight,,Project B-,,PIECED ROCK
+20063,Devilz Staircase,,OSTER project,,SYMPHONIC BREAK BEATS
+20034,Echo Of Forever,,kors k,,HOUSE
+20020,Elemental Creation,,dj TAKA meets DJ YOSHITAKA,,HARD RENAISSANCE
+20092,Empathetic,,Sota÷Des,Sota Des,DRUM STEP
+20095,examination leave,,dj razzle dazzle,,VACATION DANCE
+20053,FLOWER,,DJ YOSHITAKA,,TRANCE CORE
+20037,Fly you to the star,,Another Infinity feat.Mayumi Morinaga,,HANDZ UP
+20001,Fractal,,Sota Fujimori,,CYBER PROGRESSIVE
+20093,GAIA,,猫叉L.E.D.Master+,Nekomata Ledmaster+,SPEED DANCE
+20017,GRADIUS 2012,,Sota Fujimori,,KONAMI REMIX
+20073,Hollywood Galaxy,,dj TAKA,,DRUM'N'BASS
+20057,Holy Snow,,Mutsuhiko Izumi,,CHRISTMAS SYMPHONY
+20024,Howling,,PON,,NU RAVE
+20033,I know You know,,Suke+Suke feat. Ribbon,Suke Suke feat. Ribbon,NEW 80's
+20052,ILIAS,,Masayoshi Minoshima feat. 坂上なち,Masayoshi Minoshima feat. Sakagami Nachi,HYPER ELECTRO
+20031,Illegal Function Call,,U1-ASAMi,,ORBITALIC CORE
+20016,In Heaven,,Sota Fujimori,,HEAVENLY TRANCE
+20071,JOMANDA,,DJ YOSHITAKA,,HARD RENAISSANCE
+20002,Liberation,,dj TAKA,,TRANCE
+20040,Light and Cyber･･･,Light and Cyber...,Tatsh,,HAPPY HARDCORE
+20048,Little Star,,REDALiCE feat. Ayumi Nomiya,,J-CORE
+20068,LUV CAN SAVE U,,HIDEKI NAGANUMA,,NEO 80's EURO ELECTRO
+20088,mnemoniq,,youhei shimizu,,JAZZ HOUSE
+20066,Neonlights,,DJ Noriken,,TECH DANCE
+20074,neu,,少年ラジオ,Shonen rajio Boy Radio,NIENTE
+20072,New Decade IIDX Edition,,Sota F.,Sota Fujimori,SPEED DANCE CORE
+20023,New Lights,,kors k,,HARDCORE
+20038,Plan 8,,Ryu☆,,HAPPY GABBA
+20000,planarian,,S-C-U,,ELECTRIC POP
+20009,POINT ZERO,,猫叉Master+,Nekomata Master+,DRUM'N'BASS
+20010,portal,,猫叉Master+,Nekomata Master+,ELECTRO
+20027,Präludium,Praludium,Yuko Takahashi,,CLASSICAL PIANO
+20012,Proof of the existence,,猫叉Master+,Nekomata Master+,HARD ELECTRONICA
+20013,Rainbow after snow,,猫叉Master feat. 林ももこ,Nekomata Master feat. Hayashi Momoko,DRUM'N'BASS
+20076,Reflection Into the EDEN,,猫叉Master,Nekomata Master,BOSSA ELECTRONICA
+20015,Re:GENERATION,,TAG feat. ERi,,EMOTIONAL SENTENCE
+20028,rumrum triplets,,yu_tokiwa.djw,,LOUNGECORE
+20035,S!ck,Sick,Eagle,,DRUMSTEP
+20086,Saturn,,Mr.Saturn,,PROGRESSIVE TRIBAL
+20065,Shining World,,DJ Genki feat. Yukacco,,ELECTRO POP
+20102,SHION,,DJ YOSHITAKA,,HI-SPEED FANTASY TUNE
+20051,Sol Cosine Job 2,,DJ TECHNORCH,,FREEFORM HARDCORE
+20042,Spinning Around,,Dirty Androids,,FRENCH HOUSE
+20062,STULTI,,MAX MAXIMIZER VS DJ TOTTO,,GRAVIOL
+20041,SYNC-ANTHEM,,Tatsh feat. 星野奏子,Tatsh feat. Kanako Hoshino,LATIN EURO
+20091,Synergy For Angels,,TAG×U1-ASAMi,TAGxU1-ASAMi,ORBITALIC REVOLUTION
+20059,Take My Life,,Y&Co.,Y and Co.,EUROBEAT
+20029,Thor's Hammer,,ユニバーサル度胸兄弟,Yunibasaru dokyo kyodai,TRANSCENDENTAL ETUDES
+20082,Time to Empress,,dj TAKA feat. wac & secret K,,TRANCE
+20067,Timepiece phase II,,佐々木博史,Sasaki Hiroshi,PROGRESSIVE ROCK
+20043,Timepiece phase II (CN Ver.),,佐々木博史,Sasaki Hiroshi,PROGRESSIVE ROCK
+20050,To my star,,星野奏子,Kanako Hoshino,STARPOP
+20014,Tp-RZ,,CAPACITY GATE,,BREAKBEATS
+20058,True Blue,,dj TAKA feat. AiMEE,,ESSENTIALLY
+20097,Valanga,,DJ TOTTO,,ARTCORE
+20096,VALLIS-NERIA,,DJ YOSHITAKA,,TRANCE CORE
+20025,VEGA,,REDALiCE,,UNIVERSAL J-CORE
+20075,YELLOW FROG from Steel Chronicle,,劇団レコード,Gekidan rekodo,DESERT ALTERNATIVE EDGE
+20064,ZED,,USAO,,DUB STEP
+20094,Zirkfied,,iconoclasm,,SPACE REQUIEM
+20036,405nm (Ryu☆mix),405nm (Ryu mix),Another Infinity,,HARDCORE
+20021,8bit Princess,,seiya-murai feat. ALT,,CHIPTUNE
+20049,アストライアの双皿,Astraia no soubei,ZODIACSYNDICATE,,ZODIAC ORACLE 7
+20055,カジノファイヤーことみちゃん,Casino fire Kotomi-chan,ARM feat. 山本椛＋Brasscapsule,ARM feat. Yamamoto momiji + Brasscapsule,電波
+20019,龍と少女とデコヒーレンス,Ryuu to shoujo to decoherence,黒猫ダンジョン,Kuro neko danjon Black Cat dungeon,EPIC TECHNO
+20003,ΕΛΠΙΣ,Elpis,dj TAKA,,ROMANTIC SCHOOL VARIATIONS
+20090,創世ノート,Sousei note,PON+wac,,CREATOR
+20089,お米の美味しい炊き方、そしてお米を食べることによるその効果。,Okome no oishii takikata soshite okome wo taberu koto ni yoru sono kouka.,大日本鉄倶楽部【あさき＆96】,Asaki & 96,RICE METAL
+20022,下弦の月,Kagen no tsuki,iNO,,NEO CLASSICAL DANCE
+20004,狂イ咲ケ焔ノ華,Kuruizake homura no hana,覚醒ノPrim,,Hi-GOTH
+20007,キャトられ♥恋はモ～モク,Kyatorare koi wa mo moku,ギュ～っとしたい♥Prim,,Hi-ν BLEEP
+20061,メイメツ、フラグメンツ,Meimetsu fragments,中山真斗(Elements Garden) feat.桜川めぐ,Zhongshan Mato (Elements Garden) feat. Sakuragawa Meg,CYBER SYMPHONIC POP
+20047,†渚の小悪魔ラヴリィ～レイディオ†(IIDX EDIT),Nagisa no koakuma lovely~radio,夏色ビキニのPrim,Summer color bikini Prim,Hi-CORE
+20069,虹色の花,Nijiiro no hana,Akhuta y OJ,,LIGHT-VISUAL POP
+20100,朧,Oboro,HHH×MM×ST,HHHxMMxST,FASCINATION
+20099,音楽,Ongaku,弁士カンタビレオ,Benshi Kantabireo,SILENT
+20044,ラキラキ,Lucky lucky,Mutsuhiko Izumi & S-C-U,,LUCKY TECHNO
+20101,シュレーディンガーの猫,Schrodinger no neko,Cait Sith,,TOY CONTEMPORARY
+20060,晴天Bon Voyage,Seiten Bon Voyage,TOMOSUKE × seiya-murai feat. ALT,,SWEETRONICA
+20054,即席！脳直★ミュージックシステム,Sokuseki! Nouchoku music system,MOSAIC.WAV,,AKIBA-POP
+20083,たまゆら,Tamayura,佐々木博史,Sasaki Hiroshi,PROGRESSIVE
+20039,仮想空間の旅人たち,Kasoukuukan no tabibitotachi,DJ MURASAME,,TECHNO
+20006,トリカゴノ鳳凰,Torikago no houou,L.E.D. Vs. 幽閉サテライト,Led vs Yuhei sateraito,歌謡 DRUM & BASS
+20098,梅雪夜,Umeyukiyo,Qrispy Joybox feat. mao,,想歌 梅
+
+19035,A MINSTREL ～ver.short-scape～,,KANTASIA by S.S.D. PRODUCTS,KANTASIA by SSD PRODUCTS,LA FABERO
+19024,Almace,,Qrispy Joybox,,TECHNO
+19006,ANAGRAMS I to Y,,Mayumi Morinaga,,DANCE POP
+19037,BLACK.by X-Cross Fade,,DJ Mass MAD Izm*,,TECH-BREAKBEATS
+19011,CALL,,猫叉Master,Nekomata Master,WORLD/ELECTRONICA
+19072,Castle on the Moon,,青龍,Seiryu blue dragon,DANCE SPEED
+19052,Change the World,,Tatsh feat.小田ユウ,Tatsh feat. Oda Yu,SPEED POP
+19008,DIAVOLO,,度胸兄弟,Dokyo kyodai,TRANSCENDENTAL ETUDES
+19043,DON'T WAKE ME FROM THE DREAM (2010 Summer Edition),DONT WAKE ME FROM THE DREAM 2010 Summer Edition,YOJI,,TECH DANCE
+19025,Drive Me Crazy,,kors k feat.古川未鈴,kors k feat. Furukawa Misuzu,AKIBA RAVE
+19044,Electric Super Highway,,MACHO ROBOT feat. nouvo nude,,ELECTRO
+19045,Express Emotion,,REDALiCE feat.Shihori,,J-CORE
+19003,F,,D.J.Amuro,DJAmuro DJ Amuro,RENAISSANCE
+19060,Far east nightbird,,猫叉Master,Nekomata Master,DRUM'N'BASS
+19064,ƒƒƒƒƒ,Fffff,Five Hammer,,HARD Pƒ
+19073,Flip Flap,,kors k,,CANDY HANDZ UP
+19029,Follow Tomorrow,,HHH×MM×ST,HHHxMMxST,J-DANCE POP
+19017,GIGANT,,seiya-murai,,MARCHING ROCK
+19075,HAERETICUS,,D.J.Amuro Vs MAX MAXIMIZER,DJAmuro vs MAX MAXIMIZER DJ Amuro vs MAX MAXIMIZER,ECCENTRIC
+19058,I'm so Happy,,Ryu☆,,HAPPY HARDCORE
+19004,In the Blackest Den,,Bulluvegola,,PROGRESSIVE ROCK
+19062,Infinite cave,,猫叉Master+,Nekomata Master+,DRUM'N'BASS
+19021,Into The Sunlight,,kobo feat.RIO,,DRUM & BASS
+19012,KYAMISAMA ONEGAI!,,Dr.Honda feat. Moe,,トレンディーポップス
+19036,LAX5 feat. Ryota Yoshinari,,Katana Sounds,,LOUD TECH
+19056,LETHEBOLG ～双神威に斬り咲けり～,LETHEBOLG ~Futatsukamui ni kiri sakeri~,TEЯRA,TERRA,PLATINUM J-POP ONE
+19047,Liquid Crystal Girl feat.echo,,kmp,,ELECTRO
+19050,LOVE B.B.B,LOVE BBB,SWAN K feat. Asuka M,,DRUM'N'BASS
+19010,Lucky Days,,Sota Fujimori feat. Kanako Hoshino,,DREAM TRANCE
+19040,Mermaid girl -秋葉工房MIX-,Mermaid girl -Akiba Koubou MIX-,Remixed by DJ Command,,EUROBEAT
+19034,Miami Sunset Drive,,Dirty Androids,,80's ELECTRO HOUSE
+19030,NNRT,,Levaslater,,ELECTRO GOTHIC
+19061,PentaCube Gt.(RX-Ver.S.P.L.),PentaCube Gt RX Ver SPL,高田雅史,Masafumi Takada,ALTERNATIVE ETHNO POP
+19054,Phoenix,,Hommarju,,HARD NRG
+19018,Prompt,,w×s ft.*spiLa*,wxs ft. spila,NU PROGESSIVE
+19063,QUANTUM TELEPORTATION,,L.E.D.,Led,TECHNO
+19071,quaver♪,,Risk Junk,,HAPPY
+19020,Quick Silver,,Mystic Moon,,RAVE FUSION
+19027,Release The Music,,kors k,,TECH DANCE
+19055,RESISTANCE,,セリカ,Celica,MYSTERIOUS ROCK
+19048,Round and Round,,Masayoshi Minoshima feat. 綾倉盟,Masayoshi Minoshima feat. AyaKuramei,HYPER ELECTRO
+19014,SA.YO.NA.RA. SUPER STAR,SAYONARA SUPER STAR,SUPER STAR 満 -MITSURU-,,ONLY ONE FINALE
+19009,Scharfrichter,,Ashemu,,HARD ROCK
+19041,Session 12 -Esther-,,PRASTIK DANCEFLOOR,,PROGRE SYNTHETIC
+19013,Several Words,,CAPACITY GATE,,VALIANT BEAT
+19031,SHADE,,DJ MURASAME vs dj Killer,,TECHNO
+19001,Snake Stick,,DJ Yoshitaka VS. DJ Mass MAD Izm*,,TECH-BREAKBEATS
+19059,Snow Goose,,Mutsuhiko Izumi,,ELECTRIC POMP
+19049,Star Trail,,Nhato,,TRANCE
+19033,The Limbo,,STN,,CYBER PUNK
+19026,The Sampling Paradise,,Mamonis,,HARD TRANCE
+19028,Thunderbolt,,雷龍,Ikazuchiryu thunder dragon,RAVERS DANCE SPEED
+19074,TITANS RETURN,,L.E.D.,Led,DRUMSTEP
+19016,Todestrieb,,Rche,,SACRED TRANCE
+19066,Trust -MATERIAL ver- (IIDX Edition),,Tatsh feat. ヨーコ,Tatsh feat Yokom,CHARACTER SONG
+19051,Voxane,,Remo-con,,TECH DANCE
+19068,WONDER WALKER,,L.E.D.,Led,HARD TRANCE
+19007,YAKSHA,,Neulakyussra,,TERROR CORE
+19067,yellow head joe,,S-C-U,SCU,TEK-TRANCE
+19038,Yellow Sunrise,,xac,,DRUM'N'BASS
+19032,24th Century BOY,,Tatsh,,EURO RAVE
+19069,532nm,,Ryu☆,,HARDCORE
+19070,ビューティフル レシート,Beautiful receipt,Lucky Vacuum,,HAPPY HARDCORE
+19065,子供の落書き帳,Kodomo no rakugaki chou,佐々木博史,Sasaki Hiroshi,PROGRESSIVE
+19023,ЁVOLUTIФN,EVOLUTION,TEЯRA,TERRA,PLATINUM JAPANESQUE
+19015,蛇神,Kagachi,Zektbach,,ORIENTAL MYTHOLOGY
+19039,陽炎,Kagerou,星野奏子,Kanako Hoshino,POP
+19022,君のハートにロックオン,Kimi no heart ni lock-on,Dr.Honda,,トレンディーフュージョン
+19005,恋する☆宇宙戦争っ!!,Koisuru uchuu sensou!!,Prim,,Hi-BLEEP
+19046,突撃！ガラスのニーソ姫！,Totsugeki! Glass no kneeso hime!,山本椛 (monotone),Yamamoto momiji,電波
+19042,聖人の塔,Seijin no tou,Beridzebeth,,BATTLE TRACK
+19019,衰色小町メランコリア,Suishoku komachi melancholia,iNO,,NEO CLASSICAL DANCE
+19002,天空の夜明け,Tenkuu no yoake,Cuvelia,,ANTHEM
+19053,ユミル,Ymir,MYTHOLOGIA by MLREC.,,SYMPHONIC-TEK
+
+18013,Aegis,,IT medalion,,TECHNO
+18059,ALBIDA,,DJ YOSHITAKA,,HARD RENAISSANCE
+18035,Answer,,星野奏子,Kanako Hoshino,STARPOP
+18051,ANTHEM LANDING,,DJムラサメ,DJ Murasame,LATIN TEK
+18043,Believe In Me,,Uraken feat. Calyn Tsukishima,,HARDCORE
+18027,BLUST OF WIND,,Anemo=Aspel by MLREC.,,CROSSOVER HOUSE
+18022,Bounce Bounce Bounce,,kors k feat. Kanata Okajima&楽天斎,kors k feat. Kanata Okajima & Rakuten Hitoshi,DANCEHALL
+18047,Breaking the ground,,Art of Fighters,,HARDCORE
+18068,Broken,,dj TAKA feat. AiMEE,,TRANCE
+18028,BROKEN EDEN,,MYTHOLOGIA by MLREC.,,SYMPHONIC-TEK
+18049,Cansei de S NIK,,PRASTIK DANCEFLOOR,,FIDGET HOUSE
+18017,Dances with Snow Fairies,,Dr.Honda,,トレンディートランス
+18003,DAYDREAMER,,ピンクターボ,Pink turbo,GIRLY ROCK
+18012,Destiny Sword,,CAPACITY GATE,,ELECTRIC STEP
+18057,DM STAR ～関西 energy style～,DM STAR ~Kansai energy style~,NAOKI,,SPEED RAVE
+18007,ELECTRIC MASSIVE DIVER,,L.E.D.-G,Led-G,GABBA
+18045,Energy Drive,,kevin energy,,HARDCORE
+18054,Eternal Tears,,ツガル,Tsugaru,WINTER BALLADE
+18062,Everlasting Resort,,SUPER STAR 満-MITSURU-,,ONLY ONE ANTHEM
+18031,EXTREMA PT. 2,,Remo-con,Remo con,TECH DANCE
+18055,Fantasia,,TEЯRA,TERRA,HYPER FANTASIA
+18052,Get Out,,壱岐尾彩花,Iki tail Ayaka,ELECTRO
+18025,Golden Palms,,Dirty Androids,,NU DISCO
+18046,Hardcore Mania,,DJ Weaver,,HARDCORE
+18202,HONEY♂PUNCH ～L.E.D.-G STYLE MIX～,HONEY PUNCH LED-G STYLE MIX,L.E.D.-G feat. 张瑶,LED-G feat Zhang Yao,HAPPY HARDCORE
+18018,I FIGHT ME,,kobo feat.Marsha,,DRUM&BASS
+18201,jewelry girl*,,jun,,ジュエリーロック
+18021,Kailua,,kors k,,ENERGETIC HAWAIIAN TRANCE
+18016,La Mar,,seiya-murai feat. David Solanes Venzala,seiya murai feat David Solanes Venzala,CATALA LOUNGE
+18044,Let The Track Flow,,Brisk & Ham,,UK HARDCORE
+18038,LIFE SCROLLING,,HIROSHI WATANABE,,DETROIT TECHNO
+18065,Love♥km,Love km,dj TAKA feat. REN,,HAPPY CORE
+18053,Medicine of love,,イロハ&リリナ,Iroha & Ririna,MAGICAL POP
+18023,Mermaid girl,,Cream puff,,BUBBLEGUM DANCE
+18010,Never Fade Away,,Sota Fujimori feat. dj MAX STEROID,,IIDX HANDZ UP!!
+18026,New Castle Legions,,Dirty Androids,,DYSTOPIA
+18009,PARADISE LOST,,Ryu☆ Vs. L.E.D.-G,Led-G,TRANCE CORE
+18024,passionate fate,,Ryu☆,,HANDZ UP
+18004,perditus†paradisus,Perditus paradisus,iconoclasm,,ANTHEM CORE
+18020,Programmed Life,,kors k,,PSY TRANCE (FULL ON)
+18048,Programmed Sun (xac Antartic Ocean mix),,xac,,UPLIFTING TRANCE
+18033,Raise your hands,,Keiichi Ueno feat. RIISA,,OKINAWA ANTHEM
+18050,reunion,,Tatsh,,CYBER WALTZ
+18030,Rock Da House,,M-Project fw. GUHROOVY,,UK HARDCORE
+18056,SABER WING,,TAG,,SHOOTING WALTZ
+18066,Sakura Reflection,,Ryu☆,,HAPPY HARDCORE 
+18061,sakura storm,,Ryu☆,,HAPPY HARDCORE
+18039,Session 9 -Chronicles-,,PRASTIK DANCEFLOOR,,ROCKIN' DRUM'N'BASS
+18040,Space Time,,NISH,,ENERGETIC TRANCE
+18071,SPECIAL SUMMER CAMPAIGN!,,Lucky Vacuum,,BUCHIAGE TRANCE
+18000,Stay my side,,DJ Yoshitaka feat. RINA,,R&B
+18064,STELLAR WIND,,L.E.D.,Led,HARD DANCE
+18070,Survival Games,,VENUS,,90's ELECTRIC POP
+18063,Take Me Higher,,Sota Fujimori feat. Sachi,,SYNTHETIC ELECTRO
+18008,THE BLACK KNIGHT,,L.E.D.,Led,GOA TRANCE
+18005,THE DOOR INTO RAINBOW,,L.E.D.,Led,TRANCE
+18067,THE FALLEN,,L.E.D.-G,Led-G,GOTH NU-STYLE GABBA
+18002,Tropical April,,Risk Junk,,VACATION DANCE
+18019,Vermillion,,Mystic Moon,,PSYCHE FUSION
+18001,Watch Out Pt.2,,DJ Mass MAD Izm* VS. DJ Yoshitaka,,TECH-BREAKBEATS
+18058,WE LOVE SHONAN,,Studio Bongo Mango feat. Likkle Mai,,SURF&DUB
+18036,WISE UP!,,木之下慶行 feat. 星野奏子,Kinoshita Keigyo feat. Kanako Hoshino,RESORT HOUSE
+18069,Wuv U,,kors k,,CANDY RAVE
+18006,XANADU OF TWO,,T.Kakuta With Starving Trancer + 森永真由美,Mayumi Morinaga,DANCE POP
+18034,You Were The One,,good-cool feat.Brenda Vaughn,good cool feat Brenda Vaughn,ITALO HOUSE
+18014,ZETA ～素数の世界と超越者～,ZETA ~sosuu no sekai to chouetsusha~,Zektbach,,IDM
+18072,中華急行,China Express Chuuka kyuukou,Ryu☆,,HAPPY HARDCORE
+18029,かげぬい ～Ver.BENIBOTAN～,Kagenui ~Ver.BENIBOTAN~,CULTVOICE by S.S.D.PRODUCTS,CULTVOICE by SSDPRODUCTS,NATSU MATSURI
+18060,黒髪乱れし修羅となりて,Kurokami midareshi shura to narite,村正クオリア,Mura sei kuoria,NADESHIKO METAL
+18011,おおきなこえで,Ookina koe de,猫叉Master feat. Sana,Nekomata Master feat. Sana,WORLD/POPS
+18041,ラクエン Feat.Chiharu Chonan -JAKA respect for K.S.K. Remix,Rakuen Feat Chiharu Chonan JAKA respect for KSK Remix,Remixed By JAKAZiD,,TECHY FREEFORM
+18037,恋愛レボリューション21-秋葉工房mix-,Renai Revolution 21 Akiba Koubou mix,DJ Command feat. うさ＆ともみん,DJ Command feat Usa and Tomomin,EUROBEAT
+18032,灼熱Beach Side Bunny,Shakunetsu Beach Side Bunny,DJ Mass MAD Izm*,,BROKEN SAMBA BREAK
+18015,旅人リラン,Tabibito Rerun,XOGO BRYKK,,ELECLORE
+18042,夕焼け ～Fading Day～,Yuuyake Fading Day,JAKAZiD,,AURAL ADRENALINE
+
+17028,AIR RAID FROM THA UNDAGROUND,,GUHROOVY,,SPEEDCORE
+17016,Almagest,,Galdeira,,AKASHIC RECORDS
+17022,Bad Maniacs,,kors k as teranoid,,INDUSTRIAL
+17051,bass 2 bass,,Ryu☆,,BUBBLEGUM DANCE
+17035,beatchic☆仮面～好き、でいさせて～,Beatchic Kamen ~suki deisasete~,上野圭市(transforming into Masao♥Lovely) feat. 星野奏子,Ueno Keiichi (transforming into Masao Lovely) feat. Kanako Hoshino,E-DANCE POP
+17063,BEAUTIFUL ANGEL,,DJ SWAN,,DRUM'N'BASS
+17012,being torn the sky,,猫叉Master,Nekomata Master,ELECTRO POP
+17025,bloomin' feeling,,Ryu☆,,HAPPY HARDCORE
+17030,Brazilian Fire,,Ben Franklin,,LATIN HOUSE
+17050,CaptivAte～裁き～(SUBLIME TECHNO MIX),CaptivAte ~sabaki~ (SUBLIME TECHNO MIX),Remixed by DJ YOSHITAKA,,SUBLIME TECHNO
+17038,Chocolate Dancing,,Yocke feat. Mayu,,TRIP-POP
+17024,D,,Eagle,,NEXT SKOOL BREAKBEATS HARDCORE
+17057,DAWN -THE NEXT ENDEAVOUR-,,L.E.D. fw.堀澤麻衣子,Led fw. Horisawa Maiko,DRUM & BASS
+17040,Dazzlin' Darlin -秋葉工房 mix-,Dazzlin' Darlin -Akiba Koubou mix-,Remixed by DJ Command,,EUROBEAT
+17049,DENJIN AKATSUKINI TAORERU -SF PureAnalogSynth Mix-,,Remixed by Sota Fujimori,,PSYCHE TRANCE
+17027,DESIRE,,M-Project fw. GUHROOVY,,UK HARDCORE
+17042,Do Back Burn,,PRASTIK DANCEFLOOR,,ELECTRO
+17007,DOMINION,, L.E.D.-G,Led-G,HARDCORE
+17004,DROP,,dj TAKA feat. Kanako Hoshino,,WHITE SEQUENCE
+17000,Elisha,,DJ YOSHITAKA,,TRANCE CORE
+17046,Empire State Glory,,Dirty Androids,,CYBERPUNK
+17056,eRAseRmOToRpHAntOM,,L.E.D-G vs GUHROOVY,Led-G vs GUHROOVY,HARDCORE
+17054,Evans,,DJ YOSHITAKA,,HARD RENAISSANCE
+17009,EXUSIA,,L.E.D.-G,Led-G,HARDCORE
+17006,G59,,怒れる金の獅子,Ikareru-kin no shishi,EXPERIMENTAL MUSIC
+17008,GALGALIM,,L.E.D.,Led,HARDCORE TECHNO
+17061,GOLDEN CROSS,,dj REMO-CON VS dj TAKA,,TECHNO
+17043,Hydrogen Blueback,,MAD CHILD,,TECH DANCE
+17052,IN THE NAME OF LOVE,,Y&Co. feat. Erica,Y and Co. feat. Erica,EUROBEAT
+17039,Keep it -秋葉工房mix-,Keep it -Akiba Koubou mix-,DJ Command feat.NAGISA,,EUROBEAT
+17021,Last Burning,,Dirty Androids,,ELECTRO
+17026,Light Shine,,Ryu☆,,BUBBLEGUM DANCE
+17002,MIRACLE MEETS,,Lucky Vacuum,,BUCHIAGE TRANCE
+17045,MIRU key way,,Jacca PoP,,ELECTRO POP
+17044,mosaic,,Auridy,,TECHNO POP SPEED
+17029,Mysterious Time,,Y&Co.,Y and Co,EUROBEAT
+17014,NEW SENSATION -もう、あなたしか見えない-,NEW SENSATION -mou anata shika mienai-,SUPER HEROINE 彩香-AYAKA-,,ONLY ONE IDOL SONG
+17003,NoN-Fiction Story!,,Creative Life,,TECHNO POP
+17031,One of A Kind,,Crystal Begley,,TECHNO/DANCE
+17023,Programmed Sun,,kors k,,PSY TRANCE (MORNING)
+17059,quell ~the seventh slave~,,dj TAKA Vs. DJ YOSHITAKA,,TRANCE
+17015,Raison d'etre～交差する宿命～,Raison d'etre ~Kousa suru shukumei~,Zektbach,,ASTRAL CHOIR
+17032,Red. by Full Metal Jacket,,DJ Mass MAD Izm*,,TECH-BREAKBEATS
+17005,Roots of my way!,,ナイア,Nair Naia,ACTRESS
+17041,Session 1 -Genesis-,,PRASTIK DANCEFLOOR,,ELECTRIC FUSION
+17013,She is my wife,,SUPER STAR 満-MITSURU-,,ONLY ONE BALLAD
+17060,SOLID STATE SQUAD,,kors k Vs. L.E.D.,kors k vs. Led,HARDSTYLE
+17065,Sorrows,,Asako Yoshihiro,,EMO
+17047,SPARK ! -essential RMX-,,Remixed by dj TAKA VS PINK PONG,,TRANCE
+17053,Special One,,kors k feat. Suzuyo Miyamoto,,J-HOUSE
+17048,spiral galaxy -L.E.D. STYLE SPREADING PARTICLE BEAM MIX-,,Remixed by L.E.D.,Remixed by LED,PSYCHEDELIC TRANCE
+17036,Sunrise,,good-cool feat.KOЯO,good cool feat KORO,DRUM'N'METAL
+17064,THE LAST STRIKER,,L.E.D.,Led,DRUM & BASS
+17062,The Story Begins,,SADA & SOTA,Sada and Sota,EPIC TRANCE
+17019,To the Future,,seiya-murai,seiya murai,CLUB 80's
+17010,with me...,,Sota Fujimori feat. Kemy,,ELECTRO
+17020,バビロニア,Babylonia,劇団レコード,Gekidan rekodo,DISTORTED NEW AGE
+17033,コスモス,Cosmos,TSU-NA,,J-POP
+17011,フェティッシュペイパー～脇の汗回転ガール～,Fetish paper ~waki no ase kaiten girl~,ガキ大将ティーム,Bully Team,モッシュ
+17034,かずあそび,Kazuasobi,CULTVOICE by S.S.D.PRODUCTS,CULTVOICE by SSDPRODUCTS,INSANIO
+17037,未来のプリズム,Mirai no prism,星野奏子,Kanako Hoshino,STARPOP
+17058,サヨナラ・ヘヴン,Sayonara heaven,猫叉Master,Nekomata Master,WORLD/ELECTRONICA
+17055,水上の提督 (Short mix from ”幻想水滸伝V”),Suijou no teitoku (Short mix from "Genso Suikoden V"),猫叉Master,Nekomata Master,WORLD/ELECTRONICA
+17001,たからもの,Takaramono,セリカ&エリカ,Celica & Erika,POPS
+17017,ワルツ第17番 ト短調"大犬のワルツ",Waltz dai 17 ban totanchou "Ooinu no waltz",virkato,,VALSE
+
+16029,ALL I NEED YOUR LOVE,,GUHROOVY fw. M-Project,,HARDCORE
+16244,ALL MY TURN -このターンに、オレの全てを賭ける-,ALL MY TURN -kono turn ni ore no subete wo kakeru-,SUPER STAR 満-MITSURU-,,ONLY ONE EURO BEAT
+21244,ALL MY TURN -このターンに、オレの全てを賭ける-,ALL MY TURN -kono turn ni ore no subete wo kakeru-,SUPER STAR 満-MITSURU-,,ONLY ONE EURO BEAT
+16241,Arabian Rave Night,,dj MAX STEROID,,ARABIC HARDCORE
+21241,Arabian Rave Night,,dj MAX STEROID,,ARABIC HARDCORE
+16240,B4U (BEMANI FOR YOU MIX),,Remixed by DJ YOSHITAKA with Michael a la mode,,RECKLESS RAVE
+21240,B4U (BEMANI FOR YOU MIX),,Remixed by DJ YOSHITAKA with Michael a la mode,,RECKLESS RAVE
+16201,Back Into The Light -Feelings Won't Fade Vocal Mix-,,Sota Fujimori,,TRANCE
+16042,Bahram Attack -猫叉Master Remix-,Bahram Attack -Nekomata Master Remix-,猫叉Master feat. JUNE,Nekomata Master feat. JUNE,HOUSE
+21257,Bahram Attack -猫叉Master Remix-,Bahram Attack -Nekomata Master Remix-,猫叉Master feat. JUNE,Nekomata Master feat. JUNE,HOUSE
+16009,BITTER CHOCOLATE STRIKER,,L.E.D.-G,Led-G,JUMPSTYLE
+16032,BRIDAL FESTIVAL !!!,,S.S.D. feat. ななっち,SSD feat Na natchi,HAPPY ☆ JIG
+16000,CaptivAte2～覚醒～,CaptivAte2 ~kakusei~,e-lma,,NOSTALISH REQUIEM
+21238,CaptivAte2～覚醒～,CaptivAte2 ~kakusei~,e-lma,,NOSTALISH REQUIEM
+16003,Colorful Cookie,,Lucky Vacuum,,HAPPY HARDCORE
+16043,Cyber Force -DJ Yoshitaka Remix-,,Remixed by DJ YOSHITAKA,,BUCHIAGE TRANCE
+16202,Electrorgasm,,Sota Fujimori,,ELECTRO
+16203,ERaSeR EnGinE DistorteD,,L.E.D.-G VS GUHROOVY,LED-G VS GUHROOVY,HARDCORE
+16204,FLAG OF PEACE,,GUHROOVY fw. NO+CHIN,GUHROOVY fw NO CHIN,DRUM'N'BASS
+16022,Flash Back 90's,,kors k as disconation,,MEGA MIX
+16010,Fly Above,,Sota Fujimori,,DREAM TRANCE
+16205,From Time To Time,,sanodg,,TECH HOUSE
+16051,Go Beyond!!,,Ryu☆ Vs. Sota,,TRANCE CORE
+16206,Gymnopedie 009,,Studio Bongo Mango feat. Junko Wada (BE THE VOICE),,BOSSA ELECTRO
+16046,HOUSE NATION,,ravex,,HOUSE
+16008,HYPERION,,L.E.D.,Led,MORNING FULL ON
+16035,I'm Screaming LOVE,,Creative Life,,TECHNO POP
+16260,Jack,,DesQ,,MIXTURE
+21260,Jack,,DesQ,,MIXTURE
+16007,JEWELLERY STORM,,L.E.D.-G fw. Eriko Tanzawa,LED-G fw Eriko Tanzawa,HARDCORE
+16053,Just a Little Smile,,Sota Fujimori,,NU SKOOL BREAKS
+16242,Kung-fu Empire,,飛燕流舞,Hienryubu,ASIAN JANGLE
+21242,Kung-fu Empire,,飛燕流舞,Hienryubu,ASIAN JANGLE
+16245,Marie Antoinette,,Marguerite du Pre,Marguerite du pre,宮廷円舞曲
+21245,Marie Antoinette,,Marguerite du Pre,Marguerite du pre,宮廷円舞曲
+16250,Mind Mapping,,Ryu☆,,ELECTRO-TECH
+21250,Mind Mapping,,Ryu☆,,ELECTRO-TECH
+16027,Monkey Dance '09,,Y&Co. Feat. DOMINO,Y and Co. feat. DOMINO,EUROBEAT
+16033,MY FUTURE,,PINK PONG,,TRANCE
+16252,NΦ CRIME,NO CRIME,C×F,CxF,DANCE MUSIC OF SORROW
+21252,NΦ CRIME,NO CRIME,C×F,CxF,DANCE MUSIC OF SORROW
+16253,naughty girl@Queen's Palace,,DJ Mass MAD Izm*,,TECH-BREAKBEATS
+21253,naughty girl@Queen's Palace,,DJ Mass MAD Izm*,,TECH-BREAKBEATS
+16256,neogenesis,,DM Ashura,,ENERGETIC TRANCE
+21256,neogenesis,,DM Ashura,,ENERGETIC TRANCE
+16048,Our Song,,Shinichi Osawa,,HOUSE
+16023,Programmed World,,kors k as StripE,,PSY TRANCE (FULL ON)
+16044,PSYCHE PLANET-GT,PSYCHE PLANET GT,Remixed by L.E.D.,Remixed by LED,PSYCHEDELIC TRANCE
+16034,Punch Love♥仮面,Punch Love Kamen,上野圭市(a.k.a.Baby Weapon[COMMA]DJ SWAMI) feat.星野奏子,,E-DANCE POP
+21254,Punch Love♥仮面,Punch Love Kamen,上野圭市(a.k.a.Baby Weapon[COMMA]DJ SWAMI) feat.星野奏子,,E-DANCE POP
+16014,Queen's Tragedy,,猫叉Master+,Nekomata Master+,BIG BEAT
+16255,Secrets,,good-cool feat.CHiCO,good cool feat CHiCO,TECH-PARA
+21255,Secrets,,good-cool feat.CHiCO,good cool feat CHiCO,TECH-PARA
+16021,smooooch・∀・,,kors k,,CANDY RAVE
+21247,smooooch・∀・,,kors k,,CANDY RAVE
+16052,SOLITON BEAM,,L.E.D.,Led,TECHNO
+16208,Sunshine Hero,,kors k feat.Mari*Co,kors k feat Mari Co,乙女ハウス
+16258,THANK YOU FOR PLAYING,,SUPER STAR 満-MITSURU-,,ONLY ONE EPILOGUE
+21258,THANK YOU FOR PLAYING,,SUPER STAR 満-MITSURU-,,ONLY ONE EPILOGUE
+16041,THE SHINING POLARIS (kors k mix),,Remixed by kors k,,UK HARDCORE
+16047,thunder HOUSE NATION Remix,,Remix by Sunset In Ibiza (SII),,HOUSE
+21259,thunder HOUSE NATION Remix,,Remix by Sunset In Ibiza (SII),,HOUSE
+16209,Tori-no-kimochi,Tori no kimochi,猫叉Master+,Nekomata Master+,WORLD/ELECTRONICA
+16210,ToyCube Pf.(RX Ver.S.P.L.),ToyCube Pf. X Ver SPL),高田雅史,Masafumi Takada,NEW AGE
+16211,Troposphere,,kobo,,DRUM'N'BASS
+16019,Turii ～Panta rhei～,,Zektbach,,ELEMENTAL CHANT
+16004,V₂,V2,TAKA,,PROGRESSIVE
+16028,Y&Co. is dead or alive,Y and Co is dead or alive,Y&Co.,Y and Co,90's RAVE
+21251,Y&Co. is dead or alive,Y and Co is dead or alive,Y&Co.,Y and Co,90's RAVE
+16037,You'll say "Now!",,BLACK STAR 幸広-YUKIHIRO-,,ONLY ONE TECHNO
+16026,3y3s,,青龍,Seiryu blue dragon,DANCE SPEED
+16013,山岡晃の「クイズ！家事都合！」,Yamaoka Akira no 'Quiz! Kajitsugou!',AKIRA YAMAOKA feat. 喜屋武ちあき,AKIRA YAMAOKA feat. Chiaki Kyan,ポップス
+16012,アタック NO.3,Attack NO 3,IDEA NOTE,,DRAGON'BASS
+16006,不沈艦CANDY,Fuchinkan CANDY,Risk Junk,,HARDCORE
+16039,ハリツヤランデヴー,Haritsuya Rendezvous,Des-MASTERS,Des MASTERS,HOU-ROCK
+16020,卑弥呼,Himiko,朱雀 VS 玄武,Suzaku VS Genbu,ESOTERIC SPEEDCORE
+21246,卑弥呼,Himiko,朱雀 VS 玄武,Suzaku VS Genbu,ESOTERIC SPEEDCORE
+16024,まほろば,Mahoroba,HHH+H,HHHH,J-DANCE POP
+21249,まほろば,Mahoroba,HHH+H,HHHH,J-DANCE POP
+16016,ミッドナイト堕天使,Midnight datenshi,Dr. Honda,,TRENDY TECHNO
+21243,ミッドナイト堕天使,Midnight datenshi,Dr. Honda,,TRENDY TECHNO
+16005,天空脳番長危機十六連打,Techno banchou kiki juuroku renda,D.J.SETUP,DJSETUP,RAGE AGAINST EMPRESS
+16050,凛として咲く花の如く,Rin to shite saku hana no gotoku,紅色リトマス,Koshoku ritomasu,NADESHIKO ROCK
+21262,凛として咲く花の如く,Rin to shite saku hana no gotoku,紅色リトマス,Koshoku ritomasu,NADESHIKO ROCK
+16036,鉄甲乙女 -under the steel-,Tekkou otome -under the steel-,Seiya Murai,,IRON CONCERTO
+16001,翼,Tsubasa,小林ゆう,Kobayashi Yu,J-TRANCE
+21239,翼,Tsubasa,小林ゆう,Kobayashi Yu,J-TRANCE
+
+15000,Anisakis -somatic mutation type"Forza"-,,朱雀,Suzaku,HARD RENAISSANCE
+21223,Anisakis -somatic mutation type"Forza"-,,朱雀,Suzaku,HARD RENAISSANCE
+15201,Around The Galaxy,,NISH,,UPLIFTING TRANCE
+15027,avant-guerre,,Osamu Kubota,,CLASSICAL PIANO SOLO
+15202,Battle Train -IIDX Edition-,,Sota Fujimori,,HARD DANCE
+15041,Be OK,,good-cool ft. Florence,good cool ft Florence,EUROBEAT
+21235,Be OK,,good-cool ft. Florence,good cool ft Florence,EUROBEAT
+15019,beatonic nation,,Sota Fujimori,,TECH-TRONIKA
+15203,Biometrics Warrior,,GUHROOVY fw.NO+CHIN,GUHROOVY fw NO CHIN,RAGGACORE
+15004,Blue Rain,,dj TAKA VS Ryu☆,,TRANCE
+21225,Blue Rain,,dj TAKA VS Ryu☆,,TRANCE
+15206,CRYMSON,,RAM,,DIGITAL HARDCORE
+15002,Darling my LUV,,DJ Yoshitaka feat. B-Agents,,J-R&B
+15024,Dazzlin' Darlin,,HHH,,HANDZ UP
+15028,Digitank System,,DJ Mass MAD Izm*,,TECH-BREAKBEATS
+15025,Do it!! Do it!!,Do it do it,Kraken,,N-BEATS
+21232,Do it!! Do it!!,Do it do it,Kraken,,N-BEATS
+15021,end of world,,猫叉Master+,Nekomata Master+,FRENZY HOUSE
+15022,evergreen,,kors k,,PROG
+15005,four pieces of heaven,,Lion,,JUNGLE
+21261,four pieces of heaven,,Lion,,JUNGLE
+15048,Freeway Shuffle,,dj TAKA,,TRANCE
+15037,I'm In Love Again -DJ YOSHITAKA REMIX-,,Remixed by DJ YOSHITAKA,,TRANCE
+15023,ICARUS,,Eagle,,NU-SKOOL BREAKBEATS HARDCORE
+21231,ICARUS,,Eagle,,NU-SKOOL BREAKBEATS HARDCORE
+15057,in the Sky,,Ryu☆,,HAPPY HARDCORE
+15034,JOURNEY TO "FANTASICA" (IIDX LIMITED),,S.S.D.FANTASICA feat. EMI with ARATA,SSD FANTASICA feat EMI with ARATA,THE WORLD GROOVE
+15043,Kick Out 仮面,Kick Out Kamen,上野圭市(aka. Babyweapon[COMMA]DJ SWAMI) feat. 星野奏子,,E-DANCE POP
+15058,LOVELY STORM -LOVE IS DREAMINESS RE-INTERPRETATION-,,L.E.D.-G,Led-G,HAPPY HARDCORE
+15031,madrugada,,PINK PONG,,PROGRESSIVE HOUSE
+15003,MAX LOVE,,DJ YOSHITAKA feat. 星野奏子,DJ YOSHITAKA feat. Kanako Hoshino,LOVELY BUCHIAGE POP
+15001,MENDES,,Humanoid,,IRREGULAR HI-BREAK
+21224,MENDES,,Humanoid,,IRREGULAR HI-BREAK
+15032,MENTAL MELTDOWN,,GUHROOVY fw.TECHNORCH,,HARD HOP
+21234,MENTAL MELTDOWN,,GUHROOVY fw.TECHNORCH,,HARD HOP
+15015,NEW GENERATION -もう、お前しか見えない-,NEW GENERATION -mou omae shika mienai-,SUPER STAR 満-MITSURU-,,ONLY ONE EURO BEAT
+21228,NEW GENERATION -もう、お前しか見えない-,NEW GENERATION -mou omae shika mienai-,SUPER STAR 満-MITSURU-,,ONLY ONE EURO BEAT
+15047,Now and Forever,,StripE vs MUNETICA feat. ARISA,,ENERGETIC TRANCE
+15013,oratio,,蓑舞衆,Mino-mai Shu,HYMNUS
+15049,PARANOiA ～HADES～,,αTYPE-300,alphaTYPE-300,SuperNOVA2 BEAT #1
+15210,Pluto,,Black∞Hole,Black Hole,SUPERNOVA2 BEAT EX
+15011,PROMISE FOR LIFE,,TЁЯRA WORKS,TERRA WORKS,BALLAD
+15211,quick master (reform version),,youhei shimizu,,J-TEKNO
+15046,radius,,yasuhiro abe,,DANCE
+15010,REMINISCENCE,,jun with Alison,,TRI EURO FANTASIA
+15212,REPLAY,,SLAKE,,TECHNO
+15052,Rising in the Sun (original mix),,kors k feat.Rie,kors k feat Rie,UK HARDCORE
+15014,Ristaccia,,Zektbach,,OUVERTURE
+15033,ROCK ME NOW,,GUHROOVY fw. NO+CHIN,GUHROOVY fw NO CHIN,RAGGA ROCK
+15059,satellite020712 from "CODED ARMS",,猫叉Master,Nekomata Master,HARD HOUSE
+15044,satfinal,,RAM,,RAVE
+15040,scar in the earth,,猫叉Master,Nekomata Master,WORLD/ELECTRONICA
+15051,Shades of Grey,,Fracus,,HARD TRANCE
+15017,SHIFT,,AKIRA YAMAOKA,,TECHNO
+15213,Sidechained Threats,,sanodg,,ELECTRO
+15036,soldier's waltz,soldiers waltz,DAJI,,WALTZ BEAT
+15009,SOUND OF GIALLARHORN,,L.E.D.-G,Led-G,FREEFORM HARDCORE
+15020,State Of The Art,,Sota Fujimori feat. cyborg AKEMI,,TECHNOTRONICA
+15008,STEEL NEEDLE,,Scorpion,,BREAK CORE
+21263,STEEL NEEDLE,,Scorpion,,BREAK CORE
+15055,switch,,DAISUKE ASAKURA ex. TEЯRA,DAISUKE ASAKURA ex. TERRA,ULTIMATE J-POP
+15214,symptom,,kobo vs kr:ague,kobo vs kr ague,DRUM'N'BASS
+15007,THE DEEP STRIKER,,L.E.D.-G,Led-G,NU STYLE GABBA
+21226,THE DEEP STRIKER,,L.E.D.-G,Led-G,NU STYLE GABBA
+15038,the trigger of innocence,,Seiya Murai,,ETHNOTRONICA
+15026,Time to Air,,青龍,Seiryu blue dragon,DANCE SPEED
+21233,Time to Air,,青龍,Seiryu blue dragon,DANCE SPEED
+15050,TRIP MACHINE PhoeniX,,DE-SIRE 改,DE SIRE KAI,SuperNOVA2 BEAT #2
+15016,TROOPERS,,Des-TRACT,,ULTIMATE CORE
+21229,TROOPERS,,Des-TRACT,,ULTIMATE CORE
+15061,Ubertreffen,Ubertreffen,TAKA respect for J.S.B.,TAKA respect for JSB,PROGRESSIVE BAROQUE
+21237,Ubertreffen,Ubertreffen,TAKA respect for J.S.B.,TAKA respect for JSB,PROGRESSIVE BAROQUE
+15045,Wanna Party?,,RAM,,PIANO HOUSE
+15216,WHAT'S NEXT?,WHATS NEXT,SLAKE feat. DAINA NORMAN,,NU JAZZ
+15030,2 tribe 4 K,,Remo-con,Remo con,TRIBAL
+15029,エコ爺,Eco jii,Y&Co.,Y and Co.,80's EURO
+15054,華爛漫 -Flowers-,Hana ranman -Flowers-,TEЯRA,TERRA,HYPER JAPANESQUE 2
+21236,華爛漫 -Flowers-,Hana ranman -Flowers-,TEЯRA,TERRA,HYPER JAPANESQUE 2
+15035,叶うまでは,Kanau made wa,ウッチーズ,Utchizu,ELECTRIC AOR
+15039,少年A,Shounen A,Remixed by 少年ラジオ,Remixed by shonen rajio boy radio,POST RENAISSANCE
+15012,高高度降下低高度開傘,Koukoudo kouka teikoudo kaisan,Dr. Honda,,SYMPHONIC TECHNO
+15056,ミラージュ・レジデンス,Mirage residence,Jimmy Weckl,,FUSION
+15018,マチ子の唄,Machiko no uta,AKIRA YAMAOKA,,EDUCATION
+15006,走馬灯 -The Last Song-,Soumatou -The Last Song-,TAKA,,SOLDIER'S BALLAD
+15042,湘南族 -cannibal coast-,Shonanzoku cannibal coast,Aural Vampire,,ELECTRO
+
+
+14015,Air Bell,,D-crew,,FLOW POP
+14018,ANDROMEDA II,,Sota Fujimori,,PSYCHEDELIC SYNTH TRANCE
+14201,Beginning of life(THE GROUND PULSE MIX),Beginning of life THE GROUND PULSE MIX,Remixed by QUADRA,,TECHNO
+14014,Blind Justice ～Torn souls[COMMA] Hurt Faiths～,,Zektbach,,EPIC POETRY
+14005,Candy Galy,,Risk Junk-G,,HAPPY
+14049,CaptivAte～裁き～,CaptivAte ~sabaki~,DJ YOSHITAKA feat. A/I,,NOSTALISH REQUIEM
+14008,CaptivAte～誓い～,CaptivAte ~chikai~,A/I,,NOSTALISH REQUIEM
+14032,Come On,,John Robinson,,TECHNO RAVE
+14023,CROSSROAD ~Left Soty~,,jun with TAHIRIH,,DRAMATIC EURO TRANCE
+14019,Cyber Force,,Sota Fujimori feat.cyborg AKEMI,,CYBORG TRANCE
+14203,DENIM,,SLAKE,,TECHNO
+14034,Dreaming Sweetness,,Auridy,,SCOUSE HOUSE
+14027,earth-like planet,,ELEKTEL,,ACID JAZZ
+14204,Electrified,,SySF.,,ELECTRO
+14052,Fascination MAXX,,100-200-400,100 200 400,SuperNOVA BEAT
+14205,feeling of love,,youhei shimizu,,HOUSE
+14030,FIRE FIRE,,StripE,,BUCHIAGE TRANCE
+14055,four-leaf,,Sis Bond Chit,,ROCK
+14010,GHOSTBUSTERS,,Remixed by DJ Yoshitaka,,DISCO
+14007,GOLD RUSH,,DJ YOSHITAKA-G feat.Michael a la mode,,RECKLESS RAVE
+14022,GRID KNIGHT,,SAW WAVE SQUAD,,ELECTRONICA
+14206,Guilt & Love,Guilt and Love,The Plastic Ambition (jun & DJ YOSHITAKA),The Plastic Ambition jun and DJ YOSHITAKA,SHINING RAVE
+14024,HALF MOON,,Mutsuhiko Izumi,,PROGRESSIVE
+14038,heaven above,,kors k,,FILTER HOUSE
+14050,High School Love,,DJ YOSHITAKA feat.DWP,,HIGH SPEED LOVE SONG
+14054,HONEY♂PUNCH,HONEY PUNCH,小坂りゆ,Kosaka riyu,HAPPY DANCE POP
+14001,INORI,,dj TAKA feat.HAL,,MILLENNIUM TRANCE
+14046,KAMAITACHI,,DJ TECHNORCH fw. GUHROOVY,,FREEFORM HARDCORE
+21221,KAMAITACHI,,DJ TECHNORCH fw. GUHROOVY,,FREEFORM HARDCORE
+14021,LASER CRUSTER,,L.E.D.,Led,NU-SKOOL BREAKS
+14003,Love Again...,,Tatsh feat. Junko Hirata,,POPS
+14037,Make Me Your Own,,good-cool ft. Raj Ramayya,good cool ft Raj Ramayya,HOUSE
+14047,METALLIC MIND,,DJ TECHNORCH fw. GUHROOVY,,OLDSKOOL HARDCORE RAVE
+14048,My only Shining Star,,NAOKI feat. Becky Lucinda,,HYPER EUROBEAT
+14006,never...,,Kanako Hoshino with dj TAKA,,DANCE POP
+14044,op.31 叙情,op.31 jojou,akiko,,PIANO CONCERTO
+14002,PHOTONGENIC,,L.E.D. fw.堀澤麻衣子,Led fw.Horisawa Maiko,DRUM & BASS
+14017,Play back hate you,,AKIRA YAMAOKA,,小倉テクノ
+14207,Playball,,sanodg,,TECH HOUSE
+14057,Red Rocket Rising,,BeForU,,J-POP
+14040,Roulette,,Y&Co.,Y and Co.,EUROBEAT
+14033,Second Heaven,,Ryu☆,,HANDZ UP
+14035,Sense 2007,,good-cool,good cool,RAVE
+14208,SEQUENCE CAT,,SLEDLAKE (SLAKE & L.E.D.),SLEDLAKE SLAKE and LED,TECHNO
+14209,SHOX,,RAM,,DRUM'N'BASS
+14020,smile,,miru_maki.gjw,,ELE POP
+14053,snow storm,,dj TAKA,,TRANCE
+21222,snow storm,,dj TAKA,,TRANCE
+14041,So Real,,Y&Co. feat.mioco,Y and Co feat mioco,歌謡ハウス
+14013,STARS☆☆☆ (Re-tuned by HΛL) -IIDX EDITION-,STARS (Re-tuned by HAL) -IIDX EDITION-,TЁЯRA,TERRA,HYPER J-POP+
+14031,the shadow,,kors k,,SCHRANZ
+14051,The Smile of You,,猫叉Master feat.JESSY,Nekomata Master feat.JESSY,POP
+14004,TRANOID,,T&S seq. factory,T and S seq. factory,PSG WORKS
+14212,Treasure×Star,Treasure Star,NAOKI & Ryu☆ fw. さちまゆ,NAOKI and Ryu fw SachiMayu,DANCE POP SPEED
+14213,Turning the motor over,,Delaware feat. Jeff Coote,,LATIN SKA
+14009,VANESSA,,朱雀,Suzaku,DECEPTIVE GABBA
+21220,VANESSA,,朱雀,Suzaku,DECEPTIVE GABBA
+14058,Watch out!!,,MAD Sequence*,,HIP HOP
+14214,Welcome,,Uraken,,HARDCORE
+14039,With your Smile,,Shoichiro Hirata plus Junko Hirata,,J-HOUSE
+14043,X-rated,,SADA,,RETRO RAVE
+14026,Yabis Starlight,,DAJI,,DIGITAL ROCK
+14036,2hot2eat,too hot to eat,Osamu Kubota,,HINDU SALSA
+14045,カミロ・ウナ・メンデス,Camilo Una Mendes,山根ミチル,SachiMayu,SPANISH COOL
+14042,シティ・エンジェル,City Angel,PINK PONG,,TRANCE
+14056,クルクル☆ラブ ～Opioid Peptide MIX～,CuruCuru Love ~Opioid Peptide MIX~,イオンチャンネル,Ion chan'neru,FUTURE POP
+14029,電人、暁に斃れる。,Denjin akatsukini taoreru,L.E.D.-G,LED-G,NU-NRG
+14028,花吹雪 ～ IIDX LIMITED ～,Hanafubuki ~IIDX LIMITED~,S.S.D.FANTASICA feat.ユッコ,SSDFANTASICA feat.Yukko,JAPANESE ALTERATION
+14025,鬼言集,Kigonshu,あさき,Asaki,INDUSTRIAL REVIEW
+14011,星をこの手に,Hoshi wo kono te ni,DJ YOSHITAKA feat.星野奏子,DJ YOSHITAKA feat. Kanako Hoshino,J-POP
+14000,リグレット,Regret,星野奏子,Kanako Hoshino,EURO TRANCE
+14016,ヨシダさん,Yoshida-san,AKIRA YAMAOKA,,TECHNO
+14012,零 -ZERO-,,TЁЯRA,TERRA,HYPER J-POP ZERO
+21264,零 -ZERO-,,TЁЯRA,TERRA,HYPER J-POP ZERO
+
+13014,ALFARSHEAR 双神威に廻る夢,ALFARSHEAR Futatsukamui ni mawaru yume,TEЯRA,TERRA,HYPER J-POP SEVEN
+13017,Apocalypse ～dirge of swans～,,Zektbach,,ORATORIO
+13202,Attack the music,,DJ FX,,HARD TECHNO
+13036,ay carumba!!!!,,teranoid&MC Natsack,teranoid and MC Natsack,NUSTYLE GABBA
+13203,Back Into The Light (recut),,Sota Fujimori,,2STEP POP TRANCE
+13028,BALLAD THE FEATHERS,,S.S.D.FANTASICA feat. Naomi Koizumi,SSDFANTASICA feat. Naomi Koizumi,CELTIC REEL
+13204,Bleeding Luv ～Immorality act～,,Xephia(Tatsh+Yuta),Xephia Tatsh Yuta,PROVIDENCE R
+13009,Bloody Tears(IIDX EDITION),,DJ YOSHITAKA,,HARD RENAISSANCE
+13023,bluemoon,,小野秀幸,Ono Hideyuki,LATIN HORNS GROOVE
+13032,BOOM BOOM DISCO NIGHT,,Y&Co.,Y and Co.,EUROBEAT
+13016,BREAK OUT,,Remixed by Orange Lounge,,LOUNGE POP
+13205,breathless,,Studio Bongo Mango feat. Tomoko Kataoka,,DIST.LOUNGE
+13046,Broadbanded,,SADA,,TRANCE
+13206,CALDERA,,CALF,,HARDCORE
+13054,Concertino in Blue,,佐々木博史,Sasaki Hiroshi,PROGRESSIVE
+13010,CONTRACT,,朱雀,Suzaku,SUBLIME TECHNO
+13045,Crazy K.I.N.O.,,Shoichiro Hirata,,MIXTURE
+13003,D.C.fish,,DJ MURASAME,,TECHNO
+13012,DEEP ROAR,,NAOKI & Tatsh,NAOKI and TATSH,SUPER RAVE BEAT
+13047,Double♡♡Loving Heart,Double Loving Heart,Tatsh feat. Junko Hirata & Sayaka Minami,,J-POP
+13207,DRUNK MONKY,,DJ ODDBALL,,MINIMAL
+13031,DUE TOMORROW,,Mr.T,MrT,TECHNO
+13030,Enjoy your life,,Mr.T plus H,MrT plus H,ELECTRONICA
+13041,EURO-ROMANCE,,K-MASERA,,80's TECHNO
+13026,Ganymede,,玄武,Genbu Xuanwu,ESOTERIC SLOWCORE
+13039,Harmony and Lovely,,Ryu☆,,PROGRESSIVE HOUSE
+13019,Heavenly Sun (IIDX VERSION),,AKIRA YAMAOKA,,TRANCE
+13208,Hybrid Landscape,,Sota Fujimori,,TEC-DRUM'N'BASS
+13018,iFUTURELIST,,AKIRA YAMAOKA,,FUTURELIST TYPE
+13011,INFERNO,,Caldeira feat. 星野奏子,Caldeira feat. Kanako Hoshino,BRAZILIAN HOUSE
+13013,Leaving...,,SEIYA MURAI meets "eimy",,SYMPHONIC EURO
+13209,LIGHT MOTION,,RAM,,RAVE
+13020,Look To The Sky(cyber True Color),Look To The Sky cyber True Color,Sota Fujimori,,TRANCE
+13006,Melody Life,,Noria,,NEW ACOUSTIC
+13040,MINT,,SLAKE,,ELECTRONICA
+13052,MOON,,dj TAKA feat. Erika Mochizuki,,AISYU-EURO
+13049,Parasite World,,TЁЯRA underground,TERRA underground,HYPER J-CORE
+13035,Power of Love,,kors k feat.PSY,,2 STEP
+13043,Pretty Punisher,,baby weapon feat. asuka m.,,DANCE POP
+13004,SAMBA DE JANEIRO,,Remixed by Lion MUSASHI,,SAMBA
+13210,Shoot'Em All,Shoot Em All,Manabu Namiki,,DETROIT TECHNO
+13037,So Fabulous !!,,HHH (Ryu☆ & Dai),HHH (Ryu and Dai),BUCHIAGE TRANCE
+13007,SPRING RAIN (LLUVIA DE PRIMAVERA),,Remixed by DJ YOSHITAKA,,TRANCE
+13029,Sun Field,,mh sequence,,HAPPY POP
+13211,super highway,,nouvo nude,,DRUM'N BASS
+13002,The Dirty of Loudness,,Tatsh Assault X,,SADISTIC HARDCORE
+13212,The Hope of Tomorrow (recut),,Sota Fujimori,,CYBORG TRANCE
+13024,This is Love,,D-crew feat. MAKOTO,,CORE POP
+13042,tiger yamato,,tiger YAMATO,,NOISE POP
+13033,Tonight?,,dj REMO-CON,dj REMOCON,ELECTROCK
+13034,tripping contact,,kors k vs teranoid,,FREEFORM
+13051,tripping contact (teranoid&MC Natsack Remix),,kors k vs teranoid,,GABBA
+13044,TYPE MARS (G-Style Mix),,L.E.D.,Led,PSYCHEDELIC TRANCE
+13027,Ubiquitous Fantastic Ride,,ELEKTEL,,ELECTRO LOUNGE
+13213,VANISHING POINT,,DJ CHUCKY,,NU STYLE GABBA
+13214,WaterCube Pf.(RX-Ver.S.P.L.),WaterCube Pf RX Ver SPL,高田雅史,Masafumi Takada,ETHNO POP
+13038,waxing and wanding,,青龍,Seiryu blue dragon,DANCE SPEED
+13015,Why did you go away,,jun with TAHIRIH,,LOVERS EUROBEAT
+13022,Winning Eleven9 Theme (IIDX EDITION),,Sota Fujimori,,NU BIGBEAT BREAKS
+13008,wish,,DJ Yoshitaka feat. 杉村ことみ,DJ Yoshitaka feat Sugimura Kotomi,CUTE POPS
+13050,WISH (EUROBEAT MIX),,DJ YOSHITAKA feat. 杉村ことみ,DJ YOSHITAKA feat. Sugimura Kotomi,EUROBEAT
+13021,with you...,,Sota Fujimori,,FUNK'N JAZZ HOUSE
+13048,Zenius -I- vanisher,Zenius I vanisher,Tatsh,,CYBER OPUS
+13201,321 STARS,,DJ SIMON,,TECHNO POP
+13055,カゴノトリ～弐式～,Kagonotori nishiki,橙色特別室,Daidaiiro tokubetsu-shitsu,和式電子音楽
+13001,タシカナモノ,Tashikanamono,星野奏子 with the BAND,Hoshino Kanako with the BAND,POPROCK
+13005,嘆きの樹,Nageki no ki,金獅子,Kinshishi gold lion,CONTEMPORARY
+13025,罠,Wana,good-cool,good cool,DRUM'N ROCK
+13000,華蝶風雪,Kachoufusetsu,白虎,Byakko white tiger,ASIAN MIXTURE
+13053,虹色,Nijiiro,DJ YOSHITAKA feat.G.S.C license,,LOVELY TRANS POP
+
+12021,Agnus Dei,,あさき,Asaki,GOTHIC METAL
+12036,alla turca con passione,,Twin AmadeuS,,NATURAL SOUND
+12049,Aurora,,Ryu☆,,TRANCE CORE
+12011,CaptivAte～浄化～,CaptivAte ~jouka~,A/I,,NOSTALISH REQUIEM
+12012,Catch Me,,DJ Yoshitaka feat. ERi,,ACID JAZZ
+12039,Don't let it go,Dont let it go,ウッチーズ,Utchizu,J-POP REMIX
+12000,double thrash,,414,,BATTLE2005
+12010,EDEN,,TЁЯRA,TERRA,HYPER J-POP SIX
+21216,EDEN,,TЁЯRA,TERRA,HYPER J-POP SIX
+12023,EMPTY OF THE SKY,,AKIRA YAMAOKA,,E-ROCK
+12202,Endless Summer Story,,DJ Yoshitaka feat.星野奏子,DJ Yoshitaka feat Kanako Hoshino,JAPANESE REGGAE
+12043,First Resolution,,good-cool,good cool,TECHNO RAVE
+12033,FUNKTION,,ULTRAdoof,,CYBER FUNK
+12020,garden,,青野りえ,Aono rie,SWING WALTZ
+12034,Get'em up to R.A.V.E,,Disconation,,RAVE
+12044,GREEN EYES,,SLAKE,,BROKEN TEK
+12009,HAPPY☆ANGEL,HAPPY ANGEL,jun with TAHIRIH,,HAPPY HARDCORE
+12018,I am,,有沢みはる,Arisawa Miharu,Cyber J-Rock
+12203,IceCube Pf.(RX-Ver.S.P.L.),IceCube Pf RX Ver SPL,高田雅史,Masafumi Takada,CLUB JAZZ
+12027,in motion,,Ryu☆,,CLICK HOUSE
+12008,INAZUMA,,dj TAKA,,TRANCE
+12006,LESSON 5,,Risk Junk feat.Erika Mochizuki,,HAPPY EXTREME
+12035,Listen up,,Mitsuto Suzuki,,CLICK HOUSE
+12002,Little Little Princess,,SHRINE 418,,PUNK OPERA
+12041,Love Magic,,D.J.SWAN,,DRUM'N'BASS
+12046,mind the gap,,Osamu Kubota,,UK PROGRESSIVE
+12005,MOON RACE,,ELEKTEL,,FUTURE HOUSE
+12048,PATRIOTISM,,kobo,,DRUM'N'BASS
+12051,Pink Rose,,Kiyommy+Seiya,,HEART
+12026,PLASMA,,Sota Fujimori,,SYNTHESIZED TECHNO
+12031,Pollinosis,,dj REMO-CON,,HARD DANCE
+12030,POODLE,,Y&Co.,Y and Co.,EUROBEAT
+12007,rage against usual,,dj TAKA feat.Gt.Shintaro,,DIGI-ROCK
+12045,SCREAM SQUAD,,CALF,,BREAKCORE
+21201,Scripted Connection⇒ long mix,,DJ MURASAME,,TECHNO
+12054,Scripted Connection⇒ A mix,,DJ MURASAME,,TECHNO
+21219,Scripted Connection⇒ A mix,,DJ MURASAME,,TECHNO
+12053,Scripted Connection⇒ H mix,,DJ MURASAME,,TECHNO
+21218,Scripted Connection⇒ H mix,,DJ MURASAME,,TECHNO
+12052,Scripted Connection⇒ N mix,,DJ MURASAME,,TECHNO
+21217,Scripted Connection⇒ N mix,,DJ MURASAME,,TECHNO
+12032,SEXYSEXYCHEVY,,MATALLY,,BIG BEAT
+12028,SigSig,,kors k,,MAKINA
+12042,SPARK !,,SILVER FOX PRODUCTIONS feat.星野奏子,SILVER FOX PRODUCTIONS feat Kanako Hoshino,DANCE POP
+12024,tant pis pour toi,,AKIRA YAMAOKA,,TECHNO
+12022,Tizona d'El Cid,Tizona dEl Cid,TOMOSUKE,,MPB
+12047,TOE JAM,,Big Idea,,COUNTRY TECHNO
+12016,Twelfth Style,,Tatsh & DAYBREAKERS NEXT,Tatsh and DAYBREAKERS NEXT,HAPPY EURO PARADISE
+12014,Under the Sky,,南さやか(BeForU) with platoniX,,J-EUROTRANCE
+12040,vault of heaven,,Mr.T,,ELECTROSHOCK
+12050,Votum stellarum,,iconoclasm (dj TAKA/wac),,ANTHEM TRANCE
+12038,We are Disっ娘よっつ打ち命,We are Diskko Yottsu Uchi Inochi,DANCE☆MAN feat.Disっ娘,DANCE MAN feat.Dis Mmusume,DISCO
+12015,Xepher,,Tatsh,,MEDIEVAL CHOIR
+12025,100% minimoo-G,,Sota Fujimori,,SYNTHETIC PROGRESSIVE ROCK
+12013,月光,Gekkou,Tatsh feat.星野奏子,Tatsh feat. Hoshino kanako,J-EUROBEAT
+12003,ヒマワリ,Himawari,小坂りゆ,Kosaka riyu,J-HAPPY HARDCORE
+12205,風の谷のDREAM,Kaze no Tani no DREAM,PINK PONG,,TRANCE
+12004,冥,Mei,Amuro vs Killer,,HUMAN SEQUENCER
+12037,オレはビートマニア!お前は何マニア?,Ore wa beatmania! Omae wa nanimania?,DANCE☆MAN,DANCE MAN,FUNK
+12029,ラクエン,Rakuen,Chonan Chiharu,,REGGAE
+12019,合体せよ!ストロングイェーガー!! (Ryu☆ remix),Gattai seyo! Strong Jaeger!! (Ryu remix),L.E.D. / Remixed by Ryu☆,Led / Remixed by Ryu,HARD DANCE
+12001,キャッシュレスは愛情消すティッシュ,Cashless wa aijoukesu tissue,GINGER,,K-GROOVE
+
+11040,AA,,D.J.Amuro,DJAmuro DJ Amuro,RENAISSANCE
+11036,AGEHA,,Ryu☆,,HAPPY HARDCORE
+11013,ANDROMEDA,,Sota Fujimori,,PSYCHEDELIC GOA TRANCE
+11009,awakening,,AKIRA YAMAOKA,,TRANCE
+11029,Back to the Dance Floor,,DJ SIMON,,TRIBAL LOUNGE
+11035,Be quiet,,Ryu☆,,HARD DANCE
+11021,believe...?,,Nao Nakamura,,HAPPY
+11001,BLOCKS,,SPARKER,,TRANCE
+11002,BREATH,,SPARKER,,ROCOCO TEK
+11006,CAR OF YOUR DREAMS,,DAVE&NUAGE,DAVE and NUAGE,SUPER EURO BEAT
+11031,Click Again,,dj REMO-CON,,CLICK HOUSE
+11018,Close my Eyes for Me,,D-crew feat. DENNIS GUNN (DJ Yoshitaka SCRATCHING),,AMERICA
+11043,D.A.N.C.E.!,,DJ Yoshitaka feat.星野奏子,DJ Yoshitaka feat. Kanako Hoshino,J-POP
+11004,Don't be afraid myself,,platoniX,,J-POP
+11015,earth scape,,dj TAKA,,PIANO BALLAD
+11023,EVO66,,Wall5,,TECHNO
+11030,FAKE TIME,,dj REMO-CON,,HARD ROCK
+11033,Fly Away To India,,Baby Weapon feat. KAJIL,,DANCE POP
+11052,GENOCIDE,,dj Killer,,DRUM'N'BASS
+11037,gigadelic,,teranoid feat.MC Natsack,,NUSTYLE GABBA
+11201,Go Berzerk,,Scott Brown,,HARDCORE
+11045,HARMONY,,REGINA,,SUPER EURO BEAT
+11038,HORIZON,,LIA,,HAPPY HARDCORE
+11027,INJECTION OF LOVE,,新谷あきら,Shintani Akira,ELECTRIC CABARET
+11039,Kecak,,John Robinson,,TRANCE
+11008,KEY,,colors,,BEAT ROCK
+11022,KING OF GROOVE,,DJ 19,,TECHNO
+11047,KI・SE・KI (IIDX RED EDIT),KISEKI IIDX RED EDIT,BeForU,,J-POP
+11016,Les filles balancent,,Orange Lounge,,FRANCE
+11042,listen to yourself,,Tetsuya Uchida,,ERHU FUNK
+11049,More Move,,T-Hirono feat. PAULINHO,,CLUB BOSSA
+11017,Move Me,,good-cool feat. Raj Ramayya,good cool feat Raj Ramayya,AFRICA
+11050,NEBULA GRASPER,,L.E.D.,Led,PSYCHEDELIC TRANCE
+11044,NIGHT FLIGHT TO TOKYO,,MATT LAND,,SUPER EURO BEAT
+11020,ON THE TUBE,,Q'HEY,QHEY,MINIMAL
+11046,PERFECTWORLD,,N.A.R.D feat.masayo,NARD feat masayo,SOFT ROCK
+11051,Raspberry♡Heart (English version),Raspberry Heart (English version),jun feat. PAULA TERRY,,COLORFUL HARDCORE
+11032,RED ZONE,,Tatsh&NAOKI,Tatsh and NAOKI,SPEED RAVE
+11014,RESONATE 1794,,KOHTA,,HARD SONATA
+11024,ROK DA WORLD,,DJ TOMO,,MIXTURE
+11034,Secret of Love,,DJ SWAN,,DRUM & BASS
+11005,SPEEDY CAT,,Y&Co.,Y and Co,EUROBEAT
+11010,Sphere,,Tatsh feat. K.Nayuki,,MEDIEVAL CHOIR
+11012,spiral galaxy,,D.J.SETUP,DJSETUP,PSYCHEDELIC TECHNO
+21214,spiral galaxy,,D.J.SETUP,DJSETUP,PSYCHEDELIC TECHNO
+11048,Tell Me More・・・,,Togo-chef feat. 朝比奈亜希,Togo chef feat Asahina Aki,R&B
+11003,TEXTURE,,SLAKE,,DEATH DISCO
+11028,The Hope of Tomorrow,,Sota Fujimori,,CYBORG TRANCE
+21215,The Hope of Tomorrow,,Sota Fujimori,,CYBORG TRANCE
+11202,Toxic,,WaveGroup/Shoichiro Hirata,WaveGroup Shoichiro Hirata,GARAGE MIX
+11011,ULTiM∧TE,ULTiMATE,TEЯRA,TERRA,HYPER J-POP FIVE
+11025,Wonder Bullfighter,,Twin AmadeuS,,NATURAL SOUND
+11203,You Really Got Me,,WaveGroup/Shoichiro Hirata,WaveGroup Shoichiro Hirata,BREAKBEATS MIX
+11019,大桟橋,Oosanbashi,ウッチーズ,Utchizu,JAPAN
+11041,惑,Waku Perplexity,Osamu Kubota,,ASIAN CROSSOVER
+11026,ピアノ協奏曲第1番"蠍火",Piano kyousoukyoku dai 1 ban "Sasoribi",virkato,,DIRGE
+11007,太陽 ～T・A・I・Y・O～,TAIYO,NAOKI feat. 星野奏子,NAOKI feat. Kanako Hoshino,CYB
+
+10054,A-JAX(3-WAY MIX),AJAX 3WAY MIX,Mr.T,MrT,GAME MUSIC
+10201,ACID VISION,,L.E.D.,LED,LIQUID FUNK
+10038,ALIEN TEMPLE,,PINK PONG,,PSYCHEDELIC TRANCE
+10047,ASTRAL VOYAGE,,EeL,,DREAM TECHNO
+10002,BABY LOVE,,Noria,,ITALO POP
+10019,Back Into The Light,,Sota Fujimori,,2STEP POP TRANCE
+10013,Boundary,,SPARKER,,ROCOCO TEK
+10010,CARRY ON NIGHT (English version),,platoniX (EURO style),,EUROBEAT
+10029,Changes,,TaQ,,PSYCHEDELIC TRANCE
+10015,CHOO CHOO TRAIN(dnb mix),CHOO CHOO TRAIN dnb mix,SLAKE feat. MIKA,,J-REVIVAL
+10045,COSMIC RAISE,,Toshiji Katoh,,ELECTRONICA
+10033,Daisuke,,Y&Co.,Y and Co.,EUROBEAT
+10041,Debtty Daddy,,sampling masters AYA,,ETHNO HARDCORE
+10005,desolation,,Mr.T,Mr T,PIANO BALLAD
+10048,DoLL,,TEЯRA,TERRA,HYPER J-POP FOUR
+10044,Don't forget,Dont forget,中山 結衣,Nakayama Yui,J-POP
+10027,Drop on the floor,,good-cool,good cool,HOUSE
+10006,EXE,,Mr.T,Mr T,ELECTROSHOCK
+10042,Feedback,,Audio Highs,,BREAK BEATS
+10036,FEEL IT,,RAM,,DRUM'N'BASS
+10046,Freezing atmosphere,,Twin AmadeuS,,NATURAL SOUND
+10052,GHOST REVIVAL,,L.E.D.,Led,GOA TRANCE
+10053,GRADIUS -FULL SPEED-,,Mr.T,Mr T,GAME MUSIC
+10037,HI SCHOOL DREAM,,PINK PONG,,TRANCE
+10034,HIGH,,RAM,,RAVE
+10202,HYPE THE CORE,,DJ CHUCKY,,GABBA
+10028,Innocent Walls,,TaQ,,TECHNO
+10003,JAM,,TAKA with Junpei&三上,TAKA with Junpei and Mikami,J-REVIVAL
+10204,jelly kiss -Midihead's Smack Mix-,jelly kiss Midiheads Smack Mix,Togo Project feat. Sana (Remixed by Midihead),,HARD HOUSE
+10043,Let's run,Lets run,Mitsuto Suzuki,,MEDIUM WAVE
+10014,LIMITED,,SLAKE,,TECHNO
+10025,Love Is Eternity,,kors k,,TRANCE
+10035,LOW,,RAM,,RAVE
+10016,Lucy,,ELE BLOCK,,DANCE POP
+10023,Narcissus At Oasis,,Ryu☆,,ARTCORE
+10039,NO DOUBT GET LOUD,,ASLETICS,,HIPHOP
+10004,No.13, No 13,TAKA respect for J.S.B.,,PROGRESSIVE BAROQUE
+10049,One More Lovely,,Risk Junk,,HAPPY
+10001,pandora,,dj TAKA feat. Tomomi,,TRANCE
+10008,PLATONIC-XXX,,platoniX (RB Style),,RB
+10050,R2,,tiger YAMATO,,RAVE
+10024,rainbow rainbow,,Ryu☆,,HAPPY HARDCORE
+10012,Ready To Rockit Blues,,SLAKE,,NU JAZZ
+10020,Rise'n Beauty,,Sota feat. Cyborg Akemi,,TRANCE
+10021,scherzo,,Osamu Kubota,,PIANO AMBIENT
+10031,SCORE,,DJ Remo-con,DJ Remo con,TECH HOUSE
+10032,Shakin'31,Shakin 31,DJ Remo-con,DJ Remo con,BREAK BEATS
+10009,SHOOTING STAR,,小坂りゆ,Riyu Kosaka,J-POP
+10030,Smell Like This,,Y&Co.,Y and Co,TRANCE
+10018,SPACE FIGHT,,AKIRA YAMAOKA,,戦艦テクノ
+10205,Strong Woman feat.Dabo,Strong Woman feat Dabo,Asami,,R&B
+10026,Think of me,,good-cool feat. Sana,good cool feat Sana,NORTHERN EUROPE
+10040,1st Samurai,first samurai,sampling masters MEGA,,お江戸テクノ
+10051,5.8.8.,588,dj nagureo,,PIANO AMBIENT
+10007,どんなときも。,Donnatokimo.,Mr.T と Brother Hiro,MrT and Brother Hiro,J-REVIVAL
+10011,一途な恋 (HYPER J-EURO MIX),Ichizuna koi HYPER J-EURO MIX,TEЯRA,TERRA,J-REVIVAL
+10022,雪月花,Setsugekka,Ryu☆,,HARD HOUSE
+10017,システムロマンス,System Romance,ヒロシ＆チー子,Hiroshi & and Chico,ムートラ(ムードトランス)
+10206,泰東ノ翠霞,Taito no suika,bermei.inazawa/feat. 霜月はるか,bermei inazawa feat Shimotsuki Haruka,JAPANESE POPS
+
+9051,Abyss -The Heavens Remix-,,dj TAKA (remixed by Ryu☆),,TRANCE CORE
+21212,Abyss -The Heavens Remix-,,dj TAKA (remixed by Ryu☆),,TRANCE CORE
+9029,ACT,,RAM,,RAVE
+9008,ADVANCE,,SLAKE,,ELECTRONICA
+9036,ATOMIC AGE,,SHUNZZY,,ENSEMBLE
+9027,BAD BOY BASS!! (dj Remo-con MIX),,Y&Co.,Y and Co.,NRG
+9046,bag,,Reven-G,,SPIRITUAL
+9004,Be Rock U (1998 burst style),,NAOKI,,ULTRA ROCK BEAT
+9007,BREEDING,,SLAKE,,TECHNO
+9058,BRIGHTNESS DARKNESS,,SPARKER,,ROCOCO TEK
+9401,Celebration,,WaveGroup/DJ TK-ST,WaveGroup DJ TK ST,SOUL MIX
+9041,CHARLOTTE,,Db.Saka feat. Piasa,Db Saka feat Piasa,FRENCH BOSSA
+9010,Cradle,,positive MA feat. akino,,HEALIN' HARDCORE
+9052,Distress,,dj TAKA Remixed by TaQ,,MIXTURE
+9024,Dreamin' Sun,,Yu Takami,,ELECTRO POP
+9048,e-motion 2003 -romantic extra-,e motion 2003 romantic extra,e.o.s. Remixed by dj TAKA,eos Remixed by dj TAKA,TRANCE
+9021,ECHOES,,DRAGOON,,TECHNO
+9047,FESTA DO SOL,,Mt.Circle,Mt Circle,LATIN GROOVE
+9402,First Day,,Timo Maas,,ELECTRONICA
+9003,fun,,Mr.T,MrT,FUNK SHUFFLE
+9403,Funkytown,,Lipps Inc.,,80's REVIVAL
+9018,Golden Horn,,Osamu Kubota,,TURKISH PIANO'N'BASS
+9020,Honey,,good-cool,good cool,POPS
+9044,HYPER EUROBEAT (2DX style),,NAOKI feat. PAULA TERRY,,EUROBEAT
+9025,I can fly[COMMA]I've got reason,I can fly Ive I ve got reason,Yu Takami,,EXTREME GRANGE
+9055,I Was The One (80's EUROBEAT STYLE),,good-cool Remixed by NAOKI,good cool Remixed by NAOKI,EUROBEAT
+9053,I'm In Love Again -Y&CO. EURO MIX-,Im In Love Again Y and CO EURO MIX,dj TAKA remixed by Y&Co.,dj TAKA remixed by Y and Co,EUROBEAT
+9026,Karma,,TaQ,,DRUM'N'BASS
+9054,Let The Snow Paint Me -Y&Co. Remix-,,Sana Remixed by Y&Co.,Y and Co.,TRANCE
+9040,Let's say Hello!,Lets say Hello,Takuma Saiki,,LOLIPOP
+9404,Lift Me Up,,Moby,,ELECTRONICA
+9002,lights,,flare,,SOUL
+9022,Logic Board,,dj nagureo,,TECHNO
+9009,LOVE IS DROWING,,SLAKE feat. EMIKO,,FORKTRONICA
+9042,LOVE♥SHINE,LOVE SHINE,小坂りゆ,Riyu Kosaka,J-HAPPY HARDCORE
+9000,lower world,,D.J.SETUP,DJ SETUP,TECHNO
+9011,Make A Difference,,Lala Moore with CoCoRo*Co,,GOSPEL
+9006,MARIA (I believe... ),,NAOKI feat. PAULA TERRY,,EUROBEAT
+9012,moon_child,,少年ラジオ,Shonen rajio boy radio,POST ROCK
+9038,one or eight,,sampling masters AYA,,HARDCORE RAVE
+9056,OVER THE CLOUDS -Flying Grind mix-,,Lala Moore remixed by Flying Grind,,HOUSE
+9204,paramnesia,,Shinji Ushiroda,,CLUB JAZZ
+9043,PARANOIA survivor MAX,,290,,JUNGLE MIXTURE
+9032,POWER DREAM,,PINK PONG,,TRANCE
+9005,Prelude,,NAOKI underground,,TRANCE
+9028,quasar,,OutPhase,,TRANCE
+9059,Quickening,,dj TAKA,,PSYCHEDELIC
+9039,Really Love,,大部真由美,Obu Mayumi,R&B
+9057,RISLIM -Remix-,,ric Remixed by Hisashi Nawata,,ELECTRO 2 STEP
+9037,rottel-the-Mercury,,sampling masters MEGA,,GABBA
+9001,Silvia Drive,,dj TAKA feat. Noria,,HAPPY HANDBAG
+21211,Silvia Drive,,dj TAKA feat. Noria,,HAPPY HANDBAG
+9030,SNOW,,RAM,,DRUM'N BASS
+9034,STAR FIELD,,SADA,,TRANCE
+9045,Sweet Sweet ♥ Magic,Sweet Sweet Magic,jun,,HAPPY HARDCORE
+9301,SWEETEST SAVAGE,,ASLETICS,,HIP HOP
+21213,SWEETEST SAVAGE,,ASLETICS,,HIP HOP
+9031,SWITCH,,RAM,,TECHNO
+9017,The Biggest Roaster,,D.J. Spugna,DJ Spugna,FILTER HOUSE
+9013,The end of my spiritually,,EeL,,ELECTRONICA
+9405,The Way You Move,,Paul Grogan Featuring Natalie Martin,,DANCE
+9050,traces -tracing you mix-,,TaQ remixed by kors k feat.U,,2 STEP
+9023,Two DAYS OF LOVE,,tiger YAMATO withマイク吉川 feat.ma-sa,tiger YAMATO with microphone Yoshikawa feat. Martha,EUROBEAT
+9049,u gotta groove -extend joy style-,,dj nagureo Remixed by Mr.T,dj nagureo Remixed by MrT,EPIC HOUSE
+9205,Usual Days-remix,Usual Days remix,ota2,,DANCE POP
+9406,Virtual Insanity,,WaveGroup/DJ TK-ST,WaveGroup DJ TKST,R&B MIX
+9035,WANNA TELL THAT WORD,,SADA,,US HARD HOUSE
+9019,Your Body,,good-cool feat. Andrea L. Hopkins,good cool feat Andrea L Hopkins,HOUSE
+9201,5PM ETERNAL,,GUHROOVY fw. NO+CHIN,GUHROOVY fw. NO CHIN,RAGGA JUNGLE
+9202,80's CAPSULE,80s CAPSULE,め組upper-slope,Megumi upper slope,DISCOTHEQUE
+9206,炸裂!イェーガー電光チョップ!!,Sakuretsu! Jaeger denkou chop!!,L.E.D.,LED,HARDSTYLE
+9015,ライオン好き,Lion suki,AKIRA YAMAOKA,,ボデー
+9014,昭和企業戦士荒山課長,Shouwa kigyou senshi Arayama kachou,AKIRA YAMAOKA,,テクノチョップ
+9016,真夏の花・真夏の夢,Manatsu no hana Manatsu no yume,Sana,,HOUSE
+
+8000,abstract,,TaQ,,BIG BEAT
+8001,airflow,,Mr.T,,INSTRUMENTAL
+8002,ALIEN WORLD,,PINK PONG,,PSYCHEDELIC TRANCE
+8003,ALL RIGHT,,RAM,,DRUM'N'BASS
+8004,Attitude,,Y&Co.,Y and Co.,TRANCE
+8005,bit mania,,AKIRA YAMAOKA,,テクノ歌謡
+8006,Blame,,good-cool feat. Jeff Coote,good cool feat Jeff Coote,EUROBEAT
+8007,Blown My Heart Away,,good-cool feat. Jeff Coote,good cool feat Jeff Coote,80's EUROBEAT
+8008,CELEBRATE NITE,,N.M.R.,,EURO GROOVE
+8009,Colors -Y&Co. Eurobeat Remix-,Y and Co.,dj TAKA (remixed by 横田商会),,EUROBEAT
+8010,DANCER,,DE VOL,,NU SKOOL
+8011,dissolve,,kobo,,TRANCE
+8012,Drivin',,NAOKI feat.Paula Terry,NAOKI feat Paula Terry,HYPER EUROBEAT
+8013,dual control,,Mr.T,,GARAGE HOUSE
+8014,FLUTE MAN,,SPARKER,,DEEP HOUSE
+8015,Foundation of our love,,dj TAKA feat. ASAKO,,TRANCE
+8016,FUNKY BINGO PARADISE,,SAWASAKI YOSHIHIRO,,ELECTRO
+8017,Giudecca,,D.J.SETUP,DJSETUP,PSYCHEDELIC TECHNO
+8018,Halfway of promise,,Yu Takami feat.Shihori Nakane,,GIRL ROCK
+8019,Hormiga obrera,,Shawn The Horny Master,,ALTERNATIVE HOUSE
+8020,HYPER BOUNDARY GATE,,L.E.D.LIGHT,LEDLIGHT,GOA TRANCE
+8021,I.C.F.5800,ICF 5800,Reo Nagumo feat. Mayumi Shizawa*,,ELECTRO
+8022,jelly kiss,,Togo project feat.Sana,Togo project feat Sana,A.O.R.
+8023,LAB,,RAM,,RAVE
+21209,LAB,,RAM,,RAVE
+8201,LOVE BOX,,め組upper-slope,Megumu upper slope,J-SOUL
+8024,LOVE IS ORANGE,,Orange Lounge,,HARD CHANSON
+21210,LOVE IS ORANGE,,Orange Lounge,,HARD CHANSON
+8025,Luv 2 Feel Your Body,,Shoichiro Hirata,,2 Step
+8026,memories,,TAKA,,BEAT ROCK
+8027,Monkey Dance,,Y&Co.,Y and Co.,EUROBEAT
+8028,murmur twins,,yu_tokiwa.djw,,CUDDLECORE
+8029,MUSIC TO YOUR HEAD,,SLAKE,,TECHNO
+8030,OUTER LIMITS,,L.E.D.-G,LED-G,HARDCORE BREAKBEATS
+8031,PLEASE DON'T GO,,ASLETICS,,DISCO
+8032,rainbow flyer,,dj TAKA,,TRANCE
+8033,Red Nikita,,Osamu Kubota,,LATIN SWING
+8034,Small clone,,Yu Takami,,JAZZ FUNK
+8035,Smoke,,Aya,,NU-FUSION
+8036,SPEED TRANCE MACH 3,,SAWASAKI YOSHIHIRO,,TECHNO
+8037,STAR DREAM,,PINK PONG,,TRANCE
+8202,STEP INTO THE NEW WORLD,,L.E.D.-G vs. GUHROOVY fw NO+CHIN,LED-G vs GUHROOVY fw NO CHIN,UK ASIAN
+8038,Stick Around,,Megu with Scotty D.,,2STEP
+8203,suggestion,,kita-g,kita g,ACID HOUSE
+8039,symbolic,,TaQ,,TECHNO
+8040,thunder,,Lion MUSASHI,,HOUSE
+8041,TRIBAL MASTER,,NAPAKICK,,ROCKET BEATS
+8042,V35,,tiger YAMATO,,TRANCE
+8043,WAR GAME,,ASLETICS,,HIP HOP
+8044,World Wide Love,,MTO,,POPS
+8045,xenon,,Mr.T,,ELECTROSHOCK
+8049,蒼い衝動,Aoi shoudou,NAOKI feat. YUKI,,J-TRANCE
+8204,エブリデイ・ラブリデイ -L.E.D.STYLE MIX-,Everyday lovelyday LED STYLE MIX,Togo-chef feat.Sana,Togo chef feat Sana,HOUSE REMIX
+8048,桜,Sakura,Reven-G,,SPIRITUAL
+8047,合体せよ!ストロングイェーガー!!,Gattai seyo! Strong Jaeger!!,L.E.D.,LED,NU-NRG
+8046,夜のサングラス,Yoru no sunglasses,School (good-cool feat. すわひでお),School good cool feat Suwa Hideo,METAL HOUSE
+
+7002,A,,D.J.Amuro,DJAmuro,RENAISSANCE
+7003,AVE DE RAPINA,,Shawn the Horny Master,,ALTERNATIVE HOUSE
+7004,Bad Routine,,D.J. Spugna,DJ Spugna,FILTER HOUSE
+7005,BRING HER DOWN,,AKIRA YAMAOKA,,TRIBAL BASS
+7006,Burning Heat! (Full Option Mix),,Mr.T with Motoaki.F,,12BEAT
+7007,BURNING UP FOR YOU,,SARA,,SUPER EUROBEAT
+7008,Cheer Train,,Fuzita Blender,,BIG BEAT
+7009,CLOUDY MUSIC,,SLAKE,,DRUM'N'BASS
+7010,D2R,,NAOKI,,HYPER ROCK BEAT
+7011,DESTINY,,NAOKI feat.PAULA TERRY,,HYPER EUROBEAT
+7012,E.V CAFE,EV CAFE,reo nagumo feat. hajime.y,,SOUL
+7013,entrance,,Kobo project with Masa,,TECHNO
+7014,foreplay,,Osamu Kubota,,PROGRESSIVE JAZZ
+7015,General Relativity,,SYMPHONIC DEFOGGERS,,UK GARAGE/2-STEP
+7016,Glorious Days,,Noria,,HIP HOP & SOUL
+7017,Gravity,,TaQ,,BIG BEAT
+7018,Happy Wedding,,ASKA,,HOUSE
+7019,HEARTBEAT,,NATHALIE,,SUPER EUROBEAT
+7020,i feel ...,,AKIRA YAMAOKA,,TRANCE
+7021,Last Message,,good-cool feat. Meg,good cool feat Meg,EUROBEAT
+7022,Let the Snow Paint Me,,Sana,,AMBIENT POP
+7023,LOVE GENERATION,,SUZY LAZY,,SUPER EUROBEAT
+7024,Love Me Do,,AKIRA YAMAOKA,,NEW WAVE
+7025,Marmalade Reverie,,Orange Lounge,,YEYE
+7026,MAX 300,,Ω,Omega,HARDCORE TECHNO
+7201,more deep[ver.2.1],,Togo Project feat. Sana,,2STEP
+7202,Never Look Back,,DuMonde,,TRANCE
+7027,New York,,Fuzita Blender,,LIBRARY BEATS
+7028,REMEMBER ME,,LESLIE PARRISH,,SUPER EUROBEAT
+7029,Secret Tale,,dj nagureo feat.asuka.m,,SOFT ROCK
+7030,SOLID GOLD,,DUSTY,,SUPER EUROBEAT
+7031,Somebody Like You,,good-cool,good cool,POPS
+7032,Spica,,D.JW,,HOUSE
+7033,Spooky,,good-cool,good cool,HARD HOUSE
+7034,stoic,,TaQ,,TECHNO
+7035,The Beauty Of Silence,,Svenson & Gielen,Svenson and Gielen,TRANCE
+7203,The Sound Of Goodbye,,Armin van Buuren presents P.D.,,TRANCE
+7036,Tomorrow Perfume,,dj TAKA,,TRANCE
+7037,traces,,TaQ,,TRANCE
+7038,ZERO-ONE,,Mr.T,,ELECTROSHOCK
+21208,ZERO-ONE,,Mr.T,,ELECTROSHOCK
+7000,2002,,tiger YAMATO,,RAVE
+7001,9 o'clocks,9 o clocks,SYMPHONIC DEFOGGERS,,FAKE JAZZ
+7039,革命,Kakumei,dj TAKA with NAOKI,,ORCHESTRAL
+
+6201,A New Morning,,Yukihiro Fukutomi,,HOUSE
+6001,BALLAD FOR YOU〜想いの雨〜,BALLAD FOR YOU ~omoi no ame~,NM feat.Thomas Howard,,BALLAD
+6002,Beautiful Days,,Fantastic Plastic Machine,,HOUSE
+6003,Blueberry Stream,,dj TAKA,,HOUSE
+6004,Buffalo,,good-cool feat. Hideo Suwa,good cool feat Hideo Suwa,ROCK
+6211,Changes,,Ryota Mitsunaga,,BALLAD
+6005,Colors (radio edit),,dj TAKA,,TRANCE
+6006,Comment te dire adieu,,Orange Lounge,,BOSSA LOUNGE
+6007,DIVE ~INTO YOUR HEART~,,NAOKI feat.PAULA TERRY,,HYPER TRANCE EURO BEAT
+6202,Doigts de Fatima -ファティマの掌-,Doigts de Fatima -Fatima no tenohira-,Osamu Kubota featuring Sizzle Ohtaka,,CELTIC
+6030,Five Regrets,,Osamu Kubota,,JAZZ ARGENTINO
+6203,Flowtation (Original Mix),,Vincent de Moor,,TRANCE
+6009,Fly Away (Instrumental),,Vincent de Moor,,TRANCE
+6010,fly through the night,,Mr.T,,TRANCE
+6011,Free Style,,Shapes,,DANCE POP
+6012,Frozen Ray (original mix),,dj TAKA,,TRANCE
+6013,G2,,Aya,,DRUM'N'BASS
+21207,G2,,Aya,,DRUM'N'BASS
+6204,JUST DO IT,,NIKI,,HYPER TECHNO
+6014,L'amour et la liberte,Lamour et la liberte,NAOKI underground,,TRANCE
+6015,Linus,,LEGO STUDIO,,LOUNGE POP
+6205,LOVE IS DREAMINESS,,L.E.D.-G VS GUHROOVY fw/asuka,LED-G VS GUHROOVY fw asuka,HAPPY HARDCORE
+6206,M-02stp.ver1.01,M 02 stp ver1 01,Shoichiro Hirata,,2STEP
+6016,NEMESIS,,D.J.SETUP,DJSETUP,TECHNO
+6207,NIGHT OF FIRE,,NIKO,,SUPER EUROBEAT
+6208,PARAPARA PARADISE,,DOMINO,,SUPER EUROBEAT
+6209,REAL LOVE,,MAZIK K.,,HYPER TECHNO
+6017,ROMEO&JULIET,,LOLITA,,SUPER EUROBEAT
+6018,rottel-da-sun,,sampling masters MEGA,,ROTTERDAM TECHNO
+6019,route 80s,,sampling masters MEGA,,NOISY
+6020,Silhoette of My Mind,,ReR,,GOTH
+6210,SOMETHING WONDERFUL,,L.E.D.,LED,EPIC TRANCE
+6021,Summer Vacation (CU mix),,OutPhase,,TRIP HOP
+6022,Take It Easy,,Aya,,INSTRUMENTAL
+6023,VJ ARMY,,good-cool,good cool,ALL-MIX
+6024,Wow Wow 70's,,sampling masters AYA,,DISCO
+6025,Y31,,tiger YAMATO,,RAVE
+6026,YESTERDAY,,CHERRY,,SUPER EUROBEAT
+6029,19[COMMA]November,19 November,good-cool,good cool,HOUSE
+6000,20[COMMA]November,20 November,DJ nagureo,,HOUSE
+6027,こっちを向いてよ,Kocchi wo muiteyo,vivi,,SOUL
+6028,電人イェーガーのテーマ (Theme of DENJIN J),Denjin Jaeger no theme (Theme of DENJIN J),L.E.D.,LED,NU-NRG
+
+5000,Abyss,,dj TAKA,,INTELLIGENCE
+5206,c-r-a-c-k-ER,cracker,GWASHI,,HIPHOP
+5001,Come With Me,,good-cool feat. Aundrea L. Hopkins,good cool feat Aundrea L Hopkins,HOUSE
+5002,Deadline,,Dutch Force,,TRANCE
+5207,DENGUE,,Macky,,ORIENTAL AMBIENT
+5208,DUNE,,napakick feat. Taja,,TRIP HOP
+5202,Estella,,Osamu Kubota,,SPANISH WALTZ
+5203,Flash of Love,,good-cool feat. Mickin'Tackin',good cool feat Mickin Tackin,J-DISCO
+5003,Give Me A Sign,,Shoichiro Hirata feat. "Red",Shoichiro Hirata feat Red,2STEP
+5022,IIDX,,DJ SIMON,,HIPHOP
+5004,in my eyes,,ric,,TRANCE
+5029,INSERTiON,,NAOKI underground,,EURO TRANCE
+5005,Kiss me all night long,,NAOKI J-STYLE feat.MIU,,J-EURO POP
+5025,LOVE AGAIN TONIGHT ~For Melissa MIX~,,NAOKI feat. PAULA TERRY,,HYPER EURO BEAT
+5006,Mobo★Moga,Mobo Moga,Orange Lounge,,FRENCH POP
+5007,outer wall,,sampling masters MEGA,,TECHNO
+21206,outer wall,,sampling masters MEGA,,TECHNO
+5008,OVER THE CLOUDS,,Lala Moore,,HOUSE
+5209,PRAT FALL,,SPON,SPON,DIGI-ROCK
+5009,QQQ,,TaQ,,TECHNO
+5010,Radical Faith,,TaQ,,BIG BEAT
+5011,Real,,Aya,,DRUM'N'BASS
+5012,Regulus,,DJ.W,,INSTRUMENTAL
+5013,Remember You,,NM feat. Julie,,BALLAD
+5014,RIDE ON THE LIGHT (HI GREAT MIX),,Mr.T,,POWER FUSION
+5015,RISLIM,,ric,,NEW ROMANTIC
+5023,sometime,,Aya,,SOUNDTRACK
+5016,Spin the disc,,good-cool,good cool,HOUSE
+5017,STILL IN MY HEART,,NAOKI feat. PAULA TERRY,,HYPER EURO BEAT
+5018,still my words,,TaQ feat.Meg,,AMBIENT
+5019,sync,,OutPhase (TaQ/dj TAKA),,TRANCE
+5020,tablets,,sampling masters MEGA,,RAVE
+5204,THE BIG VOYAGER,,L.E.D.,LED,GOA TRANCE
+5024,THE CUBE,,DJ SUWAMI,,DRUM'N'BASS
+5030,THE SHINING POLARIS,,L.E.D. feat. Sana,LED feat. Sana,EPIC TRANCE
+5027,Time is money,,good-cool,good cool,JAZZ
+5021,V,,TAKA,,PROGRESSIVE
+5026,VIRTUAL MIND,,Brian Morris feat. Thomas,,HIPHOP
+5201,1989,,Osamu Kubota,,ROCK OPERA
+5205,天国のキッス ～D.J.TAKA's style～,Tengoku no kiss DJTAKAs style,オセロ,Othello,EURO TRANCE
+
+4001,ABSOLUTE,,dj TAKA,,EPIC TRANCE
+4002,B4U,,NAOKI,,SPEED RAVE
+4003,Broken My Heart,,NAOKI feat.PAULA TERRY,,HYPER EURO BEAT
+4029,Burnin' The Floor,,NAOKI,,EURO GROOVE
+4004,CHECKING YOU OUT,,good-cool feat. JP Miles,good cool feat. JP Miles,HIP HOP
+4005,Clione,,kors k,,DUTCH TRANCE
+4202,CONGA,,good-cool feat. JP Miles,good cool feat. JP Miles,LATIN HOUSE
+4026,DIAMOND JEALOUSY,,AKIRA YAMAOKA,,CYBER ROCK
+4006,DXY!,,TaQ,,TECHNO
+4007,empathy,,TaQ,,DRUM'N'BASS
+4008,era (step mix),,TaQ,,DRUM'N'BASS
+4212,ErAseRmoToR maXimUM,,L.E.D-G vs GUHROOVY,LED-G vs GUHROOVY,HARDCORE
+4009,FANTASY,,ULTIMATE DUB,,DANCE EXPRESS Hi-speed
+4010,Final Count Down (MTO CRY BABY STYLE),,dj TAKA feat. Jasmine,,METALLIC EURO
+4032,FLOWERS for ALBION,,dj TAKA,,AMBIENT
+4011,GET ON BEAT (WILD STYLE),,Lion Musashi,,HARD HOUSE
+4203,GIRIGIRI DADDY,,Shoichiro Hirata,,R&B
+4213,GOBBLE,,Kimitaka Matsumae,,CANTERBURY & BEAT
+4012,HIGHER,,NM feat. Sunny,,DANCE POP
+4023,Hitch Hiker2,,good-cool,good cool,WARP HOUSE
+4024,I'M FOR REAL,IM FOR REAL,SLAKE feat. JP Miles,,TWO STEP
+4204,INFINITE PRAYER,,L.E.D.LIGHT feat. GORO,LED LIGHT LEDLIGHT feat. GORO,OCEANIAN TRIBAL TRANCE
+4214,INFINITE PRAYER -floating flock style-,,L.E.D. feat. GORO,LED feat GORO,AMBIENT
+4033,Jam&Marmalade,,FinalOffset,,WARP HOUSE
+4013,JIVE INTO THE NIGHT,,CYDNEY,,DANCE EXPRESS Hi-speed
+4014,KAMIKAZE,,dj nagureo,,TECHNO
+4015,LOVE WILL・・・,LOVE WILL...,riewo,,TRANCE
+4028,LUV TO ME (UCCHIE'S EDITION),LUV TO ME (UCCHIES EDITION),tiger YAMATO,,EURO BEAT
+4016,minimalian,,DETROIAN,,MINIMAL
+4017,Mr.T. (take me higher),,Risky Men feat. Asuka.M,,DANCE POP
+4030,Nasty!,,Baby Weapon feat. Asuka.M,,DANCE POP
+4205,NEW YORK CITY BOY,,GUY THOMAS,,DANCE EXPRESS Hi-speed
+4018,NORTH,,WALL5,,CELTRANCE
+4019,Nothing Ain't Stoppin' Us,Nothing Aint Stoppin Us,Shoichiro Hirata,,DISCO
+4206,R壱萬,R10K,tiger YAMATO,,RAVE
+4207,Rest my mind,,dj nagureo feat. Doublecheese,,HIPHOP
+4208,sanctus,,Osamu Kubota,,ROCK OPERA
+4209,Small Waves,,dj TAKA,,CLUB MIX
+4020,starmine,,Ryu☆,,HAPPY HARDCORE
+21205,starmine,,Ryu☆,,HAPPY HARDCORE
+4025,SWEET LAB,,DJ SIMON,,LOUNGE HOUSE
+4215,Trancemission,,napakick,,MASHROOM FUNK
+4210,Twin Bee (Generation X),,Final Offset,,EURO BEAT
+4027,ULTRA HIGH-HEELS,,dj TAKA feat.ANGEL,,PARAPARA
+4031,Under Construction,,good-cool,good cool,BIG BEAT
+4022,Vienna,,Osamu Kubota,,PIANO AMBIENT
+4021,Voltage (feat. Hidemaru),,TaQ,,BIG BEAT
+4000,250bpm,,AKIRA YAMAOKA,,GABBA
+4211,サナ・モレッテ・ネ・エンテ,SANA MOLLETE NE ENTE,Togo Project feat. Sana,,CUBAN GROOVE
+4216,サナ・モレッテ・ネ・エンテ (B.L.T.STYLE),SANA MOLLETE NE ENTE BLT STYLE,Togo Project feat. Sana,,MONDO CUBAN
+
+3201,Almost Love,,SILVA,,HOUSE
+3202,Artificial Impatience,,SYMPHONIC DEFOGGERS,,FUTURE JAZZ
+3203,Beat Machine,,CRUNKY BOY Jr.,,BIG BEAT
+3000,CAN'T STOP FALLIN' IN LOVE,CANT STOP FALLIN IN LOVE,NAOKI,,HYPER EUROBEAT
+3014,Cold Pulse,,Quadra with DJ FX,,TECHNO
+3001,Don't Stop!,,dj TAKA feat. JP Miles,,HAPPY HANDBAG
+3204,DREAM,,SHIN Murayama feat.mari saito,SHIN Murayama feat mari saito,HOUSE
+3002,DYNAMITE RAVE,,NAOKI,,SPEED RAVE
+3003,END OF THE CENTURY,,NO.9,NO 9,DANCE SPEED
+3004,era (nostalmix),,TaQ,,DRUM'N BASS
+3205,five fathoms (beatmania II special version),,EverythingButTheGirl,,HOUSE
+3206,Garden of Love,,DJ Mazinger,,HIPHOP
+3015,Get me in your sight,,SYMPHONIC DEFOGGERS,,LATIN HOUSE
+3005,Holic,,TaQ,,HARD TECHNO
+3016,IS THIS LOVE?,,Asuka.M,Asuka M,DANCE POP
+3207,L.O.T. (Love Or Truth),LOT Love Or Truth,m-flo,m flo,HIP HOP & SOUL
+3006,LEADING CYBER,,dj TAKA,,DIGI ROCK
+3208,Let's talk it over,Lets talk it over,SHIN Murayama feat. Argie Phine,,SOUL
+3209,Make Your Move,,good-cool feat. JP Miles,good cool feat. JP Miles,FUNK
+3018,never let you down,,good-cool feat. JP Miles,good cool feat. JP Miles,GARAGE HOUSE
+3007,Presto,,Osamu Kubota,,PIANO AMBIENT
+3008,R5,,tiger YAMATO with ultrabeatbox,,RAVE
+3009,REINCARNATION,,dj TAKA,,TRANCE
+3210,Right Now,,atomic kitten,,DANCE DISCO
+3211,S.O.S. (THE TIGER TOOK MY FAMILY),,DR.JEKYLL,DR JEKYLL,DANCE EXPRESS Hi-speed
+3010,Schlagwerk,,TaQ,,BIG BEAT
+3017,Sense,,good-cool,good cool,RAVE
+3212,SKIN,,CHARLOTTE Remixed by Shin Murayama,,R&B
+3011,Skyscraper,,good-cool,good cool,EPIC HOUSE
+3213,TAKE ON ME,,ANGELA,,DANCE EXPRESS Hi-speed
+3012,Tangerine Stream,,dj TAKA,,AMBIENT
+3013,THE SAFARI,,Lion Musashi,,WORLD HOUSE
+
+2001,Bad boy,,Vivi,,DANCE POP
+2201,Brazilian Rhyme,,Satoru Shionoya + Satoshi Tomiie,,HOUSE
+2002,Dancin' Into The Night,,good-cool,good cool,DISCO
+2003,Digital MinD (A/T Libra mix),,TaQ,,MINIMAL
+2004,dong-tepo no.,dong tepo no,dj nagureo,,TECHNO
+2005,Electro Tuned (the SubS mix),,TaQ,,BIG BEAT
+2202,Get on Beat,,ON,,HARD BAG
+2010,Headache,,good-cool,good cool,HARD HOUSE
+2011,Hitch Hiker,,good-cool,good cool,WARP HOUSE
+2006,I Was The One,,good-cool,good cool,ITALO HOUSE
+2007,I'm In Love Again,Im In Love Again,dj TAKA,,SPEED GARAGE
+2008,Indigo Vision (full flavour hide around mix),,TaQ,,GOA TRANCE
+2203,Junglist King,,Hirofumi Asamoto (ram jam world),,DRUM'N'BASS
+2204,Junglist King (long),,Hirofumi Asamoto (ram jam world),,DRUM'N'BASS
+2205,LET THE BEAT HIT EM! BASS MIX,,STONE BROS.,,MIAMI BASS
+2206,lovin' you,,MONDAY MICHIRU,,JAZZ DRUM'N'BASS
+2207,Mirrorball Satellite 2012,,m-flo,m flo,HIP HOP & SOUL
+2208,morning prayer,,SILVA,,DISCO/HOUSE
+2209,Panorama,,Hirofumi Asamoto(ram jam world),,SOUL CLASSIC
+2016,PUT YOUR FAITH IN ME (for beatmania II),,dj TAKA feat. UZI-LAY,,JAZZ FUNK
+2210,S.O.S.,SOS,DR.BOMBAY,DR BOMBAY,INDIE EURO/DANCE
+2013,Second Style (Hip Hop Paradise),,dj TAKA & DAY BREAKERS,dj TAKA and DAY BREAKERS,HIPHOP
+2211,Shake,,double,,JAPANESE R&B
+2014,Shine On,,Shorai,,SOUL
+2009,SOFT LANDING ON THE BODY,,DJ SIMON,,SPIRITUAL
+2012,SP-TRIP MACHINE (for beatmania II),,dj TAKA feat. DE-SIRE,,JUNGLE
+2000,.59,59,dj TAKA,,CHILL OUT
+2212,踊る！福神漬 (CALCUTTA),Odoru! Fukujinzuke (CALCUTTA),DR.BOMBAY,DR BOMBAY,INDIE EURO / DANCE
+
+1013,BRILLIANT 2U,,NAOKI,,EURO GROOVE
+1015,deep in you,,dj nagureo,,DANCE POP
+1008,GENOM SCREAMS,,L.E.D. LIGHT,LED LIGHT LED LIGHT,TRANCE
+1007,gentle stress,,DJ Swan,,DRUM & BASS
+1019,KEEP ON MOVIN',,N.M.R,NMR,DANCE POP
+1004,Macho Gang,,ANAL SPYDER,,TRIBAL HOUSE
+1401,NaHaNaHa vs.Gattchoon Battle,NaHaNaHa vs Gattchoon Battle,DJ Senda & Tiny-K,DJ Senda and Tiny K,DJ BATTLE
+1020,PARANOiA MAX ~DIRTY MIX~,PARANOiA MAX DIRTY MIX,190,,JUNGLE
+1017,RUGGED ASH,,SYMPHONIC DEFOGGERS,,FUTURE JAZZ
+1005,THE EARTH LIGHT,,L.E.D. LIGHT,LED LIGHT,TRANCE
+21204,THE EARTH LIGHT,,L.E.D. LIGHT,LED LIGHT,TRANCE
+1402,ちょっときいてな (ZANSHIN-NA MIX),Chotto kiitena (ZANSHIN-NA MIX),Laugh & Peace,Laugh and Peace,DRUM'N'BASS
+
+1201,Be in my paradise,,JJ COMPANY,,SOUL CLASSIC BALLAD
+1202,been so long,,m-flo,m flo,JAPANESE HIP HOP
+1203,Beginning of life,,QUADRA,,AMBIENT
+1204,celebrate,,JJ COMPANY,,SOUL CLASSIC
+1205,Deep Clear Eyes,,QUADRA,,AMBIENT
+1018,diving money,,QUADRA,,DRUM'N'BASS
+1206,Do you love me?,,reo-nagumo,reo nagumo,BALLAD
+1010,Dr.LOVE,,baby weapon feat.Asuka.M,,DANCE POP
+1207,e-motion,,e.o.s,eos,RAVE
+1208,g.m.d.,gmd,DJ mazinger feat. Muhammad,,HIP HOP
+1006,GAMBOL,,SLAKE,,BIG BEAT
+1001,GRADIUSIC CYBER,,TAKA,,DIGI-ROCK
+1209,into the world,,QUADRA,,WORLD GROOVE
+1210,jam jam reggae,,jammaster'73,jammaster 73,REGGAE
+1211,LOVE SO GROOOVY,,LOVEMINTS,,SOUL
+1011,LUV TO ME (disco mix),,tiger YAMATO,,EURO BEAT
+1012,Melt in my arms,,Honey P feat.Asuka.M,Honey P feat Asuka M,DANCE POP
+1212,OVERDOSER,,MIRAK,,TECHNO
+1213,patsenner,,dj nagureo,,AMBIENT TECHNO
+1214,perfect free,,nite system,,HOUSE
+1002,Prince on a star,,SPIRITUAL RIDE,,ALTERNATIVE ROCK
+1215,Queen's Jamaica (astria mix),Queens Jamaica (astria mix),Crunky Boy featuring Muhammad,,REGGAE
+1003,R3,,tiger YAMATO,,RAVE
+1216,Salamander Beat Crush mix,,NITE SYSTEM,,KONAMIX
+1217,Ska a go go,,THE BALD HEADS,,SKA
+1016,Special energy,,DJ FX,,TRANCE TECHNO
+1218,The Rhyme Brokers,,m-flo,m flo,HIP HOP
+1219,Theme from "flo-jack",Theme from flo jack,m-flo,m flo,HIPHOP
+1220,YOU MAKE ME,,Monday Michiru,,JAZZ HOUSE
+1009,22DUNK,,SLAKE,,TECHNO
+1000,5.1.1.,511,dj nagureo,,PIANO AMBIENT

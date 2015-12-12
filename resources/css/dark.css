@@ -1,0 +1,74 @@
+.root {
+    -fx-base: rgb(50, 50, 50);
+    -fx-background: -fx-base;
+    -fx-background-color: -fx-background;
+    -fx-control-inner-background: derive(-fx-base, +5%);
+    -fx-control-inner-background-alt: derive(-fx-base, -5%);
+
+    -fx-accent: rgb(204,132,0);
+    -fx-focus-color: rgb(255, 165, 0);
+    -fx-faint-focus-color: rgba(255, 165, 0, 0.075);
+
+    -fx-selection-bar: -fx-accent;
+    -fx-selection-bar-non-focused: derive(-fx-base, +30%);
+    -fx-light-text-color: rgb(220,220,220);
+
+    -fx-font-family: "Verdana";
+}
+
+.scroll-pane {
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+    -fx-focus-color: rgba(0,0,0,0.6);
+    -fx-faint-focus-color: transparent;
+}
+
+.scroll-pane .text-field {
+    -fx-focus-color: rgb(255, 165, 0);
+    -fx-faint-focus-color: rgba(255, 165, 0, 0.075);
+}
+
+.scroll-pane .check-box {
+    -fx-focus-color: rgb(255, 165, 0);
+    -fx-faint-focus-color: rgba(255, 165, 0, 0.075);
+}
+
+.scroll-pane .button {
+    -fx-focus-color: rgb(255, 165, 0);
+    -fx-faint-focus-color: rgba(255, 165, 0, 0.075);
+}
+
+.context-menu {
+    -fx-base: rgb(70,70,70);
+}
+
+.context-menu .separator {
+    -fx-base: rgba(255,255,255,0.15);
+    -fx-padding: 0px 3px 0px 3px;
+}
+
+.table-view {
+    -fx-table-cell-border-color: derive(-fx-base,+15%);
+}
+
+.table-row-cell:empty {
+    -fx-table-cell-border-color: transparent;
+    -fx-background: derive(-fx-base, +5%);
+}
+
+.text-field {
+    -fx-control-inner-background: derive(-fx-base, +10%);
+    -fx-prompt-text-fill: derive(-fx-base, +40%);
+}
+
+.check-box {
+    -fx-base: rgb(80,80,80);
+}
+
+.check-box .dot {
+    -fx-mark-color: white;
+}
+
+.combo-box {
+    -fx-control-inner-background: derive(-fx-base, +10%);
+}
