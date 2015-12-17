@@ -18,11 +18,11 @@ public class Main extends Application {
     public static final long startuptime = System.currentTimeMillis();
 
     public static final String PROGRAMNAME = "IIDX-FX";
-    public static final String PROGRAMVERSION = "1.1";
-    public static final String PROGRAMDATE = "2015-12-12";
+    public static final String PROGRAMVERSION = "1.1.1";
+    public static final String PROGRAMDATE = "2015-12-17";
 
-    private static final String WINDIR = System.getProperty("user.home") + "\\AppData\\Roaming\\" + PROGRAMNAME;
-    private static final String LINUXDIR = System.getProperty("user.home") + "/." + PROGRAMNAME;
+    public static final String WINDIR = System.getProperty("user.home") + "\\AppData\\Roaming\\" + PROGRAMNAME;
+    public static final String LINUXDIR = System.getProperty("user.home") + "/." + PROGRAMNAME;
 
     private static final String SCOREFILENAME = "scores.txt";
     private static final String PROPERTYFILENAME = "set.properties";
@@ -44,6 +44,7 @@ public class Main extends Application {
     public static final String PROPERTYNAMECLEARCOL = "clearcolumn_visible";
     public static final String PROPERTYNAMEGRADECOL = "gradecolumn_visible";
     public static final String PROPERTYNAMEMISSCOL = "misscolumn_visible";
+    public static final String PROPERTYNAMEPERCENTCOL = "percentcolumn_visible";
 
     public static String programTheme;
     public static final String THEMELIGHT = "light";
@@ -72,7 +73,7 @@ public class Main extends Application {
         primaryStage.setTitle(PROGRAMNAME);
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
-        primaryStage.setWidth(1286);
+        primaryStage.setWidth(1345);
         primaryStage.setHeight(720);
         primaryStage.show();
         System.out.println("\n" + getTime() + " Application loaded (took " + (System.currentTimeMillis() - Main.startuptime) + "ms)\n");
@@ -82,7 +83,7 @@ public class Main extends Application {
         launch(args);
     }
 
-    private String getTime() {
+    public static String getTime() {
         Date date = new Date(System.currentTimeMillis());
         DateFormat formatter = new SimpleDateFormat("HH:mm:ss:SSS");
         return formatter.format(date);
@@ -186,6 +187,7 @@ public class Main extends Application {
                 properties.setProperty(PROPERTYNAMECLEARCOL, String.valueOf(columnVisibility[11]));
                 properties.setProperty(PROPERTYNAMEGRADECOL, String.valueOf(columnVisibility[12]));
                 properties.setProperty(PROPERTYNAMEMISSCOL, String.valueOf(columnVisibility[13]));
+                properties.setProperty(PROPERTYNAMEPERCENTCOL, String.valueOf(columnVisibility[14]));
                 properties.store(fileOutputStream, null);
                 fileOutputStream.close();
             } catch (IOException e) {

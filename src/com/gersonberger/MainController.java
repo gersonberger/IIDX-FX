@@ -28,8 +28,6 @@ import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.io.*;
 import java.net.URL;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.List;
 
@@ -67,6 +65,8 @@ public class MainController implements Initializable {
     private TableColumn<SongEntry, String> gradeColumn;
     @FXML
     private TableColumn<SongEntry, String> missColumn;
+    @FXML
+    private TableColumn<SongEntry, String> percentColumn;
 
     /***** STYLE BUTTONS *****/
     @FXML
@@ -240,11 +240,11 @@ public class MainController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        System.out.println("\n" + getTime() + " OS: " + System.getProperty("os.name") + "\n" + getTime() +
-                " VER: " + System.getProperty("os.version") + "\n" + getTime() + " ARC: " +
-                System.getProperty("os.arch") + "\n" + getTime() + " USR: " + System.getProperty("user.name") + "\n" +
-                getTime() + " HOM: " + System.getProperty("user.home") + "\n" + getTime() + " SEP: " +
-                System.getProperty("file.separator") + "\n" + getTime() + " JAV: " +
+        System.out.println("\n" + Main.getTime() + " OS: " + System.getProperty("os.name") + "\n" + Main.getTime() +
+                " VER: " + System.getProperty("os.version") + "\n" + Main.getTime() + " ARC: " +
+                System.getProperty("os.arch") + "\n" + Main.getTime() + " USR: " + System.getProperty("user.name") +
+                "\n" + Main.getTime() + " HOM: " + System.getProperty("user.home") + "\n" + Main.getTime() + " SEP: " +
+                System.getProperty("file.separator") + "\n" + Main.getTime() + " JAV: " +
                 System.getProperty("java.version") + "\n");
 
         filterField.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -409,6 +409,8 @@ public class MainController implements Initializable {
 
     private Comparator<String> getGradeComparator() {
         return (o1, o2) -> {
+            if (o1.equals(Grade.NONE)) return gradeColumn.getSortType() == TableColumn.SortType.ASCENDING ? 1 : -1;
+            if (o2.equals(Grade.NONE)) return gradeColumn.getSortType() == TableColumn.SortType.ASCENDING ? -1 : 1;
             if (!o1.equals(o2)) return Grade.gradeToInt(o1) > Grade.gradeToInt(o2) ? 1 : -1;
             return 0;
         };
@@ -416,9 +418,25 @@ public class MainController implements Initializable {
 
     private Comparator<String> getMissComparator() {
         return (o1, o2) -> {
+            if (o1.equals("")) return missColumn.getSortType() == TableColumn.SortType.ASCENDING ? 1 : -1;
+            if (o2.equals("")) return missColumn.getSortType() == TableColumn.SortType.ASCENDING ? -1 : 1;
             int i1 = o1.equals("") ? -2 : o1.equals("N/A") ? -1 : Integer.valueOf(o1);
             int i2 = o2.equals("") ? -2 : o2.equals("N/A") ? -1 : Integer.valueOf(o2);
             return i1 > i2 ? 1 : i1 < i2 ? -1 : 0;
+        };
+    }
+
+    private Comparator<String> getPercentComparator() {
+        return (o1, o2) -> {
+            if (o1 == null) return percentColumn.getSortType() == TableColumn.SortType.ASCENDING ? 1 : -1;
+            if (o2 == null) return percentColumn.getSortType() == TableColumn.SortType.ASCENDING ? -1 : 1;
+            for (int i = 0; i < Math.min(o1.length()-1, o2.length()-1); i++) {
+                if (o1.charAt(i) == '.' || o2.charAt(i) == '.') continue;
+                int i1 = Integer.parseInt(o1.substring(i, i+1));
+                int i2 = Integer.parseInt(o2.substring(i, i+1));
+                if (i1 != i2) return i1 > i2 ? 1 : -1;
+            }
+            return o1.length() > o2.length() ? 1 : o1.length() < o2.length() ? -1 : 0;
         };
     }
 
@@ -437,7 +455,7 @@ public class MainController implements Initializable {
         styleColumn.setVisible(Boolean.valueOf(properties.getProperty(Main.PROPERTYNAMESTYLECOL, "true")));
         titleColumn.setVisible(Boolean.valueOf(properties.getProperty(Main.PROPERTYNAMETITLECOL, "true")));
         artistColumn.setVisible(Boolean.valueOf(properties.getProperty(Main.PROPERTYNAMEARTISTCOL, "true")));
-        genreColumn.setVisible(Boolean.valueOf(properties.getProperty(Main.PROPERTYNAMEGENRECOL, "true")));
+        genreColumn.setVisible(Boolean.valueOf(properties.getProperty(Main.PROPERTYNAMEGENRECOL, "false")));
         difficultyColumn.setVisible(Boolean.valueOf(properties.getProperty(Main.PROPERTYNAMEDIFFICULTYCOL, "true")));
         levelColumn.setVisible(Boolean.valueOf(properties.getProperty(Main.PROPERTYNAMELEVELCOL, "true")));
         ratingNColumn.setVisible(Boolean.valueOf(properties.getProperty(Main.PROPERTYNAMERATINGNCOL, "true")));
@@ -448,6 +466,7 @@ public class MainController implements Initializable {
         clearColumn.setVisible(Boolean.valueOf(properties.getProperty(Main.PROPERTYNAMECLEARCOL, "false")));
         gradeColumn.setVisible(Boolean.valueOf(properties.getProperty(Main.PROPERTYNAMEGRADECOL, "false")));
         missColumn.setVisible(Boolean.valueOf(properties.getProperty(Main.PROPERTYNAMEMISSCOL, "false")));
+        percentColumn.setVisible(Boolean.valueOf(properties.getProperty(Main.PROPERTYNAMEPERCENTCOL, "false")));
 
         //contextmenu
         tableView.setRowFactory(param -> {
@@ -482,6 +501,7 @@ public class MainController implements Initializable {
         clearColumn.setCellValueFactory(new PropertyValueFactory<>("Clear"));
         gradeColumn.setCellValueFactory(new PropertyValueFactory<>("Grade"));
         missColumn.setCellValueFactory(new PropertyValueFactory<>("Miss"));
+        percentColumn.setCellValueFactory(new PropertyValueFactory<>("Percent"));
 
         //clear theming via css/clear.css if selected in settings
         clearColumn.setCellFactory(new Callback<TableColumn<SongEntry, String>, TableCell<SongEntry, String>>() {
@@ -535,6 +555,7 @@ public class MainController implements Initializable {
         clearColumn.setComparator(getClearComparator());
         gradeColumn.setComparator(getGradeComparator());
         missColumn.setComparator(getMissComparator());
+        percentColumn.setComparator(getPercentComparator());
     }
 
     private void setTableViewData(final ObservableList<SongEntry> masterData) {
@@ -658,14 +679,17 @@ public class MainController implements Initializable {
                     bufferedReader = new BufferedReader(scoreInputStreamReader);
                     line = bufferedReader.readLine();
                     clearList = new String[22200][3][4];
+                    int dif_int;
                     while (line != null) {
                         if (!line.startsWith("//") && !line.isEmpty() && !line.equals("")) {
                             data = line.split(",");
                             id = Integer.parseInt(data[0]); //id
-                            clearList[id][Integer.parseInt(data[1]) - 1][0] = data[2]; //clear
-                            clearList[id][Integer.parseInt(data[1]) - 1][1] = data[3]; //miss
-                            clearList[id][Integer.parseInt(data[1]) - 1][2] = data[4]; //grade
-                            clearList[id][Integer.parseInt(data[1]) - 1][3] = data[5]; //percent
+                            dif_int = Integer.parseInt(data[1]) - 1;
+                            if (dif_int > 2) dif_int = 2;
+                            clearList[id][dif_int][0] = data[2]; //clear
+                            clearList[id][dif_int][1] = data[3]; //miss
+                            clearList[id][dif_int][2] = data[4]; //grade
+                            clearList[id][dif_int][3] = data[5]; //percent
                         }
                         line = bufferedReader.readLine();
                     }
@@ -673,7 +697,7 @@ public class MainController implements Initializable {
 
                 bufferedReader = new BufferedReader(new InputStreamReader(chartInputStream, "UTF-8"));
                 line = bufferedReader.readLine();
-                String title, title_r, artist, artist_r, genre, difficulty, grade;
+                String title, title_r, artist, artist_r, genre, difficulty, grade, percent;
                 int style, difficulty_int, level, nRating, hRating, bpmMin, bpmMax, length, notes, clear, miss;
                 while (line != null) {
                     if (!line.startsWith("//") && !line.isEmpty() && !line.equals("")) {
@@ -706,29 +730,33 @@ public class MainController implements Initializable {
                                 clear = Integer.parseInt(clearList[id][difficulty_int - 1][0]);
                                 grade = clearList[id][difficulty_int - 1][2];
                                 miss = Integer.parseInt(clearList[id][difficulty_int - 1][1]);
+                                percent = clearList[id][difficulty_int - 1][3];
+//                                if (percentage.split(".")[1].length() == 1) percentage += "0";
                             } else {
                                 clear = 0;
                                 grade = "";
                                 miss = -2;
+                                percent = "";
                             }
                         } else {
                             clear = 0;
                             grade = "";
                             miss = -2;
+                            percent = "";
                         }
                         entries.add(new SongEntry(style, title, title_r, artist, artist_r, genre, difficulty, level,
-                                nRating, hRating, bpmMin, bpmMax, length, notes, clear, grade, miss));
+                                nRating, hRating, bpmMin, bpmMax, length, notes, clear, grade, miss, percent));
                     }
                     line = bufferedReader.readLine();
                 }
-                System.out.println(getTime() + " created " + entries.size() + " entries");
+                System.out.println(Main.getTime() + " created " + entries.size() + " entries");
                 masterData.addAll(entries);
-                System.out.println(getTime() + " added entries to masterdata");
+                System.out.println(Main.getTime() + " added entries to masterdata");
                 initColumns();
                 setTableViewData(masterData);
             } catch (IOException e) {
                 e.printStackTrace();
-                System.err.println(getTime() + " INIT FAILED");
+                System.err.println(Main.getTime() + " INIT FAILED");
                 System.exit(-1);
             }
         }
@@ -742,7 +770,7 @@ public class MainController implements Initializable {
                 songID == 21243 || songID == 21262 || songID == 21239) return Style.EMPRESSINT;
         else if (songID == 21223 || songID == 21235 || songID == 21225 || songID == 21232 || songID == 21261 ||
                 songID == 21231 || songID == 21234 || songID == 21228 || songID == 21263 || songID == 21226 ||
-                songID == 21233 || songID == 21229 || songID == 21237 || songID == 21236) return Style.DJTROOPERSINT;
+                songID == 21233 || songID == 21229 || songID == 21237 || songID == 21236 || songID == 21224) return Style.DJTROOPERSINT;
         else if (songID == 21221 || songID == 21222 || songID == 21220 || songID == 21264) return Style.GOLDINT;
         else if (songID == 21216 || songID == 21201 || songID == 21219 || songID == 21218 || songID == 21217) return Style.HAPPYSKYINT;
         else if (songID == 21214 || songID == 21215) return Style.IIDXREDINT;
@@ -767,12 +795,6 @@ public class MainController implements Initializable {
             mainBox.getChildren().add(1, settingsBox);
             settingsVisible = true;
         }
-    }
-
-    private String getTime() {
-        Date date = new Date(System.currentTimeMillis());
-        DateFormat formatter = new SimpleDateFormat("HH:mm:ss:SSS");
-        return formatter.format(date);
     }
 
 
@@ -1376,7 +1398,8 @@ public class MainController implements Initializable {
         boolean[] columnVisibility = {styleColumn.isVisible(), titleColumn.isVisible(), artistColumn.isVisible(),
                 genreColumn.isVisible(), difficultyColumn.isVisible(), levelColumn.isVisible(),
                 ratingNColumn.isVisible(), ratingHColumn.isVisible(), bpmColumn.isVisible(), lengthColumn.isVisible(),
-                notesColumn.isVisible(), clearColumn.isVisible(), gradeColumn.isVisible(), missColumn.isVisible()};
+                notesColumn.isVisible(), clearColumn.isVisible(), gradeColumn.isVisible(), missColumn.isVisible(),
+                percentColumn.isVisible()};
         Main.setProperties(columnVisibility);
     }
 
@@ -1397,10 +1420,12 @@ public class MainController implements Initializable {
             dialogStage.showAndWait();
             if (controller.getStatus() == ImportController.SUCCESS) {
                 Main.findScoreFile();
-                boolean[] columnVisibility = {styleColumn.isVisible(), titleColumn.isVisible(), artistColumn.isVisible(),
+                boolean[] columnVisibility = {styleColumn.isVisible(), titleColumn.isVisible(),
+                        artistColumn.isVisible(),
                         genreColumn.isVisible(), difficultyColumn.isVisible(), levelColumn.isVisible(),
-                        ratingNColumn.isVisible(), ratingHColumn.isVisible(), bpmColumn.isVisible(), lengthColumn.isVisible(),
-                        notesColumn.isVisible(), clearColumn.isVisible(), gradeColumn.isVisible(), missColumn.isVisible()};
+                        ratingNColumn.isVisible(), ratingHColumn.isVisible(), bpmColumn.isVisible(),
+                        lengthColumn.isVisible(), notesColumn.isVisible(), clearColumn.isVisible(),
+                        gradeColumn.isVisible(), missColumn.isVisible(), percentColumn.isVisible()};
                 Main.setProperties(columnVisibility);
                 onStartTableView();
                 clearColumn.setVisible(true);

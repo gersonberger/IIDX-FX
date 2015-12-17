@@ -26,9 +26,10 @@ public class SongEntry {
     private final StringProperty clear = new SimpleStringProperty(this, "Clear");
     private final StringProperty grade = new SimpleStringProperty(this, "Grade");
     private final StringProperty miss = new SimpleStringProperty(this, "Miss");
+    private final StringProperty percent = new SimpleStringProperty(this, "Percent");
 
     public SongEntry(int style, String title, String title_r, String artist, String artist_r, String genre, String difficulty,
-                     int level, int nRating, int hRating, int bpmMin, int bpmMax, int length, int notes, int clear, String grade, int miss){
+                     int level, int nRating, int hRating, int bpmMin, int bpmMax, int length, int notes, int clear, String grade, int miss, String percent){
         if (title.contains("[COMMA]")) title = title.replace("[COMMA]", ",");
         if (artist.contains("[COMMA]")) artist = artist.replace("[COMMA]", ",");
         this.style.set(Style.styleToString(style));
@@ -50,6 +51,7 @@ public class SongEntry {
         this.clear.set(Clear.clearToString(clear));
         this.grade.set(grade);
         this.miss.set(miss == -2 ? "" : miss == -1 ? "N/A" : String.valueOf(miss));
+        if (!percent.equals("")) this.percent.set(percent + "%");
     }
 
     private String formatLength(int length){
@@ -285,5 +287,17 @@ public class SongEntry {
 
     public void setMiss(String miss) {
         this.miss.set(miss);
+    }
+
+    public String getPercent() {
+        return percent.get();
+    }
+
+    public StringProperty percentProperty() {
+        return percent;
+    }
+
+    public void setPercent(String percent) {
+        this.percent.set(percent);
     }
 }

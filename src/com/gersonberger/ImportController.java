@@ -9,6 +9,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import org.apache.http.ConnectionClosedException;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -34,19 +35,31 @@ import java.util.*;
 
 public class ImportController implements Initializable {
 
+    private static final int NOPROFILE = -21;
+    private static final int CHUNKERROR = -20;
     public static final int ERROR = -1;
     public static final int ABORTED = 0;
     public static final int SUCCESS = 1;
+
+    private static final String VER0 = "Omnimix";
+    private static final String VER22 = "beatmania IIDX 22 Pendual";
+    private static final String VER21 = "beatmania IIDX 21 Spada";
+    private static final String VER20 = "beatmania IIDX 20 Tricoro";
+    private static final String VER19 = "beatmania IIDX 19 Lincle";
+    private static final String[] VERSIONS = {VER0, VER22, VER21, VER20, VER19};
 
     private static final String PSUNLOGIN = "HIDDEN";
     private static final String PSUNHOME = "HIDDEN";
     private static final String PSUNR1 = "HIDDEN";
     private static final String PSUNR2 = "HIDDEN";
+    private static final String PSUNR3 = "HIDDEN";
 
     @FXML
     private TextField usernameField;
     @FXML
     private PasswordField passwordField;
+    @FXML
+    private ComboBox<String> versionBox;
     @FXML
     private Label infoLabel;
     @FXML
@@ -63,9 +76,16 @@ public class ImportController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        Platform.runLater(() -> passwordField.setOnKeyPressed(event -> {
-            if (event.getCode().equals(KeyCode.ENTER)) handleImport();
-        }));
+        versionBox.getItems().addAll(VERSIONS);
+        versionBox.setValue(VER0);
+        Platform.runLater(() -> {
+            passwordField.setOnKeyPressed(event -> {
+                if (event.getCode().equals(KeyCode.ENTER)) handleImport();
+            });
+            versionBox.setOnKeyPressed(event -> {
+                if (event.getCode().equals(KeyCode.ENTER)) handleImport();
+            });
+        });
     }
 
     public void setDialogStage(Stage dialogStage) {
@@ -73,6 +93,24 @@ public class ImportController implements Initializable {
         if (Main.programTheme.equals(Main.THEMEDARK)) {
             dialogStage.getScene().getStylesheets().add(getClass().getResource("/css/dark.css").toExternalForm());
         }
+    }
+
+    private int versionToInt(String version) {
+        if (version != null) {
+            switch (version) {
+                case VER22:
+                    return 22;
+                case VER21:
+                    return 21;
+                case VER20:
+                    return 20;
+                case VER19:
+                return 19;
+                default:
+                    return 0;
+            }
+        }
+        return 0;
     }
 
     public int getStatus() {
@@ -99,14 +137,22 @@ public class ImportController implements Initializable {
                                 //convert data
                                 List<ScoreEntry> scoreEntryList = readscores(data);
 
-                                //save data to file
-                                saveScoresToFile(scoreEntryList);
+                                if (status != NOPROFILE) {
+                                    //save data to file
+                                    saveScoresToFile(scoreEntryList);
 
-                                fetchingSuccess();
-                                status = SUCCESS;
+                                    //done
+                                    fetchingSuccess();
+                                    status = SUCCESS;
+
+                                } else {
+                                    status = ERROR;
+                                    Thread.sleep(500);
+                                    noProfile();
+                                }
                             } else {
+                                if (status != CHUNKERROR) fetchingFailed();
                                 status = ERROR;
-                                fetchingFailed();
                             }
                         } else {
                             status = ERROR;
@@ -126,8 +172,10 @@ public class ImportController implements Initializable {
 
     private void loginStart() {
         Platform.runLater(() -> {
+            System.out.print(getTime() + " Beginning import...");
             usernameField.setDisable(true);
             passwordField.setDisable(true);
+            versionBox.setDisable(true);
             importButton.setDisable(true);
             infoLabel.setTextFill(Objects.equals(Main.programTheme, Main.THEMELIGHT) ? Color.BLACK : Color.WHITE);
             infoLabel.setText("Logging in...");
@@ -146,6 +194,7 @@ public class ImportController implements Initializable {
 
     private void loginFailed() {
         Platform.runLater(() -> {
+            System.out.print(getTime() + " Login failed!");
             infoLabel.setTextFill(Color.RED);
             infoLabel.setText("Login failed!");
             FadeTransition transition = new FadeTransition(Duration.millis(200), progressIndicator);
@@ -154,6 +203,7 @@ public class ImportController implements Initializable {
             transition.setOnFinished(event -> Platform.runLater(() -> {
                 usernameField.setDisable(false);
                 passwordField.setDisable(false);
+                versionBox.setDisable(false);
                 importButton.setDisable(false);
             }));
             new Thread(transition::play).start();
@@ -177,8 +227,27 @@ public class ImportController implements Initializable {
         });
     }
 
+    private void noProfile() {
+        Platform.runLater(() -> {
+            System.out.print(getTime() + " No profile found!");
+            infoLabel.setTextFill(Color.RED);
+            infoLabel.setText("No profile found!");
+            FadeTransition transition = new FadeTransition(Duration.millis(200), progressIndicator);
+            transition.setFromValue(1);
+            transition.setToValue(0);
+            transition.setOnFinished(event -> Platform.runLater(() -> {
+                usernameField.setDisable(false);
+                passwordField.setDisable(false);
+                versionBox.setDisable(false);
+                importButton.setDisable(false);
+            }));
+            new Thread(transition::play).start();
+        });
+    }
+
     private void fetchingFailed() {
         Platform.runLater(() -> {
+            System.out.println(getTime() + " Data download failed!");
             infoLabel.setTextFill(Color.RED);
             infoLabel.setText("Data download failed!");
             FadeTransition transition = new FadeTransition(Duration.millis(200), progressIndicator);
@@ -187,6 +256,7 @@ public class ImportController implements Initializable {
             transition.setOnFinished(event -> Platform.runLater(() -> {
                 usernameField.setDisable(false);
                 passwordField.setDisable(false);
+                versionBox.setDisable(false);
                 importButton.setDisable(false);
             }));
             new Thread(transition::play).start();
@@ -195,6 +265,7 @@ public class ImportController implements Initializable {
 
     private void idFailed() {
         Platform.runLater(() -> {
+            System.out.print(getTime() + " Retrieving player-ID failed!");
             infoLabel.setTextFill(Color.RED);
             infoLabel.setText("Retrieving player-ID failed!");
             FadeTransition transition = new FadeTransition(Duration.millis(200), progressIndicator);
@@ -203,6 +274,26 @@ public class ImportController implements Initializable {
             transition.setOnFinished(event -> Platform.runLater(() -> {
                 usernameField.setDisable(false);
                 passwordField.setDisable(false);
+                versionBox.setDisable(false);
+                importButton.setDisable(false);
+            }));
+            new Thread(transition::play).start();
+        });
+    }
+
+    private void profileError() {
+        status = CHUNKERROR;
+        Platform.runLater(() -> {
+            System.out.print(getTime() + " Invalid Psun profile! (incomplete chunk encoding)");
+            infoLabel.setTextFill(Color.RED);
+            infoLabel.setText("Invalid psun records page!");
+            FadeTransition transition = new FadeTransition(Duration.millis(200), progressIndicator);
+            transition.setFromValue(1);
+            transition.setToValue(0);
+            transition.setOnFinished(event -> Platform.runLater(() -> {
+                usernameField.setDisable(false);
+                passwordField.setDisable(false);
+                versionBox.setDisable(false);
                 importButton.setDisable(false);
             }));
             new Thread(transition::play).start();
@@ -328,7 +419,7 @@ public class ImportController implements Initializable {
 
     private String psunGetScoreData(String userID) {
         if (userID == null) return null;
-        HttpGet httpget = new HttpGet(PSUNR1 + userID + PSUNR2);
+        HttpGet httpget = new HttpGet(PSUNR1 + versionToInt(versionBox.getValue()) + PSUNR2 + userID + PSUNR3);
         System.out.println(getTime() + " Downloading data...");
         try (CloseableHttpResponse response = httpclient.execute(httpget)) {
             HttpEntity entity = response.getEntity();
@@ -336,6 +427,9 @@ public class ImportController implements Initializable {
             String data = EntityUtils.toString(entity);
             EntityUtils.consume(entity);
             return data;
+        } catch (ConnectionClosedException e) {
+            e.printStackTrace();
+            profileError();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -343,54 +437,67 @@ public class ImportController implements Initializable {
     }
 
     private List<ScoreEntry> readscores(String psundata) {
+        final int version = versionToInt(versionBox.getValue());
+        final int offset = version == 0 ? 0 : 1;
         List<ScoreEntry> scoreList = new ArrayList<>();
-        psundata.substring(psundata.indexOf("<table class=\"grid\">"));
-        String songid = null;
-        String diff = null;
-        String clear = null;
-        String miss;
-        String percent = null;
-        for (String line : psundata.split("\n")) {
-            if (line.contains("<div>Failed</div>") ||
-                    line.contains("<div>Assist Clear</div>") ||
-                    line.contains("<div>Easy Clear</div>") ||
-                    line.contains("<div>Clear</div>") ||
-                    line.contains("<div>Hard Clear</div>") ||
-                    line.contains("<div>Ex Hard Clear</div>") ||
-                    line.contains("<div>Full Combo</div>")) {
-                clear = line.trim().substring(5, line.trim().indexOf("</div>"));
-            }
-            if (line.contains("<a class=\"\" href=\"/iidx/0/music/")) {
-                songid = line.trim().substring(32, 37);
-                if (songid.charAt(4) == '/') songid = songid.substring(0,4);
-                switch (line.trim().substring(33 + songid.length(), 34 + songid.length())) {
-                    case "n":
-                        diff = Difficulty.NORMAL;
-                        break;
-                    case "h":
-                        diff = Difficulty.HYPER;
-                        break;
-                    case "a":
-                        diff = Difficulty.ANOTHER;
-                        break;
-                }
-            }
-            if (line.contains("[")) {
-                percent = line.trim().substring(1,6);
-                if (percent.charAt(4) == '%') {
-                    percent = percent.substring(0,4);
-                }
-            }
-            if (line.contains("Misses</div>")) {
-                miss = line.trim().substring(5, line.trim().indexOf("</div>"));
-                scoreList.add(createScoreEntry(songid, diff, clear, miss, percent));
-                clear = null;
-            }
+        if (psundata.contains("<div class=\"ypanel\">You do not have a profile for this game version. Please \n" +
+                "choose a different  version from the dropdown above.</div>")) {
+            status = NOPROFILE;
+            return null;
         }
-        return scoreList;
+        else {
+            String songid = null;
+            String diff = null;
+            String clear = null;
+            String miss;
+            String percent = null;
+            for (String line : psundata.split("\n")) {
+                if (line.contains("<div>Failed</div>") ||
+                        line.contains("<div>Assist Clear</div>") ||
+                        line.contains("<div>Easy Clear</div>") ||
+                        line.contains("<div>Clear</div>") ||
+                        line.contains("<div>Hard Clear</div>") ||
+                        line.contains("<div>Ex Hard Clear</div>") ||
+                        line.contains("<div>Full Combo</div>")) {
+                    clear = line.trim().substring(5, line.trim().indexOf("</div>"));
+                }
+                else if (line.contains("<a class=\"\" href=\"/iidx/" + version + "/music/")) {
+                    songid = line.trim().substring(32 + offset, 37 + offset);
+                    if (songid.charAt(4) == '/') songid = songid.substring(0,4);
+                    switch (line.trim().substring(33 + songid.length() + offset, 34 + songid.length() + offset)) {
+                        case "n":
+                            diff = Difficulty.NORMAL;
+                            break;
+                        case "h":
+                            diff = Difficulty.HYPER;
+                            break;
+                        case "a":
+                            diff = Difficulty.ANOTHER;
+                            break;
+                    }
+                }
+                else if (line.contains("[")) {
+                    percent = line.trim().substring(1,6);
+                    if (percent.charAt(4) == '%') {
+                        percent = percent.substring(0,4);
+                    }
+                }
+                else if (line.contains("Misses</div>")) {
+                    miss = line.trim().substring(5, line.trim().indexOf("</div>"));
+                    if (clear == null) clear = Clear.NOPLAY;
+                    scoreList.add(createScoreEntry(songid, diff, clear, miss, percent));
+                    clear = null;
+                }
+            }
+            return scoreList;
+        }
     }
 
     private ScoreEntry createScoreEntry(String songidstr, String diffstr, String clearstr, String missstr, String percentstr) {
+        if (songidstr == null || diffstr == null || clearstr == null || missstr == null || percentstr == null) {
+            System.out.println("id: " + songidstr + " | diff: " + diffstr + " | clear: " + clearstr + " | miss: " + missstr + " | percent: " + percentstr);
+            return null;
+        }
         if (clearstr == null) clearstr = Clear.NOPLAY;
         int songid = Integer.parseInt(songidstr);
         int diff = Difficulty.difficultyToInt(diffstr);
@@ -446,10 +553,10 @@ public class ImportController implements Initializable {
         String path = null;
         switch (Main.os) {
             case Main.WINDOWS:
-                path = System.getProperty("user.home") + "\\AppData\\Roaming\\IIDX-FX\\scores.txt";
+                path = Main.WINDIR + "\\scores.txt";
                 break;
             case Main.LINUX:
-                path = System.getProperty("user.home") + "/.IIDX-FX/scores.txt";
+                path = Main.LINUXDIR + "/scores.txt";
                 break;
         }
         if (path != null) {
@@ -457,7 +564,9 @@ public class ImportController implements Initializable {
             try {
                 PrintWriter printWriter = new PrintWriter(file.getPath());
                 for (ScoreEntry entry : scoreEntryList) {
-                    printWriter.println(entry.songid + "," + entry.diff + "," + entry.clearstatus + "," + entry.miss + "," + entry.grade + "," + entry.percent);
+                    if (entry != null) {
+                        printWriter.println(entry.songid + "," + entry.diff + "," + entry.clearstatus + "," + entry.miss + "," + entry.grade + "," + entry.percent);
+                    }
                 }
                 printWriter.close();
             } catch (FileNotFoundException e) {

@@ -3,7 +3,7 @@
 //  )(  )(  ) D ( )  ((___)) _)  )  (
 // (__)(__)(____/(_/\_)   (__)  (_/\_)
 //
-// official ID list version 1.1
+// official ID list version 1.1.1
 //
 //
 22014,AFRO KNUCKLE,,猫叉Master+,Nekomata Master+,AFRO-SAMBA
@@ -521,11 +521,11 @@
 17017,ワルツ第17番 ト短調"大犬のワルツ",Waltz dai 17 ban totanchou "Ooinu no waltz",virkato,,VALSE
 
 16029,ALL I NEED YOUR LOVE,,GUHROOVY fw. M-Project,,HARDCORE
-16244,ALL MY TURN -このターンに、オレの全てを賭ける-,ALL MY TURN -kono turn ni ore no subete wo kakeru-,SUPER STAR 満-MITSURU-,,ONLY ONE EURO BEAT
+16017,ALL MY TURN -このターンに、オレの全てを賭ける-,ALL MY TURN -kono turn ni ore no subete wo kakeru-,SUPER STAR 満-MITSURU-,,ONLY ONE EURO BEAT
 21244,ALL MY TURN -このターンに、オレの全てを賭ける-,ALL MY TURN -kono turn ni ore no subete wo kakeru-,SUPER STAR 満-MITSURU-,,ONLY ONE EURO BEAT
-16241,Arabian Rave Night,,dj MAX STEROID,,ARABIC HARDCORE
+16011,Arabian Rave Night,,dj MAX STEROID,,ARABIC HARDCORE
 21241,Arabian Rave Night,,dj MAX STEROID,,ARABIC HARDCORE
-16240,B4U (BEMANI FOR YOU MIX),,Remixed by DJ YOSHITAKA with Michael a la mode,,RECKLESS RAVE
+16002,B4U (BEMANI FOR YOU MIX),,Remixed by DJ YOSHITAKA with Michael a la mode,,RECKLESS RAVE
 21240,B4U (BEMANI FOR YOU MIX),,Remixed by DJ YOSHITAKA with Michael a la mode,,RECKLESS RAVE
 16201,Back Into The Light -Feelings Won't Fade Vocal Mix-,,Sota Fujimori,,TRANCE
 16042,Bahram Attack -猫叉Master Remix-,Bahram Attack -Nekomata Master Remix-,猫叉Master feat. JUNE,Nekomata Master feat. JUNE,HOUSE
@@ -547,23 +547,23 @@
 16046,HOUSE NATION,,ravex,,HOUSE
 16008,HYPERION,,L.E.D.,Led,MORNING FULL ON
 16035,I'm Screaming LOVE,,Creative Life,,TECHNO POP
-16260,Jack,,DesQ,,MIXTURE
+16049,Jack,,DesQ,,MIXTURE
 21260,Jack,,DesQ,,MIXTURE
 16007,JEWELLERY STORM,,L.E.D.-G fw. Eriko Tanzawa,LED-G fw Eriko Tanzawa,HARDCORE
 16053,Just a Little Smile,,Sota Fujimori,,NU SKOOL BREAKS
-16242,Kung-fu Empire,,飛燕流舞,Hienryubu,ASIAN JANGLE
+16015,Kung-fu Empire,,飛燕流舞,Hienryubu,ASIAN JANGLE
 21242,Kung-fu Empire,,飛燕流舞,Hienryubu,ASIAN JANGLE
-16245,Marie Antoinette,,Marguerite du Pre,Marguerite du pre,宮廷円舞曲
+16018,Marie Antoinette,,Marguerite du Pre,Marguerite du pre,宮廷円舞曲
 21245,Marie Antoinette,,Marguerite du Pre,Marguerite du pre,宮廷円舞曲
-16250,Mind Mapping,,Ryu☆,,ELECTRO-TECH
+16025,Mind Mapping,,Ryu☆,,ELECTRO-TECH
 21250,Mind Mapping,,Ryu☆,,ELECTRO-TECH
 16027,Monkey Dance '09,,Y&Co. Feat. DOMINO,Y and Co. feat. DOMINO,EUROBEAT
 16033,MY FUTURE,,PINK PONG,,TRANCE
-16252,NΦ CRIME,NO CRIME,C×F,CxF,DANCE MUSIC OF SORROW
+16030,NΦ CRIME,NO CRIME,C×F,CxF,DANCE MUSIC OF SORROW
 21252,NΦ CRIME,NO CRIME,C×F,CxF,DANCE MUSIC OF SORROW
-16253,naughty girl@Queen's Palace,,DJ Mass MAD Izm*,,TECH-BREAKBEATS
+16031,naughty girl@Queen's Palace,,DJ Mass MAD Izm*,,TECH-BREAKBEATS
 21253,naughty girl@Queen's Palace,,DJ Mass MAD Izm*,,TECH-BREAKBEATS
-16256,neogenesis,,DM Ashura,,ENERGETIC TRANCE
+16040,neogenesis,,DM Ashura,,ENERGETIC TRANCE
 21256,neogenesis,,DM Ashura,,ENERGETIC TRANCE
 16048,Our Song,,Shinichi Osawa,,HOUSE
 16023,Programmed World,,kors k as StripE,,PSY TRANCE (FULL ON)
@@ -571,13 +571,13 @@
 16034,Punch Love♥仮面,Punch Love Kamen,上野圭市(a.k.a.Baby Weapon[COMMA]DJ SWAMI) feat.星野奏子,,E-DANCE POP
 21254,Punch Love♥仮面,Punch Love Kamen,上野圭市(a.k.a.Baby Weapon[COMMA]DJ SWAMI) feat.星野奏子,,E-DANCE POP
 16014,Queen's Tragedy,,猫叉Master+,Nekomata Master+,BIG BEAT
-16255,Secrets,,good-cool feat.CHiCO,good cool feat CHiCO,TECH-PARA
+16038,Secrets,,good-cool feat.CHiCO,good cool feat CHiCO,TECH-PARA
 21255,Secrets,,good-cool feat.CHiCO,good cool feat CHiCO,TECH-PARA
 16021,smooooch・∀・,,kors k,,CANDY RAVE
 21247,smooooch・∀・,,kors k,,CANDY RAVE
 16052,SOLITON BEAM,,L.E.D.,Led,TECHNO
 16208,Sunshine Hero,,kors k feat.Mari*Co,kors k feat Mari Co,乙女ハウス
-16258,THANK YOU FOR PLAYING,,SUPER STAR 満-MITSURU-,,ONLY ONE EPILOGUE
+16045,THANK YOU FOR PLAYING,,SUPER STAR 満-MITSURU-,,ONLY ONE EPILOGUE
 21258,THANK YOU FOR PLAYING,,SUPER STAR 満-MITSURU-,,ONLY ONE EPILOGUE
 16041,THE SHINING POLARIS (kors k mix),,Remixed by kors k,,UK HARDCORE
 16047,thunder HOUSE NATION Remix,,Remix by Sunset In Ibiza (SII),,HOUSE
