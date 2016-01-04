@@ -41,12 +41,8 @@ public class ImportController implements Initializable {
     public static final int ABORTED = 0;
     public static final int SUCCESS = 1;
 
-    private static final String VER0 = "Omnimix";
-    private static final String VER22 = "beatmania IIDX 22 Pendual";
-    private static final String VER21 = "beatmania IIDX 21 Spada";
-    private static final String VER20 = "beatmania IIDX 20 Tricoro";
-    private static final String VER19 = "beatmania IIDX 19 Lincle";
-    private static final String[] VERSIONS = {VER0, VER22, VER21, VER20, VER19};
+    private static final String[] VERSIONS = {Style.OMNIMIX, Style.PENDUALFULL, Style.SPADAFULL, Style.TRICOROFULL,
+            Style.LINCLEFULL, Style.RESORTANTHEMFULL, Style.SIRIUSFULL};
 
     private static final String PSUNLOGIN = "HIDDEN";
     private static final String PSUNHOME = "HIDDEN";
@@ -77,7 +73,7 @@ public class ImportController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         versionBox.getItems().addAll(VERSIONS);
-        versionBox.setValue(VER0);
+        versionBox.setValue(Style.OMNIMIX);
         Platform.runLater(() -> {
             passwordField.setOnKeyPressed(event -> {
                 if (event.getCode().equals(KeyCode.ENTER)) handleImport();
@@ -93,24 +89,6 @@ public class ImportController implements Initializable {
         if (Main.programTheme.equals(Main.THEMEDARK)) {
             dialogStage.getScene().getStylesheets().add(getClass().getResource("/css/dark.css").toExternalForm());
         }
-    }
-
-    private int versionToInt(String version) {
-        if (version != null) {
-            switch (version) {
-                case VER22:
-                    return 22;
-                case VER21:
-                    return 21;
-                case VER20:
-                    return 20;
-                case VER19:
-                return 19;
-                default:
-                    return 0;
-            }
-        }
-        return 0;
     }
 
     public int getStatus() {
@@ -419,7 +397,7 @@ public class ImportController implements Initializable {
 
     private String psunGetScoreData(String userID) {
         if (userID == null) return null;
-        HttpGet httpget = new HttpGet(PSUNR1 + versionToInt(versionBox.getValue()) + PSUNR2 + userID + PSUNR3);
+        HttpGet httpget = new HttpGet(PSUNR1 + Style.styleFullToInt(versionBox.getValue()) + PSUNR2 + userID + PSUNR3);
         System.out.println(getTime() + " Downloading data...");
         try (CloseableHttpResponse response = httpclient.execute(httpget)) {
             HttpEntity entity = response.getEntity();
@@ -437,7 +415,7 @@ public class ImportController implements Initializable {
     }
 
     private List<ScoreEntry> readscores(String psundata) {
-        final int version = versionToInt(versionBox.getValue());
+        final int version = Style.styleFullToInt(versionBox.getValue());
         final int offset = version == 0 ? 0 : 1;
         List<ScoreEntry> scoreList = new ArrayList<>();
         if (psundata.contains("<div class=\"ypanel\">You do not have a profile for this game version. Please \n" +

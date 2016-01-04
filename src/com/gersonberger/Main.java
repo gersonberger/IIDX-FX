@@ -11,6 +11,7 @@ import java.io.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Properties;
 
 public class Main extends Application {
@@ -18,8 +19,8 @@ public class Main extends Application {
     public static final long startuptime = System.currentTimeMillis();
 
     public static final String PROGRAMNAME = "IIDX-FX";
-    public static final String PROGRAMVERSION = "1.1.1";
-    public static final String PROGRAMDATE = "2015-12-17";
+    public static final String PROGRAMVERSION = "1.2";
+    public static final String PROGRAMDATE = "2016-01-03";
 
     public static final String WINDIR = System.getProperty("user.home") + "\\AppData\\Roaming\\" + PROGRAMNAME;
     public static final String LINUXDIR = System.getProperty("user.home") + "/." + PROGRAMNAME;
@@ -29,6 +30,7 @@ public class Main extends Application {
 
     private static final String PROPERTYNAMETHEME = "theme";
     private static final String PROPERTYNAMECLEARCOLORS = "show_clearcolors";
+    private static final String PROPERTYNAMEPLAYERSIDE = "playerside";
 
     public static final String PROPERTYNAMESTYLECOL = "stylecolumn_visible";
     public static final String PROPERTYNAMETITLECOL = "titlecolumn_visible";
@@ -43,14 +45,15 @@ public class Main extends Application {
     public static final String PROPERTYNAMENOTESCOL = "notescolumn_visible";
     public static final String PROPERTYNAMECLEARCOL = "clearcolumn_visible";
     public static final String PROPERTYNAMEGRADECOL = "gradecolumn_visible";
+    public static final String PROPERTYNAMEEXCOL = "excolumn_visible";
     public static final String PROPERTYNAMEMISSCOL = "misscolumn_visible";
-    public static final String PROPERTYNAMEPERCENTCOL = "percentcolumn_visible";
 
     public static String programTheme;
     public static final String THEMELIGHT = "light";
     public static final String THEMEDARK = "dark";
 
     public static boolean programClearColor;
+    public static String programPlayerside;
 
     public static int os;
     public static final int WINDOWS = 1;
@@ -67,14 +70,18 @@ public class Main extends Application {
         checkFolder(os);
         initProperties();
         findScoreFile();
+
+        Locale.setDefault(Locale.ENGLISH);
+
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/main.fxml"));
         primaryStage.getIcons().add(new Image(getClass().getResource("/img/icon32.png").toString()));
         primaryStage.getIcons().add(new Image(getClass().getResource("/img/icon256.png").toString()));
         primaryStage.setTitle(PROGRAMNAME);
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
-        primaryStage.setWidth(1345);
-        primaryStage.setHeight(720);
+        primaryStage.setWidth(1394);
+        primaryStage.setHeight(900);
+//        primaryStage.setHeight(720);
         primaryStage.show();
         System.out.println("\n" + getTime() + " Application loaded (took " + (System.currentTimeMillis() - Main.startuptime) + "ms)\n");
     }
@@ -149,10 +156,12 @@ public class Main extends Application {
                 Properties properties = new Properties();
                 properties.setProperty(PROPERTYNAMETHEME, THEMELIGHT);
                 properties.setProperty(PROPERTYNAMECLEARCOLORS, String.valueOf(false));
+                properties.setProperty(PROPERTYNAMEPLAYERSIDE, "1");
                 properties.store(fileOutputStream, null);
                 fileOutputStream.close();
                 programTheme = THEMELIGHT;
                 programClearColor = false;
+                programPlayerside = "1";
             }
             else {
                 FileInputStream fileInputStream = new FileInputStream(propFile.getPath());
@@ -160,6 +169,7 @@ public class Main extends Application {
                 properties.load(fileInputStream);
                 programTheme = properties.getProperty(PROPERTYNAMETHEME, THEMELIGHT);
                 programClearColor = Boolean.valueOf(properties.getProperty(PROPERTYNAMECLEARCOLORS));
+                programPlayerside = properties.getProperty(PROPERTYNAMEPLAYERSIDE);
                 fileInputStream.close();
             }
         }
@@ -171,8 +181,11 @@ public class Main extends Application {
             try {
                 FileOutputStream fileOutputStream = new FileOutputStream(propFile.getPath());
                 Properties properties = new Properties();
+
                 properties.setProperty(PROPERTYNAMETHEME, programTheme);
                 properties.setProperty(PROPERTYNAMECLEARCOLORS, String.valueOf(programClearColor));
+                properties.setProperty(PROPERTYNAMEPLAYERSIDE, String.valueOf(programPlayerside));
+
                 properties.setProperty(PROPERTYNAMESTYLECOL, String.valueOf(columnVisibility[0]));
                 properties.setProperty(PROPERTYNAMETITLECOL, String.valueOf(columnVisibility[1]));
                 properties.setProperty(PROPERTYNAMEARTISTCOL, String.valueOf(columnVisibility[2]));
@@ -186,8 +199,8 @@ public class Main extends Application {
                 properties.setProperty(PROPERTYNAMENOTESCOL, String.valueOf(columnVisibility[10]));
                 properties.setProperty(PROPERTYNAMECLEARCOL, String.valueOf(columnVisibility[11]));
                 properties.setProperty(PROPERTYNAMEGRADECOL, String.valueOf(columnVisibility[12]));
-                properties.setProperty(PROPERTYNAMEMISSCOL, String.valueOf(columnVisibility[13]));
-                properties.setProperty(PROPERTYNAMEPERCENTCOL, String.valueOf(columnVisibility[14]));
+                properties.setProperty(PROPERTYNAMEEXCOL, String.valueOf(columnVisibility[13]));
+                properties.setProperty(PROPERTYNAMEMISSCOL, String.valueOf(columnVisibility[14]));
                 properties.store(fileOutputStream, null);
                 fileOutputStream.close();
             } catch (IOException e) {

@@ -1,9 +1,6 @@
 package com.gersonberger;
 
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
 
 
 public class SongEntry {
@@ -26,12 +23,17 @@ public class SongEntry {
     private final StringProperty clear = new SimpleStringProperty(this, "Clear");
     private final StringProperty grade = new SimpleStringProperty(this, "Grade");
     private final StringProperty miss = new SimpleStringProperty(this, "Miss");
-    private final StringProperty percent = new SimpleStringProperty(this, "Percent");
+    private final StringProperty ex = new SimpleStringProperty(this, "Ex");
 
-    public SongEntry(int style, String title, String title_r, String artist, String artist_r, String genre, String difficulty,
-                     int level, int nRating, int hRating, int bpmMin, int bpmMax, int length, int notes, int clear, String grade, int miss, String percent){
+    private int id;
+    private String textage;
+
+    public SongEntry(int id, int style, String title, String title_r, String artist, String artist_r, String genre,
+                     String difficulty, int level, int nRating, int hRating, int bpmMin, int bpmMax, int length,
+                     int notes, int clear, String grade, int miss, int ex, String textage){
         if (title.contains("[COMMA]")) title = title.replace("[COMMA]", ",");
         if (artist.contains("[COMMA]")) artist = artist.replace("[COMMA]", ",");
+        this.id = id;
         this.style.set(Style.styleToString(style));
         this.title.set(title);
         this.title_r.set(title_r);
@@ -51,7 +53,8 @@ public class SongEntry {
         this.clear.set(Clear.clearToString(clear));
         this.grade.set(grade);
         this.miss.set(miss == -2 ? "" : miss == -1 ? "N/A" : String.valueOf(miss));
-        if (!percent.equals("")) this.percent.set(percent + "%");
+        this.ex.set(ex == 0 ? "" : String.valueOf(ex));
+        this.textage = textage;
     }
 
     private String formatLength(int length){
@@ -71,6 +74,10 @@ public class SongEntry {
         if (level == 12 && rating > 15) return level + "." + Rating.PLUS15;
         if (rating > 0 && rating <= 15) return level + "." + rating;
         else return Rating.ERROR;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getStyle() {
@@ -289,15 +296,20 @@ public class SongEntry {
         this.miss.set(miss);
     }
 
-    public String getPercent() {
-        return percent.get();
+    public String getEx() {
+        return ex.get();
     }
 
-    public StringProperty percentProperty() {
-        return percent;
+    public StringProperty exProperty() {
+        return ex;
     }
 
-    public void setPercent(String percent) {
-        this.percent.set(percent);
+    public void setEx(String ex) {
+        this.ex.set(ex);
     }
+
+    public String getTextage() {
+        return textage;
+    }
+
 }

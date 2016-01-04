@@ -1,5 +1,6 @@
 package com.gersonberger;
 
+import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
@@ -16,12 +17,15 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.TextFlow;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import javafx.util.Duration;
 
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
@@ -33,6 +37,9 @@ import java.util.List;
 
 
 public class MainController implements Initializable {
+
+    @FXML
+    private TabPane tabPane;
 
     /***** TABLEVIEW *****/
     @FXML
@@ -66,7 +73,7 @@ public class MainController implements Initializable {
     @FXML
     private TableColumn<SongEntry, String> missColumn;
     @FXML
-    private TableColumn<SongEntry, String> percentColumn;
+    private TableColumn<SongEntry, String> exColumn;
 
     /***** STYLE BUTTONS *****/
     @FXML
@@ -118,31 +125,6 @@ public class MainController implements Initializable {
     @FXML
     private CheckBox checkStyle22;
 
-    private boolean styleAll = true;
-    private boolean style1 = false;
-    private boolean styleSub = false;
-    private boolean style2 = false;
-    private boolean style3 = false;
-    private boolean style4 = false;
-    private boolean style5 = false;
-    private boolean style6 = false;
-    private boolean style7 = false;
-    private boolean style8 = false;
-    private boolean style9 = false;
-    private boolean style10 = false;
-    private boolean style11 = false;
-    private boolean style12 = false;
-    private boolean style13 = false;
-    private boolean style14 = false;
-    private boolean style15 = false;
-    private boolean style16 = false;
-    private boolean style17 = false;
-    private boolean style18 = false;
-    private boolean style19 = false;
-    private boolean style20 = false;
-    private boolean style21 = false;
-    private boolean style22 = false;
-
     /***** LEVEL BUTTONS *****/
     @FXML
     private CheckBox checkLevelAll;
@@ -171,20 +153,6 @@ public class MainController implements Initializable {
     @FXML
     private CheckBox checkLevel12;
 
-    private boolean levelAll = true;
-    private boolean level1 = false;
-    private boolean level2 = false;
-    private boolean level3 = false;
-    private boolean level4 = false;
-    private boolean level5 = false;
-    private boolean level6 = false;
-    private boolean level7 = false;
-    private boolean level8 = false;
-    private boolean level9 = false;
-    private boolean level10 = false;
-    private boolean level11 = false;
-    private boolean level12 = false;
-
     /***** DIFFICULTY BUTTONS *****/
     @FXML
     private CheckBox checkDiffAll;
@@ -199,21 +167,189 @@ public class MainController implements Initializable {
     @FXML
     private CheckBox checkDiffL;
 
-    private boolean diffAll = true;
-    private boolean diffN = false;
-    private boolean diffH = false;
-    private boolean diffA = false;
-    private boolean diffB = false;
-    private boolean diffL = false;
+    /***** CLEAR BUTTONS *****/
+    @FXML
+    private CheckBox checkClearAll;
+    @FXML
+    private CheckBox checkClearNoplay;
+    @FXML
+    private CheckBox checkClearFailed;
+    @FXML
+    private CheckBox checkClearAssistclear;
+    @FXML
+    private CheckBox checkClearEasyclear;
+    @FXML
+    private CheckBox checkClearClear;
+    @FXML
+    private CheckBox checkClearHardclear;
+    @FXML
+    private CheckBox checkClearExhardclear;
+    @FXML
+    private CheckBox checkClearFullcombo;
 
-    /***** MENU *****/
+    /***** DAN *****/
     @FXML
-    private CheckMenuItem checkMenuClearColors;
+    private ComboBox<String> danStyleSelectBox;
     @FXML
-    private RadioMenuItem radioMenuLight;
+    private Label kaiden1;
     @FXML
-    private RadioMenuItem radioMenuDark;
+    private Label kaiden2;
+    @FXML
+    private Label kaiden3;
+    @FXML
+    private Label kaiden4;
+    @FXML
+    private Label tenthdan1;
+    @FXML
+    private Label tenthdan2;
+    @FXML
+    private Label tenthdan3;
+    @FXML
+    private Label tenthdan4;
+    @FXML
+    private Label ninthdan1;
+    @FXML
+    private Label ninthdan2;
+    @FXML
+    private Label ninthdan3;
+    @FXML
+    private Label ninthdan4;
+    @FXML
+    private Label eighthdan1;
+    @FXML
+    private Label eighthdan2;
+    @FXML
+    private Label eighthdan3;
+    @FXML
+    private Label eighthdan4;
+    @FXML
+    private Label seventhdan1;
+    @FXML
+    private Label seventhdan2;
+    @FXML
+    private Label seventhdan3;
+    @FXML
+    private Label seventhdan4;
+    @FXML
+    private Label sixthdan1;
+    @FXML
+    private Label sixthdan2;
+    @FXML
+    private Label sixthdan3;
+    @FXML
+    private Label sixthdan4;
+    @FXML
+    private Label fifthdan1;
+    @FXML
+    private Label fifthdan2;
+    @FXML
+    private Label fifthdan3;
+    @FXML
+    private Label fifthdan4;
+    @FXML
+    private Label fourthdan1;
+    @FXML
+    private Label fourthdan2;
+    @FXML
+    private Label fourthdan3;
+    @FXML
+    private Label fourthdan4;
+    @FXML
+    private Label thirddan1;
+    @FXML
+    private Label thirddan2;
+    @FXML
+    private Label thirddan3;
+    @FXML
+    private Label thirddan4;
+    @FXML
+    private Label seconddan1;
+    @FXML
+    private Label seconddan2;
+    @FXML
+    private Label seconddan3;
+    @FXML
+    private Label seconddan4;
+    @FXML
+    private Label firstdan1;
+    @FXML
+    private Label firstdan2;
+    @FXML
+    private Label firstdan3;
+    @FXML
+    private Label firstdan4;
+    @FXML
+    private Label firstkyu1;
+    @FXML
+    private Label firstkyu2;
+    @FXML
+    private Label firstkyu3;
+    @FXML
+    private Label firstkyu4;
+    @FXML
+    private Label secondkyu1;
+    @FXML
+    private Label secondkyu2;
+    @FXML
+    private Label secondkyu3;
+    @FXML
+    private Label secondkyu4;
+    @FXML
+    private Label thirdkyu1;
+    @FXML
+    private Label thirdkyu2;
+    @FXML
+    private Label thirdkyu3;
+    @FXML
+    private Label thirdkyu4;
+    @FXML
+    private Label fourthkyu1;
+    @FXML
+    private Label fourthkyu2;
+    @FXML
+    private Label fourthkyu3;
+    @FXML
+    private Label fourthkyu4;
+    @FXML
+    private Label fifthkyu1;
+    @FXML
+    private Label fifthkyu2;
+    @FXML
+    private Label fifthkyu3;
+    @FXML
+    private Label fifthkyu4;
+    @FXML
+    private Label sixthkyu1;
+    @FXML
+    private Label sixthkyu2;
+    @FXML
+    private Label sixthkyu3;
+    @FXML
+    private Label sixthkyu4;
+    @FXML
+    private Label seventhkyu1;
+    @FXML
+    private Label seventhkyu2;
+    @FXML
+    private Label seventhkyu3;
+    @FXML
+    private Label seventhkyu4;
 
+    /***** SETTINGS *****/
+    @FXML
+    private RadioButton settingsRadioLight;
+    @FXML
+    private RadioButton settingsRadioDark;
+    @FXML
+    private CheckBox settingsShowClearColorsCheckBox;
+    @FXML
+    private RadioButton settingsP1;
+    @FXML
+    private RadioButton settingsP2;
+    @FXML
+    private Label settingsSaveLabel;
+    @FXML
+    private TextFlow settingsAboutFlow;
 
     /***** MISC *****/
     @FXML
@@ -223,18 +359,11 @@ public class MainController implements Initializable {
     @FXML
     private TextField filterField;
     @FXML
-    private ImageView checkImageView;
-    @FXML
     private Label matchLabel;
-    @FXML
-    private Label savedLabel;
-    @FXML
-    private Label fileLabel;
-    @FXML
-    private MenuItem menuSave;
 
     private Scene scene;
     private boolean settingsVisible = false;
+    private boolean saveAnimationPlaying = false;
     private ObservableList<SongEntry> masterData;
 
     @Override
@@ -261,18 +390,25 @@ public class MainController implements Initializable {
                 event.consume();
             });
 
+            Hyperlink aboutHyperlink = new Hyperlink("About");
+            aboutHyperlink.setOnAction(event -> about());
+            settingsAboutFlow.getChildren().add(aboutHyperlink);
+
             //load stylesheets and setting toggles
             scene.getStylesheets().add(getClass().getResource("/css/clear.css").toExternalForm());
             if (Main.programTheme.equals(Main.THEMELIGHT)) {
-                radioMenuLight.setSelected(true);
+                settingsRadioLight.setSelected(true);
                 scene.getStylesheets().add(getClass().getResource("/css/modena-adjust.css").toExternalForm());
             }
             if (Main.programTheme.equals(Main.THEMEDARK)) {
-                radioMenuDark.setSelected(true);
+                settingsRadioDark.setSelected(true);
                 scene.getStylesheets().add(getClass().getResource("/css/dark.css").toExternalForm());
             }
-            checkMenuClearColors.setSelected(Main.programClearColor);
+            settingsShowClearColorsCheckBox.setSelected(Main.programClearColor);
         });
+
+        if (Main.programPlayerside.equals("1")) settingsP1.setSelected(true);
+        else settingsP2.setSelected(true);
 
         mainBox.getChildren().remove(settingsBox);
         onStartTableView();
@@ -286,30 +422,8 @@ public class MainController implements Initializable {
         tableView.getSortOrder().add(titleColumn);
         refreshTable();
 
+        initDan();
     }
-
-    /*
-    private String getMD5(final File file) {
-        byte[] bytes = new byte[0];
-        MessageDigest messageDigest = null;
-        String hexString = "";
-        try {
-            bytes = Files.readAllBytes(Paths.get(file.getPath()));
-            messageDigest = MessageDigest.getInstance("MD5");
-            bytes = messageDigest.digest(bytes);
-        } catch (NoSuchAlgorithmException | IOException e) {
-            e.printStackTrace();
-        }
-        if (messageDigest != null) {
-            for (byte b : bytes) {
-                String hex = Integer.toHexString(0xFF & b);
-                if (hex.length() == 1) hexString += "0";
-                hexString += hex;
-            }
-        }
-        return hexString;
-    }
-    */
 
     private int lengthToInt(final String time) {
         if (time.contains(":")) {
@@ -318,6 +432,8 @@ public class MainController implements Initializable {
         }
         else return -1;
     }
+
+    //custom comparators for tableviewcolumns
 
     private Comparator<String> getStyleComparator() {
         return (o1, o2) -> {
@@ -409,10 +525,27 @@ public class MainController implements Initializable {
 
     private Comparator<String> getGradeComparator() {
         return (o1, o2) -> {
-            if (o1.equals(Grade.NONE)) return gradeColumn.getSortType() == TableColumn.SortType.ASCENDING ? 1 : -1;
-            if (o2.equals(Grade.NONE)) return gradeColumn.getSortType() == TableColumn.SortType.ASCENDING ? -1 : 1;
-            if (!o1.equals(o2)) return Grade.gradeToInt(o1) > Grade.gradeToInt(o2) ? 1 : -1;
-            return 0;
+            if (o1.equals("")) return gradeColumn.getSortType() == TableColumn.SortType.ASCENDING ? 1 : -1;
+            if (o2.equals("")) return gradeColumn.getSortType() == TableColumn.SortType.ASCENDING ? -1 : 1;
+            String[] arr1 = o1.split(" ");
+            String[] arr2 = o2.split(" ");
+            if (!arr1[0].equals(arr2[0])) {
+                return Grade.gradeToInt(arr1[0]) > Grade.gradeToInt(arr2[0]) ? 1 : -1;
+            } else {
+                arr1 = arr1[1].split("\\.");
+                arr2 = arr2[1].split("\\.");
+                if (arr1[0].length() != arr2[0].length()) return arr1[0].length() > arr2[0].length() ? 1 : -1;
+                else {
+                    for (int i = 1; i < arr1[0].length(); i++) {
+                        if (Integer.parseInt(arr1[0].substring(i, i + 1)) != Integer.parseInt(arr2[0].substring(i, i + 1)))
+                            return Integer.parseInt(arr1[0].substring(i, i + 1)) > Integer.parseInt(arr2[0].substring(i, i + 1)) ? 1 : -1;
+                    }
+                    for (int i = 0; i < arr1[1].length() - 2; i++)
+                        if (Integer.parseInt(arr1[1].substring(i, i + 1)) != Integer.parseInt(arr2[1].substring(i, i + 1)))
+                            return Integer.parseInt(arr1[1].substring(i, i + 1)) > Integer.parseInt(arr2[1].substring(i, i + 1)) ? 1 : -1;
+                    return 0;
+                }
+            }
         };
     }
 
@@ -426,17 +559,12 @@ public class MainController implements Initializable {
         };
     }
 
-    private Comparator<String> getPercentComparator() {
+    private Comparator<String> getExComparator() {
         return (o1, o2) -> {
-            if (o1 == null) return percentColumn.getSortType() == TableColumn.SortType.ASCENDING ? 1 : -1;
-            if (o2 == null) return percentColumn.getSortType() == TableColumn.SortType.ASCENDING ? -1 : 1;
-            for (int i = 0; i < Math.min(o1.length()-1, o2.length()-1); i++) {
-                if (o1.charAt(i) == '.' || o2.charAt(i) == '.') continue;
-                int i1 = Integer.parseInt(o1.substring(i, i+1));
-                int i2 = Integer.parseInt(o2.substring(i, i+1));
-                if (i1 != i2) return i1 > i2 ? 1 : -1;
-            }
-            return o1.length() > o2.length() ? 1 : o1.length() < o2.length() ? -1 : 0;
+            if (o1.equals("")) return exColumn.getSortType() == TableColumn.SortType.ASCENDING ? 1 : -1;
+            if (o2.equals("")) return exColumn.getSortType() == TableColumn.SortType.ASCENDING ? -1 : 1;
+            if (!o1.equals(o2)) return Integer.valueOf(o1) > Integer.valueOf(o2) ? 1 : -1;
+            return 0;
         };
     }
 
@@ -455,7 +583,7 @@ public class MainController implements Initializable {
         styleColumn.setVisible(Boolean.valueOf(properties.getProperty(Main.PROPERTYNAMESTYLECOL, "true")));
         titleColumn.setVisible(Boolean.valueOf(properties.getProperty(Main.PROPERTYNAMETITLECOL, "true")));
         artistColumn.setVisible(Boolean.valueOf(properties.getProperty(Main.PROPERTYNAMEARTISTCOL, "true")));
-        genreColumn.setVisible(Boolean.valueOf(properties.getProperty(Main.PROPERTYNAMEGENRECOL, "false")));
+        genreColumn.setVisible(Boolean.valueOf(properties.getProperty(Main.PROPERTYNAMEGENRECOL, "true")));
         difficultyColumn.setVisible(Boolean.valueOf(properties.getProperty(Main.PROPERTYNAMEDIFFICULTYCOL, "true")));
         levelColumn.setVisible(Boolean.valueOf(properties.getProperty(Main.PROPERTYNAMELEVELCOL, "true")));
         ratingNColumn.setVisible(Boolean.valueOf(properties.getProperty(Main.PROPERTYNAMERATINGNCOL, "true")));
@@ -466,19 +594,35 @@ public class MainController implements Initializable {
         clearColumn.setVisible(Boolean.valueOf(properties.getProperty(Main.PROPERTYNAMECLEARCOL, "false")));
         gradeColumn.setVisible(Boolean.valueOf(properties.getProperty(Main.PROPERTYNAMEGRADECOL, "false")));
         missColumn.setVisible(Boolean.valueOf(properties.getProperty(Main.PROPERTYNAMEMISSCOL, "false")));
-        percentColumn.setVisible(Boolean.valueOf(properties.getProperty(Main.PROPERTYNAMEPERCENTCOL, "false")));
+        exColumn.setVisible(Boolean.valueOf(properties.getProperty(Main.PROPERTYNAMEEXCOL, "false")));
+
 
         //contextmenu
         tableView.setRowFactory(param -> {
             final TableRow<SongEntry> row = new TableRow<>();
             final ContextMenu contextMenu = new ContextMenu();
+            final MenuItem textage = new MenuItem("Open chart in a new tab");
+            textage.setOnAction(event -> textageTab(row.getItem().getId(), row.getItem().getTitle(),
+                    row.getItem().getTextage(), row.getItem().getDifficulty(), row.getItem().getLevel()));
+            final SeparatorMenuItem separatorMenuItem = new SeparatorMenuItem();
             final MenuItem copytitle = new MenuItem("Copy title");
             copytitle.setOnAction(event -> copyToClipboard(row.getItem().getTitle()));
             final MenuItem copyartist = new MenuItem("Copy artist");
             copyartist.setOnAction(event -> copyToClipboard(row.getItem().getArtist()));
             final MenuItem copygenre = new MenuItem("Copy genre");
             copygenre.setOnAction(event -> copyToClipboard(row.getItem().getGenre()));
-            contextMenu.getItems().addAll(copytitle, copyartist, copygenre);
+
+            contextMenu.getItems().addAll(textage, separatorMenuItem, copytitle, copyartist, copygenre);
+
+            contextMenu.setOnShowing(event -> {
+                if (row.getItem().getTextage().equals("")) {
+                    textage.setDisable(true);
+                }
+                if (row.getItem().getTextage().equals("na")) {
+                    textage.setText("No chart available");
+                    textage.setDisable(true);
+                }
+            });
 
             //set context menu on row, but use a binding to make it only show for non-empty rows:
             row.contextMenuProperty().bind(Bindings.when(row.emptyProperty()).then((ContextMenu) null).otherwise(contextMenu));
@@ -501,7 +645,7 @@ public class MainController implements Initializable {
         clearColumn.setCellValueFactory(new PropertyValueFactory<>("Clear"));
         gradeColumn.setCellValueFactory(new PropertyValueFactory<>("Grade"));
         missColumn.setCellValueFactory(new PropertyValueFactory<>("Miss"));
-        percentColumn.setCellValueFactory(new PropertyValueFactory<>("Percent"));
+        exColumn.setCellValueFactory(new PropertyValueFactory<>("Ex"));
 
         //clear theming via css/clear.css if selected in settings
         clearColumn.setCellFactory(new Callback<TableColumn<SongEntry, String>, TableCell<SongEntry, String>>() {
@@ -555,7 +699,7 @@ public class MainController implements Initializable {
         clearColumn.setComparator(getClearComparator());
         gradeColumn.setComparator(getGradeComparator());
         missColumn.setComparator(getMissComparator());
-        percentColumn.setComparator(getPercentComparator());
+        exColumn.setComparator(getExComparator());
     }
 
     private void setTableViewData(final ObservableList<SongEntry> masterData) {
@@ -568,53 +712,66 @@ public class MainController implements Initializable {
                 if (songEntry == null) return false;
 
                 // filter
-                if (!styleAll) {
-                    if ((!songEntry.getStyle().equals(Style.FIRSTSTYLE) || !style1) &&
-                            (!songEntry.getStyle().equals(Style.SUBSTREAM) || !styleSub) &&
-                            (!songEntry.getStyle().equals(Style.SECONDSTYLE) || !style2) &&
-                            (!songEntry.getStyle().equals(Style.THIRDSTYLE) || !style3) &&
-                            (!songEntry.getStyle().equals(Style.FOURTHSTYLE) || !style4) &&
-                            (!songEntry.getStyle().equals(Style.FIFTHSTYLE) || !style5) &&
-                            (!songEntry.getStyle().equals(Style.SIXTHSTYLE) || !style6) &&
-                            (!songEntry.getStyle().equals(Style.SEVENTHSTYLE) || !style7) &&
-                            (!songEntry.getStyle().equals(Style.EIGHTHSTYLE) || !style8) &&
-                            (!songEntry.getStyle().equals(Style.NINTHSTYLE) || !style9) &&
-                            (!songEntry.getStyle().equals(Style.TENTHSTYLE) || !style10) &&
-                            (!songEntry.getStyle().equals(Style.IIDXRED) || !style11) &&
-                            (!songEntry.getStyle().equals(Style.HAPPYSKY) || !style12) &&
-                            (!songEntry.getStyle().equals(Style.DISTORTED) || !style13) &&
-                            (!songEntry.getStyle().equals(Style.GOLD) || !style14) &&
-                            (!songEntry.getStyle().equals(Style.DJTROOPERS) || !style15) &&
-                            (!songEntry.getStyle().equals(Style.EMPRESS) || !style16) &&
-                            (!songEntry.getStyle().equals(Style.SIRIUS) || !style17) &&
-                            (!songEntry.getStyle().equals(Style.RESORTANTHEM) || !style18) &&
-                            (!songEntry.getStyle().equals(Style.LINCLE) || !style19) &&
-                            (!songEntry.getStyle().equals(Style.TRICORO) || !style20) &&
-                            (!songEntry.getStyle().equals(Style.SPADA) || !style21) &&
-                            (!songEntry.getStyle().equals(Style.PENDUAL) || !style22)) return false;
+                if (!checkStyleAll.isSelected()) {
+                    if ((!songEntry.getStyle().equals(Style.FIRSTSTYLE) || !checkStyle1.isSelected()) &&
+                            (!songEntry.getStyle().equals(Style.SUBSTREAM) || !checkStyleSub.isSelected()) &&
+                            (!songEntry.getStyle().equals(Style.SECONDSTYLE) || !checkStyle2.isSelected()) &&
+                            (!songEntry.getStyle().equals(Style.THIRDSTYLE) || !checkStyle3.isSelected()) &&
+                            (!songEntry.getStyle().equals(Style.FOURTHSTYLE) || !checkStyle4.isSelected()) &&
+                            (!songEntry.getStyle().equals(Style.FIFTHSTYLE) || !checkStyle5.isSelected()) &&
+                            (!songEntry.getStyle().equals(Style.SIXTHSTYLE) || !checkStyle6.isSelected()) &&
+                            (!songEntry.getStyle().equals(Style.SEVENTHSTYLE) || !checkStyle7.isSelected()) &&
+                            (!songEntry.getStyle().equals(Style.EIGHTHSTYLE) || !checkStyle8.isSelected()) &&
+                            (!songEntry.getStyle().equals(Style.NINTHSTYLE) || !checkStyle9.isSelected()) &&
+                            (!songEntry.getStyle().equals(Style.TENTHSTYLE) || !checkStyle10.isSelected()) &&
+                            (!songEntry.getStyle().equals(Style.IIDXRED) || !checkStyle11.isSelected()) &&
+                            (!songEntry.getStyle().equals(Style.HAPPYSKY) || !checkStyle12.isSelected()) &&
+                            (!songEntry.getStyle().equals(Style.DISTORTED) || !checkStyle13.isSelected()) &&
+                            (!songEntry.getStyle().equals(Style.GOLD) || !checkStyle14.isSelected()) &&
+                            (!songEntry.getStyle().equals(Style.DJTROOPERS) || !checkStyle15.isSelected()) &&
+                            (!songEntry.getStyle().equals(Style.EMPRESS) || !checkStyle16.isSelected()) &&
+                            (!songEntry.getStyle().equals(Style.SIRIUS) || !checkStyle17.isSelected()) &&
+                            (!songEntry.getStyle().equals(Style.RESORTANTHEM) || !checkStyle18.isSelected()) &&
+                            (!songEntry.getStyle().equals(Style.LINCLE) || !checkStyle19.isSelected()) &&
+                            (!songEntry.getStyle().equals(Style.TRICORO) || !checkStyle20.isSelected()) &&
+                            (!songEntry.getStyle().equals(Style.SPADA) || !checkStyle21.isSelected()) &&
+                            (!songEntry.getStyle().equals(Style.PENDUAL) || !checkStyle22.isSelected())) return false;
                 }
 
-                if (!levelAll) {
-                    if ((!songEntry.getLevel().equals("1") || !level1) &&
-                            (!songEntry.getLevel().equals("2") || !level2) &&
-                            (!songEntry.getLevel().equals("3") || !level3) &&
-                            (!songEntry.getLevel().equals("4") || !level4) &&
-                            (!songEntry.getLevel().equals("5") || !level5) &&
-                            (!songEntry.getLevel().equals("6") || !level6) &&
-                            (!songEntry.getLevel().equals("7") || !level7) &&
-                            (!songEntry.getLevel().equals("8") || !level8) &&
-                            (!songEntry.getLevel().equals("9") || !level9) &&
-                            (!songEntry.getLevel().equals("10") || !level10) &&
-                            (!songEntry.getLevel().equals("11") || !level11) &&
-                            (!songEntry.getLevel().equals("12") || !level12)) return false;
+                if (!checkLevelAll.isSelected()) {
+                    if ((!songEntry.getLevel().equals("1") || !checkLevel1.isSelected()) &&
+                            (!songEntry.getLevel().equals("2") || !checkLevel2.isSelected()) &&
+                            (!songEntry.getLevel().equals("3") || !checkLevel3.isSelected()) &&
+                            (!songEntry.getLevel().equals("4") || !checkLevel4.isSelected()) &&
+                            (!songEntry.getLevel().equals("5") || !checkLevel5.isSelected()) &&
+                            (!songEntry.getLevel().equals("6") || !checkLevel6.isSelected()) &&
+                            (!songEntry.getLevel().equals("7") || !checkLevel7.isSelected()) &&
+                            (!songEntry.getLevel().equals("8") || !checkLevel8.isSelected()) &&
+                            (!songEntry.getLevel().equals("9") || !checkLevel9.isSelected()) &&
+                            (!songEntry.getLevel().equals("10") || !checkLevel10.isSelected()) &&
+                            (!songEntry.getLevel().equals("11") || !checkLevel11.isSelected()) &&
+                            (!songEntry.getLevel().equals("12") || !checkLevel12.isSelected())) return false;
                 }
 
-                if (!diffAll) {
-                    if ((!songEntry.getDifficulty().equals(Difficulty.NORMAL) || !diffN) &&
-                            (!songEntry.getDifficulty().equals(Difficulty.HYPER) || !diffH) &&
-                            (!songEntry.getDifficulty().equals(Difficulty.ANOTHER) || !diffA) &&
-                            (!songEntry.getDifficulty().equals(Difficulty.BLACKANOTHER) || !diffB) &&
-                            (!songEntry.getDifficulty().equals(Difficulty.LEGGENDARIA) || !diffL)) return false;
+                if (!checkDiffAll.isSelected()) {
+                    if ((!songEntry.getDifficulty().equals(Difficulty.NORMAL) || !checkDiffN.isSelected()) &&
+                            (!songEntry.getDifficulty().equals(Difficulty.HYPER) || !checkDiffH.isSelected()) &&
+                            (!songEntry.getDifficulty().equals(Difficulty.ANOTHER) || !checkDiffA.isSelected()) &&
+                            (!songEntry.getDifficulty().equals(Difficulty.BLACKANOTHER) || !checkDiffB.isSelected()) &&
+                            (!songEntry.getDifficulty().equals(Difficulty.LEGGENDARIA) || !checkDiffL.isSelected()))
+                        return false;
+                }
+
+                if (!checkClearAll.isSelected()) {
+                    if ((!songEntry.getClear().equals(Clear.NOPLAY) || !checkClearNoplay.isSelected()) &&
+                            (!songEntry.getClear().equals(Clear.FAILED) || !checkClearFailed.isSelected()) &&
+                            (!songEntry.getClear().equals(Clear.ASSISTCLEAR) || !checkClearAssistclear.isSelected()) &&
+                            (!songEntry.getClear().equals(Clear.EASYCLEAR) || !checkClearEasyclear.isSelected()) &&
+                            (!songEntry.getClear().equals(Clear.CLEAR) || !checkClearClear.isSelected()) &&
+                            (!songEntry.getClear().equals(Clear.HARDCLEAR) || !checkClearHardclear.isSelected()) &&
+                            (!songEntry.getClear().equals(Clear.EXHARDCLEAR) || !checkClearExhardclear.isSelected()) &&
+                            (!songEntry.getClear().equals(Clear.FULLCOMBO) || !checkClearFullcombo.isSelected()))
+                        return false;
                 }
 
                 //if empty show all
@@ -641,7 +798,6 @@ public class MainController implements Initializable {
         });
     }
 
-    //TODO: comment this
     private void onStartTableView() {
         masterData = FXCollections.observableArrayList();
         List<SongEntry> entries = new ArrayList<>();
@@ -653,9 +809,10 @@ public class MainController implements Initializable {
         if (chartInputStream != null && idInputStream != null) {
 
             String[] data;
-            String[][] idList = new String[22200][5];
+            String[][] idList = new String[22200][6];
             String[][][] clearList = null;
 
+            //read idlist
             try {
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(idInputStream, "UTF-8"));
                 String line = bufferedReader.readLine();
@@ -669,10 +826,12 @@ public class MainController implements Initializable {
                         idList[id][2] = data[3]; //artist
                         idList[id][3] = data[4]; //artist_r
                         idList[id][4] = data[5]; //genre
+                        idList[id][5] = data.length > 6 ? data[6] : ""; //textage
                     }
                     line = bufferedReader.readLine();
                 }
 
+                //read scorelist
                 if (scoreFile != null) {
                     FileInputStream scoreFileInputStream = new FileInputStream(scoreFile);
                     InputStreamReader scoreInputStreamReader = new InputStreamReader(scoreFileInputStream, "UTF-8");
@@ -695,10 +854,11 @@ public class MainController implements Initializable {
                     }
                 }
 
+                //read chartlist, merge data, create entries
                 bufferedReader = new BufferedReader(new InputStreamReader(chartInputStream, "UTF-8"));
                 line = bufferedReader.readLine();
-                String title, title_r, artist, artist_r, genre, difficulty, grade, percent;
-                int style, difficulty_int, level, nRating, hRating, bpmMin, bpmMax, length, notes, clear, miss;
+                String title, title_r, artist, artist_r, genre, difficulty, grade, percent, textage;
+                int style, difficulty_int, level, nRating, hRating, bpmMin, bpmMax, length, notes, clear, miss, ex;
                 while (line != null) {
                     if (!line.startsWith("//") && !line.isEmpty() && !line.equals("")) {
                         data = line.split(",");
@@ -709,6 +869,7 @@ public class MainController implements Initializable {
                         artist = idList[id][2];
                         artist_r = idList[id][3];
                         genre = idList[id][4];
+                        textage = idList[id][5];
                         difficulty = Difficulty.difficultyToString(Integer.valueOf(data[1]));
                         difficulty_int = Integer.valueOf(data[1]);
                         level = Integer.valueOf(data[4]);
@@ -728,24 +889,25 @@ public class MainController implements Initializable {
                         if (clearList != null) {
                             if (clearList[id][difficulty_int - 1][0] != null) {
                                 clear = Integer.parseInt(clearList[id][difficulty_int - 1][0]);
-                                grade = clearList[id][difficulty_int - 1][2];
-                                miss = Integer.parseInt(clearList[id][difficulty_int - 1][1]);
                                 percent = clearList[id][difficulty_int - 1][3];
-//                                if (percentage.split(".")[1].length() == 1) percentage += "0";
+                                if (percent.split("\\.")[1].length() < 2) percent += 0;
+                                grade = clearList[id][difficulty_int - 1][2] + " (" + percent + "%)";
+                                miss = Integer.parseInt(clearList[id][difficulty_int - 1][1]);
+                                ex = getExScore(clearList[id][difficulty_int - 1][3], notes);
                             } else {
                                 clear = 0;
                                 grade = "";
                                 miss = -2;
-                                percent = "";
+                                ex = 0;
                             }
                         } else {
                             clear = 0;
                             grade = "";
                             miss = -2;
-                            percent = "";
+                            ex = 0;
                         }
-                        entries.add(new SongEntry(style, title, title_r, artist, artist_r, genre, difficulty, level,
-                                nRating, hRating, bpmMin, bpmMax, length, notes, clear, grade, miss, percent));
+                        entries.add(new SongEntry(id, style, title, title_r, artist, artist_r, genre, difficulty, level,
+                                nRating, hRating, bpmMin, bpmMax, length, notes, clear, grade, miss, ex, textage));
                     }
                     line = bufferedReader.readLine();
                 }
@@ -762,6 +924,7 @@ public class MainController implements Initializable {
         }
     }
 
+    //songid to style translation for blackanother and substream charts
     private int getStyleFromID(int songID) {
         if (songID == 21244 || songID == 21241 || songID == 21240 || songID == 21257 || songID == 21238 ||
                 songID == 21260 || songID == 21242 || songID == 21245 || songID == 21250 || songID == 21252 ||
@@ -787,568 +950,386 @@ public class MainController implements Initializable {
         else return Integer.parseInt(String.valueOf(songID).substring(0,1));
     }
 
+    //calculate ex score
+    private int getExScore(String percentage, int notes) {
+        return (int)Math.round(notes * 2 * (Double.valueOf(percentage) / 100));
+    }
+
     public void hideSettings() {
-        if (settingsVisible) {
-            mainBox.getChildren().remove(settingsBox);
-            settingsVisible = false;
-        } else {
-            mainBox.getChildren().add(1, settingsBox);
-            settingsVisible = true;
-        }
+        settingsVisible = !settingsVisible;
+        if (!settingsVisible) mainBox.getChildren().remove(settingsBox);
+        else  mainBox.getChildren().add(1, settingsBox);
     }
 
 
     //level select toggles
-
     public void levelAll() {
-        if (levelAll) {
-            checkLevelAll.setSelected(false);
-            setDisableLevel(false);
-            levelAll = false;
-        } else {
-            checkLevelAll.setSelected(true);
-            setDisableLevel(true);
-            levelAll = true;
+        if (checkLevelAll.isSelected()) {
+            checkLevel1.setSelected(false);
+            checkLevel2.setSelected(false);
+            checkLevel3.setSelected(false);
+            checkLevel4.setSelected(false);
+            checkLevel5.setSelected(false);
+            checkLevel6.setSelected(false);
+            checkLevel7.setSelected(false);
+            checkLevel8.setSelected(false);
+            checkLevel9.setSelected(false);
+            checkLevel10.setSelected(false);
+            checkLevel11.setSelected(false);
+            checkLevel12.setSelected(false);
         }
+        checkLevelAll.setSelected(checkLevelAll.isSelected());
         refreshTable();
     }
 
     public void level1() {
-        if (level1) {
-            checkLevel1.setSelected(false);
-            level1 = false;
-        }
-        else {
-            checkLevel1.setSelected(true);
-            level1 = true;
-        }
+        if (checkLevel1.isSelected()) checkLevelAll.setSelected(false);
+        checkLevel1.setSelected(checkLevel1.isSelected());
         refreshTable();
     }
 
     public void level2() {
-        if (level2) {
-            checkLevel2.setSelected(false);
-            level2 = false;
-        }
-        else {
-            checkLevel2.setSelected(true);
-            level2 = true;
-        }
+        if (checkLevel2.isSelected()) checkLevelAll.setSelected(false);
+        checkLevel2.setSelected(checkLevel2.isSelected());
         refreshTable();
     }
 
     public void level3() {
-        if (level3) {
-            checkLevel3.setSelected(false);
-            level3 = false;
-        }
-        else {
-            checkLevel3.setSelected(true);
-            level3 = true;
-        }
+        if (checkLevel3.isSelected()) checkLevelAll.setSelected(false);
+        checkLevel3.setSelected(checkLevel3.isSelected());
         refreshTable();
     }
 
     public void level4() {
-        if (level4) {
-            checkLevel4.setSelected(false);
-            level4 = false;
-        }
-        else {
-            checkLevel4.setSelected(true);
-            level4 = true;
-        }
+        if (checkLevel4.isSelected()) checkLevelAll.setSelected(false);
+        checkLevel4.setSelected(checkLevel4.isSelected());
         refreshTable();
     }
 
     public void level5() {
-        if (level5) {
-            checkLevel5.setSelected(false);
-            level5 = false;
-        }
-        else {
-            checkLevel5.setSelected(true);
-            level5 = true;
-        }
+        if (checkLevel5.isSelected()) checkLevelAll.setSelected(false);
+        checkLevel5.setSelected(checkLevel5.isSelected());
         refreshTable();
     }
 
     public void level6() {
-        if (level6) {
-            checkLevel6.setSelected(false);
-            level6 = false;
-        }
-        else {
-            checkLevel6.setSelected(true);
-            level6 = true;
-        }
+        if (checkLevel6.isSelected()) checkLevelAll.setSelected(false);
+        checkLevel6.setSelected(checkLevel6.isSelected());
         refreshTable();
     }
 
     public void level7() {
-        if (level7) {
-            checkLevel7.setSelected(false);
-            level7 = false;
-        }
-        else {
-            checkLevel7.setSelected(true);
-            level7 = true;
-        }
+        if (checkLevel7.isSelected()) checkLevelAll.setSelected(false);
+        checkLevel7.setSelected(checkLevel7.isSelected());
         refreshTable();
     }
 
     public void level8() {
-        if (level8) {
-            checkLevel8.setSelected(false);
-            level8 = false;
-        }
-        else {
-            checkLevel8.setSelected(true);
-            level8 = true;
-        }
+        if (checkLevel8.isSelected()) checkLevelAll.setSelected(false);
+        checkLevel8.setSelected(checkLevel8.isSelected());
         refreshTable();
     }
 
     public void level9() {
-        if (level9) {
-            checkLevel9.setSelected(false);
-            level9 = false;
-        }
-        else {
-            checkLevel9.setSelected(true);
-            level9 = true;
-        }
+        if (checkLevel9.isSelected()) checkLevelAll.setSelected(false);
+        checkLevel9.setSelected(checkLevel9.isSelected());
         refreshTable();
     }
 
     public void level10() {
-        if (level10) {
-            checkLevel10.setSelected(false);
-            level10 = false;
-        }
-        else {
-            checkLevel10.setSelected(true);
-            level10 = true;
-        }
+        if (checkLevel10.isSelected()) checkLevelAll.setSelected(false);
+        checkLevel10.setSelected(checkLevel10.isSelected());
         refreshTable();
     }
 
     public void level11() {
-        if (level11) {
-            checkLevel11.setSelected(false);
-            level11 = false;
-        }
-        else {
-            checkLevel11.setSelected(true);
-            level11 = true;
-        }
+        if (checkLevel11.isSelected()) checkLevelAll.setSelected(false);
+        checkLevel11.setSelected(checkLevel11.isSelected());
         refreshTable();
     }
 
     public void level12() {
-        if (level12) {
-            checkLevel12.setSelected(false);
-            level12 = false;
-        }
-        else {
-            checkLevel12.setSelected(true);
-            level12 = true;
-        }
+        if (checkLevel12.isSelected()) checkLevelAll.setSelected(false);
+        checkLevel12.setSelected(checkLevel12.isSelected());
         refreshTable();
-    }
-
-    private void setDisableLevel(boolean bool) {
-        checkLevel1.setDisable(bool);
-        checkLevel2.setDisable(bool);
-        checkLevel3.setDisable(bool);
-        checkLevel4.setDisable(bool);
-        checkLevel5.setDisable(bool);
-        checkLevel6.setDisable(bool);
-        checkLevel7.setDisable(bool);
-        checkLevel8.setDisable(bool);
-        checkLevel9.setDisable(bool);
-        checkLevel10.setDisable(bool);
-        checkLevel11.setDisable(bool);
-        checkLevel12.setDisable(bool);
     }
 
 
     //style select toggles
-
     public void styleAll() {
-        if (styleAll) {
-            checkStyleAll.setSelected(false);
-            setDisableStyle(false);
-            styleAll = false;
-        } else {
-            checkStyleAll.setSelected(true);
-            setDisableStyle(true);
-            styleAll = true;
+        if (checkStyleAll.isSelected()) {
+            checkStyle1.setSelected(false);
+            checkStyleSub.setSelected(false);
+            checkStyle2.setSelected(false);
+            checkStyle3.setSelected(false);
+            checkStyle4.setSelected(false);
+            checkStyle5.setSelected(false);
+            checkStyle6.setSelected(false);
+            checkStyle7.setSelected(false);
+            checkStyle8.setSelected(false);
+            checkStyle9.setSelected(false);
+            checkStyle10.setSelected(false);
+            checkStyle11.setSelected(false);
+            checkStyle12.setSelected(false);
+            checkStyle13.setSelected(false);
+            checkStyle14.setSelected(false);
+            checkStyle15.setSelected(false);
+            checkStyle16.setSelected(false);
+            checkStyle17.setSelected(false);
+            checkStyle18.setSelected(false);
+            checkStyle19.setSelected(false);
+            checkStyle20.setSelected(false);
+            checkStyle21.setSelected(false);
+            checkStyle22.setSelected(false);
         }
+        checkStyleAll.setSelected(checkStyleAll.isSelected());
         refreshTable();
     }
 
     public void style1() {
-        if (style1) {
-            checkStyle1.setSelected(false);
-            style1 = false;
-        } else {
-            checkStyle1.setSelected(true);
-            style1 = true;
-        }
+        if (checkStyle1.isSelected()) checkStyleAll.setSelected(false);
+        checkStyle1.setSelected(checkStyle1.isSelected());
         refreshTable();
     }
 
     public void styleSub() {
-        if (styleSub) {
-            checkStyleSub.setSelected(false);
-            styleSub = false;
-        } else {
-            checkStyleSub.setSelected(true);
-            styleSub = true;
-        }
+        if (checkStyleSub.isSelected()) checkStyleAll.setSelected(false);
+        checkStyleSub.setSelected(checkStyleSub.isSelected());
         refreshTable();
     }
 
     public void style2() {
-        if (style2) {
-            checkStyle2.setSelected(false);
-            style2 = false;
-        } else {
-            checkStyle2.setSelected(true);
-            style2 = true;
-        }
+        if (checkStyle2.isSelected()) checkStyleAll.setSelected(false);
+        checkStyle2.setSelected(checkStyle2.isSelected());
         refreshTable();
     }
 
     public void style3() {
-        if (style3) {
-            checkStyle3.setSelected(false);
-            style3 = false;
-        } else {
-            checkStyle3.setSelected(true);
-            style3 = true;
-        }
+        if (checkStyle3.isSelected()) checkStyleAll.setSelected(false);
+        checkStyle3.setSelected(checkStyle3.isSelected());
         refreshTable();
     }
 
     public void style4() {
-        if (style4) {
-            checkStyle4.setSelected(false);
-            style4 = false;
-        } else {
-            checkStyle4.setSelected(true);
-            style4 = true;
-        }
+        if (checkStyle4.isSelected()) checkStyleAll.setSelected(false);
+        checkStyle4.setSelected(checkStyle4.isSelected());
         refreshTable();
     }
 
     public void style5() {
-        if (style5) {
-            checkStyle5.setSelected(false);
-            style5 = false;
-        } else {
-            checkStyle5.setSelected(true);
-            style5 = true;
-        }
+        if (checkStyle5.isSelected()) checkStyleAll.setSelected(false);
+        checkStyle5.setSelected(checkStyle5.isSelected());
         refreshTable();
     }
 
     public void style6() {
-        if (style6) {
-            checkStyle6.setSelected(false);
-            style6 = false;
-        } else {
-            checkStyle6.setSelected(true);
-            style6 = true;
-        }
+        if (checkStyle6.isSelected()) checkStyleAll.setSelected(false);
+        checkStyle6.setSelected(checkStyle6.isSelected());
         refreshTable();
     }
 
     public void style7() {
-        if (style7) {
-            checkStyle7.setSelected(false);
-            style7 = false;
-        } else {
-            checkStyle7.setSelected(true);
-            style7 = true;
-        }
+        if (checkStyle7.isSelected()) checkStyleAll.setSelected(false);
+        checkStyle7.setSelected(checkStyle7.isSelected());
         refreshTable();
     }
 
     public void style8() {
-        if (style8) {
-            checkStyle8.setSelected(false);
-            style8 = false;
-        } else {
-            checkStyle8.setSelected(true);
-            style8 = true;
-        }
+        if (checkStyle8.isSelected()) checkStyleAll.setSelected(false);
+        checkStyle8.setSelected(checkStyle8.isSelected());
         refreshTable();
     }
 
     public void style9() {
-        if (style9) {
-            checkStyle9.setSelected(false);
-            style9 = false;
-        } else {
-            checkStyle9.setSelected(true);
-            style9 = true;
-        }
+        if (checkStyle9.isSelected()) checkStyleAll.setSelected(false);
+        checkStyle9.setSelected(checkStyle9.isSelected());
         refreshTable();
     }
 
     public void style10() {
-        if (style10) {
-            checkStyle10.setSelected(false);
-            style10 = false;
-        } else {
-            checkStyle10.setSelected(true);
-            style10 = true;
-        }
+        if (checkStyle10.isSelected()) checkStyleAll.setSelected(false);
+        checkStyle10.setSelected(checkStyle10.isSelected());
         refreshTable();
     }
 
     public void style11() {
-        if (style11) {
-            checkStyle11.setSelected(false);
-            style11 = false;
-        } else {
-            checkStyle11.setSelected(true);
-            style11 = true;
-        }
+        if (checkStyle11.isSelected()) checkStyleAll.setSelected(false);
+        checkStyle11.setSelected(checkStyle11.isSelected());
         refreshTable();
     }
 
     public void style12() {
-        if (style12) {
-            checkStyle12.setSelected(false);
-            style12 = false;
-        } else {
-            checkStyle12.setSelected(true);
-            style12 = true;
-        }
+        if (checkStyle12.isSelected()) checkStyleAll.setSelected(false);
+        checkStyle12.setSelected(checkStyle12.isSelected());
         refreshTable();
     }
 
     public void style13() {
-        if (style13) {
-            checkStyle13.setSelected(false);
-            style13 = false;
-        } else {
-            checkStyle13.setSelected(true);
-            style13 = true;
-        }
+        if (checkStyle13.isSelected()) checkStyleAll.setSelected(false);
+        checkStyle13.setSelected(checkStyle13.isSelected());
         refreshTable();
     }
 
     public void style14() {
-        if (style14) {
-            checkStyle14.setSelected(false);
-            style14 = false;
-        } else {
-            checkStyle14.setSelected(true);
-            style14 = true;
-        }
+        if (checkStyle14.isSelected()) checkStyleAll.setSelected(false);
+        checkStyle14.setSelected(checkStyle14.isSelected());
         refreshTable();
     }
 
     public void style15() {
-        if (style15) {
-            checkStyle15.setSelected(false);
-            style15 = false;
-        } else {
-            checkStyle15.setSelected(true);
-            style15 = true;
-        }
+        if (checkStyle15.isSelected()) checkStyleAll.setSelected(false);
+        checkStyle15.setSelected(checkStyle15.isSelected());
         refreshTable();
     }
 
     public void style16() {
-        if (style16) {
-            checkStyle16.setSelected(false);
-            style16 = false;
-        } else {
-            checkStyle16.setSelected(true);
-            style16 = true;
-        }
+        if (checkStyle16.isSelected()) checkStyleAll.setSelected(false);
+        checkStyle16.setSelected(checkStyle16.isSelected());
         refreshTable();
     }
 
     public void style17() {
-        if (style17) {
-            checkStyle17.setSelected(false);
-            style17 = false;
-        } else {
-            checkStyle17.setSelected(true);
-            style17 = true;
-        }
+        if (checkStyle17.isSelected()) checkStyleAll.setSelected(false);
+        checkStyle17.setSelected(checkStyle17.isSelected());
         refreshTable();
     }
 
     public void style18() {
-        if (style18) {
-            checkStyle18.setSelected(false);
-            style18 = false;
-        } else {
-            checkStyle18.setSelected(true);
-            style18 = true;
-        }
+        if (checkStyle18.isSelected()) checkStyleAll.setSelected(false);
+        checkStyle18.setSelected(checkStyle18.isSelected());
         refreshTable();
     }
 
     public void style19() {
-        if (style19) {
-            checkStyle19.setSelected(false);
-            style19 = false;
-        } else {
-            checkStyle19.setSelected(true);
-            style19 = true;
-        }
+        if (checkStyle19.isSelected()) checkStyleAll.setSelected(false);
+        checkStyle19.setSelected(checkStyle19.isSelected());
         refreshTable();
     }
 
     public void style20() {
-        if (style20) {
-            checkStyle20.setSelected(false);
-            style20 = false;
-        } else {
-            checkStyle20.setSelected(true);
-            style20 = true;
-        }
+        if (checkStyle20.isSelected()) checkStyleAll.setSelected(false);
+        checkStyle20.setSelected(checkStyle20.isSelected());
         refreshTable();
     }
 
     public void style21() {
-        if (style21) {
-            checkStyle21.setSelected(false);
-            style21 = false;
-        } else {
-            checkStyle21.setSelected(true);
-            style21 = true;
-        }
+        if (checkStyle21.isSelected()) checkStyleAll.setSelected(false);
+        checkStyle21.setSelected(checkStyle21.isSelected());
         refreshTable();
     }
 
     public void style22() {
-        if (style22) {
-            checkStyle22.setSelected(false);
-            style22 = false;
-        } else {
-            checkStyle22.setSelected(true);
-            style22 = true;
-        }
+        if (checkStyle22.isSelected()) checkStyleAll.setSelected(false);
+        checkStyle22.setSelected(checkStyle22.isSelected());
         refreshTable();
-    }
-
-    private void setDisableStyle(boolean bool) {
-        checkStyle1.setDisable(bool);
-        checkStyleSub.setDisable(bool);
-        checkStyle2.setDisable(bool);
-        checkStyle3.setDisable(bool);
-        checkStyle4.setDisable(bool);
-        checkStyle5.setDisable(bool);
-        checkStyle6.setDisable(bool);
-        checkStyle7.setDisable(bool);
-        checkStyle8.setDisable(bool);
-        checkStyle9.setDisable(bool);
-        checkStyle10.setDisable(bool);
-        checkStyle11.setDisable(bool);
-        checkStyle12.setDisable(bool);
-        checkStyle13.setDisable(bool);
-        checkStyle14.setDisable(bool);
-        checkStyle15.setDisable(bool);
-        checkStyle16.setDisable(bool);
-        checkStyle17.setDisable(bool);
-        checkStyle18.setDisable(bool);
-        checkStyle19.setDisable(bool);
-        checkStyle20.setDisable(bool);
-        checkStyle21.setDisable(bool);
-        checkStyle22.setDisable(bool);
     }
 
 
     //difficulty select toggles
-
     public void diffAll() {
-        if (diffAll) {
-            checkDiffAll.setSelected(false);
-            setDisableDiff(false);
-            diffAll = false;
-        } else {
-            checkDiffAll.setSelected(true);
-            setDisableDiff(true);
-            diffAll = true;
+        if (checkDiffAll.isSelected()) {
+            checkDiffN.setSelected(false);
+            checkDiffH.setSelected(false);
+            checkDiffA.setSelected(false);
+            checkDiffB.setSelected(false);
+            checkDiffL.setSelected(false);
         }
+        checkDiffAll.setSelected(checkDiffAll.isSelected());
         refreshTable();
     }
 
     public void diffN() {
-        if (diffN) {
-            checkDiffN.setSelected(false);
-            diffN = false;
-        }
-        else {
-            checkDiffN.setSelected(true);
-            diffN = true;
-        }
+        if (checkDiffN.isSelected()) checkDiffAll.setSelected(false);
+        checkDiffN.setSelected(checkDiffN.isSelected());
         refreshTable();
     }
 
     public void diffH() {
-        if (diffH) {
-            checkDiffH.setSelected(false);
-            diffH = false;
-        }
-        else {
-            checkDiffH.setSelected(true);
-            diffH = true;
-        }
+        if (checkDiffH.isSelected()) checkDiffAll.setSelected(false);
+        checkDiffH.setSelected(checkDiffH.isSelected());
         refreshTable();
     }
 
     public void diffA() {
-        if (diffA) {
-            checkDiffA.setSelected(false);
-            diffA = false;
-        }
-        else {
-            checkDiffA.setSelected(true);
-            diffA = true;
-        }
+        if (checkDiffA.isSelected()) checkDiffAll.setSelected(false);
+        checkDiffA.setSelected(checkDiffA.isSelected());
         refreshTable();
     }
 
     public void diffB() {
-        if (diffB) {
-            checkDiffB.setSelected(false);
-            diffB = false;
-        }
-        else {
-            checkDiffB.setSelected(true);
-            diffB = true;
-        }
+        if (checkDiffB.isSelected()) checkDiffAll.setSelected(false);
+        checkDiffB.setSelected(checkDiffB.isSelected());
         refreshTable();
     }
 
     public void diffL() {
-        if (diffL) {
-            checkDiffL.setSelected(false);
-            diffL = false;
-        }
-        else {
-            checkDiffL.setSelected(true);
-            diffL = true;
-        }
+        if (checkDiffL.isSelected()) checkDiffAll.setSelected(false);
+        checkDiffL.setSelected(checkDiffL.isSelected());
         refreshTable();
     }
 
-    private void setDisableDiff(boolean bool) {
-        checkDiffN.setDisable(bool);
-        checkDiffH.setDisable(bool);
-        checkDiffA.setDisable(bool);
-        checkDiffB.setDisable(bool);
-        checkDiffL.setDisable(bool);
+    //clear select toggles
+    public void clearAll() {
+        if (checkClearAll.isSelected()) {
+            checkClearNoplay.setSelected(false);
+            checkClearFailed.setSelected(false);
+            checkClearAssistclear.setSelected(false);
+            checkClearEasyclear.setSelected(false);
+            checkClearClear.setSelected(false);
+            checkClearHardclear.setSelected(false);
+            checkClearExhardclear.setSelected(false);
+            checkClearFullcombo.setSelected(false);
+        }
+        checkClearAll.setSelected(checkClearAll.isSelected());
+        refreshTable();
+    }
+
+    public void clearNoplay() {
+        if (checkClearNoplay.isSelected()) checkClearAll.setSelected(false);
+        checkClearNoplay.setSelected(checkClearNoplay.isSelected());
+        refreshTable();
+    }
+
+    public void clearFailed() {
+        if (checkClearFailed.isSelected()) checkClearAll.setSelected(false);
+        checkClearFailed.setSelected(checkClearFailed.isSelected());
+        refreshTable();
+    }
+
+    public void clearAssistclear() {
+        if (checkClearAssistclear.isSelected()) checkClearAll.setSelected(false);
+        checkClearAssistclear.setSelected(checkClearAssistclear.isSelected());
+        refreshTable();
+    }
+
+    public void clearEasyclear() {
+        if (checkClearEasyclear.isSelected()) checkClearAll.setSelected(false);
+        checkClearEasyclear.setSelected(checkClearEasyclear.isSelected());
+        refreshTable();
+    }
+
+    public void clearClear() {
+        if (checkClearClear.isSelected()) checkClearAll.setSelected(false);
+        checkClearClear.setSelected(checkClearClear.isSelected());
+        refreshTable();
+    }
+
+    public void clearHardclear() {
+        if (checkClearHardclear.isSelected()) checkClearAll.setSelected(false);
+        checkClearHardclear.setSelected(checkClearHardclear.isSelected());
+        refreshTable();
+    }
+
+    public void clearExhardclear() {
+        if (checkClearExhardclear.isSelected()) checkClearAll.setSelected(false);
+        checkClearExhardclear.setSelected(checkClearExhardclear.isSelected());
+        refreshTable();
+    }
+
+    public void clearFullcombo() {
+        if (checkClearFullcombo.isSelected()) checkClearAll.setSelected(false);
+        checkClearFullcombo.setSelected(checkClearFullcombo.isSelected());
+        refreshTable();
     }
 
     //workaround for refreshing the table data
@@ -1365,24 +1346,20 @@ public class MainController implements Initializable {
     }
 
     public void setClearColors() {
-        Main.programClearColor = !Main.programClearColor;
+        Main.programClearColor = settingsShowClearColorsCheckBox.isSelected();
         refreshTable();
     }
 
     public void setThemeLight() {
-        radioMenuLight.setSelected(true);
-        radioMenuDark.setSelected(false);
+        settingsRadioLight.setSelected(true);
+        settingsRadioDark.setSelected(false);
         Main.programTheme = Main.THEMELIGHT;
-        applyTheme();
     }
 
-    /** Theme **/
-
     public void setThemeDark() {
-        radioMenuDark.setSelected(true);
-        radioMenuLight.setSelected(false);
+        settingsRadioDark.setSelected(true);
+        settingsRadioLight.setSelected(false);
         Main.programTheme = Main.THEMEDARK;
-        applyTheme();
     }
 
     private void applyTheme() {
@@ -1393,13 +1370,21 @@ public class MainController implements Initializable {
         refreshTable();
     }
 
+    public void setP1() {
+        settingsP2.setSelected(false);
+    }
+
+    public void setP2() {
+        settingsP1.setSelected(false);
+    }
+
     public void quit() {
         ((Stage)scene.getWindow()).close();
         boolean[] columnVisibility = {styleColumn.isVisible(), titleColumn.isVisible(), artistColumn.isVisible(),
                 genreColumn.isVisible(), difficultyColumn.isVisible(), levelColumn.isVisible(),
                 ratingNColumn.isVisible(), ratingHColumn.isVisible(), bpmColumn.isVisible(), lengthColumn.isVisible(),
-                notesColumn.isVisible(), clearColumn.isVisible(), gradeColumn.isVisible(), missColumn.isVisible(),
-                percentColumn.isVisible()};
+                notesColumn.isVisible(), clearColumn.isVisible(), gradeColumn.isVisible(), exColumn.isVisible(),
+                missColumn.isVisible()};
         Main.setProperties(columnVisibility);
     }
 
@@ -1425,12 +1410,15 @@ public class MainController implements Initializable {
                         genreColumn.isVisible(), difficultyColumn.isVisible(), levelColumn.isVisible(),
                         ratingNColumn.isVisible(), ratingHColumn.isVisible(), bpmColumn.isVisible(),
                         lengthColumn.isVisible(), notesColumn.isVisible(), clearColumn.isVisible(),
-                        gradeColumn.isVisible(), missColumn.isVisible(), percentColumn.isVisible()};
+                        gradeColumn.isVisible(), exColumn.isVisible(), missColumn.isVisible()};
                 Main.setProperties(columnVisibility);
                 onStartTableView();
+
+                //display columns on success
                 clearColumn.setVisible(true);
                 gradeColumn.setVisible(true);
                 missColumn.setVisible(true);
+                exColumn.setVisible(true);
                 refreshTable();
             }
         } catch (IOException e) {
@@ -1457,6 +1445,178 @@ public class MainController implements Initializable {
             dialogStage.showAndWait();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    private void initDan() {
+        danStyleSelectBox.setValue(Style.PENDUALFULL);
+        danStyleSelectBox.getItems().addAll(Style.PENDUALFULL, Style.SPADAFULL, Style.TRICOROFULL, Style.LINCLEFULL,
+                Style.RESORTANTHEMFULL);
+        danStyleSelectBox.valueProperty().addListener((observable, oldValue, newValue) -> setDanData(Style.styleFullToInt(newValue)));
+        setDanData(Style.PENDUALINT);
+    }
+
+    private void setDanData(int style) {
+        style = 22 - style;
+        for (int i = 0; i < 18; i++) {
+            if (i == 0) {
+                kaiden1.setText(Dan.danData[style][i][0]);
+                kaiden2.setText(Dan.danData[style][i][1]);
+                kaiden3.setText(Dan.danData[style][i][2]);
+                kaiden4.setText(Dan.danData[style][i][3]);
+            } else if (i == 1) {
+                tenthdan1.setText(Dan.danData[style][i][0]);
+                tenthdan2.setText(Dan.danData[style][i][1]);
+                tenthdan3.setText(Dan.danData[style][i][2]);
+                tenthdan4.setText(Dan.danData[style][i][3]);
+            } else if (i == 2) {
+                ninthdan1.setText(Dan.danData[style][i][0]);
+                ninthdan2.setText(Dan.danData[style][i][1]);
+                ninthdan3.setText(Dan.danData[style][i][2]);
+                ninthdan4.setText(Dan.danData[style][i][3]);
+            } else if (i == 3) {
+                eighthdan1.setText(Dan.danData[style][i][0]);
+                eighthdan2.setText(Dan.danData[style][i][1]);
+                eighthdan3.setText(Dan.danData[style][i][2]);
+                eighthdan4.setText(Dan.danData[style][i][3]);
+            } else if (i == 4) {
+                seventhdan1.setText(Dan.danData[style][i][0]);
+                seventhdan2.setText(Dan.danData[style][i][1]);
+                seventhdan3.setText(Dan.danData[style][i][2]);
+                seventhdan4.setText(Dan.danData[style][i][3]);
+            } else if (i == 5) {
+                sixthdan1.setText(Dan.danData[style][i][0]);
+                sixthdan2.setText(Dan.danData[style][i][1]);
+                sixthdan3.setText(Dan.danData[style][i][2]);
+                sixthdan4.setText(Dan.danData[style][i][3]);
+            } else if (i == 6) {
+                fifthdan1.setText(Dan.danData[style][i][0]);
+                fifthdan2.setText(Dan.danData[style][i][1]);
+                fifthdan3.setText(Dan.danData[style][i][2]);
+                fifthdan4.setText(Dan.danData[style][i][3]);
+            } else if (i == 7) {
+                fourthdan1.setText(Dan.danData[style][i][0]);
+                fourthdan2.setText(Dan.danData[style][i][1]);
+                fourthdan3.setText(Dan.danData[style][i][2]);
+                fourthdan4.setText(Dan.danData[style][i][3]);
+            } else if (i == 8) {
+                thirddan1.setText(Dan.danData[style][i][0]);
+                thirddan2.setText(Dan.danData[style][i][1]);
+                thirddan3.setText(Dan.danData[style][i][2]);
+                thirddan4.setText(Dan.danData[style][i][3]);
+            } else if (i == 9) {
+                seconddan1.setText(Dan.danData[style][i][0]);
+                seconddan2.setText(Dan.danData[style][i][1]);
+                seconddan3.setText(Dan.danData[style][i][2]);
+                seconddan4.setText(Dan.danData[style][i][3]);
+            } else if (i == 10) {
+                firstdan1.setText(Dan.danData[style][i][0]);
+                firstdan2.setText(Dan.danData[style][i][1]);
+                firstdan3.setText(Dan.danData[style][i][2]);
+                firstdan4.setText(Dan.danData[style][i][3]);
+            } else if (i == 11) {
+                firstkyu1.setText(Dan.danData[style][i][0]);
+                firstkyu2.setText(Dan.danData[style][i][1]);
+                firstkyu3.setText(Dan.danData[style][i][2]);
+                firstkyu4.setText(Dan.danData[style][i][3]);
+            } else if (i == 12) {
+                secondkyu1.setText(Dan.danData[style][i][0]);
+                secondkyu2.setText(Dan.danData[style][i][1]);
+                secondkyu3.setText(Dan.danData[style][i][2]);
+                secondkyu4.setText(Dan.danData[style][i][3]);
+            } else if (i == 13) {
+                thirdkyu1.setText(Dan.danData[style][i][0]);
+                thirdkyu2.setText(Dan.danData[style][i][1]);
+                thirdkyu3.setText(Dan.danData[style][i][2]);
+                thirdkyu4.setText(Dan.danData[style][i][3]);
+            } else if (i == 14) {
+                fourthkyu1.setText(Dan.danData[style][i][0]);
+                fourthkyu2.setText(Dan.danData[style][i][1]);
+                fourthkyu3.setText(Dan.danData[style][i][2]);
+                fourthkyu4.setText(Dan.danData[style][i][3]);
+            } else if (i == 15) {
+                fifthkyu1.setText(Dan.danData[style][i][0]);
+                fifthkyu2.setText(Dan.danData[style][i][1]);
+                fifthkyu3.setText(Dan.danData[style][i][2]);
+                fifthkyu4.setText(Dan.danData[style][i][3]);
+            } else if (i == 16) {
+                sixthkyu1.setText(Dan.danData[style][i][0]);
+                sixthkyu2.setText(Dan.danData[style][i][1]);
+                sixthkyu3.setText(Dan.danData[style][i][2]);
+                sixthkyu4.setText(Dan.danData[style][i][3]);
+            } else if (i == 17) {
+                seventhkyu1.setText(Dan.danData[style][i][0]);
+                seventhkyu2.setText(Dan.danData[style][i][1]);
+                seventhkyu3.setText(Dan.danData[style][i][2]);
+                seventhkyu4.setText(Dan.danData[style][i][3]);
+            }
+        }
+    }
+
+    public void saveSettings() {
+        //prevent overload by clicking the button too much
+        if (!saveAnimationPlaying) {
+
+            setClearColors();
+            applyTheme();
+            refreshTable();
+
+            Main.programPlayerside = settingsP1.isSelected() ? "1" : "2";
+
+            saveAnimationPlaying = true;
+            FadeTransition ft2 = new FadeTransition(Duration.millis(333), settingsSaveLabel);
+            ft2.setFromValue(1);
+            ft2.setToValue(0);
+            ft2.setOnFinished(event2 -> saveAnimationPlaying = false);
+            FadeTransition ft1 = new FadeTransition(Duration.millis(200), settingsSaveLabel);
+            ft1.setFromValue(0);
+            ft1.setToValue(1);
+            ft1.setOnFinished(event1 -> new Thread(() -> {
+                try {
+                    Thread.sleep(1500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                ft2.play();
+            }).start());
+            new Thread(ft1::play).start();
+        }
+    }
+
+    private int texStyle(int id) {
+        if (id == 22096 || id == 22097 || id == 15202 || id == 14214) return Style.COPULAINT;
+        else if (id == 13212) return Style.IIDXREDINT;
+        else if (id == 13203) return Style.TENTHSTYLEINT;
+        else if (id == 16201 || id == 16202 || id == 16203 || id == 16204 || id == 16205 || id == 16206 || id == 16208
+                || id == 16209 || id == 16210 || id == 16211 || id == 15201 || id == 15203 || id == 15206 || id == 15210
+                || id == 15211 || id == 15212 || id == 15213 || id == 15214 || id == 15216 || id == 14201 || id == 14203
+                || id == 14204 || id == 14205 || id == 14206 || id == 14207 || id == 14208 || id == 14209 || id == 14212
+                || id == 14213 || id == 13202 || id == 13204 || id == 13205 || id == 13206 || id == 13207 || id == 13208
+                || id == 13209 || id == 13210 || id == 13211 || id == 13213 || id == 13214 || id == 13201) return Style.OTHERINT;
+        else return getStyleFromID(id);
+    }
+
+    private void textageTab(int id, String title, String textage, String difficulty, String level) {
+        if (!textage.equals("")) {
+            if (title.length() > 20) title = title.substring(0, 16) + "...";
+            difficulty = Difficulty.difficultyToSingleString(difficulty);
+            switch (level) {
+                case "10":
+                    level = "A";
+                    break;
+                case "11":
+                    level = "B";
+                    break;
+                case "12":
+                    level = "C";
+                    break;
+            }
+            WebView webView = new WebView();
+            WebEngine webEngine = webView.getEngine();
+            webEngine.load("http://textage.cc/score/" + texStyle(id) + "/" + textage + ".html?" + Main.programPlayerside + difficulty + level + "00");
+            Tab tab = new Tab("Chart: " + title + " [" + difficulty.toLowerCase() + "]");
+            tab.setContent(webView);
+            tabPane.getTabs().add(tab);
         }
     }
 

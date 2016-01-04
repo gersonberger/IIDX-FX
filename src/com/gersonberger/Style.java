@@ -3,6 +3,9 @@ package com.gersonberger;
 
 public class Style {
 
+    private static final String beatmania = "beatmania IIDX";
+
+    public static final String OMNIMIX = "Omnimix";
     public static final String COPULA = "Copula";
     public static final String PENDUAL = "Pendual";
     public static final String SPADA = "Spada";
@@ -28,12 +31,6 @@ public class Style {
     public static final String SUBSTREAM = "Substream";
     public static final String FIRSTSTYLE = "1st Style";
     public static final String OTHER = "Other";
-
-    public static final String NEWESTSTYLE = PENDUAL;
-
-    public static final String[] ALLSTYLES = {PENDUAL, SPADA, TRICORO, LINCLE, RESORTANTHEM, SIRIUS, EMPRESS,
-            DJTROOPERS, GOLD, DISTORTED, HAPPYSKY, IIDXRED, TENTHSTYLE, NINTHSTYLE, EIGHTHSTYLE, SEVENTHSTYLE,
-            SIXTHSTYLE, FIFTHSTYLE, FOURTHSTYLE, THIRDSTYLE, SECONDSTYLE, SUBSTREAM, FIRSTSTYLE, OTHER};
 
     public static final int COPULAINT = 23;
     public static final int PENDUALINT = 22;
@@ -61,7 +58,36 @@ public class Style {
     public static final int FIRSTSTYLEINT = 1;
     public static final int OTHERINT = 0;
 
-    public static int styleToInt(String style){
+    public static final String COPULAFULL = beatmania + " " + COPULAINT + " " + COPULA;
+    public static final String PENDUALFULL = beatmania + " " + PENDUALINT + " " + PENDUAL;
+    public static final String SPADAFULL = beatmania + " " + SPADAINT + " " + SPADA;
+    public static final String TRICOROFULL = beatmania + " " + TRICOROINT + " " + TRICORO;
+    public static final String LINCLEFULL = beatmania + " " + LINCLEINT+ " " + LINCLE;
+    public static final String RESORTANTHEMFULL = beatmania + " " + RESORTANTHEMINT + " " + RESORTANTHEM;
+    public static final String SIRIUSFULL = beatmania + " " + SIRIUSINT + " " + SIRIUS;
+
+    public static int styleFullToInt(String style) {
+        switch (style) {
+            case COPULAFULL:
+                return COPULAINT;
+            case PENDUALFULL:
+                return PENDUALINT;
+            case SPADAFULL:
+                return SPADAINT;
+            case TRICOROFULL:
+                return TRICOROINT;
+            case LINCLEFULL:
+                return LINCLEINT;
+            case RESORTANTHEMFULL:
+                return RESORTANTHEMINT;
+            case SIRIUSFULL:
+                return SIRIUSINT;
+            default:
+                return OTHERINT;
+        }
+    }
+
+    public static int styleToInt(String style) {
         switch (style) {
             case FIRSTSTYLE:
                 return FIRSTSTYLEINT;
@@ -116,7 +142,7 @@ public class Style {
         }
     }
 
-    public static String styleToString(int style){
+    public static String styleToString(int style) {
         switch (style) {
             case FIRSTSTYLEINT:
                 return FIRSTSTYLE;

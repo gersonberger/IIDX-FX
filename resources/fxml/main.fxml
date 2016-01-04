@@ -10,431 +10,1386 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<VBox minWidth="850.0" prefHeight="720.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8"
-      xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gersonberger.MainController">
-    <children>
-        <MenuBar VBox.vgrow="NEVER">
-            <menus>
-                <Menu text="File">
-                    <items>
-                        <MenuItem onAction="#importData" text="Import data..."/>
-                        <Menu text="Settings">
-                            <items>
-                                <CheckMenuItem fx:id="checkMenuClearColors" onAction="#setClearColors"
-                                               text="Show clear colors"/>
-                                <SeparatorMenuItem/>
-                                <RadioMenuItem fx:id="radioMenuLight" onAction="#setThemeLight" text="Light theme"/>
-                                <RadioMenuItem fx:id="radioMenuDark" onAction="#setThemeDark" text="Dark theme"/>
-                            </items>
-                        </Menu>
-                        <SeparatorMenuItem/>
-                        <MenuItem onAction="#quit" text="Quit"/>
-                    </items>
-                </Menu>
-                <Menu text="Help">
-                    <items>
-                        <MenuItem onAction="#about" text="About..."/>
-                    </items>
-                </Menu>
-            </menus>
-        </MenuBar>
-        <ScrollPane fitToHeight="true" fitToWidth="true" VBox.vgrow="ALWAYS">
+<TabPane fx:id="tabPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+         tabMinWidth="50.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+         fx:controller="com.gersonberger.MainController">
+    <tabs>
+        <Tab closable="false" text="Songs">
             <content>
-                <VBox fx:id="mainBox">
+                <VBox minWidth="850.0" prefHeight="720.0" prefWidth="1024.0">
                     <children>
-                        <HBox alignment="CENTER">
+                        <ScrollPane fitToHeight="true" fitToWidth="true" VBox.vgrow="ALWAYS">
+                            <content>
+                                <VBox fx:id="mainBox">
+                                    <children>
+                                        <HBox alignment="CENTER">
+                                            <children>
+                                                <Label alignment="TOP_LEFT" minHeight="15.0" minWidth="89.0"
+                                                       text="Search Songs:">
+                                                    <font>
+                                                        <Font name="Verdana" size="12.0"/>
+                                                    </font>
+                                                    <HBox.margin>
+                                                        <Insets right="8.0"/>
+                                                    </HBox.margin>
+                                                </Label>
+                                                <TextField fx:id="filterField" maxHeight="300.0" minHeight="25.0"
+                                                           minWidth="100.0" prefWidth="300.0" HBox.hgrow="SOMETIMES">
+                                                    <font>
+                                                        <Font name="Verdana" size="12.0"/>
+                                                    </font>
+                                                    <HBox.margin>
+                                                        <Insets right="8.0"/>
+                                                    </HBox.margin>
+                                                </TextField>
+                                                <Label fx:id="matchLabel" minHeight="15.0" minWidth="86.0"
+                                                       wrapText="true" HBox.hgrow="ALWAYS">
+                                                    <font>
+                                                        <Font name="Verdana" size="12.0"/>
+                                                    </font>
+                                                    <HBox.margin>
+                                                        <Insets right="8.0"/>
+                                                    </HBox.margin>
+                                                </Label>
+                                                <Region HBox.hgrow="ALWAYS"/>
+                                                <Button fx:id="settingsButton" minHeight="25.0" minWidth="55.0"
+                                                        onAction="#hideSettings" prefWidth="80.0" text="Filter">
+                                                    <font>
+                                                        <Font name="Verdana" size="12.0"/>
+                                                    </font>
+                                                </Button>
+                                            </children>
+                                            <padding>
+                                                <Insets bottom="8.0" left="8.0" right="8.0" top="8.0"/>
+                                            </padding>
+                                        </HBox>
+                                        <VBox fx:id="settingsBox" prefHeight="200.0" prefWidth="100.0">
+                                            <children>
+                                                <VBox spacing="4.0">
+                                                    <children>
+                                                        <Label text="Styles:">
+                                                            <font>
+                                                                <Font name="Verdana Bold" size="14.0"/>
+                                                            </font>
+                                                        </Label>
+                                                        <HBox spacing="8.0">
+                                                            <children>
+                                                                <CheckBox fx:id="checkStyleAll" onAction="#styleAll"
+                                                                          prefHeight="36.0" selected="true" text="All">
+                                                                    <font>
+                                                                        <Font name="Verdana" size="12.0"/>
+                                                                    </font>
+                                                                </CheckBox>
+                                                                <Separator orientation="VERTICAL" prefHeight="200.0"/>
+                                                                <VBox spacing="4.0">
+                                                                    <children>
+                                                                        <HBox spacing="8.0">
+                                                                            <children>
+                                                                                <CheckBox fx:id="checkStyle1"
+                                                                                          onAction="#style1"
+                                                                                          text="1st Style">
+                                                                                    <font>
+                                                                                        <Font name="Verdana"
+                                                                                              size="12.0"/>
+                                                                                    </font>
+                                                                                </CheckBox>
+                                                                                <CheckBox fx:id="checkStyleSub"
+                                                                                          onAction="#styleSub"
+                                                                                          text="Substream">
+                                                                                    <font>
+                                                                                        <Font name="Verdana"
+                                                                                              size="12.0"/>
+                                                                                    </font>
+                                                                                </CheckBox>
+                                                                                <CheckBox fx:id="checkStyle2"
+                                                                                          onAction="#style2"
+                                                                                          text="2nd Style">
+                                                                                    <font>
+                                                                                        <Font name="Verdana"
+                                                                                              size="12.0"/>
+                                                                                    </font>
+                                                                                </CheckBox>
+                                                                                <CheckBox fx:id="checkStyle3"
+                                                                                          onAction="#style3"
+                                                                                          text="3rd Style">
+                                                                                    <font>
+                                                                                        <Font name="Verdana"
+                                                                                              size="12.0"/>
+                                                                                    </font>
+                                                                                </CheckBox>
+                                                                                <CheckBox fx:id="checkStyle4"
+                                                                                          onAction="#style4"
+                                                                                          text="4th Style">
+                                                                                    <font>
+                                                                                        <Font name="Verdana"
+                                                                                              size="12.0"/>
+                                                                                    </font>
+                                                                                </CheckBox>
+                                                                                <CheckBox fx:id="checkStyle5"
+                                                                                          onAction="#style5"
+                                                                                          text="5th Style">
+                                                                                    <font>
+                                                                                        <Font name="Verdana"
+                                                                                              size="12.0"/>
+                                                                                    </font>
+                                                                                </CheckBox>
+                                                                                <CheckBox fx:id="checkStyle6"
+                                                                                          onAction="#style6"
+                                                                                          text="6th Style">
+                                                                                    <font>
+                                                                                        <Font name="Verdana"
+                                                                                              size="12.0"/>
+                                                                                    </font>
+                                                                                </CheckBox>
+                                                                                <CheckBox fx:id="checkStyle7"
+                                                                                          onAction="#style7"
+                                                                                          text="7th Style">
+                                                                                    <font>
+                                                                                        <Font name="Verdana"
+                                                                                              size="12.0"/>
+                                                                                    </font>
+                                                                                </CheckBox>
+                                                                                <CheckBox fx:id="checkStyle8"
+                                                                                          onAction="#style8"
+                                                                                          text="8th Style">
+                                                                                    <font>
+                                                                                        <Font name="Verdana"
+                                                                                              size="12.0"/>
+                                                                                    </font>
+                                                                                </CheckBox>
+                                                                                <CheckBox fx:id="checkStyle9"
+                                                                                          onAction="#style9"
+                                                                                          text="9th Style">
+                                                                                    <font>
+                                                                                        <Font name="Verdana"
+                                                                                              size="12.0"/>
+                                                                                    </font>
+                                                                                </CheckBox>
+                                                                                <CheckBox fx:id="checkStyle10"
+                                                                                          onAction="#style10"
+                                                                                          text="10th Style">
+                                                                                    <font>
+                                                                                        <Font name="Verdana"
+                                                                                              size="12.0"/>
+                                                                                    </font>
+                                                                                </CheckBox>
+                                                                            </children>
+                                                                        </HBox>
+                                                                        <HBox spacing="8.0">
+                                                                            <children>
+                                                                                <CheckBox fx:id="checkStyle11"
+                                                                                          onAction="#style11"
+                                                                                          text="IIDX Red">
+                                                                                    <font>
+                                                                                        <Font name="Verdana"
+                                                                                              size="12.0"/>
+                                                                                    </font>
+                                                                                </CheckBox>
+                                                                                <CheckBox fx:id="checkStyle12"
+                                                                                          onAction="#style12"
+                                                                                          text="Happy Sky">
+                                                                                    <font>
+                                                                                        <Font name="Verdana"
+                                                                                              size="12.0"/>
+                                                                                    </font>
+                                                                                </CheckBox>
+                                                                                <CheckBox fx:id="checkStyle13"
+                                                                                          onAction="#style13"
+                                                                                          text="Distorted">
+                                                                                    <font>
+                                                                                        <Font name="Verdana"
+                                                                                              size="12.0"/>
+                                                                                    </font>
+                                                                                </CheckBox>
+                                                                                <CheckBox fx:id="checkStyle14"
+                                                                                          onAction="#style14"
+                                                                                          text="Gold">
+                                                                                    <font>
+                                                                                        <Font name="Verdana"
+                                                                                              size="12.0"/>
+                                                                                    </font>
+                                                                                </CheckBox>
+                                                                                <CheckBox fx:id="checkStyle15"
+                                                                                          onAction="#style15"
+                                                                                          text="DJ Troopers">
+                                                                                    <font>
+                                                                                        <Font name="Verdana"
+                                                                                              size="12.0"/>
+                                                                                    </font>
+                                                                                </CheckBox>
+                                                                                <CheckBox fx:id="checkStyle16"
+                                                                                          onAction="#style16"
+                                                                                          text="Empress">
+                                                                                    <font>
+                                                                                        <Font name="Verdana"
+                                                                                              size="12.0"/>
+                                                                                    </font>
+                                                                                </CheckBox>
+                                                                                <CheckBox fx:id="checkStyle17"
+                                                                                          onAction="#style17"
+                                                                                          text="Sirius">
+                                                                                    <font>
+                                                                                        <Font name="Verdana"
+                                                                                              size="12.0"/>
+                                                                                    </font>
+                                                                                </CheckBox>
+                                                                                <CheckBox fx:id="checkStyle18"
+                                                                                          onAction="#style18"
+                                                                                          text="Resort Anthem">
+                                                                                    <font>
+                                                                                        <Font name="Verdana"
+                                                                                              size="12.0"/>
+                                                                                    </font>
+                                                                                </CheckBox>
+                                                                                <CheckBox fx:id="checkStyle19"
+                                                                                          onAction="#style19"
+                                                                                          text="Lincle">
+                                                                                    <font>
+                                                                                        <Font name="Verdana"
+                                                                                              size="12.0"/>
+                                                                                    </font>
+                                                                                </CheckBox>
+                                                                                <CheckBox fx:id="checkStyle20"
+                                                                                          onAction="#style20"
+                                                                                          text="Tricoro">
+                                                                                    <font>
+                                                                                        <Font name="Verdana"
+                                                                                              size="12.0"/>
+                                                                                    </font>
+                                                                                </CheckBox>
+                                                                                <CheckBox fx:id="checkStyle21"
+                                                                                          onAction="#style21"
+                                                                                          text="Spada">
+                                                                                    <font>
+                                                                                        <Font name="Verdana"
+                                                                                              size="12.0"/>
+                                                                                    </font>
+                                                                                </CheckBox>
+                                                                                <CheckBox fx:id="checkStyle22"
+                                                                                          onAction="#style22"
+                                                                                          text="Pendual">
+                                                                                    <font>
+                                                                                        <Font name="Verdana"
+                                                                                              size="12.0"/>
+                                                                                    </font>
+                                                                                </CheckBox>
+                                                                            </children>
+                                                                        </HBox>
+                                                                    </children>
+                                                                </VBox>
+                                                            </children>
+                                                        </HBox>
+                                                        <Separator prefWidth="200.0"/>
+                                                    </children>
+                                                    <padding>
+                                                        <Insets bottom="8.0" left="8.0" right="8.0"/>
+                                                    </padding>
+                                                </VBox>
+                                                <VBox spacing="4.0">
+                                                    <children>
+                                                        <Label text="Level:">
+                                                            <font>
+                                                                <Font name="Verdana Bold" size="14.0"/>
+                                                            </font>
+                                                        </Label>
+                                                        <HBox spacing="8.0">
+                                                            <children>
+                                                                <CheckBox fx:id="checkLevelAll" onAction="#levelAll"
+                                                                          selected="true" text="All">
+                                                                    <font>
+                                                                        <Font name="Verdana" size="12.0"/>
+                                                                    </font>
+                                                                </CheckBox>
+                                                                <Separator orientation="VERTICAL" prefHeight="200.0"/>
+                                                                <CheckBox fx:id="checkLevel1" onAction="#level1"
+                                                                          text="1">
+                                                                    <font>
+                                                                        <Font name="Verdana" size="12.0"/>
+                                                                    </font>
+                                                                </CheckBox>
+                                                                <CheckBox fx:id="checkLevel2" onAction="#level2"
+                                                                          text="2">
+                                                                    <font>
+                                                                        <Font name="Verdana" size="12.0"/>
+                                                                    </font>
+                                                                </CheckBox>
+                                                                <CheckBox fx:id="checkLevel3" onAction="#level3"
+                                                                          text="3">
+                                                                    <font>
+                                                                        <Font name="Verdana" size="12.0"/>
+                                                                    </font>
+                                                                </CheckBox>
+                                                                <CheckBox fx:id="checkLevel4" onAction="#level4"
+                                                                          text="4">
+                                                                    <font>
+                                                                        <Font name="Verdana" size="12.0"/>
+                                                                    </font>
+                                                                </CheckBox>
+                                                                <CheckBox fx:id="checkLevel5" onAction="#level5"
+                                                                          text="5">
+                                                                    <font>
+                                                                        <Font name="Verdana" size="12.0"/>
+                                                                    </font>
+                                                                </CheckBox>
+                                                                <CheckBox fx:id="checkLevel6" onAction="#level6"
+                                                                          text="6">
+                                                                    <font>
+                                                                        <Font name="Verdana" size="12.0"/>
+                                                                    </font>
+                                                                </CheckBox>
+                                                                <CheckBox fx:id="checkLevel7" onAction="#level7"
+                                                                          text="7">
+                                                                    <font>
+                                                                        <Font name="Verdana" size="12.0"/>
+                                                                    </font>
+                                                                </CheckBox>
+                                                                <CheckBox fx:id="checkLevel8" onAction="#level8"
+                                                                          text="8">
+                                                                    <font>
+                                                                        <Font name="Verdana" size="12.0"/>
+                                                                    </font>
+                                                                </CheckBox>
+                                                                <CheckBox fx:id="checkLevel9" onAction="#level9"
+                                                                          text="9">
+                                                                    <font>
+                                                                        <Font name="Verdana" size="12.0"/>
+                                                                    </font>
+                                                                </CheckBox>
+                                                                <CheckBox fx:id="checkLevel10" onAction="#level10"
+                                                                          text="10">
+                                                                    <font>
+                                                                        <Font name="Verdana" size="12.0"/>
+                                                                    </font>
+                                                                </CheckBox>
+                                                                <CheckBox fx:id="checkLevel11" onAction="#level11"
+                                                                          text="11">
+                                                                    <font>
+                                                                        <Font name="Verdana" size="12.0"/>
+                                                                    </font>
+                                                                </CheckBox>
+                                                                <CheckBox fx:id="checkLevel12" onAction="#level12"
+                                                                          text="12">
+                                                                    <font>
+                                                                        <Font name="Verdana" size="12.0"/>
+                                                                    </font>
+                                                                </CheckBox>
+                                                            </children>
+                                                        </HBox>
+                                                        <Separator prefWidth="200.0"/>
+                                                    </children>
+                                                    <padding>
+                                                        <Insets bottom="8.0" left="8.0" right="8.0"/>
+                                                    </padding>
+                                                </VBox>
+                                                <VBox spacing="4.0">
+                                                    <children>
+                                                        <Label text="Difficulty:">
+                                                            <font>
+                                                                <Font name="Verdana Bold" size="14.0"/>
+                                                            </font>
+                                                        </Label>
+                                                        <HBox spacing="8.0">
+                                                            <children>
+                                                                <CheckBox fx:id="checkDiffAll" onAction="#diffAll"
+                                                                          selected="true" text="All">
+                                                                    <font>
+                                                                        <Font name="Verdana" size="12.0"/>
+                                                                    </font>
+                                                                </CheckBox>
+                                                                <Separator orientation="VERTICAL" prefHeight="200.0"/>
+                                                                <CheckBox fx:id="checkDiffN" onAction="#diffN"
+                                                                          text="Normal">
+                                                                    <font>
+                                                                        <Font name="Verdana" size="12.0"/>
+                                                                    </font>
+                                                                </CheckBox>
+                                                                <CheckBox fx:id="checkDiffH" onAction="#diffH"
+                                                                          text="Hyper">
+                                                                    <font>
+                                                                        <Font name="Verdana" size="12.0"/>
+                                                                    </font>
+                                                                </CheckBox>
+                                                                <CheckBox fx:id="checkDiffA" onAction="#diffA"
+                                                                          text="Another">
+                                                                    <font>
+                                                                        <Font name="Verdana" size="12.0"/>
+                                                                    </font>
+                                                                </CheckBox>
+                                                                <CheckBox fx:id="checkDiffB" onAction="#diffB"
+                                                                          text="Black Another">
+                                                                    <font>
+                                                                        <Font name="Verdana" size="12.0"/>
+                                                                    </font>
+                                                                </CheckBox>
+                                                                <CheckBox fx:id="checkDiffL" onAction="#diffL"
+                                                                          text="Leggendaria">
+                                                                    <font>
+                                                                        <Font name="Verdana" size="12.0"/>
+                                                                    </font>
+                                                                </CheckBox>
+                                                            </children>
+                                                        </HBox>
+                                                        <Separator prefWidth="200.0"/>
+                                                    </children>
+                                                    <padding>
+                                                        <Insets bottom="8.0" left="8.0" right="8.0"/>
+                                                    </padding>
+                                                </VBox>
+                                                <VBox spacing="4.0">
+                                                    <children>
+                                                        <Label text="Clear:">
+                                                            <font>
+                                                                <Font name="Verdana Bold" size="14.0"/>
+                                                            </font>
+                                                        </Label>
+                                                        <HBox spacing="8.0">
+                                                            <children>
+                                                                <CheckBox fx:id="checkClearAll" onAction="#clearAll"
+                                                                          selected="true" text="All">
+                                                                    <font>
+                                                                        <Font name="Verdana" size="12.0"/>
+                                                                    </font>
+                                                                </CheckBox>
+                                                                <Separator orientation="VERTICAL" prefHeight="200.0"/>
+                                                                <CheckBox fx:id="checkClearNoplay"
+                                                                          onAction="#clearNoplay" text="No Play">
+                                                                    <font>
+                                                                        <Font name="Verdana" size="12.0"/>
+                                                                    </font>
+                                                                </CheckBox>
+                                                                <CheckBox fx:id="checkClearFailed"
+                                                                          onAction="#clearFailed" text="Failed">
+                                                                    <font>
+                                                                        <Font name="Verdana" size="12.0"/>
+                                                                    </font>
+                                                                </CheckBox>
+                                                                <CheckBox fx:id="checkClearAssistclear"
+                                                                          onAction="#clearAssistclear"
+                                                                          text="Assist Clear">
+                                                                    <font>
+                                                                        <Font name="Verdana" size="12.0"/>
+                                                                    </font>
+                                                                </CheckBox>
+                                                                <CheckBox fx:id="checkClearEasyclear"
+                                                                          onAction="#clearEasyclear" text="Easy Clear">
+                                                                    <font>
+                                                                        <Font name="Verdana" size="12.0"/>
+                                                                    </font>
+                                                                </CheckBox>
+                                                                <CheckBox fx:id="checkClearClear" onAction="#clearClear"
+                                                                          text="Clear">
+                                                                    <font>
+                                                                        <Font name="Verdana" size="12.0"/>
+                                                                    </font>
+                                                                </CheckBox>
+                                                                <CheckBox fx:id="checkClearHardclear"
+                                                                          onAction="#clearHardclear" text="Hard Clear">
+                                                                    <font>
+                                                                        <Font name="Verdana" size="12.0"/>
+                                                                    </font>
+                                                                </CheckBox>
+                                                                <CheckBox fx:id="checkClearExhardclear"
+                                                                          onAction="#clearExhardclear"
+                                                                          text="Ex Hard Clear">
+                                                                    <font>
+                                                                        <Font name="Verdana" size="12.0"/>
+                                                                    </font>
+                                                                </CheckBox>
+                                                                <CheckBox fx:id="checkClearFullcombo"
+                                                                          onAction="#clearFullcombo" text="Full Combo">
+                                                                    <font>
+                                                                        <Font name="Verdana" size="12.0"/>
+                                                                    </font>
+                                                                </CheckBox>
+                                                            </children>
+                                                        </HBox>
+                                                    </children>
+                                                    <padding>
+                                                        <Insets bottom="8.0" left="8.0" right="8.0"/>
+                                                    </padding>
+                                                </VBox>
+                                            </children>
+                                        </VBox>
+                                        <TableView fx:id="tableView" tableMenuButtonVisible="true" VBox.vgrow="ALWAYS">
+                                            <columns>
+                                                <TableColumn fx:id="styleColumn" prefWidth="81.0" text="Style"/>
+                                                <TableColumn fx:id="titleColumn" prefWidth="240.0" text="Title"/>
+                                                <TableColumn fx:id="artistColumn" prefWidth="170.0" text="Artist"/>
+                                                <TableColumn fx:id="genreColumn" prefWidth="125.0" text="Genre"/>
+                                                <TableColumn fx:id="difficultyColumn" prefWidth="88.0"
+                                                             text="Difficulty"/>
+                                                <TableColumn fx:id="levelColumn" prefWidth="59.0" text="Level"/>
+                                                <TableColumn fx:id="ratingNColumn" prefWidth="51.0" text="RN"/>
+                                                <TableColumn fx:id="ratingHColumn" prefWidth="51.0" text="RH"/>
+                                                <TableColumn fx:id="bpmColumn" prefWidth="58.0"
+                                                             style="-fx-alignment: CENTER;" text="BPM"/>
+                                                <TableColumn fx:id="lengthColumn" prefWidth="68.0" text="Length"/>
+                                                <TableColumn fx:id="notesColumn" prefWidth="59.0" text="Notes"/>
+                                                <TableColumn fx:id="clearColumn" prefWidth="90.0"
+                                                             style="-fx-alignment: CENTER;" text="Clear"/>
+                                                <TableColumn fx:id="gradeColumn" prefWidth="104.0"
+                                                             style="-fx-alignment: CENTER;" text="Grade"/>
+                                                <TableColumn fx:id="exColumn" prefWidth="60" text="Ex"/>
+                                                <TableColumn fx:id="missColumn" prefWidth="60.0" text="Miss"/>
+                                            </columns>
+                                        </TableView>
+                                    </children>
+                                </VBox>
+                            </content>
+                        </ScrollPane>
+                    </children>
+                </VBox>
+            </content>
+        </Tab>
+        <Tab closable="false" text="Dan course">
+            <content>
+                <ScrollPane fitToWidth="true">
+                    <content>
+                        <VBox fillWidth="false" spacing="20.0">
                             <children>
-                                <Label alignment="TOP_LEFT" minHeight="15.0" minWidth="89.0" text="Search Songs:">
+                                <Label text="Dan Course">
                                     <font>
-                                        <Font name="Verdana" size="12.0"/>
+                                        <Font name="Verdana Bold" size="18.0"/>
                                     </font>
-                                    <HBox.margin>
-                                        <Insets right="8.0"/>
-                                    </HBox.margin>
                                 </Label>
-                                <TextField fx:id="filterField" maxHeight="300.0" minHeight="25.0" minWidth="100.0"
-                                           prefWidth="300.0" HBox.hgrow="SOMETIMES">
-                                    <font>
-                                        <Font name="Verdana" size="12.0"/>
-                                    </font>
-                                    <HBox.margin>
-                                        <Insets right="8.0"/>
-                                    </HBox.margin>
-                                </TextField>
-                                <Label fx:id="matchLabel" minHeight="15.0" minWidth="86.0" wrapText="true"
-                                       HBox.hgrow="ALWAYS">
-                                    <font>
-                                        <Font name="Verdana" size="12.0"/>
-                                    </font>
-                                    <HBox.margin>
-                                        <Insets right="8.0"/>
-                                    </HBox.margin>
-                                </Label>
-                                <Region HBox.hgrow="ALWAYS"/>
-                                <Button fx:id="settingsButton" minHeight="25.0" minWidth="55.0" onAction="#hideSettings"
-                                        prefWidth="80.0" text="Filter">
+                                <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                    <children>
+                                        <Label text="Style:"/>
+                                        <ComboBox fx:id="danStyleSelectBox" prefWidth="261.0">
+                                            <VBox.margin>
+                                                <Insets bottom="10.0" top="-10.0"/>
+                                            </VBox.margin>
+                                            <HBox.margin>
+                                                <Insets/>
+                                            </HBox.margin>
+                                        </ComboBox>
+                                    </children>
+                                    <VBox.margin>
+                                        <Insets/>
+                                    </VBox.margin>
+                                </HBox>
+                                <Separator prefWidth="300.0">
+                                    <padding>
+                                        <Insets top="-10.0"/>
+                                    </padding>
+                                </Separator>
+                                <VBox fillWidth="false" minWidth="230.0" prefWidth="330.0" spacing="2.0">
+                                    <children>
+                                        <Label text="Kaiden">
+                                            <font>
+                                                <Font name="Verdana Bold" size="18.0"/>
+                                            </font>
+                                            <VBox.margin>
+                                                <Insets bottom="4.0"/>
+                                            </VBox.margin>
+                                            <graphic>
+                                                <ImageView fitHeight="32.0" fitWidth="60.0" pickOnBounds="true">
+                                                    <image>
+                                                        <Image url="@../img/dan/11dan.png"/>
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
+                                        </Label>
+                                        <Label fx:id="kaiden1">
+                                            <font>
+                                                <Font name="Verdana" size="12.0"/>
+                                            </font>
+                                        </Label>
+                                        <Label fx:id="kaiden2">
+                                            <font>
+                                                <Font name="Verdana" size="12.0"/>
+                                            </font>
+                                        </Label>
+                                        <Label fx:id="kaiden3">
+                                            <font>
+                                                <Font name="Verdana" size="12.0"/>
+                                            </font>
+                                        </Label>
+                                        <Label fx:id="kaiden4">
+                                            <font>
+                                                <Font name="Verdana" size="12.0"/>
+                                            </font>
+                                        </Label>
+                                    </children>
+                                </VBox>
+                                <HBox fillHeight="false">
+                                    <children>
+                                        <VBox fillWidth="false" minWidth="230.0" prefWidth="330.0" spacing="2.0">
+                                            <children>
+                                                <Label text="10th Dan">
+                                                    <font>
+                                                        <Font name="Verdana Bold" size="18.0"/>
+                                                    </font>
+                                                    <VBox.margin>
+                                                        <Insets bottom="4.0"/>
+                                                    </VBox.margin>
+                                                    <graphic>
+                                                        <ImageView fitHeight="32.0" fitWidth="60.0" pickOnBounds="true"
+                                                                   preserveRatio="true">
+                                                            <image>
+                                                                <Image url="@../img/dan/10dan.png"/>
+                                                            </image>
+                                                        </ImageView>
+                                                    </graphic>
+                                                </Label>
+                                                <Label fx:id="tenthdan1">
+                                                    <font>
+                                                        <Font name="Verdana" size="12.0"/>
+                                                    </font>
+                                                </Label>
+                                                <Label fx:id="tenthdan2">
+                                                    <font>
+                                                        <Font name="Verdana" size="12.0"/>
+                                                    </font>
+                                                </Label>
+                                                <Label fx:id="tenthdan3">
+                                                    <font>
+                                                        <Font name="Verdana" size="12.0"/>
+                                                    </font>
+                                                </Label>
+                                                <Label fx:id="tenthdan4">
+                                                    <font>
+                                                        <Font name="Verdana" size="12.0"/>
+                                                    </font>
+                                                </Label>
+                                            </children>
+                                        </VBox>
+                                        <VBox fillWidth="false" minWidth="230.0" prefWidth="330.0" spacing="2.0">
+                                            <children>
+                                                <Label text="9th Dan">
+                                                    <font>
+                                                        <Font name="Verdana Bold" size="18.0"/>
+                                                    </font>
+                                                    <VBox.margin>
+                                                        <Insets bottom="4.0"/>
+                                                    </VBox.margin>
+                                                    <graphic>
+                                                        <ImageView fitHeight="32.0" fitWidth="60.0" pickOnBounds="true"
+                                                                   preserveRatio="true">
+                                                            <image>
+                                                                <Image url="@../img/dan/9dan.png"/>
+                                                            </image>
+                                                        </ImageView>
+                                                    </graphic>
+                                                </Label>
+                                                <Label fx:id="ninthdan1">
+                                                    <font>
+                                                        <Font name="Verdana" size="12.0"/>
+                                                    </font>
+                                                </Label>
+                                                <Label fx:id="ninthdan2">
+                                                    <font>
+                                                        <Font name="Verdana" size="12.0"/>
+                                                    </font>
+                                                </Label>
+                                                <Label fx:id="ninthdan3">
+                                                    <font>
+                                                        <Font name="Verdana" size="12.0"/>
+                                                    </font>
+                                                </Label>
+                                                <Label fx:id="ninthdan4">
+                                                    <font>
+                                                        <Font name="Verdana" size="12.0"/>
+                                                    </font>
+                                                </Label>
+                                            </children>
+                                        </VBox>
+                                        <VBox fillWidth="false" minWidth="230.0" prefWidth="330.0" spacing="2.0">
+                                            <children>
+                                                <Label text="8th Dan">
+                                                    <font>
+                                                        <Font name="Verdana Bold" size="18.0"/>
+                                                    </font>
+                                                    <VBox.margin>
+                                                        <Insets bottom="4.0"/>
+                                                    </VBox.margin>
+                                                    <graphic>
+                                                        <ImageView fitHeight="32.0" fitWidth="60.0" pickOnBounds="true"
+                                                                   preserveRatio="true">
+                                                            <image>
+                                                                <Image url="@../img/dan/8dan.png"/>
+                                                            </image>
+                                                        </ImageView>
+                                                    </graphic>
+                                                </Label>
+                                                <Label fx:id="eighthdan1">
+                                                    <font>
+                                                        <Font name="Verdana" size="12.0"/>
+                                                    </font>
+                                                </Label>
+                                                <Label fx:id="eighthdan2">
+                                                    <font>
+                                                        <Font name="Verdana" size="12.0"/>
+                                                    </font>
+                                                </Label>
+                                                <Label fx:id="eighthdan3">
+                                                    <font>
+                                                        <Font name="Verdana" size="12.0"/>
+                                                    </font>
+                                                </Label>
+                                                <Label fx:id="eighthdan4">
+                                                    <font>
+                                                        <Font name="Verdana" size="12.0"/>
+                                                    </font>
+                                                </Label>
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                </HBox>
+                                <HBox fillHeight="false">
+                                    <children>
+                                        <VBox fillWidth="false" minWidth="230.0" prefWidth="330.0" spacing="2.0">
+                                            <children>
+                                                <Label text="7th Dan">
+                                                    <font>
+                                                        <Font name="Verdana Bold" size="18.0"/>
+                                                    </font>
+                                                    <VBox.margin>
+                                                        <Insets bottom="4.0"/>
+                                                    </VBox.margin>
+                                                    <graphic>
+                                                        <ImageView fitHeight="32.0" fitWidth="60.0" pickOnBounds="true"
+                                                                   preserveRatio="true">
+                                                            <image>
+                                                                <Image url="@../img/dan/7dan.png"/>
+                                                            </image>
+                                                        </ImageView>
+                                                    </graphic>
+                                                </Label>
+                                                <Label fx:id="seventhdan1">
+                                                    <font>
+                                                        <Font name="Verdana" size="12.0"/>
+                                                    </font>
+                                                </Label>
+                                                <Label fx:id="seventhdan2">
+                                                    <font>
+                                                        <Font name="Verdana" size="12.0"/>
+                                                    </font>
+                                                </Label>
+                                                <Label fx:id="seventhdan3">
+                                                    <font>
+                                                        <Font name="Verdana" size="12.0"/>
+                                                    </font>
+                                                </Label>
+                                                <Label fx:id="seventhdan4">
+                                                    <font>
+                                                        <Font name="Verdana" size="12.0"/>
+                                                    </font>
+                                                </Label>
+                                            </children>
+                                        </VBox>
+                                        <VBox fillWidth="false" minWidth="230.0" prefWidth="330.0" spacing="2.0">
+                                            <children>
+                                                <Label text="6th Dan">
+                                                    <font>
+                                                        <Font name="Verdana Bold" size="18.0"/>
+                                                    </font>
+                                                    <VBox.margin>
+                                                        <Insets bottom="4.0"/>
+                                                    </VBox.margin>
+                                                    <graphic>
+                                                        <ImageView fitHeight="32.0" fitWidth="60.0" pickOnBounds="true"
+                                                                   preserveRatio="true">
+                                                            <image>
+                                                                <Image url="@../img/dan/6dan.png"/>
+                                                            </image>
+                                                        </ImageView>
+                                                    </graphic>
+                                                </Label>
+                                                <Label fx:id="sixthdan1">
+                                                    <font>
+                                                        <Font name="Verdana" size="12.0"/>
+                                                    </font>
+                                                </Label>
+                                                <Label fx:id="sixthdan2">
+                                                    <font>
+                                                        <Font name="Verdana" size="12.0"/>
+                                                    </font>
+                                                </Label>
+                                                <Label fx:id="sixthdan3">
+                                                    <font>
+                                                        <Font name="Verdana" size="12.0"/>
+                                                    </font>
+                                                </Label>
+                                                <Label fx:id="sixthdan4">
+                                                    <font>
+                                                        <Font name="Verdana" size="12.0"/>
+                                                    </font>
+                                                </Label>
+                                            </children>
+                                        </VBox>
+                                        <VBox fillWidth="false" minWidth="230.0" prefWidth="330.0" spacing="2.0">
+                                            <children>
+                                                <Label text="5th Dan">
+                                                    <font>
+                                                        <Font name="Verdana Bold" size="18.0"/>
+                                                    </font>
+                                                    <VBox.margin>
+                                                        <Insets bottom="4.0"/>
+                                                    </VBox.margin>
+                                                    <graphic>
+                                                        <ImageView fitHeight="32.0" fitWidth="60.0" pickOnBounds="true"
+                                                                   preserveRatio="true">
+                                                            <image>
+                                                                <Image url="@../img/dan/5dan.png"/>
+                                                            </image>
+                                                        </ImageView>
+                                                    </graphic>
+                                                </Label>
+                                                <Label fx:id="fifthdan1">
+                                                    <font>
+                                                        <Font name="Verdana" size="12.0"/>
+                                                    </font>
+                                                </Label>
+                                                <Label fx:id="fifthdan2">
+                                                    <font>
+                                                        <Font name="Verdana" size="12.0"/>
+                                                    </font>
+                                                </Label>
+                                                <Label fx:id="fifthdan3">
+                                                    <font>
+                                                        <Font name="Verdana" size="12.0"/>
+                                                    </font>
+                                                </Label>
+                                                <Label fx:id="fifthdan4">
+                                                    <font>
+                                                        <Font name="Verdana" size="12.0"/>
+                                                    </font>
+                                                </Label>
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                </HBox>
+                                <HBox fillHeight="false">
+                                    <children>
+                                        <VBox fillWidth="false" minWidth="230.0" prefWidth="330.0" spacing="2.0">
+                                            <children>
+                                                <Label text="4th Dan">
+                                                    <font>
+                                                        <Font name="Verdana Bold" size="18.0"/>
+                                                    </font>
+                                                    <VBox.margin>
+                                                        <Insets bottom="4.0"/>
+                                                    </VBox.margin>
+                                                    <graphic>
+                                                        <ImageView fitHeight="32.0" fitWidth="60.0" pickOnBounds="true"
+                                                                   preserveRatio="true">
+                                                            <image>
+                                                                <Image url="@../img/dan/4dan.png"/>
+                                                            </image>
+                                                        </ImageView>
+                                                    </graphic>
+                                                </Label>
+                                                <Label fx:id="fourthdan1">
+                                                    <font>
+                                                        <Font name="Verdana" size="12.0"/>
+                                                    </font>
+                                                </Label>
+                                                <Label fx:id="fourthdan2">
+                                                    <font>
+                                                        <Font name="Verdana" size="12.0"/>
+                                                    </font>
+                                                </Label>
+                                                <Label fx:id="fourthdan3">
+                                                    <font>
+                                                        <Font name="Verdana" size="12.0"/>
+                                                    </font>
+                                                </Label>
+                                                <Label fx:id="fourthdan4">
+                                                    <font>
+                                                        <Font name="Verdana" size="12.0"/>
+                                                    </font>
+                                                </Label>
+                                            </children>
+                                        </VBox>
+                                        <VBox fillWidth="false" minWidth="230.0" prefWidth="330.0" spacing="2.0">
+                                            <children>
+                                                <Label text="3rd Dan">
+                                                    <font>
+                                                        <Font name="Verdana Bold" size="18.0"/>
+                                                    </font>
+                                                    <VBox.margin>
+                                                        <Insets bottom="4.0"/>
+                                                    </VBox.margin>
+                                                    <graphic>
+                                                        <ImageView fitHeight="32.0" fitWidth="60.0" pickOnBounds="true"
+                                                                   preserveRatio="true">
+                                                            <image>
+                                                                <Image url="@../img/dan/3dan.png"/>
+                                                            </image>
+                                                        </ImageView>
+                                                    </graphic>
+                                                </Label>
+                                                <Label fx:id="thirddan1">
+                                                    <font>
+                                                        <Font name="Verdana" size="12.0"/>
+                                                    </font>
+                                                </Label>
+                                                <Label fx:id="thirddan2">
+                                                    <font>
+                                                        <Font name="Verdana" size="12.0"/>
+                                                    </font>
+                                                </Label>
+                                                <Label fx:id="thirddan3">
+                                                    <font>
+                                                        <Font name="Verdana" size="12.0"/>
+                                                    </font>
+                                                </Label>
+                                                <Label fx:id="thirddan4">
+                                                    <font>
+                                                        <Font name="Verdana" size="12.0"/>
+                                                    </font>
+                                                </Label>
+                                            </children>
+                                        </VBox>
+                                        <VBox fillWidth="false" minWidth="230.0" prefWidth="330.0" spacing="2.0">
+                                            <children>
+                                                <Label text="2nd Dan">
+                                                    <font>
+                                                        <Font name="Verdana Bold" size="18.0"/>
+                                                    </font>
+                                                    <VBox.margin>
+                                                        <Insets bottom="4.0"/>
+                                                    </VBox.margin>
+                                                    <graphic>
+                                                        <ImageView fitHeight="32.0" fitWidth="60.0" pickOnBounds="true"
+                                                                   preserveRatio="true">
+                                                            <image>
+                                                                <Image url="@../img/dan/2dan.png"/>
+                                                            </image>
+                                                        </ImageView>
+                                                    </graphic>
+                                                </Label>
+                                                <Label fx:id="seconddan1">
+                                                    <font>
+                                                        <Font name="Verdana" size="12.0"/>
+                                                    </font>
+                                                </Label>
+                                                <Label fx:id="seconddan2">
+                                                    <font>
+                                                        <Font name="Verdana" size="12.0"/>
+                                                    </font>
+                                                </Label>
+                                                <Label fx:id="seconddan3">
+                                                    <font>
+                                                        <Font name="Verdana" size="12.0"/>
+                                                    </font>
+                                                </Label>
+                                                <Label fx:id="seconddan4">
+                                                    <font>
+                                                        <Font name="Verdana" size="12.0"/>
+                                                    </font>
+                                                </Label>
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                </HBox>
+                                <VBox fillWidth="false" minWidth="230.0" prefWidth="300.0" spacing="2.0">
+                                    <children>
+                                        <Label text="1st Dan">
+                                            <font>
+                                                <Font name="Verdana Bold" size="18.0"/>
+                                            </font>
+                                            <VBox.margin>
+                                                <Insets bottom="4.0"/>
+                                            </VBox.margin>
+                                            <graphic>
+                                                <ImageView fitHeight="32.0" fitWidth="60.0" pickOnBounds="true"
+                                                           preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@../img/dan/1dan.png"/>
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
+                                        </Label>
+                                        <Label fx:id="firstdan1">
+                                            <font>
+                                                <Font name="Verdana" size="12.0"/>
+                                            </font>
+                                        </Label>
+                                        <Label fx:id="firstdan2">
+                                            <font>
+                                                <Font name="Verdana" size="12.0"/>
+                                            </font>
+                                        </Label>
+                                        <Label fx:id="firstdan3">
+                                            <font>
+                                                <Font name="Verdana" size="12.0"/>
+                                            </font>
+                                        </Label>
+                                        <Label fx:id="firstdan4">
+                                            <font>
+                                                <Font name="Verdana" size="12.0"/>
+                                            </font>
+                                        </Label>
+                                    </children>
+                                </VBox>
+                                <HBox fillHeight="false">
+                                    <children>
+                                        <VBox fillWidth="false" minWidth="230.0" prefWidth="330.0" spacing="2.0">
+                                            <children>
+                                                <Label text="1st Kyu">
+                                                    <font>
+                                                        <Font name="Verdana Bold" size="18.0"/>
+                                                    </font>
+                                                    <graphic>
+                                                        <ImageView fitHeight="32.0" fitWidth="60.0" pickOnBounds="true"
+                                                                   preserveRatio="true">
+                                                            <image>
+                                                                <Image url="@../img/dan/1kyu.png"/>
+                                                            </image>
+                                                        </ImageView>
+                                                    </graphic>
+                                                    <VBox.margin>
+                                                        <Insets bottom="4.0"/>
+                                                    </VBox.margin>
+                                                </Label>
+                                                <Label fx:id="firstkyu1">
+                                                    <font>
+                                                        <Font name="Verdana" size="12.0"/>
+                                                    </font>
+                                                </Label>
+                                                <Label fx:id="firstkyu2">
+                                                    <font>
+                                                        <Font name="Verdana" size="12.0"/>
+                                                    </font>
+                                                </Label>
+                                                <Label fx:id="firstkyu3">
+                                                    <font>
+                                                        <Font name="Verdana" size="12.0"/>
+                                                    </font>
+                                                </Label>
+                                                <Label fx:id="firstkyu4">
+                                                    <font>
+                                                        <Font name="Verdana" size="12.0"/>
+                                                    </font>
+                                                </Label>
+                                            </children>
+                                        </VBox>
+                                        <VBox fillWidth="false" minWidth="230.0" prefWidth="330.0" spacing="2.0">
+                                            <children>
+                                                <Label text="2nd Kyu">
+                                                    <font>
+                                                        <Font name="Verdana Bold" size="18.0"/>
+                                                    </font>
+                                                    <graphic>
+                                                        <ImageView fitHeight="32.0" fitWidth="60.0" pickOnBounds="true"
+                                                                   preserveRatio="true">
+                                                            <image>
+                                                                <Image url="@../img/dan/2kyu.png"/>
+                                                            </image>
+                                                        </ImageView>
+                                                    </graphic>
+                                                    <VBox.margin>
+                                                        <Insets bottom="4.0"/>
+                                                    </VBox.margin>
+                                                </Label>
+                                                <Label fx:id="secondkyu1">
+                                                    <font>
+                                                        <Font name="Verdana" size="12.0"/>
+                                                    </font>
+                                                </Label>
+                                                <Label fx:id="secondkyu2">
+                                                    <font>
+                                                        <Font name="Verdana" size="12.0"/>
+                                                    </font>
+                                                </Label>
+                                                <Label fx:id="secondkyu3">
+                                                    <font>
+                                                        <Font name="Verdana" size="12.0"/>
+                                                    </font>
+                                                </Label>
+                                                <Label fx:id="secondkyu4">
+                                                    <font>
+                                                        <Font name="Verdana" size="12.0"/>
+                                                    </font>
+                                                </Label>
+                                            </children>
+                                        </VBox>
+                                        <VBox fillWidth="false" minWidth="230.0" prefWidth="330.0" spacing="2.0">
+                                            <children>
+                                                <Label text="3rd Kyu">
+                                                    <font>
+                                                        <Font name="Verdana Bold" size="18.0"/>
+                                                    </font>
+                                                    <graphic>
+                                                        <ImageView fitHeight="32.0" fitWidth="60.0" pickOnBounds="true"
+                                                                   preserveRatio="true">
+                                                            <image>
+                                                                <Image url="@../img/dan/3kyu.png"/>
+                                                            </image>
+                                                        </ImageView>
+                                                    </graphic>
+                                                    <VBox.margin>
+                                                        <Insets bottom="4.0"/>
+                                                    </VBox.margin>
+                                                </Label>
+                                                <Label fx:id="thirdkyu1">
+                                                    <font>
+                                                        <Font name="Verdana" size="12.0"/>
+                                                    </font>
+                                                </Label>
+                                                <Label fx:id="thirdkyu2">
+                                                    <font>
+                                                        <Font name="Verdana" size="12.0"/>
+                                                    </font>
+                                                </Label>
+                                                <Label fx:id="thirdkyu3">
+                                                    <font>
+                                                        <Font name="Verdana" size="12.0"/>
+                                                    </font>
+                                                </Label>
+                                                <Label fx:id="thirdkyu4">
+                                                    <font>
+                                                        <Font name="Verdana" size="12.0"/>
+                                                    </font>
+                                                </Label>
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                </HBox>
+                                <HBox fillHeight="false">
+                                    <children>
+                                        <VBox fillWidth="false" minWidth="230.0" prefWidth="330.0" spacing="2.0">
+                                            <children>
+                                                <Label text="4th Kyu">
+                                                    <font>
+                                                        <Font name="Verdana Bold" size="18.0"/>
+                                                    </font>
+                                                    <graphic>
+                                                        <ImageView fitHeight="32.0" fitWidth="60.0" pickOnBounds="true"
+                                                                   preserveRatio="true">
+                                                            <image>
+                                                                <Image url="@../img/dan/4kyu.png"/>
+                                                            </image>
+                                                        </ImageView>
+                                                    </graphic>
+                                                    <VBox.margin>
+                                                        <Insets bottom="4.0"/>
+                                                    </VBox.margin>
+                                                </Label>
+                                                <Label fx:id="fourthkyu1">
+                                                    <font>
+                                                        <Font name="Verdana" size="12.0"/>
+                                                    </font>
+                                                </Label>
+                                                <Label fx:id="fourthkyu2">
+                                                    <font>
+                                                        <Font name="Verdana" size="12.0"/>
+                                                    </font>
+                                                </Label>
+                                                <Label fx:id="fourthkyu3">
+                                                    <font>
+                                                        <Font name="Verdana" size="12.0"/>
+                                                    </font>
+                                                </Label>
+                                                <Label fx:id="fourthkyu4">
+                                                    <font>
+                                                        <Font name="Verdana" size="12.0"/>
+                                                    </font>
+                                                </Label>
+                                            </children>
+                                        </VBox>
+                                        <VBox fillWidth="false" minWidth="230.0" prefWidth="330.0" spacing="2.0">
+                                            <children>
+                                                <Label text="5th Kyu">
+                                                    <font>
+                                                        <Font name="Verdana Bold" size="18.0"/>
+                                                    </font>
+                                                    <graphic>
+                                                        <ImageView fitHeight="32.0" fitWidth="60.0" pickOnBounds="true"
+                                                                   preserveRatio="true">
+                                                            <image>
+                                                                <Image url="@../img/dan/5kyu.png"/>
+                                                            </image>
+                                                        </ImageView>
+                                                    </graphic>
+                                                    <VBox.margin>
+                                                        <Insets bottom="4.0"/>
+                                                    </VBox.margin>
+                                                </Label>
+                                                <Label fx:id="fifthkyu1">
+                                                    <font>
+                                                        <Font name="Verdana" size="12.0"/>
+                                                    </font>
+                                                </Label>
+                                                <Label fx:id="fifthkyu2">
+                                                    <font>
+                                                        <Font name="Verdana" size="12.0"/>
+                                                    </font>
+                                                </Label>
+                                                <Label fx:id="fifthkyu3">
+                                                    <font>
+                                                        <Font name="Verdana" size="12.0"/>
+                                                    </font>
+                                                </Label>
+                                                <Label fx:id="fifthkyu4">
+                                                    <font>
+                                                        <Font name="Verdana" size="12.0"/>
+                                                    </font>
+                                                </Label>
+                                            </children>
+                                        </VBox>
+                                        <VBox fillWidth="false" minWidth="230.0" prefWidth="330.0" spacing="2.0">
+                                            <children>
+                                                <Label text="6th Kyu">
+                                                    <font>
+                                                        <Font name="Verdana Bold" size="18.0"/>
+                                                    </font>
+                                                    <graphic>
+                                                        <ImageView fitHeight="32.0" fitWidth="60.0" pickOnBounds="true"
+                                                                   preserveRatio="true">
+                                                            <image>
+                                                                <Image url="@../img/dan/6kyu.png"/>
+                                                            </image>
+                                                        </ImageView>
+                                                    </graphic>
+                                                    <VBox.margin>
+                                                        <Insets bottom="4.0"/>
+                                                    </VBox.margin>
+                                                </Label>
+                                                <Label fx:id="sixthkyu1">
+                                                    <font>
+                                                        <Font name="Verdana" size="12.0"/>
+                                                    </font>
+                                                </Label>
+                                                <Label fx:id="sixthkyu2">
+                                                    <font>
+                                                        <Font name="Verdana" size="12.0"/>
+                                                    </font>
+                                                </Label>
+                                                <Label fx:id="sixthkyu3">
+                                                    <font>
+                                                        <Font name="Verdana" size="12.0"/>
+                                                    </font>
+                                                </Label>
+                                                <Label fx:id="sixthkyu4">
+                                                    <font>
+                                                        <Font name="Verdana" size="12.0"/>
+                                                    </font>
+                                                </Label>
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                </HBox>
+                                <VBox fillWidth="false" minWidth="230.0" prefWidth="330.0" spacing="2.0">
+                                    <children>
+                                        <Label text="7th Kyu">
+                                            <font>
+                                                <Font name="Verdana Bold" size="18.0"/>
+                                            </font>
+                                            <graphic>
+                                                <ImageView fitHeight="32.0" fitWidth="60.0" pickOnBounds="true"
+                                                           preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@../img/dan/7kyu.png"/>
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
+                                            <VBox.margin>
+                                                <Insets bottom="4.0"/>
+                                            </VBox.margin>
+                                        </Label>
+                                        <Label fx:id="seventhkyu1">
+                                            <font>
+                                                <Font name="Verdana" size="12.0"/>
+                                            </font>
+                                        </Label>
+                                        <Label fx:id="seventhkyu2">
+                                            <font>
+                                                <Font name="Verdana" size="12.0"/>
+                                            </font>
+                                        </Label>
+                                        <Label fx:id="seventhkyu3">
+                                            <font>
+                                                <Font name="Verdana" size="12.0"/>
+                                            </font>
+                                        </Label>
+                                        <Label fx:id="seventhkyu4">
+                                            <font>
+                                                <Font name="Verdana" size="12.0"/>
+                                            </font>
+                                        </Label>
+                                    </children>
+                                </VBox>
+                            </children>
+                            <padding>
+                                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+                            </padding>
+                        </VBox>
+                    </content>
+                </ScrollPane>
+            </content>
+        </Tab>
+        <Tab closable="false" text="Settings">
+            <content>
+                <VBox maxWidth="300.0" spacing="10.0">
+                    <children>
+                        <Label text="Settings">
+                            <font>
+                                <Font name="Verdana Bold" size="18.0"/>
+                            </font>
+                            <VBox.margin>
+                                <Insets/>
+                            </VBox.margin>
+                        </Label>
+                        <HBox/>
+                        <Label text="Theme">
+                            <font>
+                                <Font name="Verdana Bold" size="12.0"/>
+                            </font>
+                        </Label>
+                        <RadioButton fx:id="settingsRadioLight" mnemonicParsing="false" onAction="#setThemeLight"
+                                     text="Light theme"/>
+                        <RadioButton fx:id="settingsRadioDark" mnemonicParsing="false" onAction="#setThemeDark"
+                                     text="Dark theme"/>
+                        <CheckBox fx:id="settingsShowClearColorsCheckBox" mnemonicParsing="false"
+                                  text="Show clear colors"/>
+                        <Separator/>
+                        <Label text="Programmed Sun">
+                            <font>
+                                <Font name="Verdana Bold" size="12.0"/>
+                            </font>
+                        </Label>
+                        <Button mnemonicParsing="false" onAction="#importData" prefWidth="120.0" text="Import data...">
+                            <font>
+                                <Font name="Verdana" size="12.0"/>
+                            </font>
+                        </Button>
+                        <Separator/>
+                        <Label text="Charts (by textage.cc)">
+                            <font>
+                                <Font name="Verdana Bold" size="12.0"/>
+                            </font>
+                        </Label>
+                        <RadioButton fx:id="settingsP1" mnemonicParsing="false" onAction="#setP1" text="Player 1 Side"/>
+                        <RadioButton fx:id="settingsP2" mnemonicParsing="false" onAction="#setP2" text="Player 2 Side"/>
+                        <Separator prefWidth="200.0"/>
+                        <HBox alignment="CENTER_LEFT" spacing="8.0">
+                            <children>
+                                <Button mnemonicParsing="false" onAction="#saveSettings" prefWidth="70.0" text="Save">
                                     <font>
                                         <Font name="Verdana" size="12.0"/>
                                     </font>
                                 </Button>
+                                <Label fx:id="settingsSaveLabel" opacity="0.0" text="Saved successfully">
+                                    <font>
+                                        <Font name="Verdana" size="12.0"/>
+                                    </font>
+                                </Label>
                             </children>
-                            <padding>
-                                <Insets bottom="8.0" left="8.0" right="8.0" top="8.0"/>
-                            </padding>
+                            <VBox.margin>
+                                <Insets/>
+                            </VBox.margin>
                         </HBox>
-                        <VBox fx:id="settingsBox" prefHeight="200.0" prefWidth="100.0">
-                            <children>
-                                <VBox spacing="4.0">
-                                    <children>
-                                        <Label text="Styles:">
-                                            <font>
-                                                <Font name="Verdana Bold" size="14.0"/>
-                                            </font>
-                                        </Label>
-                                        <HBox>
-                                            <children>
-                                                <CheckBox fx:id="checkStyleAll" onAction="#styleAll" selected="true"
-                                                          text="All">
-                                                    <font>
-                                                        <Font name="Verdana" size="12.0"/>
-                                                    </font>
-                                                </CheckBox>
-                                            </children>
-                                        </HBox>
-                                        <HBox spacing="8.0">
-                                            <children>
-                                                <CheckBox fx:id="checkStyle1" disable="true" onAction="#style1"
-                                                          text="1st Style">
-                                                    <font>
-                                                        <Font name="Verdana" size="12.0"/>
-                                                    </font>
-                                                </CheckBox>
-                                                <CheckBox fx:id="checkStyleSub" disable="true" onAction="#styleSub"
-                                                          text="Substream">
-                                                    <font>
-                                                        <Font name="Verdana" size="12.0"/>
-                                                    </font>
-                                                </CheckBox>
-                                                <CheckBox fx:id="checkStyle2" disable="true" onAction="#style2"
-                                                          text="2nd Style">
-                                                    <font>
-                                                        <Font name="Verdana" size="12.0"/>
-                                                    </font>
-                                                </CheckBox>
-                                                <CheckBox fx:id="checkStyle3" disable="true" onAction="#style3"
-                                                          text="3rd Style">
-                                                    <font>
-                                                        <Font name="Verdana" size="12.0"/>
-                                                    </font>
-                                                </CheckBox>
-                                                <CheckBox fx:id="checkStyle4" disable="true" onAction="#style4"
-                                                          text="4th Style">
-                                                    <font>
-                                                        <Font name="Verdana" size="12.0"/>
-                                                    </font>
-                                                </CheckBox>
-                                                <CheckBox fx:id="checkStyle5" disable="true" onAction="#style5"
-                                                          text="5th Style">
-                                                    <font>
-                                                        <Font name="Verdana" size="12.0"/>
-                                                    </font>
-                                                </CheckBox>
-                                                <CheckBox fx:id="checkStyle6" disable="true" onAction="#style6"
-                                                          text="6th Style">
-                                                    <font>
-                                                        <Font name="Verdana" size="12.0"/>
-                                                    </font>
-                                                </CheckBox>
-                                                <CheckBox fx:id="checkStyle7" disable="true" onAction="#style7"
-                                                          text="7th Style">
-                                                    <font>
-                                                        <Font name="Verdana" size="12.0"/>
-                                                    </font>
-                                                </CheckBox>
-                                                <CheckBox fx:id="checkStyle8" disable="true" onAction="#style8"
-                                                          text="8th Style">
-                                                    <font>
-                                                        <Font name="Verdana" size="12.0"/>
-                                                    </font>
-                                                </CheckBox>
-                                                <CheckBox fx:id="checkStyle9" disable="true" onAction="#style9"
-                                                          text="9th Style">
-                                                    <font>
-                                                        <Font name="Verdana" size="12.0"/>
-                                                    </font>
-                                                </CheckBox>
-                                                <CheckBox fx:id="checkStyle10" disable="true" onAction="#style10"
-                                                          text="10th Style">
-                                                    <font>
-                                                        <Font name="Verdana" size="12.0"/>
-                                                    </font>
-                                                </CheckBox>
-                                            </children>
-                                        </HBox>
-                                        <HBox spacing="8.0">
-                                            <children>
-                                                <CheckBox fx:id="checkStyle11" disable="true" onAction="#style11"
-                                                          text="IIDX Red">
-                                                    <font>
-                                                        <Font name="Verdana" size="12.0"/>
-                                                    </font>
-                                                </CheckBox>
-                                                <CheckBox fx:id="checkStyle12" disable="true" onAction="#style12"
-                                                          text="Happy Sky">
-                                                    <font>
-                                                        <Font name="Verdana" size="12.0"/>
-                                                    </font>
-                                                </CheckBox>
-                                                <CheckBox fx:id="checkStyle13" disable="true" onAction="#style13"
-                                                          text="Distorted">
-                                                    <font>
-                                                        <Font name="Verdana" size="12.0"/>
-                                                    </font>
-                                                </CheckBox>
-                                                <CheckBox fx:id="checkStyle14" disable="true" onAction="#style14"
-                                                          text="Gold">
-                                                    <font>
-                                                        <Font name="Verdana" size="12.0"/>
-                                                    </font>
-                                                </CheckBox>
-                                                <CheckBox fx:id="checkStyle15" disable="true" onAction="#style15"
-                                                          text="DJ Troopers">
-                                                    <font>
-                                                        <Font name="Verdana" size="12.0"/>
-                                                    </font>
-                                                </CheckBox>
-                                                <CheckBox fx:id="checkStyle16" disable="true" onAction="#style16"
-                                                          text="Empress">
-                                                    <font>
-                                                        <Font name="Verdana" size="12.0"/>
-                                                    </font>
-                                                </CheckBox>
-                                                <CheckBox fx:id="checkStyle17" disable="true" onAction="#style17"
-                                                          text="Sirius">
-                                                    <font>
-                                                        <Font name="Verdana" size="12.0"/>
-                                                    </font>
-                                                </CheckBox>
-                                                <CheckBox fx:id="checkStyle18" disable="true" onAction="#style18"
-                                                          text="Resort Anthem">
-                                                    <font>
-                                                        <Font name="Verdana" size="12.0"/>
-                                                    </font>
-                                                </CheckBox>
-                                                <CheckBox fx:id="checkStyle19" disable="true" onAction="#style19"
-                                                          text="Lincle">
-                                                    <font>
-                                                        <Font name="Verdana" size="12.0"/>
-                                                    </font>
-                                                </CheckBox>
-                                                <CheckBox fx:id="checkStyle20" disable="true" onAction="#style20"
-                                                          text="Tricoro">
-                                                    <font>
-                                                        <Font name="Verdana" size="12.0"/>
-                                                    </font>
-                                                </CheckBox>
-                                                <CheckBox fx:id="checkStyle21" disable="true" onAction="#style21"
-                                                          text="Spada">
-                                                    <font>
-                                                        <Font name="Verdana" size="12.0"/>
-                                                    </font>
-                                                </CheckBox>
-                                                <CheckBox fx:id="checkStyle22" disable="true" onAction="#style22"
-                                                          text="Pendual">
-                                                    <font>
-                                                        <Font name="Verdana" size="12.0"/>
-                                                    </font>
-                                                </CheckBox>
-                                            </children>
-                                        </HBox>
-                                        <Separator prefWidth="200.0"/>
-                                    </children>
-                                    <padding>
-                                        <Insets bottom="8.0" left="8.0" right="8.0"/>
-                                    </padding>
-                                </VBox>
-                                <VBox spacing="4.0">
-                                    <children>
-                                        <Label text="Level:">
-                                            <font>
-                                                <Font name="Verdana Bold" size="14.0"/>
-                                            </font>
-                                        </Label>
-                                        <HBox spacing="8.0">
-                                            <children>
-                                                <CheckBox fx:id="checkLevelAll" onAction="#levelAll" selected="true"
-                                                          text="All">
-                                                    <font>
-                                                        <Font name="Verdana" size="12.0"/>
-                                                    </font>
-                                                </CheckBox>
-                                            </children>
-                                        </HBox>
-                                        <HBox spacing="8.0">
-                                            <children>
-                                                <CheckBox fx:id="checkLevel1" disable="true" onAction="#level1"
-                                                          text="1">
-                                                    <font>
-                                                        <Font name="Verdana" size="12.0"/>
-                                                    </font>
-                                                </CheckBox>
-                                                <CheckBox fx:id="checkLevel2" disable="true" onAction="#level2"
-                                                          text="2">
-                                                    <font>
-                                                        <Font name="Verdana" size="12.0"/>
-                                                    </font>
-                                                </CheckBox>
-                                                <CheckBox fx:id="checkLevel3" disable="true" onAction="#level3"
-                                                          text="3">
-                                                    <font>
-                                                        <Font name="Verdana" size="12.0"/>
-                                                    </font>
-                                                </CheckBox>
-                                                <CheckBox fx:id="checkLevel4" disable="true" onAction="#level4"
-                                                          text="4">
-                                                    <font>
-                                                        <Font name="Verdana" size="12.0"/>
-                                                    </font>
-                                                </CheckBox>
-                                                <CheckBox fx:id="checkLevel5" disable="true" onAction="#level5"
-                                                          text="5">
-                                                    <font>
-                                                        <Font name="Verdana" size="12.0"/>
-                                                    </font>
-                                                </CheckBox>
-                                                <CheckBox fx:id="checkLevel6" disable="true" onAction="#level6"
-                                                          text="6">
-                                                    <font>
-                                                        <Font name="Verdana" size="12.0"/>
-                                                    </font>
-                                                </CheckBox>
-                                                <CheckBox fx:id="checkLevel7" disable="true" onAction="#level7"
-                                                          text="7">
-                                                    <font>
-                                                        <Font name="Verdana" size="12.0"/>
-                                                    </font>
-                                                </CheckBox>
-                                                <CheckBox fx:id="checkLevel8" disable="true" onAction="#level8"
-                                                          text="8">
-                                                    <font>
-                                                        <Font name="Verdana" size="12.0"/>
-                                                    </font>
-                                                </CheckBox>
-                                                <CheckBox fx:id="checkLevel9" disable="true" onAction="#level9"
-                                                          text="9">
-                                                    <font>
-                                                        <Font name="Verdana" size="12.0"/>
-                                                    </font>
-                                                </CheckBox>
-                                                <CheckBox fx:id="checkLevel10" disable="true" onAction="#level10"
-                                                          text="10">
-                                                    <font>
-                                                        <Font name="Verdana" size="12.0"/>
-                                                    </font>
-                                                </CheckBox>
-                                                <CheckBox fx:id="checkLevel11" disable="true" onAction="#level11"
-                                                          text="11">
-                                                    <font>
-                                                        <Font name="Verdana" size="12.0"/>
-                                                    </font>
-                                                </CheckBox>
-                                                <CheckBox fx:id="checkLevel12" disable="true" onAction="#level12"
-                                                          text="12">
-                                                    <font>
-                                                        <Font name="Verdana" size="12.0"/>
-                                                    </font>
-                                                </CheckBox>
-                                            </children>
-                                        </HBox>
-                                        <Separator prefWidth="200.0"/>
-                                    </children>
-                                    <padding>
-                                        <Insets bottom="8.0" left="8.0" right="8.0"/>
-                                    </padding>
-                                </VBox>
-                                <VBox spacing="4.0">
-                                    <children>
-                                        <Label text="Difficulty:">
-                                            <font>
-                                                <Font name="Verdana Bold" size="14.0"/>
-                                            </font>
-                                        </Label>
-                                        <HBox spacing="8.0">
-                                            <children>
-                                                <CheckBox fx:id="checkDiffAll" onAction="#diffAll" selected="true"
-                                                          text="All">
-                                                    <font>
-                                                        <Font name="Verdana" size="12.0"/>
-                                                    </font>
-                                                </CheckBox>
-                                            </children>
-                                        </HBox>
-                                        <HBox spacing="8.0">
-                                            <children>
-                                                <CheckBox fx:id="checkDiffN" disable="true" onAction="#diffN"
-                                                          text="Normal">
-                                                    <font>
-                                                        <Font name="Verdana" size="12.0"/>
-                                                    </font>
-                                                </CheckBox>
-                                                <CheckBox fx:id="checkDiffH" disable="true" onAction="#diffH"
-                                                          text="Hyper">
-                                                    <font>
-                                                        <Font name="Verdana" size="12.0"/>
-                                                    </font>
-                                                </CheckBox>
-                                                <CheckBox fx:id="checkDiffA" disable="true" onAction="#diffA"
-                                                          text="Another">
-                                                    <font>
-                                                        <Font name="Verdana" size="12.0"/>
-                                                    </font>
-                                                </CheckBox>
-                                                <CheckBox fx:id="checkDiffB" disable="true" onAction="#diffB"
-                                                          text="Black Another">
-                                                    <font>
-                                                        <Font name="Verdana" size="12.0"/>
-                                                    </font>
-                                                </CheckBox>
-                                                <CheckBox fx:id="checkDiffL" disable="true" onAction="#diffL"
-                                                          text="Leggendaria">
-                                                    <font>
-                                                        <Font name="Verdana" size="12.0"/>
-                                                    </font>
-                                                </CheckBox>
-                                            </children>
-                                        </HBox>
-                                    </children>
-                                    <padding>
-                                        <Insets bottom="8.0" left="8.0" right="8.0"/>
-                                    </padding>
-                                </VBox>
-                            </children>
-                        </VBox>
-                        <TableView fx:id="tableView" tableMenuButtonVisible="true" VBox.vgrow="ALWAYS">
-                            <columns>
-                                <TableColumn fx:id="styleColumn" prefWidth="81.0" text="Style"/>
-                                <TableColumn fx:id="titleColumn" prefWidth="240.0" text="Title"/>
-                                <TableColumn fx:id="artistColumn" prefWidth="170.0" text="Artist"/>
-                                <TableColumn fx:id="genreColumn" prefWidth="125.0" text="Genre"/>
-                                <TableColumn fx:id="difficultyColumn" prefWidth="88.0" text="Difficulty"/>
-                                <TableColumn fx:id="levelColumn" prefWidth="59.0" text="Level"/>
-                                <TableColumn fx:id="ratingNColumn" prefWidth="51.0" text="RN"/>
-                                <TableColumn fx:id="ratingHColumn" prefWidth="51.0" text="RH"/>
-                                <TableColumn fx:id="bpmColumn" prefWidth="58.0" style="-fx-alignment: CENTER;"
-                                             text="BPM"/>
-                                <TableColumn fx:id="lengthColumn" prefWidth="68.0" text="Length"/>
-                                <TableColumn fx:id="notesColumn" prefWidth="59.0" text="Notes"/>
-                                <TableColumn fx:id="clearColumn" prefWidth="90.0" style="-fx-alignment: CENTER;"
-                                             text="Clear"/>
-                                <TableColumn fx:id="gradeColumn" prefWidth="60.0" style="-fx-alignment: CENTER;"
-                                             text="Grade"/>
-                                <TableColumn fx:id="missColumn" prefWidth="60.0" text="Miss"/>
-                                <TableColumn fx:id="percentColumn" prefWidth="57.0" text="\%"/>
-                            </columns>
-                        </TableView>
+                        <Region VBox.vgrow="ALWAYS"/>
+                        <TextFlow fx:id="settingsAboutFlow"/>
                     </children>
+                    <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+                    </padding>
                 </VBox>
             </content>
-        </ScrollPane>
-    </children>
-</VBox>
+        </Tab>
+    </tabs>
+</TabPane>

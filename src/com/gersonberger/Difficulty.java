@@ -59,4 +59,23 @@ public class Difficulty {
         }
     }
 
+    public static String difficultyToSingleString(String difficulty) {
+        switch (difficulty) {
+            case NORMAL:
+                return "N";
+            case HYPER:
+                return "H";
+            case ANOTHER:
+                return "A";
+            case BEGINNER:
+                return "R";
+            case BLACKANOTHER:
+                return "X";
+            case LEGGENDARIA:
+                return "A";
+            default:
+                return "H";
+        }
+    }
+
 }

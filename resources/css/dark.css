@@ -38,6 +38,11 @@
     -fx-faint-focus-color: rgba(255, 165, 0, 0.075);
 }
 
+.scroll-pane .combo-box {
+    -fx-focus-color: rgb(255, 165, 0);
+    -fx-faint-focus-color: rgba(255, 165, 0, 0.075);
+}
+
 .context-menu {
     -fx-base: rgb(70,70,70);
 }
