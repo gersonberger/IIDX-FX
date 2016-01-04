@@ -170,6 +170,8 @@ public class Main extends Application {
                 programTheme = properties.getProperty(PROPERTYNAMETHEME, THEMELIGHT);
                 programClearColor = Boolean.valueOf(properties.getProperty(PROPERTYNAMECLEARCOLORS));
                 programPlayerside = properties.getProperty(PROPERTYNAMEPLAYERSIDE);
+                //1.2 startup fix for users that have saved settings before 1.2
+                if (programPlayerside == null) programPlayerside = "1";
                 fileInputStream.close();
             }
         }
