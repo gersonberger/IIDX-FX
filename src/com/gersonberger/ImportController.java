@@ -29,8 +29,6 @@ import java.io.PrintWriter;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class ImportController implements Initializable {
@@ -150,7 +148,7 @@ public class ImportController implements Initializable {
 
     private void loginStart() {
         Platform.runLater(() -> {
-            System.out.print(getTime() + " Beginning import...");
+            System.out.print(Main.getTime() + " Beginning import...");
             usernameField.setDisable(true);
             passwordField.setDisable(true);
             versionBox.setDisable(true);
@@ -172,7 +170,7 @@ public class ImportController implements Initializable {
 
     private void loginFailed() {
         Platform.runLater(() -> {
-            System.out.print(getTime() + " Login failed!");
+            System.out.print(Main.getTime() + " Login failed!");
             infoLabel.setTextFill(Color.RED);
             infoLabel.setText("Login failed!");
             FadeTransition transition = new FadeTransition(Duration.millis(200), progressIndicator);
@@ -207,7 +205,7 @@ public class ImportController implements Initializable {
 
     private void noProfile() {
         Platform.runLater(() -> {
-            System.out.print(getTime() + " No profile found!");
+            System.out.print(Main.getTime() + " No profile found!");
             infoLabel.setTextFill(Color.RED);
             infoLabel.setText("No profile found!");
             FadeTransition transition = new FadeTransition(Duration.millis(200), progressIndicator);
@@ -225,7 +223,7 @@ public class ImportController implements Initializable {
 
     private void fetchingFailed() {
         Platform.runLater(() -> {
-            System.out.println(getTime() + " Data download failed!");
+            System.out.println(Main.getTime() + " Data download failed!");
             infoLabel.setTextFill(Color.RED);
             infoLabel.setText("Data download failed!");
             FadeTransition transition = new FadeTransition(Duration.millis(200), progressIndicator);
@@ -243,7 +241,7 @@ public class ImportController implements Initializable {
 
     private void idFailed() {
         Platform.runLater(() -> {
-            System.out.print(getTime() + " Retrieving player-ID failed!");
+            System.out.print(Main.getTime() + " Retrieving player-ID failed!");
             infoLabel.setTextFill(Color.RED);
             infoLabel.setText("Retrieving player-ID failed!");
             FadeTransition transition = new FadeTransition(Duration.millis(200), progressIndicator);
@@ -262,7 +260,7 @@ public class ImportController implements Initializable {
     private void profileError() {
         status = CHUNKERROR;
         Platform.runLater(() -> {
-            System.out.print(getTime() + " Invalid Psun profile! (incomplete chunk encoding)");
+            System.out.print(Main.getTime() + " Invalid Psun profile! (incomplete chunk encoding)");
             infoLabel.setTextFill(Color.RED);
             infoLabel.setText("Invalid psun records page!");
             FadeTransition transition = new FadeTransition(Duration.millis(200), progressIndicator);
@@ -339,22 +337,22 @@ public class ImportController implements Initializable {
             HttpUriRequest login = RequestBuilder.post().setUri(new URI(PSUNLOGIN))
                     .addParameter("username", username).addParameter("password", password).build();
 
-            System.out.println("\n" + getTime() + " Logging in to Programmed Sun...");
+            System.out.println("\n" + Main.getTime() + " Logging in to Programmed Sun...");
             try (CloseableHttpResponse response = httpclient.execute(login)) {
 
                 HttpEntity entity = response.getEntity();
 
-                System.out.println(getTime() + " Response from Server: " + response.getStatusLine());
+                System.out.println(Main.getTime() + " Response from Server: " + response.getStatusLine());
                 EntityUtils.consume(entity);
 
-                System.out.print(getTime() + " Post logon cookie: ");
+                System.out.print(Main.getTime() + " Post logon cookie: ");
                 List<Cookie> cookies = cookieStore.getCookies();
                 if (cookies.isEmpty()) {
                     System.out.println("None");
                     return false;
                 }
                 else for (Cookie cookie : cookies) System.out.println(cookie.toString());
-                System.out.println(getTime() + " Login successful");
+                System.out.println(Main.getTime() + " Login successful");
             }
         } catch (ClientProtocolException e) {
             e.printStackTrace();
@@ -373,10 +371,10 @@ public class ImportController implements Initializable {
         String data = null;
         String userID = null;
         HttpGet httpget = new HttpGet(PSUNHOME);
-        System.out.println(getTime() + " Getting player-ID...");
+        System.out.println(Main.getTime() + " Getting player-ID...");
         try (CloseableHttpResponse response = httpclient.execute(httpget)) {
             HttpEntity entity = response.getEntity();
-            System.out.println(getTime() + " Response from Server: " + response.getStatusLine());
+            System.out.println(Main.getTime() + " Response from Server: " + response.getStatusLine());
             data = EntityUtils.toString(entity);
             EntityUtils.consume(entity);
         } catch (IOException e) {
@@ -388,7 +386,7 @@ public class ImportController implements Initializable {
                     line = line.trim();
                     int i = line.indexOf("href=\"/") + 13;
                     userID = line.substring(i, i + 9);
-                    System.out.println(getTime() + " Player-ID: " + userID);
+                    System.out.println(Main.getTime() + " Player-ID: " + userID);
                 }
             }
         }
@@ -398,10 +396,10 @@ public class ImportController implements Initializable {
     private String psunGetScoreData(String userID) {
         if (userID == null) return null;
         HttpGet httpget = new HttpGet(PSUNR1 + Style.styleFullToInt(versionBox.getValue()) + PSUNR2 + userID + PSUNR3);
-        System.out.println(getTime() + " Downloading data...");
+        System.out.println(Main.getTime() + " Downloading data...");
         try (CloseableHttpResponse response = httpclient.execute(httpget)) {
             HttpEntity entity = response.getEntity();
-            System.out.println(getTime() + " Response from Server: " + response.getStatusLine());
+            System.out.println(Main.getTime() + " Response from Server: " + response.getStatusLine());
             String data = EntityUtils.toString(entity);
             EntityUtils.consume(entity);
             return data;
@@ -476,7 +474,6 @@ public class ImportController implements Initializable {
             System.out.println("id: " + songidstr + " | diff: " + diffstr + " | clear: " + clearstr + " | miss: " + missstr + " | percent: " + percentstr);
             return null;
         }
-        if (clearstr == null) clearstr = Clear.NOPLAY;
         int songid = Integer.parseInt(songidstr);
         int diff = Difficulty.difficultyToInt(diffstr);
         int clear;
@@ -521,35 +518,19 @@ public class ImportController implements Initializable {
         return new ScoreEntry(songid, diff, clear, miss, percent);
     }
 
-    private String getTime() {
-        Date date = new Date(System.currentTimeMillis());
-        DateFormat formatter = new SimpleDateFormat("HH:mm:ss:SSS");
-        return formatter.format(date);
-    }
-
     private void saveScoresToFile(List<ScoreEntry> scoreEntryList) {
-        String path = null;
-        switch (Main.os) {
-            case Main.WINDOWS:
-                path = Main.WINDIR + "\\scores.txt";
-                break;
-            case Main.LINUX:
-                path = Main.LINUXDIR + "/scores.txt";
-                break;
-        }
-        if (path != null) {
-            File file = new File(path);
-            try {
-                PrintWriter printWriter = new PrintWriter(file.getPath());
-                for (ScoreEntry entry : scoreEntryList) {
-                    if (entry != null) {
-                        printWriter.println(entry.songid + "," + entry.diff + "," + entry.clearstatus + "," + entry.miss + "," + entry.grade + "," + entry.percent);
-                    }
+        String path = Main.LOCALDIR + Main.SEPARATOR + "scores.txt";
+        File file = new File(path);
+        try {
+            PrintWriter printWriter = new PrintWriter(file.getPath());
+            for (ScoreEntry entry : scoreEntryList) {
+                if (entry != null) {
+                    printWriter.println(entry.songid + "," + entry.diff + "," + entry.clearstatus + "," + entry.miss + "," + entry.grade + "," + entry.percent);
                 }
-                printWriter.close();
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
             }
+            printWriter.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
     }
 
