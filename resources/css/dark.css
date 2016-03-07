@@ -1,7 +1,6 @@
 .root {
     -fx-base: rgb(50, 50, 50);
     -fx-background: -fx-base;
-    -fx-background-color: -fx-background;
     -fx-control-inner-background: derive(-fx-base, +5%);
     -fx-control-inner-background-alt: derive(-fx-base, -5%);
 
@@ -16,31 +15,11 @@
     -fx-font-family: "Verdana";
 }
 
-.scroll-pane {
-    -fx-background-insets: 0;
-    -fx-padding: 0;
-    -fx-focus-color: rgba(0,0,0,0.6);
-    -fx-faint-focus-color: transparent;
-}
-
-.scroll-pane .text-field {
-    -fx-focus-color: rgb(255, 165, 0);
-    -fx-faint-focus-color: rgba(255, 165, 0, 0.075);
-}
-
-.scroll-pane .check-box {
-    -fx-focus-color: rgb(255, 165, 0);
-    -fx-faint-focus-color: rgba(255, 165, 0, 0.075);
-}
-
-.scroll-pane .button {
-    -fx-focus-color: rgb(255, 165, 0);
-    -fx-faint-focus-color: rgba(255, 165, 0, 0.075);
-}
-
-.scroll-pane .combo-box {
-    -fx-focus-color: rgb(255, 165, 0);
-    -fx-faint-focus-color: rgba(255, 165, 0, 0.075);
+.table-view:focused {
+    -fx-background-color: transparent,-fx-box-border,-fx-control-inner-background;
+    -fx-background-insets: -1.4, 0, 1;
+    -fx-background-radius: 1.4, 0, 0;
+    -fx-padding: 1;
 }
 
 .context-menu {
@@ -76,4 +55,31 @@
 
 .combo-box {
     -fx-control-inner-background: derive(-fx-base, +10%);
+}
+
+.progress-indicator {
+    -fx-progress-color: white;
+    -fx-accent: white;
+}
+
+.progress-indicator .tick {
+    -fx-background-color: black;
+}
+
+.progress-indicator .percentage {
+    -fx-fill: null;
+}
+
+#header1 {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+#header2 {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+}
+
+#labelsmall {
+    -fx-font-size: 10px;
 }

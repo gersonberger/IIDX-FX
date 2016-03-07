@@ -1,47 +1,35 @@
 package com.gersonberger;
 
 
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.web.PromptData;
 import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class AboutController implements Initializable {
+public class PromptController implements Initializable {
+
+    public static final int SUCCESS = 1;
+    public static final int ABORT = -1;
 
     @FXML
-    private ImageView logoImageView;
+    private Label promptLabel;
     @FXML
-    private Label nameLabel;
-    @FXML
-    private Label programVersionLabel;
-    @FXML
-    private Label programDateLabel;
-    @FXML
-    private Label OSNameLabel;
-    @FXML
-    private Label OSVersionLabel;
+    private TextField promptTextField;
 
     private Stage dialogStage;
+    private int status = ABORT;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        if (Main.programTheme.equals(Main.THEMEDARK)) logoImageView.setImage(new Image(getClass().getResource("/img/logo_dark.png").toString()));
-        else logoImageView.setImage(new Image(getClass().getResource("/img/logo.png").toString()));
-
-        nameLabel.setText(Main.PROGRAMNAME + " (" + System.getProperty("os.arch") + ")");
-        programVersionLabel.setText(Main.PROGRAMVERSION);
-        programDateLabel.setText(Main.PROGRAMDATE);
-        OSNameLabel.setText(System.getProperty("os.name"));
-        OSVersionLabel.setText(System.getProperty("os.version"));
     }
 
-    public void setDialogStage(Stage dialogStage) {
+    public void setDialogStage(Stage dialogStage, PromptData param) {
         this.dialogStage = dialogStage;
         switch (Main.programTheme) {
             case Main.THEMELIGHT:
@@ -57,9 +45,30 @@ public class AboutController implements Initializable {
                 dialogStage.getScene().getStylesheets().add(getClass().getResource("/css/" + Main.FILENAMETHEMELIGHT).toExternalForm());
                 break;
         }
+        promptLabel.setText(param.getMessage());
+        promptTextField.setText(param.getDefaultValue());
+        promptTextField.setOnKeyPressed(event -> {
+            if (event.getCode().equals(KeyCode.ENTER)) handleOk();
+        });
     }
 
-    public void handleClose() {
+    public int getStatus() {
+        return status;
+    }
+
+    public String getValue() {
+        return promptTextField.getText();
+    }
+
+    @FXML
+    private void handleOk() {
+        status = SUCCESS;
+        dialogStage.close();
+    }
+
+    @FXML
+    private void handleClose() {
+        status = ABORT;
         dialogStage.close();
     }
 

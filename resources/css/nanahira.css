@@ -1,0 +1,105 @@
+.root {
+    -fx-base: rgb(255,200,200);
+    -fx-background: -fx-base;
+
+    -fx-accent: -fx-base;
+    -fx-focus-color: rgba(233, 30, 99);
+    -fx-faint-focus-color: rgba(233, 30, 99, 0.075);
+
+    -fx-selection-bar: -fx-accent;
+    -fx-selection-bar-non-focused: derive(-fx-base, +30%);
+
+    -fx-font-family: "Trebuchet MS";
+}
+
+.separator .line {
+    -fx-border-color: transparent;
+}
+
+.table-view:focused {
+    -fx-background-color: transparent,-fx-box-border,-fx-control-inner-background;
+    -fx-background-insets: -1.4, 0, 1;
+    -fx-background-radius: 1.4, 0, 0;
+    -fx-padding: 1;
+}
+
+.chart-legend {
+    -fx-background-color: rgba(255,200,200,0.3);
+    -fx-border-color: rgba(235,179,177);
+}
+
+.chart-plot-background {
+    -fx-background-color: rgba(255,255,255,0.5);
+}
+
+.chart-pie {
+    -fx-background: transparent;
+}
+
+.progress-indicator {
+    -fx-progress-color: black;
+    -fx-accent: white;
+}
+
+.progress-indicator .tick {
+    -fx-background-color: black;
+}
+
+.progress-indicator .percentage {
+    -fx-fill: null;
+}
+
+#header1 {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+#header2 {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+}
+
+#labelsmall {
+    -fx-font-size: 10px;
+}
+
+#filterpane {
+    -fx-background-image: url("../img/nanahira/nanahira_filter.jpg");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: right, center;
+    -fx-background-size: contain;
+}
+
+#settingspane{
+    -fx-background-color: rgba(201,239,254);
+    -fx-background-image: url("../img/nanahira/nanahira_dan.jpg");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: contain;
+}
+
+#statisticspane {
+    -fx-background-image: url("../img/nanahira/nanahira_statistics.jpg");
+    -fx-background-color: rgba(249,249,249);
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: contain;
+}
+
+#danpane  {
+    -fx-background-color: rgba(254,251,207);
+    -fx-background-image: url("../img/nanahira/nanahira_settings.jpg");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: contain;
+}
+
+#dan {
+    -fx-background-color: rgba(255,255,255,0.7);
+    -fx-background-radius: 10px;
+    -fx-padding: 10;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 8, 0, 0, 2);
+}
+
+#stats {
+    -fx-background-color: rgba(255,200,200,0.3);
+    -fx-border-color: rgba(235,179,177);
+    -fx-border-width: 1px;
+}

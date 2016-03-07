@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.chart.*;
 import javafx.scene.control.*;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
@@ -22,15 +23,20 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.TextFlow;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
+import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Callback;
 import javafx.util.Duration;
+import org.controlsfx.control.textfield.TextFields;
 
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.io.*;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.net.URL;
 import java.util.*;
 import java.util.List;
@@ -335,13 +341,59 @@ public class MainController implements Initializable {
     @FXML
     private Label seventhkyu4;
 
+    /***** STATISTICS *****/
+    @FXML
+    private Tab statisticsTab;
+    @FXML
+    private Label djnameLabel;
+    @FXML
+    private Label playeridLabel;
+    @FXML
+    private Label fullcomboLabel;
+    @FXML
+    private Label exhardLabel;
+    @FXML
+    private Label hardLabel;
+    @FXML
+    private Label clearLabel;
+    @FXML
+    private Label easyclearLabel;
+    @FXML
+    private Label assistclearLabel;
+    @FXML
+    private Label failLabel;
+    @FXML
+    private Label noplayLabel;
+    @FXML
+    private Label totalclearLabel;
+    @FXML
+    private PieChart clearPieChart;
+    @FXML
+    private BarChart gradeBarChart;
+    @FXML
+    private StackedBarChart customStackedBarChart;
+    @FXML
+    private StackedBarChart levelStackedBarChart;
+    @FXML
+    private CheckBox noPlayCheckBox;
+    @FXML
+    private CheckBox styleDetailsCheckBox;
+    @FXML
+    private CheckBox levelDetailsCheckBox;
+
     /***** SETTINGS *****/
     @FXML
     private RadioButton settingsRadioLight;
     @FXML
     private RadioButton settingsRadioDark;
     @FXML
+    private RadioButton settingsRadioNanahira;
+    @FXML
     private CheckBox settingsShowClearColorsCheckBox;
+    @FXML
+    private CheckBox titleSuggestionsCheckBox;
+    @FXML
+    private CheckBox artistSuggestionsCheckBox;
     @FXML
     private RadioButton settingsP1;
     @FXML
@@ -350,6 +402,8 @@ public class MainController implements Initializable {
     private Label settingsSaveLabel;
     @FXML
     private TextFlow settingsAboutFlow;
+    @FXML
+    private ComboBox<String> songlistComboBox;
 
     /***** MISC *****/
     @FXML
@@ -365,6 +419,12 @@ public class MainController implements Initializable {
     private boolean settingsVisible = false;
     private boolean saveAnimationPlaying = false;
     private ObservableList<SongEntry> masterData;
+
+    private Stats stats;
+
+    private Set<String> titleSuggestions = new HashSet<>();
+    private Set<String> artistSuggestions = new HashSet<>();
+    private List<String> suggestions = new ArrayList<>();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -394,24 +454,42 @@ public class MainController implements Initializable {
             aboutHyperlink.setOnAction(event -> about());
             settingsAboutFlow.getChildren().add(aboutHyperlink);
 
-            //load stylesheets and setting toggles
-            scene.getStylesheets().add(getClass().getResource("/css/clear.css").toExternalForm());
-            if (Main.programTheme.equals(Main.THEMELIGHT)) {
-                settingsRadioLight.setSelected(true);
-                scene.getStylesheets().add(getClass().getResource("/css/modena-adjust.css").toExternalForm());
+            if (Main.getScoreFile() == null) {
+                statisticsTab.setDisable(true);
             }
-            if (Main.programTheme.equals(Main.THEMEDARK)) {
-                settingsRadioDark.setSelected(true);
-                scene.getStylesheets().add(getClass().getResource("/css/dark.css").toExternalForm());
+
+            //set setting toggles
+            switch (Main.programTheme) {
+                case Main.THEMELIGHT:
+                    settingsRadioLight.setSelected(true);
+                    break;
+                case Main.THEMEDARK:
+                    settingsRadioDark.setSelected(true);
+                    break;
+                case Main.THEMENANAHIRA:
+                    settingsRadioNanahira.setSelected(true);
+                    break;
             }
+
             settingsShowClearColorsCheckBox.setSelected(Main.programClearColor);
+            songlistComboBox.setValue(Main.songlist);
+            songlistComboBox.getItems().addAll(Style.OMNIMIX, Style.PENDUALFULL);
+
+            applyTheme();
         });
+
+        if (Main.showTitleSuggestions) titleSuggestionsCheckBox.setSelected(true);
+        if (Main.showArtistSuggestions) artistSuggestionsCheckBox.setSelected(true);
 
         if (Main.programPlayerside.equals("1")) settingsP1.setSelected(true);
         else settingsP2.setSelected(true);
 
         mainBox.getChildren().remove(settingsBox);
         onStartTableView();
+
+        setSuggestions();
+        initDan();
+        initStatistics();
 
         //initial sort AC-style
         titleColumn.setSortType(TableColumn.SortType.ASCENDING);
@@ -420,9 +498,9 @@ public class MainController implements Initializable {
         tableView.getSortOrder().add(styleColumn);
         tableView.getSortOrder().add(levelColumn);
         tableView.getSortOrder().add(titleColumn);
+
         refreshTable();
 
-        initDan();
     }
 
     private int lengthToInt(final String time) {
@@ -453,7 +531,6 @@ public class MainController implements Initializable {
         };
     }
 
-    //TODO: rewrite this
     private Comparator<String> getRatingComparator() {
         return (o1, o2) -> {
             if (o1.equals(o2)) return 0;
@@ -593,9 +670,27 @@ public class MainController implements Initializable {
         notesColumn.setVisible(Boolean.valueOf(properties.getProperty(Main.PROPERTYNAMENOTESCOL, "true")));
         clearColumn.setVisible(Boolean.valueOf(properties.getProperty(Main.PROPERTYNAMECLEARCOL, "false")));
         gradeColumn.setVisible(Boolean.valueOf(properties.getProperty(Main.PROPERTYNAMEGRADECOL, "false")));
-        missColumn.setVisible(Boolean.valueOf(properties.getProperty(Main.PROPERTYNAMEMISSCOL, "false")));
         exColumn.setVisible(Boolean.valueOf(properties.getProperty(Main.PROPERTYNAMEEXCOL, "false")));
+        missColumn.setVisible(Boolean.valueOf(properties.getProperty(Main.PROPERTYNAMEMISSCOL, "false")));
 
+        //column automatic resizing
+        final double size = 13.64;
+        tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        styleColumn.setMaxWidth     (1f * Integer.MAX_VALUE * (double) 81/size);
+        titleColumn.setMaxWidth     (1f * Integer.MAX_VALUE * (double)240/size);
+        artistColumn.setMaxWidth    (1f * Integer.MAX_VALUE * (double)170/size);
+        genreColumn.setMaxWidth     (1f * Integer.MAX_VALUE * (double)125/size);
+        difficultyColumn.setMaxWidth(1f * Integer.MAX_VALUE * (double) 88/size);
+        levelColumn.setMaxWidth     (1f * Integer.MAX_VALUE * (double) 59/size);
+        ratingNColumn.setMaxWidth   (1f * Integer.MAX_VALUE * (double) 51/size);
+        ratingHColumn.setMaxWidth   (1f * Integer.MAX_VALUE * (double) 51/size);
+        bpmColumn.setMaxWidth       (1f * Integer.MAX_VALUE * (double) 58/size);
+        lengthColumn.setMaxWidth    (1f * Integer.MAX_VALUE * (double) 68/size);
+        notesColumn.setMaxWidth     (1f * Integer.MAX_VALUE * (double) 59/size);
+        clearColumn.setMaxWidth     (1f * Integer.MAX_VALUE * (double) 90/size);
+        gradeColumn.setMaxWidth     (1f * Integer.MAX_VALUE * (double)104/size);
+        exColumn.setMaxWidth        (1f * Integer.MAX_VALUE * (double) 60/size);
+        missColumn.setMaxWidth      (1f * Integer.MAX_VALUE * (double) 60/size);
 
         //contextmenu
         tableView.setRowFactory(param -> {
@@ -763,7 +858,7 @@ public class MainController implements Initializable {
                 }
 
                 if (!checkClearAll.isSelected()) {
-                    if ((!songEntry.getClear().equals(Clear.NOPLAY) || !checkClearNoplay.isSelected()) &&
+                    if ((!songEntry.getClear().equals(Clear.NOPLAY_NOTEXT) || !checkClearNoplay.isSelected()) &&
                             (!songEntry.getClear().equals(Clear.FAILED) || !checkClearFailed.isSelected()) &&
                             (!songEntry.getClear().equals(Clear.ASSISTCLEAR) || !checkClearAssistclear.isSelected()) &&
                             (!songEntry.getClear().equals(Clear.EASYCLEAR) || !checkClearEasyclear.isSelected()) &&
@@ -802,8 +897,25 @@ public class MainController implements Initializable {
         masterData = FXCollections.observableArrayList();
         List<SongEntry> entries = new ArrayList<>();
 
-        InputStream chartInputStream = getClass().getResourceAsStream("/data/chartlist.txt");
-        InputStream idInputStream = getClass().getResourceAsStream("/data/idlist.txt");
+        String chartlistFile;
+        String idlistFile;
+        switch (Main.songlist) {
+            case Style.OMNIMIX:
+                chartlistFile = "chartlist.txt";
+                idlistFile = "idlist.txt";
+                break;
+            case Style.PENDUALFULL:
+                chartlistFile = "chartlist_22.txt";
+                idlistFile = "idlist_22.txt";
+                break;
+            default:
+                System.err.println("UNKNOWN SONGLIST REQUESTED\nUSING OMNIMIX AS DEFAULT");
+                chartlistFile = "chartlist.txt";
+                idlistFile = "idlist.txt";
+        }
+
+        InputStream chartInputStream = getClass().getResourceAsStream("/data/" + chartlistFile);
+        InputStream idInputStream = getClass().getResourceAsStream("/data/" + idlistFile);
         File scoreFile = Main.getScoreFile();
 
         if (chartInputStream != null && idInputStream != null) {
@@ -827,6 +939,10 @@ public class MainController implements Initializable {
                         idList[id][3] = data[4]; //artist_r
                         idList[id][4] = data[5]; //genre
                         idList[id][5] = data.length > 6 ? data[6] : ""; //textage
+
+                        //add title and artist to suggestions
+                        if (!titleSuggestions.contains(data[1])) titleSuggestions.add(data[1]); //title
+                        if (!artistSuggestions.contains(data[3])) artistSuggestions.add(data[3]); //artist
                     }
                     line = bufferedReader.readLine();
                 }
@@ -955,7 +1071,8 @@ public class MainController implements Initializable {
         return (int)Math.round(notes * 2 * (Double.valueOf(percentage) / 100));
     }
 
-    public void hideSettings() {
+    @FXML
+    private void hideSettings() {
         settingsVisible = !settingsVisible;
         if (!settingsVisible) mainBox.getChildren().remove(settingsBox);
         else  mainBox.getChildren().add(1, settingsBox);
@@ -963,7 +1080,8 @@ public class MainController implements Initializable {
 
 
     //level select toggles
-    public void levelAll() {
+    @FXML
+    private void levelAll() {
         if (checkLevelAll.isSelected()) {
             checkLevel1.setSelected(false);
             checkLevel2.setSelected(false);
@@ -982,81 +1100,113 @@ public class MainController implements Initializable {
         refreshTable();
     }
 
-    public void level1() {
+    @FXML
+    private void level1() {
         if (checkLevel1.isSelected()) checkLevelAll.setSelected(false);
         checkLevel1.setSelected(checkLevel1.isSelected());
+        levelempty();
         refreshTable();
     }
 
-    public void level2() {
+    @FXML
+    private void level2() {
         if (checkLevel2.isSelected()) checkLevelAll.setSelected(false);
         checkLevel2.setSelected(checkLevel2.isSelected());
+        levelempty();
         refreshTable();
     }
 
-    public void level3() {
+    @FXML
+    private void level3() {
         if (checkLevel3.isSelected()) checkLevelAll.setSelected(false);
         checkLevel3.setSelected(checkLevel3.isSelected());
+        levelempty();
         refreshTable();
     }
 
-    public void level4() {
+    @FXML
+    private void level4() {
         if (checkLevel4.isSelected()) checkLevelAll.setSelected(false);
         checkLevel4.setSelected(checkLevel4.isSelected());
+        levelempty();
         refreshTable();
     }
 
-    public void level5() {
+    @FXML
+    private void level5() {
         if (checkLevel5.isSelected()) checkLevelAll.setSelected(false);
         checkLevel5.setSelected(checkLevel5.isSelected());
+        levelempty();
         refreshTable();
     }
 
-    public void level6() {
+    @FXML
+    private void level6() {
         if (checkLevel6.isSelected()) checkLevelAll.setSelected(false);
         checkLevel6.setSelected(checkLevel6.isSelected());
+        levelempty();
         refreshTable();
     }
 
-    public void level7() {
+    @FXML
+    private void level7() {
         if (checkLevel7.isSelected()) checkLevelAll.setSelected(false);
         checkLevel7.setSelected(checkLevel7.isSelected());
+        levelempty();
         refreshTable();
     }
 
-    public void level8() {
+    @FXML
+    private void level8() {
         if (checkLevel8.isSelected()) checkLevelAll.setSelected(false);
         checkLevel8.setSelected(checkLevel8.isSelected());
+        levelempty();
         refreshTable();
     }
 
-    public void level9() {
+    @FXML
+    private void level9() {
         if (checkLevel9.isSelected()) checkLevelAll.setSelected(false);
         checkLevel9.setSelected(checkLevel9.isSelected());
+        levelempty();
         refreshTable();
     }
 
-    public void level10() {
+    @FXML
+    private void level10() {
         if (checkLevel10.isSelected()) checkLevelAll.setSelected(false);
         checkLevel10.setSelected(checkLevel10.isSelected());
+        levelempty();
         refreshTable();
     }
 
-    public void level11() {
+    @FXML
+    private void level11() {
         if (checkLevel11.isSelected()) checkLevelAll.setSelected(false);
         checkLevel11.setSelected(checkLevel11.isSelected());
+        levelempty();
         refreshTable();
     }
 
-    public void level12() {
+    @FXML
+    private void level12() {
         if (checkLevel12.isSelected()) checkLevelAll.setSelected(false);
         checkLevel12.setSelected(checkLevel12.isSelected());
+        levelempty();
         refreshTable();
     }
 
+    private void levelempty() {
+        if (!checkLevelAll.isSelected() && !checkLevel1.isSelected() && !checkLevel2.isSelected() &&
+                !checkLevel3.isSelected() && !checkLevel4.isSelected() && !checkLevel5.isSelected() &&
+                !checkLevel6.isSelected() && !checkLevel7.isSelected() && !checkLevel8.isSelected() &&
+                !checkLevel9.isSelected() && !checkLevel10.isSelected() && !checkLevel11.isSelected() &&
+                !checkLevel12.isSelected()) checkLevelAll.setSelected(true);
+    }
 
     //style select toggles
-    public void styleAll() {
+    @FXML
+    private void styleAll() {
         if (checkStyleAll.isSelected()) {
             checkStyle1.setSelected(false);
             checkStyleSub.setSelected(false);
@@ -1086,147 +1236,205 @@ public class MainController implements Initializable {
         refreshTable();
     }
 
-    public void style1() {
+    @FXML
+    private void style1() {
         if (checkStyle1.isSelected()) checkStyleAll.setSelected(false);
         checkStyle1.setSelected(checkStyle1.isSelected());
+        styleempty();
         refreshTable();
     }
 
-    public void styleSub() {
+    @FXML
+    private void styleSub() {
         if (checkStyleSub.isSelected()) checkStyleAll.setSelected(false);
         checkStyleSub.setSelected(checkStyleSub.isSelected());
+        styleempty();
         refreshTable();
     }
 
-    public void style2() {
+    @FXML
+    private void style2() {
         if (checkStyle2.isSelected()) checkStyleAll.setSelected(false);
         checkStyle2.setSelected(checkStyle2.isSelected());
+        styleempty();
         refreshTable();
     }
 
-    public void style3() {
+    @FXML
+    private void style3() {
         if (checkStyle3.isSelected()) checkStyleAll.setSelected(false);
         checkStyle3.setSelected(checkStyle3.isSelected());
+        styleempty();
         refreshTable();
     }
 
-    public void style4() {
+    @FXML
+    private void style4() {
         if (checkStyle4.isSelected()) checkStyleAll.setSelected(false);
         checkStyle4.setSelected(checkStyle4.isSelected());
+        styleempty();
         refreshTable();
     }
 
-    public void style5() {
+    @FXML
+    private void style5() {
         if (checkStyle5.isSelected()) checkStyleAll.setSelected(false);
         checkStyle5.setSelected(checkStyle5.isSelected());
+        styleempty();
         refreshTable();
     }
 
-    public void style6() {
+    @FXML
+    private void style6() {
         if (checkStyle6.isSelected()) checkStyleAll.setSelected(false);
         checkStyle6.setSelected(checkStyle6.isSelected());
+        styleempty();
         refreshTable();
     }
 
-    public void style7() {
+    @FXML
+    private void style7() {
         if (checkStyle7.isSelected()) checkStyleAll.setSelected(false);
         checkStyle7.setSelected(checkStyle7.isSelected());
+        styleempty();
         refreshTable();
     }
 
-    public void style8() {
+    @FXML
+    private void style8() {
         if (checkStyle8.isSelected()) checkStyleAll.setSelected(false);
         checkStyle8.setSelected(checkStyle8.isSelected());
+        styleempty();
         refreshTable();
     }
 
-    public void style9() {
+    @FXML
+    private void style9() {
         if (checkStyle9.isSelected()) checkStyleAll.setSelected(false);
         checkStyle9.setSelected(checkStyle9.isSelected());
+        styleempty();
         refreshTable();
     }
 
-    public void style10() {
+    @FXML
+    private void style10() {
         if (checkStyle10.isSelected()) checkStyleAll.setSelected(false);
         checkStyle10.setSelected(checkStyle10.isSelected());
+        styleempty();
         refreshTable();
     }
 
-    public void style11() {
+    @FXML
+    private void style11() {
         if (checkStyle11.isSelected()) checkStyleAll.setSelected(false);
         checkStyle11.setSelected(checkStyle11.isSelected());
+        styleempty();
         refreshTable();
     }
 
-    public void style12() {
+    @FXML
+    private void style12() {
         if (checkStyle12.isSelected()) checkStyleAll.setSelected(false);
         checkStyle12.setSelected(checkStyle12.isSelected());
+        styleempty();
         refreshTable();
     }
 
-    public void style13() {
+    @FXML
+    private void style13() {
         if (checkStyle13.isSelected()) checkStyleAll.setSelected(false);
         checkStyle13.setSelected(checkStyle13.isSelected());
+        styleempty();
         refreshTable();
     }
 
-    public void style14() {
+    @FXML
+    private void style14() {
         if (checkStyle14.isSelected()) checkStyleAll.setSelected(false);
         checkStyle14.setSelected(checkStyle14.isSelected());
+        styleempty();
         refreshTable();
     }
 
-    public void style15() {
+    @FXML
+    private void style15() {
         if (checkStyle15.isSelected()) checkStyleAll.setSelected(false);
         checkStyle15.setSelected(checkStyle15.isSelected());
+        styleempty();
         refreshTable();
     }
 
-    public void style16() {
+    @FXML
+    private void style16() {
         if (checkStyle16.isSelected()) checkStyleAll.setSelected(false);
         checkStyle16.setSelected(checkStyle16.isSelected());
+        styleempty();
         refreshTable();
     }
 
-    public void style17() {
+    @FXML
+    private void style17() {
         if (checkStyle17.isSelected()) checkStyleAll.setSelected(false);
         checkStyle17.setSelected(checkStyle17.isSelected());
+        styleempty();
         refreshTable();
     }
 
-    public void style18() {
+    @FXML
+    private void style18() {
         if (checkStyle18.isSelected()) checkStyleAll.setSelected(false);
         checkStyle18.setSelected(checkStyle18.isSelected());
+        styleempty();
         refreshTable();
     }
 
-    public void style19() {
+    @FXML
+    private void style19() {
         if (checkStyle19.isSelected()) checkStyleAll.setSelected(false);
         checkStyle19.setSelected(checkStyle19.isSelected());
+        styleempty();
         refreshTable();
     }
 
-    public void style20() {
+    @FXML
+    private void style20() {
         if (checkStyle20.isSelected()) checkStyleAll.setSelected(false);
         checkStyle20.setSelected(checkStyle20.isSelected());
+        styleempty();
         refreshTable();
     }
 
-    public void style21() {
+    @FXML
+    private void style21() {
         if (checkStyle21.isSelected()) checkStyleAll.setSelected(false);
         checkStyle21.setSelected(checkStyle21.isSelected());
+        styleempty();
         refreshTable();
     }
 
-    public void style22() {
+    @FXML
+    private void style22() {
         if (checkStyle22.isSelected()) checkStyleAll.setSelected(false);
         checkStyle22.setSelected(checkStyle22.isSelected());
+        styleempty();
         refreshTable();
+    }
+
+    private void styleempty() {
+        if (!checkStyle1.isSelected() && !checkStyleSub.isSelected() && !checkStyle2.isSelected() &&
+                !checkStyle3.isSelected() && !checkStyle4.isSelected() && !checkStyle5.isSelected() &&
+                !checkStyle6.isSelected() && !checkStyle7.isSelected() && !checkStyle8.isSelected() &&
+                !checkStyle9.isSelected() && !checkStyle10.isSelected() && !checkStyle11.isSelected() &&
+                !checkStyle12.isSelected() && !checkStyle13.isSelected() && !checkStyle14.isSelected() &&
+                !checkStyle15.isSelected() && !checkStyle16.isSelected() && !checkStyle17.isSelected() &&
+                !checkStyle18.isSelected() && !checkStyle19.isSelected() && !checkStyle20.isSelected() &&
+                !checkStyle21.isSelected() && !checkStyle22.isSelected()) checkStyleAll.setSelected(true);
     }
 
 
     //difficulty select toggles
-    public void diffAll() {
+    @FXML
+    private void diffAll() {
         if (checkDiffAll.isSelected()) {
             checkDiffN.setSelected(false);
             checkDiffH.setSelected(false);
@@ -1238,38 +1446,54 @@ public class MainController implements Initializable {
         refreshTable();
     }
 
-    public void diffN() {
+    @FXML
+    private void diffN() {
         if (checkDiffN.isSelected()) checkDiffAll.setSelected(false);
         checkDiffN.setSelected(checkDiffN.isSelected());
+        diffempty();
         refreshTable();
     }
 
-    public void diffH() {
+    @FXML
+    private void diffH() {
         if (checkDiffH.isSelected()) checkDiffAll.setSelected(false);
         checkDiffH.setSelected(checkDiffH.isSelected());
+        diffempty();
         refreshTable();
     }
 
-    public void diffA() {
+    @FXML
+    private void diffA() {
         if (checkDiffA.isSelected()) checkDiffAll.setSelected(false);
         checkDiffA.setSelected(checkDiffA.isSelected());
+        diffempty();
         refreshTable();
     }
 
-    public void diffB() {
+    @FXML
+    private void diffB() {
         if (checkDiffB.isSelected()) checkDiffAll.setSelected(false);
         checkDiffB.setSelected(checkDiffB.isSelected());
+        diffempty();
         refreshTable();
     }
 
-    public void diffL() {
+    @FXML
+    private void diffL() {
         if (checkDiffL.isSelected()) checkDiffAll.setSelected(false);
         checkDiffL.setSelected(checkDiffL.isSelected());
+        diffempty();
         refreshTable();
+    }
+
+    private void diffempty() {
+        if (!checkDiffN.isSelected() && !checkDiffH.isSelected() && !checkDiffA.isSelected() &&
+                !checkDiffL.isSelected() && !checkDiffB.isSelected()) checkDiffAll.setSelected(true);
     }
 
     //clear select toggles
-    public void clearAll() {
+    @FXML
+    private void clearAll() {
         if (checkClearAll.isSelected()) {
             checkClearNoplay.setSelected(false);
             checkClearFailed.setSelected(false);
@@ -1284,52 +1508,76 @@ public class MainController implements Initializable {
         refreshTable();
     }
 
-    public void clearNoplay() {
+    @FXML
+    private void clearNoplay() {
         if (checkClearNoplay.isSelected()) checkClearAll.setSelected(false);
         checkClearNoplay.setSelected(checkClearNoplay.isSelected());
+        clearempty();
         refreshTable();
     }
 
-    public void clearFailed() {
+    @FXML
+    private void clearFailed() {
         if (checkClearFailed.isSelected()) checkClearAll.setSelected(false);
         checkClearFailed.setSelected(checkClearFailed.isSelected());
+        clearempty();
         refreshTable();
     }
 
-    public void clearAssistclear() {
+    @FXML
+    private void clearAssistclear() {
         if (checkClearAssistclear.isSelected()) checkClearAll.setSelected(false);
         checkClearAssistclear.setSelected(checkClearAssistclear.isSelected());
+        clearempty();
         refreshTable();
     }
 
-    public void clearEasyclear() {
+    @FXML
+    private void clearEasyclear() {
         if (checkClearEasyclear.isSelected()) checkClearAll.setSelected(false);
         checkClearEasyclear.setSelected(checkClearEasyclear.isSelected());
+        clearempty();
         refreshTable();
     }
 
-    public void clearClear() {
+    @FXML
+    private void clearClear() {
         if (checkClearClear.isSelected()) checkClearAll.setSelected(false);
         checkClearClear.setSelected(checkClearClear.isSelected());
+        clearempty();
         refreshTable();
     }
 
-    public void clearHardclear() {
+    @FXML
+    private void clearHardclear() {
         if (checkClearHardclear.isSelected()) checkClearAll.setSelected(false);
         checkClearHardclear.setSelected(checkClearHardclear.isSelected());
+        clearempty();
         refreshTable();
     }
 
-    public void clearExhardclear() {
+    @FXML
+    private void clearExhardclear() {
         if (checkClearExhardclear.isSelected()) checkClearAll.setSelected(false);
         checkClearExhardclear.setSelected(checkClearExhardclear.isSelected());
+        clearempty();
         refreshTable();
     }
 
-    public void clearFullcombo() {
+    @FXML
+    private void clearFullcombo() {
         if (checkClearFullcombo.isSelected()) checkClearAll.setSelected(false);
         checkClearFullcombo.setSelected(checkClearFullcombo.isSelected());
+        clearempty();
         refreshTable();
+    }
+
+    private void clearempty() {
+        if (!checkClearNoplay.isSelected() && !checkClearFailed.isSelected() &&
+                !checkClearAssistclear.isSelected() && !checkClearEasyclear.isSelected() &&
+                !checkClearClear.isSelected() && !checkClearHardclear.isSelected() &&
+                !checkClearExhardclear.isSelected() && !checkClearFullcombo.isSelected())
+            checkClearAll.setSelected(true);
     }
 
     //workaround for refreshing the table data
@@ -1345,36 +1593,55 @@ public class MainController implements Initializable {
         }
     }
 
-    public void setClearColors() {
-        Main.programClearColor = settingsShowClearColorsCheckBox.isSelected();
-        refreshTable();
-    }
-
-    public void setThemeLight() {
+    @FXML
+    private void setThemeLight() {
         settingsRadioLight.setSelected(true);
         settingsRadioDark.setSelected(false);
-        Main.programTheme = Main.THEMELIGHT;
+        settingsRadioNanahira.setSelected(false);
     }
 
-    public void setThemeDark() {
-        settingsRadioDark.setSelected(true);
+    @FXML
+    private void setThemeDark() {
         settingsRadioLight.setSelected(false);
-        Main.programTheme = Main.THEMEDARK;
+        settingsRadioDark.setSelected(true);
+        settingsRadioNanahira.setSelected(false);
     }
 
+    @FXML
+    private void setThemeNanahira(){
+        settingsRadioLight.setSelected(false);
+        settingsRadioDark.setSelected(false);
+        settingsRadioNanahira.setSelected(true);
+    }
+
+    @FXML
     private void applyTheme() {
         scene.getStylesheets().clear();
-        scene.getStylesheets().add(getClass().getResource("/css/clear.css").toExternalForm());
-        if (Main.programTheme.equals(Main.THEMELIGHT)) scene.getStylesheets().add(getClass().getResource("/css/modena-adjust.css").toExternalForm());
-        else scene.getStylesheets().add(getClass().getResource("/css/dark.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getResource("/css/" + Main.FILENAMECLEARCOLORS).toExternalForm());
+        switch (Main.programTheme) {
+            case Main.THEMELIGHT:
+                scene.getStylesheets().add(getClass().getResource("/css/" + Main.FILENAMETHEMELIGHT).toExternalForm());
+                break;
+            case Main.THEMEDARK:
+                scene.getStylesheets().add(getClass().getResource("/css/" + Main.FILENAMETHEMEDARK).toExternalForm());
+                break;
+            case Main.THEMENANAHIRA:
+                scene.getStylesheets().add(getClass().getResource("/css/" + Main.FILENAMETHEMENANAHIRA).toExternalForm());
+                break;
+            default:
+                scene.getStylesheets().add(getClass().getResource("/css/" + Main.FILENAMETHEMELIGHT).toExternalForm());
+                break;
+        }
         refreshTable();
     }
 
     public void setP1() {
+        settingsP1.setSelected(true);
         settingsP2.setSelected(false);
     }
 
     public void setP2() {
+        settingsP2.setSelected(true);
         settingsP1.setSelected(false);
     }
 
@@ -1388,7 +1655,8 @@ public class MainController implements Initializable {
         Main.setProperties(columnVisibility);
     }
 
-    public void importData() {
+    @FXML
+    private void importData() {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/fxml/import.fxml"));
@@ -1406,11 +1674,10 @@ public class MainController implements Initializable {
             if (controller.getStatus() == ImportController.SUCCESS) {
                 Main.findScoreFile();
                 boolean[] columnVisibility = {styleColumn.isVisible(), titleColumn.isVisible(),
-                        artistColumn.isVisible(),
-                        genreColumn.isVisible(), difficultyColumn.isVisible(), levelColumn.isVisible(),
-                        ratingNColumn.isVisible(), ratingHColumn.isVisible(), bpmColumn.isVisible(),
-                        lengthColumn.isVisible(), notesColumn.isVisible(), clearColumn.isVisible(),
-                        gradeColumn.isVisible(), exColumn.isVisible(), missColumn.isVisible()};
+                        artistColumn.isVisible(), genreColumn.isVisible(), difficultyColumn.isVisible(),
+                        levelColumn.isVisible(), ratingNColumn.isVisible(), ratingHColumn.isVisible(),
+                        bpmColumn.isVisible(), lengthColumn.isVisible(), notesColumn.isVisible(),
+                        clearColumn.isVisible(), gradeColumn.isVisible(), exColumn.isVisible(), missColumn.isVisible()};
                 Main.setProperties(columnVisibility);
                 onStartTableView();
 
@@ -1419,6 +1686,10 @@ public class MainController implements Initializable {
                 gradeColumn.setVisible(true);
                 missColumn.setVisible(true);
                 exColumn.setVisible(true);
+
+                initStatistics();
+                if (statisticsTab.isDisabled()) statisticsTab.setDisable(false);
+
                 refreshTable();
             }
         } catch (IOException e) {
@@ -1451,7 +1722,7 @@ public class MainController implements Initializable {
     private void initDan() {
         danStyleSelectBox.setValue(Style.PENDUALFULL);
         danStyleSelectBox.getItems().addAll(Style.PENDUALFULL, Style.SPADAFULL, Style.TRICOROFULL, Style.LINCLEFULL,
-                Style.RESORTANTHEMFULL);
+                Style.RESORTANTHEMFULL, Style.SIRIUSFULL, Style.EMPRESSFULL);
         danStyleSelectBox.valueProperty().addListener((observable, oldValue, newValue) -> setDanData(Style.styleFullToInt(newValue)));
         setDanData(Style.PENDUALINT);
     }
@@ -1553,17 +1824,52 @@ public class MainController implements Initializable {
         }
     }
 
-    public void saveSettings() {
+    private void setSuggestions(){
+        //suggestions.clear();
+        if (Main.showTitleSuggestions) suggestions.addAll(titleSuggestions);
+        if (Main.showArtistSuggestions) suggestions.addAll(artistSuggestions);
+        TextFields.bindAutoCompletion(filterField, suggestions);
+        if (suggestions.size() > 0) System.out.println(Main.getTime() + " added " + suggestions.size() + " suggestions to searchbar");
+    }
+
+    @FXML
+    private void saveSettings() {
         //prevent overload by clicking the button too much
         if (!saveAnimationPlaying) {
-
-            setClearColors();
-            applyTheme();
-            refreshTable();
+            saveAnimationPlaying = true;
 
             Main.programPlayerside = settingsP1.isSelected() ? "1" : "2";
+            Main.showTitleSuggestions = titleSuggestionsCheckBox.isSelected();
+            Main.showArtistSuggestions = artistSuggestionsCheckBox.isSelected();
 
-            saveAnimationPlaying = true;
+            if (!songlistComboBox.getValue().equals(Main.songlist)) {
+                Main.songlist = songlistComboBox.getValue();
+                onStartTableView();
+                initStatistics();
+                refreshTable();
+            }
+
+            if (settingsShowClearColorsCheckBox.isSelected() != Main.programClearColor) {
+                Main.programClearColor = settingsShowClearColorsCheckBox.isSelected();
+                refreshTable();
+            }
+
+            if (settingsRadioDark.isSelected() && !Main.programTheme.equals(Main.THEMEDARK)) {
+                Main.programTheme = Main.THEMEDARK;
+                applyTheme();
+            }
+
+            else if (settingsRadioLight.isSelected() && !Main.programTheme.equals(Main.THEMELIGHT)) {
+                Main.programTheme = Main.THEMELIGHT;
+                applyTheme();
+            }
+
+            else if (settingsRadioNanahira.isSelected() && !Main.programTheme.equals(Main.THEMENANAHIRA)) {
+                Main.programTheme = Main.THEMENANAHIRA;
+                applyTheme();
+            }
+
+
             FadeTransition ft2 = new FadeTransition(Duration.millis(333), settingsSaveLabel);
             ft2.setFromValue(1);
             ft2.setToValue(0);
@@ -1583,17 +1889,24 @@ public class MainController implements Initializable {
         }
     }
 
-    private int texStyle(int id) {
-        if (id == 22096 || id == 22097 || id == 15202 || id == 14214) return Style.COPULAINT;
-        else if (id == 13212) return Style.IIDXREDINT;
-        else if (id == 13203) return Style.TENTHSTYLEINT;
+    private String texStyle(int id) {
+        String str;
+        if (id == 22096 || id == 22097 || id == 15202 || id == 14214) str = String.valueOf(Style.COPULAINT);
+        else if (id == 13212) str = String.valueOf(Style.IIDXREDINT);
+        else if (id == 13203) str = String.valueOf(Style.TENTHSTYLEINT);
         else if (id == 16201 || id == 16202 || id == 16203 || id == 16204 || id == 16205 || id == 16206 || id == 16208
                 || id == 16209 || id == 16210 || id == 16211 || id == 15201 || id == 15203 || id == 15206 || id == 15210
                 || id == 15211 || id == 15212 || id == 15213 || id == 15214 || id == 15216 || id == 14201 || id == 14203
                 || id == 14204 || id == 14205 || id == 14206 || id == 14207 || id == 14208 || id == 14209 || id == 14212
                 || id == 14213 || id == 13202 || id == 13204 || id == 13205 || id == 13206 || id == 13207 || id == 13208
-                || id == 13209 || id == 13210 || id == 13211 || id == 13213 || id == 13214 || id == 13201) return Style.OTHERINT;
-        else return getStyleFromID(id);
+                || id == 13209 || id == 13210 || id == 13211 || id == 13213 || id == 13214 || id == 13201 || id == 12202
+                || id == 12203 || id == 12205 || id == 11201 || id == 11202 || id == 11203 || id == 10201 || id == 10202
+                || id == 10204 || id == 10205 || id == 10206 || id == 9204 || id == 9205 || id == 9201 || id == 9202
+                || id == 8201 || id == 8202 || id == 8203 || id == 8204 || id == 6211 || id == 5206 || id == 5207
+                || id == 5208 || id == 5209 || id == 4212 || id == 4214 || id == 4215) str = String.valueOf(Style.OTHERINT);
+        else str = String.valueOf(getStyleFromID(id));
+        if (str.equals("-1")) str = "s";
+        return str;
     }
 
     private void textageTab(int id, String title, String textage, String difficulty, String level) {
@@ -1613,11 +1926,393 @@ public class MainController implements Initializable {
             }
             WebView webView = new WebView();
             WebEngine webEngine = webView.getEngine();
+
+            webEngine.setPromptHandler(param -> {
+                try {
+                    FXMLLoader loader = new FXMLLoader();
+                    loader.setLocation(getClass().getResource("/fxml/prompt.fxml"));
+                    VBox page = loader.load();
+                    Stage dialogStage = new Stage();
+                    dialogStage.initModality(Modality.APPLICATION_MODAL);
+                    dialogStage.initStyle(StageStyle.UTILITY);
+                    dialogStage.getIcons().add(new Image(getClass().getResource("/img/icon32.png").toString()));
+                    dialogStage.getIcons().add(new Image(getClass().getResource("/img/icon256.png").toString()));
+                    dialogStage.setResizable(false);
+                    Scene scene = new Scene(page);
+                    dialogStage.setScene(scene);
+                    PromptController controller = loader.getController();
+                    controller.setDialogStage(dialogStage, param);
+                    dialogStage.showAndWait();
+                    if (controller.getStatus() == PromptController.SUCCESS) {
+                        return controller.getValue();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return null;
+            });
+
+            webEngine.setOnAlert(param -> {
+                try {
+                    FXMLLoader loader = new FXMLLoader();
+                    loader.setLocation(getClass().getResource("/fxml/alert.fxml"));
+                    VBox page = loader.load();
+                    Stage dialogStage = new Stage();
+                    dialogStage.initModality(Modality.APPLICATION_MODAL);
+                    dialogStage.initStyle(StageStyle.UTILITY);
+                    dialogStage.getIcons().add(new Image(getClass().getResource("/img/icon32.png").toString()));
+                    dialogStage.getIcons().add(new Image(getClass().getResource("/img/icon256.png").toString()));
+                    dialogStage.setResizable(false);
+                    Scene scene = new Scene(page);
+                    dialogStage.setScene(scene);
+                    AlertController controller = loader.getController();
+                    controller.setDialogStage(dialogStage, param);
+                    dialogStage.showAndWait();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+
             webEngine.load("http://textage.cc/score/" + texStyle(id) + "/" + textage + ".html?" + Main.programPlayerside + difficulty + level + "00");
+            if (difficulty.toLowerCase().equals("x")) difficulty = "黒";
             Tab tab = new Tab("Chart: " + title + " [" + difficulty.toLowerCase() + "]");
             tab.setContent(webView);
             tabPane.getTabs().add(tab);
         }
+    }
+
+    private double round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+        BigDecimal bd = new BigDecimal(value);
+        bd = bd.setScale(places, RoundingMode.HALF_UP);
+        return bd.doubleValue();
+    }
+
+    private void initStatistics(){
+        stats = new Stats(masterData);
+
+        noPlayCheckBox.setSelected(true);
+        styleDetailsCheckBox.setSelected(false);
+        levelDetailsCheckBox.setSelected(false);
+
+        playeridLabel.setText(Main.playerid);
+        djnameLabel.setText(("DJ " + Main.djname).toUpperCase());
+        fullcomboLabel.setText(String.valueOf(stats.getFullcombo()));
+        exhardLabel.setText(String.valueOf(stats.getExhardclear()));
+        hardLabel.setText(String.valueOf(stats.getHardclear()));
+        clearLabel.setText(String.valueOf(stats.getClear()));
+        easyclearLabel.setText(String.valueOf(stats.getEasyclear()));
+        assistclearLabel.setText(String.valueOf(stats.getAssistclear()));
+        failLabel.setText(String.valueOf(stats.getFailed()));
+        noplayLabel.setText(String.valueOf(stats.getNoplay()));
+        totalclearLabel.setText(String.valueOf(stats.getTotalClears()));
+
+        fillClearPieChart();
+        fillGradeBarChart();
+        fillCustomStackedBarChart(false);
+        fillLevelBarChart(false);
+    }
+
+    //inaccurate
+    private int calcDJPoints(){
+        double djpoints = 0, currentDJP, toAddDJP = 0;
+        ObservableList<SongEntry> data = masterData;
+        FXCollections.sort(data, (o1, o2) -> o1.getId() > o2.getId() ? 1 : o1.getId() < o2.getId() ? -1 : 0);
+        int oldid = 0, newid = 0;
+        for (SongEntry songEntry : data) {
+            if (oldid == 0 && newid == 0)  oldid = songEntry.getId();
+            newid = songEntry.getId();
+            if (newid > oldid) {
+                oldid = newid;
+                djpoints += toAddDJP;
+                toAddDJP = 0;
+            }
+
+            int c;
+            switch (songEntry.getClear()) {
+                case Clear.FULLCOMBO:
+                    c = 30;
+                    break;
+                case Clear.EXHARDCLEAR:
+                    c = 25;
+                    break;
+                case Clear.HARDCLEAR:
+                    c = 20;
+                    break;
+                case Clear.CLEAR:
+                    c = 10;
+                    break;
+                case Clear.EASYCLEAR:
+                    c = 5;
+                    break;
+                default:
+                    c = 0;
+            }
+
+            int l = 0;
+            double p = songEntry.getEx().equals("") ? 0 : Double.valueOf(songEntry.getEx()) / (double)(2 * Integer.valueOf(songEntry.getNotes()));
+            if (p > (double)8/9) l = 20;
+            else if (p > (double)7/9) l = 15;
+            else if (p > (double)6/9) l = 10;
+
+            currentDJP = songEntry.getEx().equals("") ? 0 : Double.valueOf(songEntry.getEx()) * (double)(100 + c + l) / 10000;
+            if (currentDJP > toAddDJP) toAddDJP = currentDJP;
+        }
+        return (int)djpoints;
+    }
+
+    private void fillClearPieChart(){
+        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+        if (stats.getFullcombo() > 0) pieChartData.add(new PieChart.Data(Clear.FULLCOMBO, stats.getFullcombo()));
+        if (stats.getExhardclear() > 0) pieChartData.add(new PieChart.Data(Clear.EXHARDCLEAR, stats.getExhardclear()));
+        if (stats.getHardclear() > 0) pieChartData.add(new PieChart.Data(Clear.HARDCLEAR, stats.getHardclear()));
+        if (stats.getClear() > 0) pieChartData.add(new PieChart.Data(Clear.CLEAR, stats.getClear()));
+        if (stats.getEasyclear() > 0) pieChartData.add(new PieChart.Data(Clear.EASYCLEAR, stats.getEasyclear()));
+        if (stats.getAssistclear() > 0) pieChartData.add(new PieChart.Data(Clear.ASSISTCLEAR, stats.getAssistclear()));
+        if (stats.getFailed() > 0) pieChartData.add(new PieChart.Data(Clear.FAILED, stats.getFailed()));
+        if (stats.getNoplay() > 0) pieChartData.add(new PieChart.Data(Clear.NOPLAY, stats.getNoplay()));
+        clearPieChart.setData(pieChartData);
+        setPieTooltips();
+    }
+
+    private void setPieTooltips(){
+        for (PieChart.Data data : clearPieChart.getData()) {
+            if (noPlayCheckBox.isSelected()){
+                Tooltip.install(data.getNode(), new Tooltip(round(100 * data.getPieValue() / stats.getTotal(), 2) + "%"));
+            } else {
+                Tooltip.install(data.getNode(), new Tooltip(round(100 * data.getPieValue() / stats.getTotalWONoplay(), 2) + "%"));
+            }
+        }
+    }
+
+    @FXML
+    private void setPieNoPlay(){
+        if (!noPlayCheckBox.isSelected()) {
+            clearPieChart.getData().remove(clearPieChart.getData().size() - 1);
+            setPieTooltips();
+        } else {
+            clearPieChart.getData().add(new PieChart.Data(Clear.NOPLAY, stats.getNoplay()));
+            setPieTooltips();
+        }
+    }
+
+    private void fillGradeBarChart(){
+        ObservableList<BarChart.Data> barChartData = FXCollections.observableArrayList();
+        if (stats.getGradeAAA() > 0) barChartData.add(new BarChart.Data<>(Grade.AAA, stats.getGradeAAA()));
+        if (stats.getGradeAAA() + stats.getGradeAA() > 0) barChartData.add(new BarChart.Data<>(Grade.AA, stats.getGradeAA()));
+        if (stats.getGradeAAA() + stats.getGradeAA() + stats.getGradeA() > 0) barChartData.add(new BarChart.Data<>(Grade.A, stats.getGradeA()));
+        if (stats.getGradeB() + stats.getGradeC() + stats.getGradeD() + stats.getGradeE() + stats.getGradeF() > 0) barChartData.add(new BarChart.Data<>(Grade.B, stats.getGradeB()));
+        if (stats.getGradeC() + stats.getGradeD() + stats.getGradeE() + stats.getGradeF() > 0) barChartData.add(new BarChart.Data<>(Grade.C, stats.getGradeC()));
+        if (stats.getGradeD() + stats.getGradeE() + stats.getGradeF() > 0) barChartData.add(new BarChart.Data<>(Grade.D, stats.getGradeD()));
+        if (stats.getGradeE() + stats.getGradeF() > 0) barChartData.add(new BarChart.Data<>(Grade.E, stats.getGradeE()));
+        if (stats.getGradeF() > 0) barChartData.add(new BarChart.Data<>(Grade.F, stats.getGradeF()));
+        ObservableList<BarChart.Series> barChartSeries = FXCollections.observableArrayList(new BarChart.Series("Grade", barChartData));
+        gradeBarChart.setData(barChartSeries);
+
+        for (BarChart.Data data : barChartData){
+            Tooltip.install(data.getNode(), new Tooltip(String.valueOf(data.getYValue())));
+        }
+    }
+
+    private void fillCustomStackedBarChart(boolean details) {
+        customStackedBarChart.getData().clear();
+        if (details) {
+            XYChart.Series<String, Number> npSeries = new XYChart.Series<>();
+            npSeries.setName(Clear.NOPLAY);
+            XYChart.Series<String, Number> fSeries = new XYChart.Series<>();
+            fSeries.setName(Clear.FAILED);
+            XYChart.Series<String, Number> acSeries = new XYChart.Series<>();
+            acSeries.setName(Clear.ASSISTCLEAR);
+            XYChart.Series<String, Number> ecSeries = new XYChart.Series<>();
+            ecSeries.setName(Clear.EASYCLEAR);
+            XYChart.Series<String, Number> cSeries = new XYChart.Series<>();
+            cSeries.setName(Clear.CLEAR);
+            XYChart.Series<String, Number> hcSeries = new XYChart.Series<>();
+            hcSeries.setName(Clear.HARDCLEAR);
+            XYChart.Series<String, Number> exSeries = new XYChart.Series<>();
+            exSeries.setName(Clear.EXHARDCLEAR);
+            XYChart.Series<String, Number> fcSeries = new XYChart.Series<>();
+            fcSeries.setName(Clear.FULLCOMBO);
+
+            for (String style : Style.ALLSTYLES) {
+                int styleInt = Style.styleToInt(style) + 1;
+                npSeries.getData().add(new XYChart.Data<>(style, (double)100 * stats.getNp_arr()[Style.styleToInt(style) + 1] / stats.getStyle_songs()[styleInt]));
+                fSeries.getData().add(new XYChart.Data<>(style, (double)100 * stats.getF_arr()[Style.styleToInt(style) + 1] / stats.getStyle_songs()[styleInt]));
+                acSeries.getData().add(new XYChart.Data<>(style, (double)100 * stats.getAc_arr()[Style.styleToInt(style) + 1] / stats.getStyle_songs()[styleInt]));
+                ecSeries.getData().add(new XYChart.Data<>(style, (double)100 * stats.getEc_arr()[Style.styleToInt(style) + 1] / stats.getStyle_songs()[styleInt]));
+                cSeries.getData().add(new XYChart.Data<>(style, (double)100 * stats.getC_arr()[Style.styleToInt(style) + 1] / stats.getStyle_songs()[styleInt]));
+                hcSeries.getData().add(new XYChart.Data<>(style, (double)100 * stats.getHc_arr()[Style.styleToInt(style) + 1] / stats.getStyle_songs()[styleInt]));
+                exSeries.getData().add(new XYChart.Data<>(style, (double)100 * stats.getEx_arr()[Style.styleToInt(style) + 1] / stats.getStyle_songs()[styleInt]));
+                fcSeries.getData().add(new XYChart.Data<>(style, (double)100 * stats.getFc_arr()[Style.styleToInt(style) + 1] / stats.getStyle_songs()[styleInt]));
+            }
+
+            customStackedBarChart.getData().addAll(npSeries, fSeries, acSeries, ecSeries, cSeries, hcSeries, exSeries, fcSeries);
+        } else {
+            XYChart.Series<String, Number> cSeries = new XYChart.Series<>();
+            cSeries.setName("Cleared");
+            XYChart.Series<String, Number> ncSeries = new XYChart.Series<>();
+            ncSeries.setName("Not Cleared");
+
+            for (String style : Style.ALLSTYLES) {
+                int styleInt = Style.styleToInt(style) + 1;
+                cSeries.getData().add(new XYChart.Data<>(style, (double)100 * stats.getCvs_arr()[Style.styleToInt(style) + 1] / stats.getStyle_songs()[styleInt]));
+                ncSeries.getData().add(new XYChart.Data<>(style, (double)100 * stats.getNcvs_arr()[Style.styleToInt(style) + 1] / stats.getStyle_songs()[styleInt]));
+            }
+
+            customStackedBarChart.getData().addAll(cSeries, ncSeries);
+        }
+
+        //add tooltips
+        for (int i = 0; i < customStackedBarChart.getData().size(); i++) {
+            XYChart.Series series = (XYChart.Series)customStackedBarChart.getData().get(i);
+            for (int j = 0; j < series.getData().size(); j++) {
+                XYChart.Data data = ((XYChart.Data)series.getData().get(j));
+                Tooltip.install(data.getNode(), new Tooltip(round((double)data.getYValue(), 2) + "%"));
+            }
+        }
+    }
+
+    @FXML
+    private void setStyleBarChartDetails(){
+        if (styleDetailsCheckBox.isSelected()) {
+            fillCustomStackedBarChart(true);
+        } else {
+            fillCustomStackedBarChart(false);
+        }
+    }
+
+    private void fillLevelBarChart(boolean details){
+        levelStackedBarChart.getData().clear();
+
+        if (details) {
+            XYChart.Series<String, Number> npSeries = new XYChart.Series<>();
+            npSeries.setName(Clear.NOPLAY);
+            XYChart.Series<String, Number> fSeries = new XYChart.Series<>();
+            fSeries.setName(Clear.FAILED);
+            XYChart.Series<String, Number> acSeries = new XYChart.Series<>();
+            acSeries.setName(Clear.ASSISTCLEAR);
+            XYChart.Series<String, Number> ecSeries = new XYChart.Series<>();
+            ecSeries.setName(Clear.EASYCLEAR);
+            XYChart.Series<String, Number> cSeries = new XYChart.Series<>();
+            cSeries.setName(Clear.CLEAR);
+            XYChart.Series<String, Number> hcSeries = new XYChart.Series<>();
+            hcSeries.setName(Clear.HARDCLEAR);
+            XYChart.Series<String, Number> exSeries = new XYChart.Series<>();
+            exSeries.setName(Clear.EXHARDCLEAR);
+            XYChart.Series<String, Number> fcSeries = new XYChart.Series<>();
+            fcSeries.setName(Clear.FULLCOMBO);
+
+            for (int i = 1; i <= 12; i++) {
+                npSeries.getData().add(new XYChart.Data<>(String.valueOf(i), (double)100 * stats.getNp_arr()[i + 23] / stats.getStyle_songs()[i + 23]));
+                fSeries.getData().add(new XYChart.Data<>(String.valueOf(i), (double)100 * stats.getF_arr()[i + 23] / stats.getStyle_songs()[i + 23]));
+                acSeries.getData().add(new XYChart.Data<>(String.valueOf(i), (double)100 * stats.getAc_arr()[i + 23] / stats.getStyle_songs()[i + 23]));
+                ecSeries.getData().add(new XYChart.Data<>(String.valueOf(i), (double)100 * stats.getEc_arr()[i + 23] / stats.getStyle_songs()[i + 23]));
+                cSeries.getData().add(new XYChart.Data<>(String.valueOf(i), (double)100 * stats.getC_arr()[i + 23] / stats.getStyle_songs()[i + 23]));
+                hcSeries.getData().add(new XYChart.Data<>(String.valueOf(i), (double)100 * stats.getHc_arr()[i + 23] / stats.getStyle_songs()[i + 23]));
+                exSeries.getData().add(new XYChart.Data<>(String.valueOf(i), (double)100 * stats.getEx_arr()[i + 23] / stats.getStyle_songs()[i + 23]));
+                fcSeries.getData().add(new XYChart.Data<>(String.valueOf(i), (double)100 * stats.getFc_arr()[i + 23] / stats.getStyle_songs()[i + 23]));
+            }
+
+            levelStackedBarChart.getData().addAll(npSeries, fSeries, acSeries, ecSeries, cSeries, hcSeries, exSeries, fcSeries);
+        }
+        else {
+            XYChart.Series<String, Number> cSeries = new XYChart.Series<>();
+            cSeries.setName("Cleared");
+            XYChart.Series<String, Number> ncSeries = new XYChart.Series<>();
+            ncSeries.setName("Not Cleared");
+
+            for (int i = 1; i <= 12; i++) {
+                cSeries.getData().add(new XYChart.Data<>(String.valueOf(i), (double)100 * stats.getCvs_arr()[i + 23] / stats.getStyle_songs()[i + 23]));
+                ncSeries.getData().add(new XYChart.Data<>(String.valueOf(i), (double)100 * stats.getNcvs_arr()[i + 23] / stats.getStyle_songs()[i + 23]));
+            }
+
+            levelStackedBarChart.getData().addAll(cSeries, ncSeries);
+        }
+
+        //add tooltips
+        for (int i = 0; i < levelStackedBarChart.getData().size(); i++) {
+            XYChart.Series series = (XYChart.Series)levelStackedBarChart.getData().get(i);
+            for (int j = 0; j < series.getData().size(); j++) {
+                XYChart.Data data = (XYChart.Data)series.getData().get(j);
+                Tooltip.install(data.getNode(), new Tooltip(round((double)data.getYValue(), 2) + "%"));
+            }
+        }
+
+    }
+
+    @FXML
+    private void setLevelBarChartDetails(){
+        if (levelDetailsCheckBox.isSelected()) {
+            fillLevelBarChart(true);
+        } else {
+            fillLevelBarChart(false);
+        }
+    }
+
+    @FXML
+    private void export() {
+        FileChooser fileChooser = new FileChooser();
+        String userDir = System.getProperty("user.home");
+        if (Main.os == Main.WINDOWS) userDir += "/Desktop";
+        fileChooser.setInitialDirectory(new File(userDir));
+        fileChooser.setInitialFileName("IIDX-FX_data.csv");
+        FileChooser.ExtensionFilter csvFilter = new FileChooser.ExtensionFilter("Comma-separated values (*.csv)", "*.csv");
+        fileChooser.getExtensionFilters().add(csvFilter);
+        FileChooser.ExtensionFilter txtFilter = new FileChooser.ExtensionFilter("Text file (*.txt)", "*.txt");
+        fileChooser.getExtensionFilters().add(txtFilter);
+        File file = fileChooser.showSaveDialog(scene.getWindow());
+        if (file != null) {
+            exportCSV(file);
+        }
+    }
+
+    private void exportCSV(File file) {
+        if (file != null) {
+            try {
+                OutputStream outputStream = new FileOutputStream(file.getPath());
+                PrintWriter printWriter = new PrintWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+                printWriter.println("\"SongID\",\"Style\",\"Title\",\"Artist\",\"Genre\",\"Difficulty\",\"Level\",\"Normal Rating\",\"Hard Rating\",\"BPM\",\"Length\",\"Notes\",\"Clear\",\"Grade\",\"Percent\",\"Ex Score\",\"Miss Count\"");
+                for (SongEntry songEntry : masterData) {
+                    int songid = songEntry.getId();
+                    String style = "\"" + songEntry.getStyle() + "\"";
+                    String title = "\"" + songEntry.getTitle().replaceAll("\"","\"\"") + "\"";
+                    String artist = "\"" + songEntry.getArtist().replaceAll("\"","\"\"") + "\"";
+                    String genre = "\"" + songEntry.getGenre() + "\"";
+                    String difficulty = "\"" + songEntry.getDifficulty() + "\"";
+                    int level = isInteger(songEntry.getLevel()) ? Integer.parseInt(songEntry.getLevel()) : -1;
+                    int nRating = songEntry.getnRating();
+                    int hRating = songEntry.gethRating();
+                    String bpm = "\"" + songEntry.getBpm() + "\"";
+                    String length = "\"" + songEntry.getLength() + "\"";
+                    int notes = isInteger(songEntry.getNotes()) ? Integer.parseInt(songEntry.getNotes()) : -1;
+                    String clear = songEntry.getClear().equals("") ? "" : "\"" + songEntry.getClear() + "\"";
+                    String grade = songEntry.getGrade().equals("") ? "" : "\"" + songEntry.getGrade().split(" ")[0] + "\"";
+                    String percent = songEntry.getGrade().equals("") ? "" : "\"" + songEntry.getGrade().split(" ")[1].substring(1, songEntry.getGrade().split(" ")[1].length() - 1) + "\"";
+                    String ex = songEntry.getEx().equals("") ? "" : songEntry.getEx();
+                    String miss = songEntry.getMiss().equals("") ? "" : songEntry.getMiss();
+
+                    String line = songid + "," + style + "," + title + "," + artist + "," + genre + "," + difficulty +
+                            "," + level + "," + nRating + "," + hRating + "," + bpm + "," + length + "," + notes + "," +
+                            clear + "," + grade + "," + percent + "," + ex + "," + miss;
+
+                    printWriter.println(line);
+                }
+                printWriter.close();
+            } catch (FileNotFoundException | UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private static boolean isInteger(String s) {
+        try {
+            Integer.parseInt(s);
+        } catch(NumberFormatException e) {
+            return false;
+        } catch(NullPointerException e) {
+            return false;
+        }
+        return true;
     }
 
 }

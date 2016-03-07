@@ -3,3 +3,7 @@
     -fx-focus-color: rgbrgb(255, 68, 68);
     -fx-faint-focus-color: rgba(255, 68, 68, 0.2);
 }
+
+.label.error {
+    -fx-text-fill: red;
+}

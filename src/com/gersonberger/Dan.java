@@ -98,6 +98,44 @@ public class Dan {
     private static final String[] sixthkyu18 = {"☆2 (N) 罠", "☆3 (H) I Was The One", "☆3 (N) D.A.N.C.E.!", "☆3 (N) We are Disっ娘よっつ打ち命"};
     private static final String[] seventhkyu18 = {"☆1 (N) 5.1.1.", "☆1 (N) KEEP ON MOVIN'", "☆2 (N) Dr.LOVE", "☆2 (N) earth scape"};
 
+    private static final String[] kaiden17 = {"☆12 (A) quell ~the seventh slave~", "☆12 (A) 嘆きの樹", "☆12 (A) 卑弥呼", "☆12 (A) 冥"};
+    private static final String[] tenthdan17 = {"☆12 (A) scripted connection⇒(A mix)", "☆12 (A) 不沈艦CANDY", "☆12 (A) Colorful Cookie", "☆12 (A) AA"};
+    private static final String[] ninthdan17 = {"☆11 (A) INAZUMA", "☆11 (A) No.13", "☆11 (A) Session 1 -Genesis-", "☆12 (A) moon_child"};
+    private static final String[] eighthdan17 = {"☆10 (H) four pieces of heaven", "☆10 (H) 天空脳番長危機十六連打", "☆10 (H) 冥", "☆12 (H) gigadelic"};
+    private static final String[] seventhdan17 = {"☆9 (H) B4U (BEMANI FOR YOU MIX)", "☆10 (H) Übertreffen", "☆10 (H) MENTAL MELTDOWN", "☆10 (H) THE SAFARI"};
+    private static final String[] sixthdan17 = {"☆9 (H) THANK YOU FOR PLAYING", "☆9 (H) カゴノトリ～弐式～", "☆9 (H) Rise'n Beauty", "☆9 (H) bloomin' feeling"};
+    private static final String[] fifthdan17 = {"☆8 (H) smooooch (・∀・)", "☆9 (H) abstract", "☆8 (H) STAR FIELD", "☆9 (H) NEW GENERATION-もう、お前しか見えない-"};
+    private static final String[] fourthdan17 = {"☆8 (H) era (nostalmix)", "☆8 (H) 虹色", "☆8 (H) thunder", "☆8 (H) R5"};
+    private static final String[] thirddan17 = {"☆7 (H) 高高度降下低高度開傘", "☆7 (H) BRIDAL FESTIVAL!!!", "☆8 (H) Presto", "☆8 (H) CaptivAte～裁き～"};
+    private static final String[] seconddan17 = {"☆7 (H) Monkey Dance", "☆7 (H) Zenius -I- vanisher", "☆7 (H) 山岡晃の「クイズ！家事都合！」", "☆7 (H) Abyss"};
+    private static final String[] firstdan17 = {"☆6 (N) Blind Justice ～Torn souls, Hurt Faiths～", "☆6 (H) with you...", "☆7 (N) GOLD RUSH", "☆6 (H) I Was The One (80's EUROBEAT STYLE)"};
+    private static final String[] firstkyu17 = {"☆6 (H) GRADIUSIC CYBER", "☆6 (N) quasar", "☆6 (N) MENDES", "☆6 (H) With your Smile"};
+    private static final String[] secondkyu17 = {"☆5 (N) 合体せよ！ストロングイェーガー！！(Ryu☆ remix)", "☆6 (N) 鬼言集", "☆6 (N) sync", "☆5 (H) ライオン好き"};
+    private static final String[] thirdkyu17 = {"☆5 (N) Second Heaven", "☆5 (N) まほろば", "☆5 (N) beatchic☆仮面～好き、でいさせて～", "☆5 (H) REINCARNATION"};
+    private static final String[] fourthkyu17 = {"☆4 (N) wish", "☆5 (N) The Smile of You", "☆4 (H) SP-TRIP MACHINE (for beatmania II)", "☆4 (H) airflow"};
+    private static final String[] fifthkyu17 = {"☆3 (N) scar in the earth", "☆4 (N) I'm Screaming LOVE", "☆4 (N) Watch out!!", "☆4 (H) LOVE WILL・・・"};
+    private static final String[] sixthkyu17 = {"☆2 (N) 罠", "☆3 (H) I Was The One", "☆3 (N) D.A.N.C.E.!", "☆3 (N) We are Disっ娘よっつ打ち命"};
+    private static final String[] seventhkyu17 = {"☆1 (N) 5.1.1.", "☆1 (N) KEEP ON MOVIN'", "☆2 (N) Dr.LOVE", "☆2 (N) earth scape"};
+
+    private static final String[] kaiden16 = {"☆12 (A) 嘆きの樹", "☆12 (A) MENDES", "☆12 (A) 卑弥呼", "☆12 (A) 冥"};
+    private static final String[] tenthdan16 = {"☆12 (A) scripted connection⇒(A mix)", "☆12 (A) FIRE FIRE", "☆12 (A) ピアノ協奏曲第1番 \"蠍火\"", "☆12 (A) AA"};
+    private static final String[] ninthdan16 = {"☆11 (A) THE DEEP STRIKER", "☆11 (A) 天空脳番長危機十六連打", "☆11 (A) B4U (BEMANI FOR YOU MIX)", "☆12 (A) moon_child"};
+    private static final String[] eighthdan16 = {"☆10 (H) V2", "☆10 (H) stoic", "☆10 (H) 少年A", "☆12 (H) gigadelic"};
+    private static final String[] seventhdan16 = {"☆10 (H) waxing and wanding", "☆10 (H) 冥", "☆10 (H) TROOPERS", "☆10 (H) THE SAFARI"};
+    private static final String[] sixthdan16 = {"☆9 (H) traces", "☆9 (H) CaptivAte2 ~覚醒~", "☆9 (H) MOON", "☆9 (H) ZERO-ONE"};
+    private static final String[] fifthdan16 = {"☆8 (H) ANDROMEDA", "☆8 (H) sync", "☆8 (H) STAR FIELD", "☆8 (H) LESSON 5"};
+    private static final String[] fourthdan16 = {"☆8 (H) era (nostalmix)", "☆8 (H) 虹色", "☆7 (H) ALFARSHEAR ~双神威に廻る夢~", "☆8 (H) R5"};
+    private static final String[] thirddan16 = {"☆8 (H) thunder", "☆8 (N) 嘆きの樹", "☆8 (H) Presto", "☆8 (H) CaptivAte～裁き～"};
+    private static final String[] seconddan16 = {"☆7 (H) Monkey Dance", "☆7 (H) Zenius -I- vanisher", "☆7 (H) Don't let it go", "☆7 (H) Abyss"};
+    private static final String[] firstdan16 = {"☆6 (N) Blind Justice ～Torn souls, Hurt Faiths～", "☆6 (H) .59", "☆7 (N) GOLD RUSH", "☆6 (H) I Was The One (80's EUROBEAT STYLE)"};
+    private static final String[] firstkyu16 = {"☆6 (H) GRADIUSIC CYBER", "☆6 (N) quasar", "☆6 (N) MENDES", "☆6 (H) With your Smile"};
+    private static final String[] secondkyu16 = {"☆5 (N) 合体せよ！ストロングイェーガー！！(Ryu☆ remix)", "☆6 (N) 鬼言集", "☆6 (N) sync", "☆5 (H) ライオン好き"};
+    private static final String[] thirdkyu16 = {"☆5 (N) Second Heaven", "☆5 (N) Air Bell", "☆5 (N) SPEEDY CAT", "☆5 (H) REINCARNATION"};
+    private static final String[] fourthkyu16 = {"☆5 (N) ヨシダさん", "☆5 (N) pandora", "☆4 (H) SP-TRIP MACHINE (for beatmania II)", "☆4 (H) Love Again..."};
+    private static final String[] fifthkyu16 = {"☆4 (N) HALF MOON", "☆4 (N) 花吹雪 ~IIDX LIMITED~", "☆4 (N) Watch out!!", "☆4 (H) LOVE WILL・・・"};
+    private static final String[] sixthkyu16 = {"☆3 (N) 走馬灯 -The Last Song-", "☆3 (H) I Was The One", "☆3 (N) D.A.N.C.E.!", "☆3 (N) We are Disっ娘よっつ打ち命"};
+    private static final String[] seventhkyu16 = {"☆1 (N) 5.1.1.", "☆2 (N) desolation", "☆2 (N) Dr.LOVE", "☆2 (N) earth scape"};
+
     private static final String[][] dan22 = {kaiden22, tenthdan22, ninthdan22, eighthdan22, seventhdan22, sixthdan22,
             fifthdan22, fourthdan22, thirddan22, seconddan22, firstdan22, firstkyu22, secondkyu22, thirdkyu22,
             fourthkyu22, fifthkyu22, sixthkyu22, seventhkyu22};
@@ -113,7 +151,13 @@ public class Dan {
     private static final String[][] dan18 = {kaiden18, tenthdan18, ninthdan18, eighthdan18, seventhdan18, sixthdan18,
             fifthdan18, fourthdan18, thirddan18, seconddan18, firstdan18, firstkyu18, secondkyu18, thirdkyu18,
             fourthkyu18, fifthkyu18, sixthkyu18, seventhkyu18};
+    private static final String[][] dan17 = {kaiden17, tenthdan17, ninthdan17, eighthdan17, seventhdan17, sixthdan17,
+            fifthdan17, fourthdan17, thirddan17, seconddan17, firstdan17, firstkyu17, secondkyu17, thirdkyu17,
+            fourthkyu17, fifthkyu17, sixthkyu17, seventhkyu17};
+    private static final String[][] dan16 = {kaiden16, tenthdan16, ninthdan16, eighthdan16, seventhdan16, sixthdan16,
+            fifthdan16, fourthdan16, thirddan16, seconddan16, firstdan16, firstkyu16, secondkyu16, thirdkyu16,
+            fourthkyu16, fifthkyu16, sixthkyu16, seventhkyu16};
 
-    public static final String[][][] danData = {dan22, dan21, dan20, dan19, dan18};
+    public static final String[][][] danData = {dan22, dan21, dan20, dan19, dan18, dan17, dan16};
 
 }

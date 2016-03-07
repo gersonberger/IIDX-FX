@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gersonberger.PromptController">
+   <children>
+      <Label fx:id="promptLabel" />
+      <TextField fx:id="promptTextField" prefWidth="200.0" />
+      <HBox spacing="10.0">
+         <children>
+            <Region HBox.hgrow="ALWAYS" />
+            <Button mnemonicParsing="false" onAction="#handleOk" prefWidth="70.0" text="OK" />
+            <Button mnemonicParsing="false" onAction="#handleClose" prefWidth="70.0" text="Cancel" />
+         </children>
+      </HBox>
+   </children>
+   <padding>
+      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+   </padding>
+</VBox>

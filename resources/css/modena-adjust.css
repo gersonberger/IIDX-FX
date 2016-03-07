@@ -2,39 +2,25 @@
     -fx-font-family: "Verdana";
 }
 
-.scroll-pane {
-    -fx-background-insets: 0;
-    -fx-padding: 0;
-    -fx-focus-color: rgba(0,0,0,0.15);
-    -fx-faint-focus-color: transparent;
+#header1 {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
 }
 
-.scroll-pane:focused {
-    -fx-background-insets: 0;
+#header2 {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
 }
 
-.scroll-pane .corner {
-    -fx-background-insets: 0;
+#labelsmall {
+    -fx-font-size: 10px;
 }
 
-.scroll-pane .text-field {
-    -fx-focus-color: #039ED3;
-    -fx-faint-focus-color: #039ED322;
-}
-
-.scroll-pane .button {
-    -fx-focus-color: #039ED3;
-    -fx-faint-focus-color: #039ED322;
-}
-
-.scroll-pane .combo-box {
-    -fx-focus-color: #039ED3;
-    -fx-faint-focus-color: #039ED322;
-}
-
-.scroll-pane .radio-button {
-    -fx-focus-color: #039ED3;
-    -fx-faint-focus-color: #039ED322;
+.table-view:focused {
+    -fx-background-color: transparent,-fx-box-border,-fx-control-inner-background;
+    -fx-background-insets: -1.4, 0, 1;
+    -fx-background-radius: 1.4, 0, 0;
+    -fx-padding: 1;
 }
 
 .progress-indicator .percentage {

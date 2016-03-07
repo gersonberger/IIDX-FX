@@ -4,7 +4,7 @@ package com.gersonberger;
 public class Clear {
 
     /** offer short version string of clears?
-     * public static final String NOPLAY = "";
+     * public static final String NOPLAY_NOTEXT = "";
      * public static final String FAILED = "FLD";
      * public static final String ASSISTCLEAR = "AC";
      * public static final String EASYCLEAR = "EC";
@@ -14,7 +14,8 @@ public class Clear {
      * public static final String FULLCOMBO = "FC";
      **/
 
-    public static final String NOPLAY = "";
+    public static final String NOPLAY_NOTEXT = "";
+    public static final String NOPLAY = "No Play";
     public static final String FAILED = "Failed";
     public static final String ASSISTCLEAR = "Assist Clear";
     public static final String EASYCLEAR = "Easy Clear";
@@ -49,7 +50,7 @@ public class Clear {
             case FULLCOMBO_INT:
                 return FULLCOMBO;
             default:
-                return NOPLAY;
+                return NOPLAY_NOTEXT;
         }
     }
 

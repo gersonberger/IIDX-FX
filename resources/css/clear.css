@@ -4,25 +4,25 @@
 }
 
 .assistclear {
-    -fx-background-color: rgba(240,31,238,0.3);
+    -fx-background-color: rgba(240,31,238,0.5);
 }
 
 .easyclear {
-    -fx-background-color: rgba(182,255,26,0.3);
+    -fx-background-color: rgba(182,255,26,0.5);
 }
 
 .clear {
-    -fx-background-color: rgba(62,240,236,0.3);
+    -fx-background-color: rgba(62,240,236,0.5);
 }
 
 .hardclear {
-    -fx-background-color: rgba(255,0,0,0.3);
+    -fx-background-color: rgba(255,0,0,0.5);
 }
 
 .exhardclear {
-    -fx-background-color: rgba(255,255,0,0.3);
+    -fx-background-color: rgba(255,255,0,0.5);
 }
 
 .fullcombo {
-    -fx-background-color: linear-gradient(to right, rgba(242,15,15,0.4) 0%, rgba(248,189,85,0.4) 14%, rgba(192,254,86,0.4) 28%, rgba(93,251,193,0.4) 43%, rgba(100,194,248,0.4) 57%, rgba(190,74,247,0.4) 71%, rgba(237,95,194,0.4) 85%, rgba(239,80,76,0.4) 100%);
+    -fx-background-color: linear-gradient(to right, rgba(242,15,15,0.5) 0%, rgba(248,189,85,0.5) 14%, rgba(192,254,86,0.5) 28%, rgba(93,251,193,0.5) 43%, rgba(100,194,248,0.5) 57%, rgba(190,74,247,0.5) 71%, rgba(237,95,194,0.5) 85%, rgba(239,80,76,0.5) 100%);
 }

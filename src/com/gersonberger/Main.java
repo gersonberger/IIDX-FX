@@ -19,18 +19,21 @@ public class Main extends Application {
     public static final long startuptime = System.currentTimeMillis();
 
     public static final String PROGRAMNAME = "IIDX-FX";
-    public static final String PROGRAMVERSION = "1.2b";
-    public static final String PROGRAMDATE = "2016-01-06";
+    public static final String PROGRAMVERSION = "1.3";
+    public static final String PROGRAMDATE = "2016-03-07";
 
     public static String LOCALDIR;
     public static String SEPARATOR;
 
-    private static final String SCOREFILENAME = "scores.txt";
+    public static final String SCOREFILENAME = "scores.txt";
     private static final String PROPERTYFILENAME = "set.properties";
 
     private static final String PROPERTYNAMETHEME = "theme";
     private static final String PROPERTYNAMECLEARCOLORS = "show_clearcolors";
     private static final String PROPERTYNAMEPLAYERSIDE = "playerside";
+    private static final String PROPERTYNAMEDJNAME = "djname";
+    private static final String PROPERTYNAMEPLAYERID = "playerid";
+    private static final String PROPERTYNAMESONGLIST = "songlist";
 
     public static final String PROPERTYNAMESTYLECOL = "stylecolumn_visible";
     public static final String PROPERTYNAMETITLECOL = "titlecolumn_visible";
@@ -48,18 +51,33 @@ public class Main extends Application {
     public static final String PROPERTYNAMEEXCOL = "excolumn_visible";
     public static final String PROPERTYNAMEMISSCOL = "misscolumn_visible";
 
+    private static final String PROPERTYNAMETITLESUGGESTIONS = "show_titlesuggestions";
+    private static final String PROPERTYNAMEARTISTSUGGESTIONS = "show_artistsuggestions";
+
+    public static boolean showTitleSuggestions;
+    public static boolean showArtistSuggestions;
+
     public static String programTheme;
     public static final String THEMELIGHT = "light";
     public static final String THEMEDARK = "dark";
+    public static final String THEMENANAHIRA = "nanahira";
+
+    public static final String FILENAMETHEMELIGHT = "modena-adjust.css";
+    public static final String FILENAMETHEMEDARK = "dark.css";
+    public static final String FILENAMETHEMENANAHIRA = "nanahira.css";
+    public static final String FILENAMECLEARCOLORS = "clear.css";
 
     public static boolean programClearColor;
     public static String programPlayerside;
+    public static String djname;
+    public static String playerid;
+    public static String songlist;
 
     public static int os;
-    private static final int WINDOWS = 1;
-    private static final int LINUX = 2;
-    private static final int MAC = 3;
-    private static final int UNKNOWN = 0;
+    public static final int WINDOWS = 1;
+    public static final int LINUX = 2;
+    public static final int MAC = 3;
+    public static final int UNKNOWN = 0;
 
     private static File scoreFile;
     private static File propFile = null;
@@ -79,8 +97,8 @@ public class Main extends Application {
         primaryStage.setTitle(PROGRAMNAME);
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
-        primaryStage.setWidth(1394);
-        primaryStage.setHeight(900);
+        primaryStage.setWidth(1400);
+        primaryStage.setHeight(846);
         primaryStage.show();
         System.out.println("\n" + getTime() + " Application loaded (took " + (System.currentTimeMillis() - Main.startuptime) + "ms)\n");
     }
@@ -138,7 +156,6 @@ public class Main extends Application {
 
     private void initProperties() throws IOException {
         propFile = new File(LOCALDIR + SEPARATOR + PROPERTYFILENAME);
-
         if (!propFile.exists()) {
             FileOutputStream fileOutputStream = new FileOutputStream(propFile.getPath());
             Properties properties = new Properties();
@@ -147,18 +164,29 @@ public class Main extends Application {
             properties.setProperty(PROPERTYNAMEPLAYERSIDE, "1");
             properties.store(fileOutputStream, null);
             fileOutputStream.close();
+
+            //default values
             programTheme = THEMELIGHT;
+            showTitleSuggestions = false;
+            showArtistSuggestions = true;
             programClearColor = false;
             programPlayerside = "1";
+            djname = "";
+            playerid = "";
+            songlist = Style.OMNIMIX;
         } else {
             FileInputStream fileInputStream = new FileInputStream(propFile.getPath());
             Properties properties = new Properties();
             properties.load(fileInputStream);
             programTheme = properties.getProperty(PROPERTYNAMETHEME, THEMELIGHT);
             programClearColor = Boolean.valueOf(properties.getProperty(PROPERTYNAMECLEARCOLORS));
-            programPlayerside = properties.getProperty(PROPERTYNAMEPLAYERSIDE);
-            //1.2 startup fix for users that have saved settings before 1.2
-            if (programPlayerside == null) programPlayerside = "1";
+            programPlayerside = properties.getProperty(PROPERTYNAMEPLAYERSIDE, "1");
+            showTitleSuggestions = Boolean.valueOf(properties.getProperty(PROPERTYNAMETITLESUGGESTIONS, "false"));
+            showArtistSuggestions = Boolean.valueOf(properties.getProperty(PROPERTYNAMEARTISTSUGGESTIONS, "true"));
+            djname = properties.getProperty(PROPERTYNAMEDJNAME, "");
+            playerid = properties.getProperty(PROPERTYNAMEPLAYERID, "");
+            songlist = properties.getProperty(PROPERTYNAMESONGLIST, Style.OMNIMIX);
+
             fileInputStream.close();
         }
 
@@ -189,6 +217,13 @@ public class Main extends Application {
                 properties.setProperty(PROPERTYNAMEGRADECOL, String.valueOf(columnVisibility[12]));
                 properties.setProperty(PROPERTYNAMEEXCOL, String.valueOf(columnVisibility[13]));
                 properties.setProperty(PROPERTYNAMEMISSCOL, String.valueOf(columnVisibility[14]));
+
+                properties.setProperty(PROPERTYNAMETITLESUGGESTIONS, String.valueOf(showTitleSuggestions));
+                properties.setProperty(PROPERTYNAMEARTISTSUGGESTIONS, String.valueOf(showArtistSuggestions));
+                properties.setProperty(PROPERTYNAMEDJNAME, djname);
+                properties.setProperty(PROPERTYNAMEPLAYERID, playerid);
+                properties.setProperty(PROPERTYNAMESONGLIST, songlist);
+
                 properties.store(fileOutputStream, null);
                 fileOutputStream.close();
             } catch (IOException e) {

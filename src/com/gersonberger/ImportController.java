@@ -6,7 +6,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.apache.http.ConnectionClosedException;
@@ -29,10 +28,12 @@ import java.io.PrintWriter;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.net.UnknownHostException;
 import java.util.*;
 
 public class ImportController implements Initializable {
 
+    private static final int CONNECTIONERROR = -22;
     private static final int NOPROFILE = -21;
     private static final int CHUNKERROR = -20;
     public static final int ERROR = -1;
@@ -84,8 +85,19 @@ public class ImportController implements Initializable {
 
     public void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;
-        if (Main.programTheme.equals(Main.THEMEDARK)) {
-            dialogStage.getScene().getStylesheets().add(getClass().getResource("/css/dark.css").toExternalForm());
+        switch (Main.programTheme) {
+            case Main.THEMELIGHT:
+                dialogStage.getScene().getStylesheets().add(getClass().getResource("/css/" + Main.FILENAMETHEMELIGHT).toExternalForm());
+                break;
+            case Main.THEMEDARK:
+                dialogStage.getScene().getStylesheets().add(getClass().getResource("/css/" + Main.FILENAMETHEMEDARK).toExternalForm());
+                break;
+            case Main.THEMENANAHIRA:
+                dialogStage.getScene().getStylesheets().add(getClass().getResource("/css/" + Main.FILENAMETHEMENANAHIRA).toExternalForm());
+                break;
+            default:
+                dialogStage.getScene().getStylesheets().add(getClass().getResource("/css/" + Main.FILENAMETHEMELIGHT).toExternalForm());
+                break;
         }
     }
 
@@ -103,15 +115,16 @@ public class ImportController implements Initializable {
                         loginSuccess();
 
                         //get userid
-                        String userID = getUserID();
-                        if (userID != null) {
+                        String playerID = getPlayerID();
+                        if (playerID != null) {
 
                             //fetch data
-                            String data = psunGetScoreData(userID);
+                            String data = psunGetScoreData(playerID);
                             if (data != null) {
 
                                 //convert data
                                 List<ScoreEntry> scoreEntryList = readscores(data);
+                                getDJName(data);
 
                                 if (status != NOPROFILE) {
                                     //save data to file
@@ -120,6 +133,7 @@ public class ImportController implements Initializable {
                                     //done
                                     fetchingSuccess();
                                     status = SUCCESS;
+                                    Main.playerid = playerID;
 
                                 } else {
                                     status = ERROR;
@@ -134,6 +148,8 @@ public class ImportController implements Initializable {
                             status = ERROR;
                             idFailed();
                         }
+                    } else if (status == CONNECTIONERROR) {
+                        connectionFailed();
                     } else {
                         status = ERROR;
                         loginFailed();
@@ -146,18 +162,39 @@ public class ImportController implements Initializable {
         }
     }
 
+    private void setInfoTextColor(int status) {
+        switch (status) {
+            case ERROR:
+                infoLabel.getStyleClass().add("error");
+                break;
+            case SUCCESS:
+                switch (Main.programTheme) {
+                    case Main.THEMELIGHT:
+                        infoLabel.getStyleClass().remove("error");
+                        break;
+                    case Main.THEMEDARK:
+                        infoLabel.getStyleClass().remove("error");
+                        break;
+                    case Main.THEMENANAHIRA:
+                        infoLabel.getStyleClass().remove("error");
+                        break;
+                }
+                break;
+        }
+    }
+
     private void loginStart() {
         Platform.runLater(() -> {
-            System.out.print(Main.getTime() + " Beginning import...");
+            System.out.println(Main.getTime() + " Beginning import...");
             usernameField.setDisable(true);
             passwordField.setDisable(true);
             versionBox.setDisable(true);
             importButton.setDisable(true);
-            infoLabel.setTextFill(Objects.equals(Main.programTheme, Main.THEMELIGHT) ? Color.BLACK : Color.WHITE);
+            setInfoTextColor(SUCCESS);
             infoLabel.setText("Logging in...");
             FadeTransition fadeTransition1 = new FadeTransition(Duration.millis(200), infoLabel);
             fadeTransition1.setFromValue(0);
-            fadeTransition1.setToValue(0.5);
+            fadeTransition1.setToValue(1);
             FadeTransition fadeTransition2 = new FadeTransition(Duration.millis(200), progressIndicator);
             fadeTransition2.setFromValue(0);
             fadeTransition2.setToValue(1);
@@ -168,10 +205,28 @@ public class ImportController implements Initializable {
         });
     }
 
+    private void connectionFailed() {
+        Platform.runLater(() -> {
+            System.out.println(Main.getTime() + " Connection failed!");
+            setInfoTextColor(ERROR);
+            infoLabel.setText("Connection failed!");
+            FadeTransition transition = new FadeTransition(Duration.millis(200), progressIndicator);
+            transition.setFromValue(1);
+            transition.setToValue(0);
+            transition.setOnFinished(event -> Platform.runLater(() -> {
+                usernameField.setDisable(false);
+                passwordField.setDisable(false);
+                versionBox.setDisable(false);
+                importButton.setDisable(false);
+            }));
+            new Thread(transition::play).start();
+        });
+    }
+
     private void loginFailed() {
         Platform.runLater(() -> {
-            System.out.print(Main.getTime() + " Login failed!");
-            infoLabel.setTextFill(Color.RED);
+            System.out.println(Main.getTime() + " Login failed!");
+            setInfoTextColor(ERROR);
             infoLabel.setText("Login failed!");
             FadeTransition transition = new FadeTransition(Duration.millis(200), progressIndicator);
             transition.setFromValue(1);
@@ -189,14 +244,14 @@ public class ImportController implements Initializable {
     private void loginSuccess() {
         Platform.runLater(() -> {
             FadeTransition transition1 = new FadeTransition(Duration.millis(400), infoLabel);
-            transition1.setFromValue(0.5);
+            transition1.setFromValue(1);
             transition1.setToValue(0);
             transition1.setOnFinished(event -> Platform.runLater(() -> {
-                infoLabel.setTextFill(Objects.equals(Main.programTheme, Main.THEMELIGHT) ? Color.BLACK : Color.WHITE);
+                setInfoTextColor(SUCCESS);
                 infoLabel.setText("Downloading data...");
                 FadeTransition transition2 = new FadeTransition(Duration.millis(400), infoLabel);
                 transition2.setFromValue(0);
-                transition2.setToValue(0.5);
+                transition2.setToValue(1);
                 transition2.play();
             }));
             new Thread(transition1::play).start();
@@ -206,7 +261,7 @@ public class ImportController implements Initializable {
     private void noProfile() {
         Platform.runLater(() -> {
             System.out.print(Main.getTime() + " No profile found!");
-            infoLabel.setTextFill(Color.RED);
+            setInfoTextColor(ERROR);
             infoLabel.setText("No profile found!");
             FadeTransition transition = new FadeTransition(Duration.millis(200), progressIndicator);
             transition.setFromValue(1);
@@ -224,7 +279,7 @@ public class ImportController implements Initializable {
     private void fetchingFailed() {
         Platform.runLater(() -> {
             System.out.println(Main.getTime() + " Data download failed!");
-            infoLabel.setTextFill(Color.RED);
+            setInfoTextColor(ERROR);
             infoLabel.setText("Data download failed!");
             FadeTransition transition = new FadeTransition(Duration.millis(200), progressIndicator);
             transition.setFromValue(1);
@@ -242,7 +297,7 @@ public class ImportController implements Initializable {
     private void idFailed() {
         Platform.runLater(() -> {
             System.out.print(Main.getTime() + " Retrieving player-ID failed!");
-            infoLabel.setTextFill(Color.RED);
+            setInfoTextColor(ERROR);
             infoLabel.setText("Retrieving player-ID failed!");
             FadeTransition transition = new FadeTransition(Duration.millis(200), progressIndicator);
             transition.setFromValue(1);
@@ -261,7 +316,7 @@ public class ImportController implements Initializable {
         status = CHUNKERROR;
         Platform.runLater(() -> {
             System.out.print(Main.getTime() + " Invalid Psun profile! (incomplete chunk encoding)");
-            infoLabel.setTextFill(Color.RED);
+            setInfoTextColor(ERROR);
             infoLabel.setText("Invalid psun records page!");
             FadeTransition transition = new FadeTransition(Duration.millis(200), progressIndicator);
             transition.setFromValue(1);
@@ -282,11 +337,11 @@ public class ImportController implements Initializable {
             fadeTransition4.setFromValue(1);
             fadeTransition4.setToValue(0);
             FadeTransition fadeTransition3 = new FadeTransition(Duration.millis(1500), infoLabel);
-            fadeTransition3.setFromValue(0.5);
+            fadeTransition3.setFromValue(1);
             fadeTransition3.setToValue(0);
             FadeTransition fadeTransition2 = new FadeTransition(Duration.millis(200), infoLabel);
             fadeTransition2.setFromValue(0);
-            fadeTransition2.setToValue(0.5);
+            fadeTransition2.setToValue(1);
             fadeTransition2.setOnFinished(event -> {
                 try {
                     Thread.sleep(3500);
@@ -297,13 +352,13 @@ public class ImportController implements Initializable {
                 fadeTransition4.play();
             });
             FadeTransition fadeTransition1 = new FadeTransition(Duration.millis(200), infoLabel);
-            fadeTransition1.setFromValue(0.5);
+            fadeTransition1.setFromValue(1);
             fadeTransition1.setToValue(0);
             fadeTransition1.setOnFinished(event2 -> {
                 progressIndicator.setProgress(1);
                 progressIndicator.setMaxHeight(40);
                 importButton.setText("Close");
-                infoLabel.setTextFill(Objects.equals(Main.programTheme, Main.THEMELIGHT) ? Color.BLACK : Color.WHITE);
+                setInfoTextColor(SUCCESS);
                 infoLabel.setText("Importing data successful");
                 importButton.setOnAction(event3 -> dialogStage.close());
                 importButton.setDisable(false);
@@ -337,7 +392,7 @@ public class ImportController implements Initializable {
             HttpUriRequest login = RequestBuilder.post().setUri(new URI(PSUNLOGIN))
                     .addParameter("username", username).addParameter("password", password).build();
 
-            System.out.println("\n" + Main.getTime() + " Logging in to Programmed Sun...");
+            System.out.println( Main.getTime() + " Logging in to Programmed Sun...");
             try (CloseableHttpResponse response = httpclient.execute(login)) {
 
                 HttpEntity entity = response.getEntity();
@@ -350,10 +405,12 @@ public class ImportController implements Initializable {
                 if (cookies.isEmpty()) {
                     System.out.println("None");
                     return false;
-                }
-                else for (Cookie cookie : cookies) System.out.println(cookie.toString());
+                } else for (Cookie cookie : cookies) System.out.println(cookie.toString());
                 System.out.println(Main.getTime() + " Login successful");
             }
+        } catch (UnknownHostException e) {
+            status = CONNECTIONERROR;
+            return false;
         } catch (ClientProtocolException e) {
             e.printStackTrace();
             return false;
@@ -367,7 +424,7 @@ public class ImportController implements Initializable {
         return true;
     }
 
-    private String getUserID() {
+    private String getPlayerID() {
         String data = null;
         String userID = null;
         HttpGet httpget = new HttpGet(PSUNHOME);
@@ -460,12 +517,21 @@ public class ImportController implements Initializable {
                 }
                 else if (line.contains("Misses</div>")) {
                     miss = line.trim().substring(5, line.trim().indexOf("</div>"));
-                    if (clear == null) clear = Clear.NOPLAY;
+                    if (clear == null) clear = Clear.NOPLAY_NOTEXT;
                     scoreList.add(createScoreEntry(songid, diff, clear, miss, percent));
                     clear = null;
                 }
             }
             return scoreList;
+        }
+    }
+
+    private void getDJName(String psundata) {
+        for (String line : psundata.split("\n")) {
+            if (line.contains("<h1>dj")) {
+                Main.djname = line.trim().substring(7,line.indexOf("</h1>"));
+                return;
+            }
         }
     }
 
@@ -519,15 +585,11 @@ public class ImportController implements Initializable {
     }
 
     private void saveScoresToFile(List<ScoreEntry> scoreEntryList) {
-        String path = Main.LOCALDIR + Main.SEPARATOR + "scores.txt";
+        String path = Main.LOCALDIR + Main.SEPARATOR + Main.SCOREFILENAME;
         File file = new File(path);
         try {
             PrintWriter printWriter = new PrintWriter(file.getPath());
-            for (ScoreEntry entry : scoreEntryList) {
-                if (entry != null) {
-                    printWriter.println(entry.songid + "," + entry.diff + "," + entry.clearstatus + "," + entry.miss + "," + entry.grade + "," + entry.percent);
-                }
-            }
+            scoreEntryList.stream().filter(entry -> entry != null).forEach(entry -> printWriter.println(entry.songid + "," + entry.diff + "," + entry.clearstatus + "," + entry.miss + "," + entry.grade + "," + entry.percent));
             printWriter.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();

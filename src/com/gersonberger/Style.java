@@ -32,6 +32,10 @@ public class Style {
     public static final String FIRSTSTYLE = "1st Style";
     public static final String OTHER = "Other";
 
+    public static final String[] ALLSTYLES = {FIRSTSTYLE, SUBSTREAM, SECONDSTYLE, THIRDSTYLE, FOURTHSTYLE, FIFTHSTYLE,
+            SIXTHSTYLE, SEVENTHSTYLE, EIGHTHSTYLE, NINTHSTYLE, TENTHSTYLE, IIDXRED, HAPPYSKY, DISTORTED, GOLD,
+            DJTROOPERS, EMPRESS, SIRIUS, RESORTANTHEM, LINCLE, TRICORO, SPADA, PENDUAL};
+
     public static final int COPULAINT = 23;
     public static final int PENDUALINT = 22;
     public static final int SPADAINT = 21;
@@ -65,6 +69,7 @@ public class Style {
     public static final String LINCLEFULL = beatmania + " " + LINCLEINT+ " " + LINCLE;
     public static final String RESORTANTHEMFULL = beatmania + " " + RESORTANTHEMINT + " " + RESORTANTHEM;
     public static final String SIRIUSFULL = beatmania + " " + SIRIUSINT + " " + SIRIUS;
+    public static final String EMPRESSFULL = beatmania + " " + EMPRESSINT + " " + EMPRESS;
 
     public static int styleFullToInt(String style) {
         switch (style) {
@@ -82,6 +87,8 @@ public class Style {
                 return RESORTANTHEMINT;
             case SIRIUSFULL:
                 return SIRIUSINT;
+            case EMPRESSFULL:
+                return EMPRESSINT;
             default:
                 return OTHERINT;
         }
