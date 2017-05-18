@@ -5,73 +5,74 @@ public class Style {
 
     private static final String beatmania = "beatmania IIDX";
 
-    public static final String OMNIMIX = "Omnimix";
-    public static final String COPULA = "Copula";
-    public static final String PENDUAL = "Pendual";
-    public static final String SPADA = "Spada";
-    public static final String TRICORO = "Tricoro";
-    public static final String LINCLE = "Lincle";
-    public static final String RESORTANTHEM = "Resort Anthem";
-    public static final String SIRIUS = "Sirius";
-    public static final String EMPRESS = "Empress";
-    public static final String DJTROOPERS = "DJ Troopers";
-    public static final String GOLD = "Gold";
-    public static final String DISTORTED = "Distorted";
-    public static final String HAPPYSKY = "Happy Sky";
-    public static final String IIDXRED = "IIDX Red";
-    public static final String TENTHSTYLE = "10th Style";
-    public static final String NINTHSTYLE = "9th Style";
-    public static final String EIGHTHSTYLE = "8th Style";
-    public static final String SEVENTHSTYLE = "7th Style";
-    public static final String SIXTHSTYLE = "6th Style";
-    public static final String FIFTHSTYLE = "5th Style";
-    public static final String FOURTHSTYLE = "4th Style";
-    public static final String THIRDSTYLE = "3rd Style";
-    public static final String SECONDSTYLE = "2nd Style";
-    public static final String SUBSTREAM = "Substream";
-    public static final String FIRSTSTYLE = "1st Style";
-    public static final String OTHER = "Other";
+    static final String OMNIMIX = "Omnimix";
 
-    public static final String[] ALLSTYLES = {FIRSTSTYLE, SUBSTREAM, SECONDSTYLE, THIRDSTYLE, FOURTHSTYLE, FIFTHSTYLE,
+    static final String COPULA = "copula";
+    static final String PENDUAL = "PENDUAL";
+    static final String SPADA = "SPADA";
+    static final String TRICORO = "tricoro";
+    static final String LINCLE = "Lincle";
+    static final String RESORTANTHEM = "Resort Anthem";
+    static final String SIRIUS = "SIRIUS";
+    static final String EMPRESS = "EMPRESS";
+    static final String DJTROOPERS = "DJ TROOPERS";
+    static final String GOLD = "GOLD";
+    static final String DISTORTED = "DistorteD";
+    static final String HAPPYSKY = "HAPPY SKY";
+    static final String IIDXRED = "IIDX RED";
+    static final String TENTHSTYLE = "10th Style";
+    static final String NINTHSTYLE = "9th Style";
+    static final String EIGHTHSTYLE = "8th Style";
+    static final String SEVENTHSTYLE = "7th Style";
+    static final String SIXTHSTYLE = "6th Style";
+    static final String FIFTHSTYLE = "5th Style";
+    static final String FOURTHSTYLE = "4th Style";
+    static final String THIRDSTYLE = "3rd Style";
+    static final String SECONDSTYLE = "2nd Style";
+    static final String SUBSTREAM = "Substream";
+    static final String FIRSTSTYLE = "1st Style";
+    static final String OTHER = "Other";
+
+    static final String[] ALLSTYLES = {FIRSTSTYLE, SUBSTREAM, SECONDSTYLE, THIRDSTYLE, FOURTHSTYLE, FIFTHSTYLE,
             SIXTHSTYLE, SEVENTHSTYLE, EIGHTHSTYLE, NINTHSTYLE, TENTHSTYLE, IIDXRED, HAPPYSKY, DISTORTED, GOLD,
-            DJTROOPERS, EMPRESS, SIRIUS, RESORTANTHEM, LINCLE, TRICORO, SPADA, PENDUAL};
+            DJTROOPERS, EMPRESS, SIRIUS, RESORTANTHEM, LINCLE, TRICORO, SPADA, PENDUAL, COPULA};
 
-    public static final int COPULAINT = 23;
-    public static final int PENDUALINT = 22;
-    public static final int SPADAINT = 21;
-    public static final int TRICOROINT = 20;
-    public static final int LINCLEINT = 19;
-    public static final int RESORTANTHEMINT = 18;
-    public static final int SIRIUSINT = 17;
-    public static final int EMPRESSINT = 16;
-    public static final int DJTROOPERSINT = 15;
-    public static final int GOLDINT = 14;
-    public static final int DISTORTEDINT = 13;
-    public static final int HAPPYSKYINT = 12;
-    public static final int IIDXREDINT = 11;
-    public static final int TENTHSTYLEINT = 10;
-    public static final int NINTHSTYLEINT = 9;
-    public static final int EIGHTHSTYLEINT = 8;
-    public static final int SEVENTHSTYLEINT = 7;
-    public static final int SIXTHSTYLEINT = 6;
-    public static final int FIFTHSTYLEINT = 5;
-    public static final int FOURTHSTYLEINT = 4;
-    public static final int THIRDSTYLEINT = 3;
-    public static final int SECONDSTYLEINT = 2;
-    public static final int SUBSTREAMINT = -1;
-    public static final int FIRSTSTYLEINT = 1;
-    public static final int OTHERINT = 0;
+    static final int COPULAINT = 23;
+    static final int PENDUALINT = 22;
+    static final int SPADAINT = 21;
+    static final int TRICOROINT = 20;
+    static final int LINCLEINT = 19;
+    static final int RESORTANTHEMINT = 18;
+    static final int SIRIUSINT = 17;
+    static final int EMPRESSINT = 16;
+    static final int DJTROOPERSINT = 15;
+    static final int GOLDINT = 14;
+    static final int DISTORTEDINT = 13;
+    static final int HAPPYSKYINT = 12;
+    static final int IIDXREDINT = 11;
+    static final int TENTHSTYLEINT = 10;
+    static final int NINTHSTYLEINT = 9;
+    static final int EIGHTHSTYLEINT = 8;
+    static final int SEVENTHSTYLEINT = 7;
+    static final int SIXTHSTYLEINT = 6;
+    static final int FIFTHSTYLEINT = 5;
+    static final int FOURTHSTYLEINT = 4;
+    static final int THIRDSTYLEINT = 3;
+    static final int SECONDSTYLEINT = 2;
+    static final int SUBSTREAMINT = 1;
+    static final int FIRSTSTYLEINT = 0;
+    static final int OTHERINT = -1;
 
-    public static final String COPULAFULL = beatmania + " " + COPULAINT + " " + COPULA;
-    public static final String PENDUALFULL = beatmania + " " + PENDUALINT + " " + PENDUAL;
-    public static final String SPADAFULL = beatmania + " " + SPADAINT + " " + SPADA;
-    public static final String TRICOROFULL = beatmania + " " + TRICOROINT + " " + TRICORO;
-    public static final String LINCLEFULL = beatmania + " " + LINCLEINT+ " " + LINCLE;
-    public static final String RESORTANTHEMFULL = beatmania + " " + RESORTANTHEMINT + " " + RESORTANTHEM;
-    public static final String SIRIUSFULL = beatmania + " " + SIRIUSINT + " " + SIRIUS;
-    public static final String EMPRESSFULL = beatmania + " " + EMPRESSINT + " " + EMPRESS;
+    static final String COPULAFULL = beatmania + " " + COPULAINT + " " + COPULA;
+    static final String PENDUALFULL = beatmania + " " + PENDUALINT + " " + PENDUAL;
+    static final String SPADAFULL = beatmania + " " + SPADAINT + " " + SPADA;
+    static final String TRICOROFULL = beatmania + " " + TRICOROINT + " " + TRICORO;
+    static final String LINCLEFULL = beatmania + " " + LINCLEINT+ " " + LINCLE;
+    static final String RESORTANTHEMFULL = beatmania + " " + RESORTANTHEMINT + " " + RESORTANTHEM;
+    static final String SIRIUSFULL = beatmania + " " + SIRIUSINT + " " + SIRIUS;
+    static final String EMPRESSFULL = beatmania + " " + EMPRESSINT + " " + EMPRESS;
 
-    public static int styleFullToInt(String style) {
+    static int styleFullToInt(String style) {
         switch (style) {
             case COPULAFULL:
                 return COPULAINT;
@@ -94,7 +95,7 @@ public class Style {
         }
     }
 
-    public static int styleToInt(String style) {
+    static int styleToInt(String style) {
         switch (style) {
             case FIRSTSTYLE:
                 return FIRSTSTYLEINT;
@@ -149,7 +150,7 @@ public class Style {
         }
     }
 
-    public static String styleToString(int style) {
+    static String styleToString(int style) {
         switch (style) {
             case FIRSTSTYLEINT:
                 return FIRSTSTYLE;

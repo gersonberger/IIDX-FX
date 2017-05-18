@@ -2,233 +2,115 @@ package com.gersonberger;
 
 import javafx.collections.ObservableList;
 
-public class Stats {
-    int fullcombo;
-    int exhardclear;
-    int hardclear;
-    int clear;
-    int easyclear;
-    int assistclear;
-    int failed;
-    int noplay;
+import java.util.Arrays;
 
-    private int gradeAAA = 0;
-    private int gradeAA = 0;
-    private int gradeA = 0;
-    private int gradeB = 0;
-    private int gradeC = 0;
-    private int gradeD = 0;
-    private int gradeE = 0;
-    private int gradeF = 0;
 
-    int[] style_songs = new int[36];
-    int[] np_arr = new int[36];
-    int[] f_arr = new int[36];
-    int[] ac_arr = new int[36];
-    int[] ec_arr = new int[36];
-    int[] c_arr = new int[36];
-    int[] hc_arr = new int[36];
-    int[] ex_arr = new int[36];
-    int[] fc_arr = new int[36];
-    int[] cvs_arr = new int[36];
-    int[] ncvs_arr = new int[36];
+class Stats {
 
-    public Stats(ObservableList<SongEntry> masterData){
+    //statsAllStatus[status]
+    //status: 0=noplay, 1=failed, ..., 7=fullcombo
+    private int[] statsAllStatus = new int[8];
+
+    //statsAllGrade[grade]
+    //grade: 0=none, 1=F, 2=E, ..., 7=AA, 8=AAA, 8=MAX
+    private int[] statsAllGrade = new int[10];
+
+    //statsLevel[level][status]
+    //level: 0=1, 1=2, ..., 11=12
+    //status: 0=noplay, 1=failed, ..., 7=fullcombo
+    private int[][] statsLevel = new int[12][8];
+
+    //statsLevel[style][status]
+    //style: 0=1st Style, 1=Substream, ..., 23=copula
+    //status: 0=noplay, 1=failed, ..., 7=fullcombo
+    private int[][] statsStyle = new int[24][8];
+
+
+    Stats(ObservableList<SongEntry> masterData){
+        //init array with 0
+        for (int[] row : statsLevel) Arrays.fill(row, 0);
+        for (int[] row : statsStyle) Arrays.fill(row, 0);
+
         int style;
+        int grade;
+        int status;
+        int level;
         for (SongEntry songEntry : masterData) {
-            style = Style.styleToInt(songEntry.getStyle()) + 1;
-            style_songs[style]++;
-            style_songs[Integer.parseInt(songEntry.getLevel()) + 23]++;
-            switch (songEntry.getClear()) {
-                case Clear.FULLCOMBO:
-                    fullcombo++;
-                    fc_arr[style]++;
-                    fc_arr[Integer.valueOf(songEntry.getLevel()) + 23]++;
-                    cvs_arr[style]++;
-                    cvs_arr[Integer.valueOf(songEntry.getLevel()) + 23]++;
-                    break;
-                case Clear.EXHARDCLEAR:
-                    exhardclear++;
-                    ex_arr[style]++;
-                    ex_arr[Integer.valueOf(songEntry.getLevel()) + 23]++;
-                    cvs_arr[style]++;
-                    cvs_arr[Integer.valueOf(songEntry.getLevel()) + 23]++;
-                    break;
-                case Clear.HARDCLEAR:
-                    hardclear++;
-                    hc_arr[style]++;
-                    hc_arr[Integer.valueOf(songEntry.getLevel()) + 23]++;
-                    cvs_arr[style]++;
-                    cvs_arr[Integer.valueOf(songEntry.getLevel()) + 23]++;
-                    break;
-                case Clear.CLEAR:
-                    clear++;
-                    c_arr[style]++;
-                    c_arr[Integer.valueOf(songEntry.getLevel()) + 23]++;
-                    cvs_arr[style]++;
-                    cvs_arr[Integer.valueOf(songEntry.getLevel()) + 23]++;
-                    break;
-                case Clear.EASYCLEAR:
-                    easyclear++;
-                    ec_arr[style]++;
-                    ec_arr[Integer.valueOf(songEntry.getLevel()) + 23]++;
-                    cvs_arr[style]++;
-                    cvs_arr[Integer.valueOf(songEntry.getLevel()) + 23]++;
-                    break;
-                case Clear.ASSISTCLEAR:
-                    assistclear++;
-                    ac_arr[style]++;
-                    ac_arr[Integer.valueOf(songEntry.getLevel()) + 23]++;
-                    cvs_arr[style]++;
-                    cvs_arr[Integer.valueOf(songEntry.getLevel()) + 23]++;
-                    break;
-                case Clear.FAILED:
-                    failed++;
-                    f_arr[style]++;
-                    f_arr[Integer.valueOf(songEntry.getLevel()) + 23]++;
-                    ncvs_arr[style]++;
-                    ncvs_arr[Integer.valueOf(songEntry.getLevel()) + 23]++;
-                    break;
-                case Clear.NOPLAY_NOTEXT:
-                    noplay++;
-                    np_arr[style]++;
-                    np_arr[Integer.valueOf(songEntry.getLevel()) + 23]++;
-                    ncvs_arr[style]++;
-                    ncvs_arr[Integer.valueOf(songEntry.getLevel()) + 23]++;
-                    break;
-            }
+            style = Style.styleToInt(songEntry.getStyle());
+            grade = songEntry.getGrade().equals("") ? Grade.NONE_INT : Grade.gradeToInt(songEntry.getGrade().split(" ")[0]);
+            status = Status.statusToInt(songEntry.getStatus());
+            level = Integer.valueOf(songEntry.getLevel()) - 1;
 
-            double p = songEntry.getEx().equals("") ? 0 : Double.valueOf(songEntry.getEx()) / (double)(2 * Integer.valueOf(songEntry.getNotes()));
-            if (p > (double)8/9) gradeAAA++;
-            else if (p > (double)7/9) gradeAA++;
-            else if (p > (double)6/9) gradeA++;
-            else if (p > (double)5/9) gradeB++;
-            else if (p > (double)4/9) gradeC++;
-            else if (p > (double)3/9) gradeD++;
-            else if (p > (double)2/9) gradeE++;
-            else if (p > (double)1/9) gradeF++;
+            statsAllStatus[status]++;
+            statsAllGrade[grade]++;
+            statsLevel[level][status]++;
+            statsStyle[style][status]++;
         }
-
     }
 
-    public int getTotalClears(){
-        return fullcombo + exhardclear + hardclear + clear + easyclear + assistclear;
+    int getAllStatus(int status) {
+        return statsAllStatus[status];
     }
 
-    public int getTotal(){
-        return fullcombo + exhardclear + hardclear + clear + easyclear + assistclear + failed + noplay;
+    int getAllGrade(int grade) {
+        return statsAllGrade[grade];
     }
 
-    public int getTotalWONoplay(){
-        return fullcombo + exhardclear + hardclear + clear + easyclear + assistclear + failed;
+    int getTotalClears() {
+        return getAllStatus(Status.CLEAR_INT) + getAllStatus(Status.HARDCLEAR_INT) + getAllStatus(Status.EXHARDCLEAR_INT) + getAllStatus(Status.FULLCOMBO_INT);
     }
 
-    public int getFullcombo() {
-        return fullcombo;
+    int getTotal() {
+        return getAllStatus(Status.NOPLAY_INT) + getAllStatus(Status.FAILED_INT) + getAllStatus(Status.ASSISTCLEAR_INT) + getAllStatus(Status.EASYCLEAR_INT)
+            + getAllStatus(Status.CLEAR_INT) + getAllStatus(Status.HARDCLEAR_INT) + getAllStatus(Status.EXHARDCLEAR_INT) + getAllStatus(Status.FULLCOMBO_INT);
     }
 
-    public int getExhardclear() {
-        return exhardclear;
+    int getTotalPlayed() {
+        return getAllStatus(Status.FAILED_INT) + getAllStatus(Status.ASSISTCLEAR_INT) + getAllStatus(Status.EASYCLEAR_INT)
+        + getAllStatus(Status.CLEAR_INT) + getAllStatus(Status.HARDCLEAR_INT) + getAllStatus(Status.EXHARDCLEAR_INT) + getAllStatus(Status.FULLCOMBO_INT);
     }
 
-    public int getHardclear() {
-        return hardclear;
+    int getAllStyle(int style) {
+        int val = 0;
+        for (int i = 0; i < statsStyle[style].length; i++) {
+            val += statsStyle[style][i];
+        }
+        return val;
     }
 
-    public int getClear() {
-        return clear;
+    int getAllLevel(int level) {
+        level--;
+        int val = 0;
+        for (int i = 0; i < statsLevel[level].length; i++) {
+            val += statsLevel[level][i];
+        }
+        return val;
     }
 
-    public int getEasyclear() {
-        return easyclear;
+    int getLevelStatus(int level, int status) {
+        return statsLevel[level - 1][status];
     }
 
-    public int getAssistclear() {
-        return assistclear;
+    int getLevelCleared(int level) {
+        level--;
+        return statsLevel[level][Status.CLEAR_INT] + statsLevel[level][Status.HARDCLEAR_INT] + statsLevel[level][Status.EXHARDCLEAR_INT] + statsLevel[level][Status.FULLCOMBO_INT];
     }
 
-    public int getFailed() {
-        return failed;
+    int getLevelNotCleared(int level) {
+        level--;
+        return statsLevel[level][Status.NOPLAY_INT] + statsLevel[level][Status.FAILED_INT] + statsLevel[level][Status.ASSISTCLEAR_INT] + statsLevel[level][Status.EASYCLEAR_INT];
     }
 
-    public int getNoplay() {
-        return noplay;
+    int getStyleStatus(int style, int status) {
+        return statsStyle[style][status];
     }
 
-    public int getGradeAAA() {
-        return gradeAAA;
+    int getStyleCleared(int style) {
+        return statsStyle[style][Status.CLEAR_INT] + statsStyle[style][Status.HARDCLEAR_INT] + statsStyle[style][Status.EXHARDCLEAR_INT] + statsStyle[style][Status.FULLCOMBO_INT];
     }
 
-    public int getGradeAA() {
-        return gradeAA;
-    }
-
-    public int getGradeA() {
-        return gradeA;
-    }
-
-    public int getGradeB() {
-        return gradeB;
-    }
-
-    public int getGradeC() {
-        return gradeC;
-    }
-
-    public int getGradeD() {
-        return gradeD;
-    }
-
-    public int getGradeE() {
-        return gradeE;
-    }
-
-    public int getGradeF() {
-        return gradeF;
-    }
-
-    public int[] getNp_arr() {
-        return np_arr;
-    }
-
-    public int[] getF_arr() {
-        return f_arr;
-    }
-
-    public int[] getAc_arr() {
-        return ac_arr;
-    }
-
-    public int[] getEc_arr() {
-        return ec_arr;
-    }
-
-    public int[] getC_arr() {
-        return c_arr;
-    }
-
-    public int[] getHc_arr() {
-        return hc_arr;
-    }
-
-    public int[] getEx_arr() {
-        return ex_arr;
-    }
-
-    public int[] getFc_arr() {
-        return fc_arr;
-    }
-
-    public int[] getStyle_songs() {
-        return style_songs;
-    }
-
-    public int[] getCvs_arr() {
-        return cvs_arr;
-    }
-
-    public int[] getNcvs_arr() {
-        return ncvs_arr;
+    int getStyleNotCleared(int style) {
+        return statsStyle[style][Status.NOPLAY_INT] + statsStyle[style][Status.FAILED_INT] + statsStyle[style][Status.ASSISTCLEAR_INT] + statsStyle[style][Status.EASYCLEAR_INT];
     }
 
 }

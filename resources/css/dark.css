@@ -15,6 +15,10 @@
     -fx-font-family: "Verdana";
 }
 
+.label {
+    -fx-graphic-text-gap: 10px;
+}
+
 .table-view:focused {
     -fx-background-color: transparent,-fx-box-border,-fx-control-inner-background;
     -fx-background-insets: -1.4, 0, 1;
@@ -59,7 +63,6 @@
 
 .progress-indicator {
     -fx-progress-color: white;
-    -fx-accent: white;
 }
 
 .progress-indicator .tick {
@@ -68,6 +71,17 @@
 
 .progress-indicator .percentage {
     -fx-fill: null;
+}
+
+.popover > .border {
+    -fx-stroke: rgba(255, 255, 255, 0.7);
+    -fx-stroke-width: .5;
+    -fx-fill: rgba(50, 50, 50, .6);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, .9), 15, .4, 0, 0);
+}
+
+.table-view .column-header .label{
+    -fx-text-fill: white;
 }
 
 #header1 {

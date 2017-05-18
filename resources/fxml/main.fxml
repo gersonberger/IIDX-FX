@@ -1,856 +1,763 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.chart.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.chart.StackedBarChart?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.TextFlow?>
+<?import org.controlsfx.control.SegmentedButton?>
 
-<TabPane fx:id="tabPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="769.0" prefWidth="935.0" tabMinWidth="50.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gersonberger.MainController">
-   <tabs>
-       <Tab closable="false" text="Songs">
-          <content>
-              <ScrollPane fitToHeight="true" fitToWidth="true" VBox.vgrow="ALWAYS">
-                 <content>
-                  <VBox fx:id="mainBox">
-                     <children>
-                            <HBox alignment="CENTER">
-                                <padding>
-                                    <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
-                                </padding>
-                               <children>
-                                   <Label alignment="TOP_LEFT" minHeight="15.0" minWidth="89.0" text="Search songs:">
-                                       <HBox.margin>
-                                           <Insets right="8.0" />
-                                       </HBox.margin>
-                                   </Label>
-                                   <TextField fx:id="filterField" maxHeight="300.0" minHeight="25.0" minWidth="100.0" prefWidth="300.0" HBox.hgrow="SOMETIMES">
-                                       <HBox.margin>
-                                           <Insets right="8.0" />
-                                       </HBox.margin>
-                                   </TextField>
-                                   <Label fx:id="matchLabel" minHeight="15.0" minWidth="86.0" HBox.hgrow="ALWAYS">
-                                       <HBox.margin>
-                                           <Insets right="8.0" />
-                                       </HBox.margin>
-                                   </Label>
-                                   <Region HBox.hgrow="ALWAYS" />
-                                   <Button alignment="CENTER" minHeight="25.0" minWidth="55.0" onAction="#hideSettings" prefWidth="80.0" text="Filter" />
-                               </children>
-                            </HBox>
-                            <VBox id="filterpane" fx:id="settingsBox" prefHeight="200.0" prefWidth="100.0">
-                               <children>
-                                   <VBox spacing="4.0">
-                                       <padding>
-                                           <Insets bottom="8.0" left="8.0" right="8.0" />
-                                       </padding>
-                                      <children>
-                                          <Label id="header2" text="Styles:" />
-                                          <HBox spacing="8.0">
-                                             <children>
-                                                 <CheckBox fx:id="checkStyleAll" onAction="#styleAll" prefHeight="36.0" selected="true" text="All" />
-                                                 <Separator orientation="VERTICAL" prefHeight="200.0" />
-                                                 <VBox spacing="4.0">
-                                                    <children>
-                                                        <HBox spacing="8.0">
-                                                           <children>
-                                                               <CheckBox fx:id="checkStyle1" onAction="#style1" text="1st Style" />
-                                                               <CheckBox fx:id="checkStyleSub" onAction="#styleSub" text="Substream" />
-                                                               <CheckBox fx:id="checkStyle2" onAction="#style2" text="2nd Style" />
-                                                               <CheckBox fx:id="checkStyle3" onAction="#style3" text="3rd Style" />
-                                                               <CheckBox fx:id="checkStyle4" onAction="#style4" text="4th Style" />
-                                                               <CheckBox fx:id="checkStyle5" onAction="#style5" text="5th Style" />
-                                                               <CheckBox fx:id="checkStyle6" onAction="#style6" text="6th Style" />
-                                                               <CheckBox fx:id="checkStyle7" onAction="#style7" text="7th Style" />
-                                                               <CheckBox fx:id="checkStyle8" onAction="#style8" text="8th Style" />
-                                                               <CheckBox fx:id="checkStyle9" onAction="#style9" text="9th Style" />
-                                                               <CheckBox fx:id="checkStyle10" onAction="#style10" text="10th Style" />
-                                                           </children>
-                                                        </HBox>
-                                                        <HBox spacing="8.0">
-                                                           <children>
-                                                               <CheckBox fx:id="checkStyle11" onAction="#style11" text="IIDX Red" />
-                                                               <CheckBox fx:id="checkStyle12" onAction="#style12" text="Happy Sky" />
-                                                               <CheckBox fx:id="checkStyle13" onAction="#style13" text="Distorted">                                                               </CheckBox>
-                                                               <CheckBox fx:id="checkStyle14" onAction="#style14" text="Gold" />
-                                                               <CheckBox fx:id="checkStyle15" onAction="#style15" text="DJ Troopers" />
-                                                               <CheckBox fx:id="checkStyle16" onAction="#style16" text="Empress" />
-                                                               <CheckBox fx:id="checkStyle17" onAction="#style17" text="Sirius" />
-                                                               <CheckBox fx:id="checkStyle18" onAction="#style18" text="Resort Anthem" />
-                                                               <CheckBox fx:id="checkStyle19" onAction="#style19" text="Lincle" />
-                                                               <CheckBox fx:id="checkStyle20" onAction="#style20" text="Tricoro" />
-                                                               <CheckBox fx:id="checkStyle21" onAction="#style21" text="Spada" />
-                                                               <CheckBox fx:id="checkStyle22" onAction="#style22" text="Pendual" />
-                                                           </children>
-                                                        </HBox>
-                                                    </children>
-                                                 </VBox>
-                                             </children>
-                                          </HBox>
-                                          <Separator prefWidth="200.0" />
-                                      </children>
-                                   </VBox>
-                                   <VBox spacing="4.0">
-                                       <padding>
-                                           <Insets bottom="8.0" left="8.0" right="8.0" />
-                                       </padding>
-                                      <children>
-                                          <Label id="header2" text="Level:" />
-                                          <HBox spacing="8.0">
-                                             <children>
-                                                 <CheckBox fx:id="checkLevelAll" onAction="#levelAll" selected="true" text="All" />
-                                                 <Separator orientation="VERTICAL" prefHeight="200.0" />
-                                                 <CheckBox fx:id="checkLevel1" onAction="#level1" text="1" />
-                                                 <CheckBox fx:id="checkLevel2" onAction="#level2" text="2" />
-                                                 <CheckBox fx:id="checkLevel3" onAction="#level3" text="3" />
-                                                 <CheckBox fx:id="checkLevel4" onAction="#level4" text="4" />
-                                                 <CheckBox fx:id="checkLevel5" onAction="#level5" text="5" />
-                                                 <CheckBox fx:id="checkLevel6" onAction="#level6" text="6" />
-                                                 <CheckBox fx:id="checkLevel7" onAction="#level7" text="7" />
-                                                 <CheckBox fx:id="checkLevel8" onAction="#level8" text="8" />
-                                                 <CheckBox fx:id="checkLevel9" onAction="#level9" text="9" />
-                                                 <CheckBox fx:id="checkLevel10" onAction="#level10" text="10" />
-                                                 <CheckBox fx:id="checkLevel11" onAction="#level11" text="11" />
-                                                 <CheckBox fx:id="checkLevel12" onAction="#level12" text="12" />
-                                             </children>
-                                          </HBox>
-                                          <Separator prefWidth="200.0" />
-                                      </children>
-                                   </VBox>
-                                   <VBox spacing="4.0">
-                                       <padding>
-                                           <Insets bottom="8.0" left="8.0" right="8.0" />
-                                       </padding>
-                                      <children>
-                                          <Label id="header2" text="Difficulty:" />
-                                          <HBox spacing="8.0">
-                                             <children>
-                                                 <CheckBox fx:id="checkDiffAll" onAction="#diffAll" selected="true" text="All" />
-                                                 <Separator orientation="VERTICAL" prefHeight="200.0" />
-                                                 <CheckBox fx:id="checkDiffN" onAction="#diffN" text="Normal" />
-                                                 <CheckBox fx:id="checkDiffH" onAction="#diffH" text="Hyper" />
-                                                 <CheckBox fx:id="checkDiffA" onAction="#diffA" text="Another" />
-                                                 <CheckBox fx:id="checkDiffB" onAction="#diffB" text="Black Another" />
-                                                 <CheckBox fx:id="checkDiffL" onAction="#diffL" text="Leggendaria" />
-                                             </children>
-                                          </HBox>
-                                          <Separator prefWidth="200.0" />
-                                      </children>
-                                   </VBox>
-                                   <VBox spacing="4.0">
-                                       <padding>
-                                           <Insets bottom="8.0" left="8.0" right="8.0" />
-                                       </padding>
-                                      <children>
-                                          <Label id="header2" text="Clear:" />
-                                          <HBox spacing="8.0">
-                                             <children>
-                                                 <CheckBox fx:id="checkClearAll" onAction="#clearAll" selected="true" text="All" />
-                                                 <Separator orientation="VERTICAL" prefHeight="200.0" />
-                                                 <CheckBox fx:id="checkClearNoplay" onAction="#clearNoplay" text="No play" />
-                                                 <CheckBox fx:id="checkClearFailed" onAction="#clearFailed" text="Failed" />
-                                                 <CheckBox fx:id="checkClearAssistclear" onAction="#clearAssistclear" text="Assist clear" />
-                                                 <CheckBox fx:id="checkClearEasyclear" onAction="#clearEasyclear" text="Easy clear" />
-                                                 <CheckBox fx:id="checkClearClear" onAction="#clearClear" text="Clear" />
-                                                 <CheckBox fx:id="checkClearHardclear" onAction="#clearHardclear" text="Hard clear" />
-                                                 <CheckBox fx:id="checkClearExhardclear" onAction="#clearExhardclear" text="Ex hard clear" />
-                                                 <CheckBox fx:id="checkClearFullcombo" onAction="#clearFullcombo" text="Full combo" />
-                                             </children>
-                                          </HBox>
-                                      </children>
-                                   </VBox>
-                               </children>
-                            </VBox>
-                            <TableView fx:id="tableView" tableMenuButtonVisible="true" VBox.vgrow="ALWAYS">
-                                <columns>
-                                    <TableColumn fx:id="styleColumn" prefWidth="81.0" text="Style" />
-                                    <TableColumn fx:id="titleColumn" prefWidth="240.0" text="Title" />
-                                    <TableColumn fx:id="artistColumn" prefWidth="170.0" text="Artist" />
-                                    <TableColumn fx:id="genreColumn" prefWidth="125.0" text="Genre" />
-                                    <TableColumn fx:id="difficultyColumn" prefWidth="88.0" text="Difficulty" />
-                                    <TableColumn fx:id="levelColumn" prefWidth="59.0" text="Level" />
-                                    <TableColumn fx:id="ratingNColumn" prefWidth="51.0" text="RN" />
-                                    <TableColumn fx:id="ratingHColumn" prefWidth="51.0" text="RH" />
-                                    <TableColumn fx:id="bpmColumn" prefWidth="58.0" style="-fx-alignment: CENTER;" text="BPM" />
-                                    <TableColumn fx:id="lengthColumn" prefWidth="68.0" text="Length" />
-                                    <TableColumn fx:id="notesColumn" prefWidth="59.0" text="Notes" />
-                                    <TableColumn fx:id="clearColumn" prefWidth="90.0" style="-fx-alignment: CENTER;" text="Clear" />
-                                    <TableColumn fx:id="gradeColumn" prefWidth="104.0" style="-fx-alignment: CENTER;" text="Grade" />
-                                    <TableColumn fx:id="exColumn" prefWidth="60" text="Ex" />
-                                    <TableColumn fx:id="missColumn" prefWidth="60.0" text="Miss" />
-                                </columns>
-                            </TableView>
-                     </children>
-                  </VBox>
-                 </content>
-              </ScrollPane>
-          </content>
-       </Tab>
-       <Tab closable="false" text="Dan course">
-          <content>
-              <ScrollPane fitToWidth="true">
-                 <content>
-                     <VBox id="danpane" fillWidth="false" spacing="20.0">
-                         <padding>
-                             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                         </padding>
-                        <children>
-                            <Label id="header1" text="Dan course">
-                                <rotationAxis>
-                                    <Point3D />
-                                </rotationAxis>
-                            </Label>
-                            <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="10.0">
-                                <VBox.margin>
-                                    <Insets />
-                                </VBox.margin>
-                               <children>
-                                   <Label text="Style:" />
-                                   <ComboBox fx:id="danStyleSelectBox" prefWidth="261.0">
-                                       <VBox.margin>
-                                           <Insets bottom="10.0" top="-10.0" />
-                                       </VBox.margin>
-                                   </ComboBox>
-                               </children>
-                            </HBox>
-                            <VBox id="dan" fillWidth="false" minWidth="200.0" prefWidth="330.0" spacing="2.0">
-                               <children>
-                                   <Label id="header1" text="Kaiden">
-                                       <VBox.margin>
-                                           <Insets bottom="4.0" />
-                                       </VBox.margin>
-                                       <graphic>
-                                           <ImageView fitHeight="32.0" fitWidth="60.0" pickOnBounds="true">
-                                              <image>
-                                                  <Image url="@../img/dan/11dan.png" />
-                                              </image>
-                                           </ImageView>
-                                       </graphic>
-                                   </Label>
-                                   <Label fx:id="kaiden1" />
-                                   <Label fx:id="kaiden2" />
-                                   <Label fx:id="kaiden3" />
-                                   <Label fx:id="kaiden4" />
-                               </children>
-                            </VBox>
-                            <HBox fillHeight="false" spacing="10.0">
-                               <children>
-                                   <VBox id="dan" fillWidth="false" minWidth="200.0" prefWidth="330.0" spacing="2.0">
-                                      <children>
-                                          <Label id="header1" text="10th Dan">
-                                              <VBox.margin>
-                                                  <Insets bottom="4.0" />
-                                              </VBox.margin>
-                                              <graphic>
-                                                  <ImageView fitHeight="32.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
-                                                     <image>
-                                                         <Image url="@../img/dan/10dan.png" />
-                                                     </image>
-                                                  </ImageView>
-                                              </graphic>
-                                          </Label>
-                                          <Label fx:id="tenthdan1" />
-                                          <Label fx:id="tenthdan2" />
-                                          <Label fx:id="tenthdan3" />
-                                          <Label fx:id="tenthdan4" />
-                                      </children>
-                                   </VBox>
-                                   <VBox id="dan" fillWidth="false" minWidth="200.0" prefWidth="330.0" spacing="2.0">
-                                      <children>
-                                          <Label id="header1" text="9th Dan">
-                                              <VBox.margin>
-                                                  <Insets bottom="4.0" />
-                                              </VBox.margin>
-                                              <graphic>
-                                                  <ImageView fitHeight="32.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
-                                                     <image>
-                                                         <Image url="@../img/dan/9dan.png" />
-                                                     </image>
-                                                  </ImageView>
-                                              </graphic>
-                                          </Label>
-                                          <Label fx:id="ninthdan1" />
-                                          <Label fx:id="ninthdan2" />
-                                          <Label fx:id="ninthdan3" />
-                                          <Label fx:id="ninthdan4" />
-                                      </children>
-                                   </VBox>
-                                   <VBox id="dan" fillWidth="false" minWidth="200.0" prefWidth="330.0" spacing="2.0">
-                                      <children>
-                                          <Label id="header1" text="8th Dan">
-                                              <VBox.margin>
-                                                  <Insets bottom="4.0" />
-                                              </VBox.margin>
-                                              <graphic>
-                                                  <ImageView fitHeight="32.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
-                                                     <image>
-                                                         <Image url="@../img/dan/8dan.png" />
-                                                     </image>
-                                                  </ImageView>
-                                              </graphic>
-                                          </Label>
-                                          <Label fx:id="eighthdan1" />
-                                          <Label fx:id="eighthdan2" />
-                                          <Label fx:id="eighthdan3" />
-                                          <Label fx:id="eighthdan4" />
-                                      </children>
-                                   </VBox>
-                               </children>
-                            </HBox>
-                            <HBox fillHeight="false" spacing="10.0">
-                               <children>
-                                   <VBox id="dan" fillWidth="false" minWidth="200.0" prefWidth="330.0" spacing="2.0">
-                                      <children>
-                                          <Label id="header1" text="7th Dan">
-                                              <VBox.margin>
-                                                  <Insets bottom="4.0" />
-                                              </VBox.margin>
-                                              <graphic>
-                                                  <ImageView fitHeight="32.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
-                                                     <image>
-                                                         <Image url="@../img/dan/7dan.png" />
-                                                     </image>
-                                                  </ImageView>
-                                              </graphic>
-                                          </Label>
-                                          <Label fx:id="seventhdan1" />
-                                          <Label fx:id="seventhdan2" />
-                                          <Label fx:id="seventhdan3" />
-                                          <Label fx:id="seventhdan4" />
-                                      </children>
-                                   </VBox>
-                                   <VBox id="dan" fillWidth="false" minWidth="200.0" prefWidth="330.0" spacing="2.0">
-                                      <children>
-                                          <Label id="header1" text="6th Dan">
-                                              <VBox.margin>
-                                                  <Insets bottom="4.0" />
-                                              </VBox.margin>
-                                              <graphic>
-                                                  <ImageView fitHeight="32.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
-                                                     <image>
-                                                         <Image url="@../img/dan/6dan.png" />
-                                                     </image>
-                                                  </ImageView>
-                                              </graphic>
-                                          </Label>
-                                          <Label fx:id="sixthdan1" />
-                                          <Label fx:id="sixthdan2" />
-                                          <Label fx:id="sixthdan3" />
-                                          <Label fx:id="sixthdan4" />
-                                      </children>
-                                   </VBox>
-                                   <VBox id="dan" fillWidth="false" minWidth="200.0" prefWidth="330.0" spacing="2.0">
-                                      <children>
-                                          <Label id="header1" text="5th Dan">
-                                              <VBox.margin>
-                                                  <Insets bottom="4.0" />
-                                              </VBox.margin>
-                                              <graphic>
-                                                  <ImageView fitHeight="32.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
-                                                     <image>
-                                                         <Image url="@../img/dan/5dan.png" />
-                                                     </image>
-                                                  </ImageView>
-                                              </graphic>
-                                          </Label>
-                                          <Label fx:id="fifthdan1" />
-                                          <Label fx:id="fifthdan2" />
-                                          <Label fx:id="fifthdan3" />
-                                          <Label fx:id="fifthdan4" />
-                                      </children>
-                                   </VBox>
-                               </children>
-                            </HBox>
-                            <HBox fillHeight="false" spacing="10.0">
-                               <children>
-                                   <VBox id="dan" fillWidth="false" minWidth="200.0" prefWidth="330.0" spacing="2.0">
-                                      <children>
-                                          <Label id="header1" text="4th Dan">
-                                              <VBox.margin>
-                                                  <Insets bottom="4.0" />
-                                              </VBox.margin>
-                                              <graphic>
-                                                  <ImageView fitHeight="32.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
-                                                     <image>
-                                                         <Image url="@../img/dan/4dan.png" />
-                                                     </image>
-                                                  </ImageView>
-                                              </graphic>
-                                          </Label>
-                                          <Label fx:id="fourthdan1" />
-                                          <Label fx:id="fourthdan2" />
-                                          <Label fx:id="fourthdan3" />
-                                          <Label fx:id="fourthdan4" />
-                                      </children>
-                                   </VBox>
-                                   <VBox id="dan" fillWidth="false" minWidth="200.0" prefWidth="330.0" spacing="2.0">
-                                      <children>
-                                          <Label id="header1" text="3rd Dan">
-                                              <VBox.margin>
-                                                  <Insets bottom="4.0" />
-                                              </VBox.margin>
-                                              <graphic>
-                                                  <ImageView fitHeight="32.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
-                                                     <image>
-                                                         <Image url="@../img/dan/3dan.png" />
-                                                     </image>
-                                                  </ImageView>
-                                              </graphic>
-                                          </Label>
-                                          <Label fx:id="thirddan1" />
-                                          <Label fx:id="thirddan2" />
-                                          <Label fx:id="thirddan3" />
-                                          <Label fx:id="thirddan4" />
-                                      </children>
-                                   </VBox>
-                                   <VBox id="dan" fillWidth="false" minWidth="200.0" prefWidth="330.0" spacing="2.0">
-                                      <children>
-                                          <Label id="header1" text="2nd Dan">
-                                              <VBox.margin>
-                                                  <Insets bottom="4.0" />
-                                              </VBox.margin>
-                                              <graphic>
-                                                  <ImageView fitHeight="32.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
-                                                     <image>
-                                                         <Image url="@../img/dan/2dan.png" />
-                                                     </image>
-                                                  </ImageView>
-                                              </graphic>
-                                          </Label>
-                                          <Label fx:id="seconddan1" />
-                                          <Label fx:id="seconddan2" />
-                                          <Label fx:id="seconddan3" />
-                                          <Label fx:id="seconddan4" />
-                                      </children>
-                                   </VBox>
-                               </children>
-                            </HBox>
-                            <VBox id="dan" fillWidth="false" minWidth="200.0" prefWidth="330.0" spacing="2.0">
-                               <children>
-                                   <Label id="header1" text="1st Dan">
-                                       <VBox.margin>
-                                           <Insets bottom="4.0" />
-                                       </VBox.margin>
-                                       <graphic>
-                                           <ImageView fitHeight="32.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
-                                              <image>
-                                                  <Image url="@../img/dan/1dan.png" />
-                                              </image>
-                                           </ImageView>
-                                       </graphic>
-                                   </Label>
-                                   <Label fx:id="firstdan1" />
-                                   <Label fx:id="firstdan2" />
-                                   <Label fx:id="firstdan3" />
-                                   <Label fx:id="firstdan4" />
-                               </children>
-                            </VBox>
-                            <HBox fillHeight="false" spacing="10.0">
-                               <children>
-                                   <VBox id="dan" fillWidth="false" minWidth="200.0" prefWidth="330.0" spacing="2.0">
-                                      <children>
-                                          <Label id="header1" text="1st Kyu">
-                                              <graphic>
-                                                  <ImageView fitHeight="32.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
-                                                     <image>
-                                                         <Image url="@../img/dan/1kyu.png" />
-                                                     </image>
-                                                  </ImageView>
-                                              </graphic>
-                                              <VBox.margin>
-                                                  <Insets bottom="4.0" />
-                                              </VBox.margin>
-                                          </Label>
-                                          <Label fx:id="firstkyu1" />
-                                          <Label fx:id="firstkyu2" />
-                                          <Label fx:id="firstkyu3" />
-                                          <Label fx:id="firstkyu4" />
-                                      </children>
-                                   </VBox>
-                                   <VBox id="dan" fillWidth="false" minWidth="200.0" prefWidth="330.0" spacing="2.0">
-                                      <children>
-                                          <Label id="header1" text="2nd Kyu">
-                                              <graphic>
-                                                  <ImageView fitHeight="32.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
-                                                     <image>
-                                                         <Image url="@../img/dan/2kyu.png" />
-                                                     </image>
-                                                  </ImageView>
-                                              </graphic>
-                                              <VBox.margin>
-                                                  <Insets bottom="4.0" />
-                                              </VBox.margin>
-                                          </Label>
-                                          <Label fx:id="secondkyu1" />
-                                          <Label fx:id="secondkyu2" />
-                                          <Label fx:id="secondkyu3" />
-                                          <Label fx:id="secondkyu4" />
-                                      </children>
-                                   </VBox>
-                                   <VBox id="dan" fillWidth="false" minWidth="200.0" prefWidth="330.0" spacing="2.0">
-                                      <children>
-                                          <Label id="header1" text="3rd Kyu">
-                                              <graphic>
-                                                  <ImageView fitHeight="32.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
-                                                     <image>
-                                                         <Image url="@../img/dan/3kyu.png" />
-                                                     </image>
-                                                  </ImageView>
-                                              </graphic>
-                                              <VBox.margin>
-                                                  <Insets bottom="4.0" />
-                                              </VBox.margin>
-                                          </Label>
-                                          <Label fx:id="thirdkyu1" />
-                                          <Label fx:id="thirdkyu2" />
-                                          <Label fx:id="thirdkyu3" />
-                                          <Label fx:id="thirdkyu4" />
-                                      </children>
-                                   </VBox>
-                               </children>
-                            </HBox>
-                            <HBox fillHeight="false" spacing="10.0">
-                               <children>
-                                   <VBox id="dan" fillWidth="false" minWidth="200.0" prefWidth="330.0" spacing="2.0">
-                                      <children>
-                                          <Label id="header1" text="4th Kyu">
-                                              <graphic>
-                                                  <ImageView fitHeight="32.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
-                                                     <image>
-                                                         <Image url="@../img/dan/4kyu.png" />
-                                                     </image>
-                                                  </ImageView>
-                                              </graphic>
-                                              <VBox.margin>
-                                                  <Insets bottom="4.0" />
-                                              </VBox.margin>
-                                          </Label>
-                                          <Label fx:id="fourthkyu1" />
-                                          <Label fx:id="fourthkyu2" />
-                                          <Label fx:id="fourthkyu3" />
-                                          <Label fx:id="fourthkyu4" />
-                                      </children>
-                                   </VBox>
-                                   <VBox id="dan" fillWidth="false" minWidth="200.0" prefWidth="330.0" spacing="2.0">
-                                      <children>
-                                          <Label id="header1" text="5th Kyu">
-                                              <graphic>
-                                                  <ImageView fitHeight="32.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
-                                                     <image>
-                                                         <Image url="@../img/dan/5kyu.png" />
-                                                     </image>
-                                                  </ImageView>
-                                              </graphic>
-                                              <VBox.margin>
-                                                  <Insets bottom="4.0" />
-                                              </VBox.margin>
-                                          </Label>
-                                          <Label fx:id="fifthkyu1" />
-                                          <Label fx:id="fifthkyu2" />
-                                          <Label fx:id="fifthkyu3" />
-                                          <Label fx:id="fifthkyu4" />
-                                      </children>
-                                   </VBox>
-                                   <VBox id="dan" fillWidth="false" minWidth="200.0" prefWidth="330.0" spacing="2.0">
-                                      <children>
-                                          <Label id="header1" text="6th Kyu">
-                                              <graphic>
-                                                  <ImageView fitHeight="32.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
-                                                     <image>
-                                                         <Image url="@../img/dan/6kyu.png" />
-                                                     </image>
-                                                  </ImageView>
-                                              </graphic>
-                                              <VBox.margin>
-                                                  <Insets bottom="4.0" />
-                                              </VBox.margin>
-                                          </Label>
-                                          <Label fx:id="sixthkyu1" />
-                                          <Label fx:id="sixthkyu2" />
-                                          <Label fx:id="sixthkyu3" />
-                                          <Label fx:id="sixthkyu4" />
-                                      </children>
-                                   </VBox>
-                               </children>
-                            </HBox>
-                            <VBox id="dan" fillWidth="false" minWidth="230.0" prefWidth="330.0" spacing="2.0">
-                               <children>
-                                   <Label id="header1" text="7th Kyu">
-                                       <graphic>
-                                           <ImageView fitHeight="32.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
-                                              <image>
-                                                  <Image url="@../img/dan/7kyu.png" />
-                                              </image>
-                                           </ImageView>
-                                       </graphic>
-                                       <VBox.margin>
-                                           <Insets bottom="4.0" />
-                                       </VBox.margin>
-                                   </Label>
-                                   <Label fx:id="seventhkyu1" />
-                                   <Label fx:id="seventhkyu2" />
-                                   <Label fx:id="seventhkyu3" />
-                                   <Label fx:id="seventhkyu4" />
-                               </children>
-                            </VBox>
-                        </children>
-                     </VBox>
-                 </content>
-              </ScrollPane>
-          </content>
-       </Tab>
-       <Tab fx:id="statisticsTab" closable="false" text="Statistics">
-          <content>
-              <ScrollPane fitToWidth="true">
-                 <content>
-                  <HBox id="statisticspane" fillHeight="false">
-                     <children>
-                             <VBox id="stats" minWidth="170.0" spacing="10.0" HBox.hgrow="ALWAYS">
-                                <children>
-                                    <Label id="header1" text="Statistics">
-                                        <VBox.margin>
-                                            <Insets />
-                                        </VBox.margin>
-                                    </Label>
-                                    <Label id="header2" text="Main stats">
-                                        <VBox.margin>
-                                            <Insets top="10.0" />
-                                        </VBox.margin>
-                                    </Label>
-                                    <HBox spacing="8.0">
-                                       <children>
-                                           <Label text="DJName:" />
-                                           <Label fx:id="djnameLabel" />
-                                       </children>
-                                    </HBox>
-                                    <HBox spacing="8.0">
-                                       <children>
-                                           <Label text="PlayerID:" />
-                                           <Label fx:id="playeridLabel" />
-                                       </children>
-                                    </HBox>
-                                    <HBox spacing="8.0">
-                                        <padding>
-                                            <Insets top="20.0" />
-                                        </padding>
-                                       <children>
-                                           <Label text="Full Combo:" />
-                                           <Label fx:id="fullcomboLabel" />
-                                       </children>
-                                    </HBox>
-                                    <HBox spacing="8.0">
-                                       <children>
-                                           <Label text="Ex Hard Clear:" />
-                                           <Label fx:id="exhardLabel" />
-                                       </children>
-                                    </HBox>
-                                    <HBox spacing="8.0">
-                                       <children>
-                                           <Label text="Hard Clear:" />
-                                           <Label fx:id="hardLabel" />
-                                       </children>
-                                    </HBox>
-                                    <HBox spacing="8.0">
-                                       <children>
-                                           <Label text="Clear:" />
-                                           <Label fx:id="clearLabel" />
-                                       </children>
-                                    </HBox>
-                                    <HBox spacing="8.0">
-                                       <children>
-                                           <Label text="Easy Clear:" />
-                                           <Label fx:id="easyclearLabel" />
-                                       </children>
-                                    </HBox>
-                                    <HBox spacing="8.0">
-                                       <children>
-                                           <Label text="Assist Clear:" />
-                                           <Label fx:id="assistclearLabel" />
-                                       </children>
-                                    </HBox>
-                                    <HBox spacing="8.0">
-                                       <children>
-                                           <Label text="Failed:" />
-                                           <Label fx:id="failLabel" />
-                                       </children>
-                                    </HBox>
-                                    <HBox spacing="8.0">
-                                       <children>
-                                           <Label text="No Play:" />
-                                           <Label fx:id="noplayLabel" />
-                                       </children>
-                                    </HBox>
-                                    <HBox spacing="8.0">
-                                        <padding>
-                                            <Insets top="20.0" />
-                                        </padding>
-                                       <children>
-                                           <Label text="Total clears:" />
-                                           <Label fx:id="totalclearLabel" />
-                                       </children>
-                                    </HBox>
-                                    <Label id="header2" text="Clear rate">
-                                 <padding>
-                                    <Insets top="20.0" />
-                                 </padding></Label>
-                                    <CheckBox fx:id="noPlayCheckBox" mnemonicParsing="false" onAction="#setPieNoPlay" selected="true" text="Show &quot;No Play&quot;" />
-                                    <Label id="header2" text="Completion by style">
-                                 <padding>
-                                    <Insets top="20.0" />
-                                 </padding></Label>
-                                    <CheckBox fx:id="styleDetailsCheckBox" mnemonicParsing="false" onAction="#setStyleBarChartDetails" text="Show details" />
-                                    <Label id="header2" text="Completion by level">
-                                 <padding>
-                                    <Insets top="20.0" />
-                                 </padding></Label>
-                                    <CheckBox fx:id="levelDetailsCheckBox" mnemonicParsing="false" onAction="#setLevelBarChartDetails" text="Show details" />
-                                </children>
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
-                           <padding>
-                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                           </padding>
-                             </VBox>
-                             <VBox spacing="10.0" HBox.hgrow="SOMETIMES">
-                                <children>
-                                    <HBox VBox.vgrow="ALWAYS">
-                                       <children>
-                                           <PieChart fx:id="clearPieChart" clockwise="false" labelLineLength="15.0" legendSide="LEFT" maxWidth="1.7976931348623157E308" prefWidth="800.0" title="Clear rate" HBox.hgrow="ALWAYS" />
-                                           <BarChart fx:id="gradeBarChart" barGap="0.0" categoryGap="4.0" legendVisible="false" maxWidth="1.7976931348623157E308" prefWidth="600.0" title="Grades" verticalGridLinesVisible="false" HBox.hgrow="ALWAYS">
-                                               <xAxis>
-                                                   <CategoryAxis />
-                                               </xAxis>
-                                               <yAxis>
-                                                   <NumberAxis minorTickCount="2" minorTickLength="4.0" side="LEFT" tickLabelGap="5.0" />
-                                               </yAxis>
-                                           </BarChart>
-                                       </children>
-                                    </HBox>
-                              <HBox>
-                                 <children>
-                                          <StackedBarChart fx:id="customStackedBarChart" alternativeColumnFillVisible="true" animated="false" categoryGap="4.0" prefHeight="400.0" title="Completion by style" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
-                                              <xAxis>
-                                                  <CategoryAxis side="BOTTOM" />
-                                              </xAxis>
-                                              <yAxis>
-                                                  <NumberAxis animated="false" autoRanging="false" label="Percent" minorTickCount="1" side="LEFT" />
-                                              </yAxis>
-                                          </StackedBarChart>
-                                 </children>
-                              </HBox>
-                              <HBox>
-                                 <children>
-                                          <StackedBarChart fx:id="levelStackedBarChart" alternativeColumnFillVisible="true" animated="false" categoryGap="4.0" prefHeight="350.0" title="Completion by level" HBox.hgrow="ALWAYS">
-                                              <xAxis>
-                                                  <CategoryAxis label="Level" side="BOTTOM" />
-                                              </xAxis>
-                                              <yAxis>
-                                                  <NumberAxis autoRanging="false" label="Percent" minorTickCount="1" side="LEFT" />
-                                              </yAxis>
-                                          </StackedBarChart>
-                                 </children>
-                              </HBox>
-                                </children>
-                           <padding>
-                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                           </padding>
-                             </VBox>
-                     </children>
-                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </padding>
-                  </HBox>
-                 </content>
-              </ScrollPane>
-          </content>
-       </Tab>
-       <Tab closable="false" text="Settings">
-          <content>
-              <VBox id="settingspane" spacing="20.0">
-                  <padding>
-                      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                  </padding>
-                 <children>
-                     <Label id="header1" text="Settings">
-                         <VBox.margin>
-                             <Insets />
-                         </VBox.margin>
-                     </Label>
-                     <HBox spacing="30.0">
-                        <children>
-                            <VBox spacing="10.0" HBox.hgrow="NEVER">
-                                <HBox.margin>
-                                    <Insets bottom="20.0" />
-                                </HBox.margin>
-                               <children>
-                                   <Label id="header2" text="Theme" />
-                                   <RadioButton fx:id="settingsRadioLight" mnemonicParsing="false" onAction="#setThemeLight" text="Light" />
-                                   <RadioButton fx:id="settingsRadioDark" mnemonicParsing="false" onAction="#setThemeDark" text="Dark" />
-                              <RadioButton fx:id="settingsRadioNanahira" mnemonicParsing="false" onAction="#setThemeNanahira" text="Nanahira" />
-                                   <CheckBox fx:id="settingsShowClearColorsCheckBox" mnemonicParsing="false" text="Show clear colors" />
-                                   <Label id="header2" text="Searchbar">
-                                       <padding>
-                                           <Insets top="20.0" />
-                                       </padding>
-                                   </Label>
-                                   <CheckBox fx:id="titleSuggestionsCheckBox" mnemonicParsing="false" text="Suggestions for titles" />
-                                   <CheckBox fx:id="artistSuggestionsCheckBox" mnemonicParsing="false" text="Suggestions for artists" />
-                                   <Label id="labelsmall" text="(changes need a restart to take effect)" />
-                                   <Label id="header2" text="Charts (by textage.cc)">
-                                       <padding>
-                                           <Insets top="20.0" />
-                                       </padding>
-                                   </Label>
-                                   <RadioButton fx:id="settingsP1" mnemonicParsing="false" onAction="#setP1" text="Player 1 side" />
-                                   <RadioButton fx:id="settingsP2" mnemonicParsing="false" onAction="#setP2" text="Player 2 side" />
-                               </children>
-                            </VBox>
+<?import javafx.scene.control.ToggleGroup?>
+<TabPane fx:id="tabPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="769.0" prefWidth="935.0" tabMinWidth="70.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gersonberger.MainController">
+    <Tab fx:id="songsTab" closable="false" text="Songs">
+        <ScrollPane fitToHeight="true" fitToWidth="true" VBox.vgrow="ALWAYS">
+            <VBox fx:id="mainBox">
+                <HBox alignment="CENTER" spacing="8.0">
+                    <padding>
+                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                    </padding>
+                    <Button fx:id="filterButton" alignment="CENTER" minHeight="25.0" minWidth="70.0" onAction="#hideFilters" prefWidth="70.0" text="Filter">
+                  <HBox.margin>
+                     <Insets />
+                  </HBox.margin></Button>
+                    <Label alignment="TOP_LEFT" minHeight="15.0" minWidth="89.0" text="Search songs:">
+                        <HBox.margin>
+                            <Insets />
+                        </HBox.margin>
+                    </Label>
+                    <TextField fx:id="filterField" maxHeight="300.0" minHeight="25.0" minWidth="100.0" prefWidth="300.0" HBox.hgrow="SOMETIMES">
+                        <HBox.margin>
+                            <Insets />
+                        </HBox.margin>
+                    </TextField>
+                    <Label fx:id="matchLabel" minHeight="15.0" minWidth="86.0" HBox.hgrow="ALWAYS">
+                        <HBox.margin>
+                            <Insets />
+                        </HBox.margin>
+                    </Label>
+               <Region HBox.hgrow="ALWAYS" />
+                </HBox>
+                <VBox id="filterpane" fx:id="filterBox" prefHeight="200.0" prefWidth="100.0">
+                    <VBox spacing="4.0">
+                        <padding>
+                            <Insets bottom="8.0" left="8.0" right="8.0" />
+                        </padding>
+                        <Label id="header2" text="Style:" />
+                        <HBox spacing="8.0">
+                            <CheckBox fx:id="checkStyleAll" onAction="#styleAll" prefHeight="36.0" selected="true" text="All" />
                             <Separator orientation="VERTICAL" prefHeight="200.0" />
-                            <VBox spacing="10.0" HBox.hgrow="NEVER">
-                                <HBox.margin>
-                                    <Insets bottom="20.0" />
-                                </HBox.margin>
-                               <children>
-                                   <Label id="header2" text="Songlist" />
-                                   <ComboBox fx:id="songlistComboBox" minWidth="200.0" />
-                                   <Label id="header2" text="Programmed sun">
-                                       <padding>
-                                           <Insets top="20.0" />
-                                       </padding>
-                                   </Label>
-                                   <Button alignment="CENTER" mnemonicParsing="false" onAction="#importData" prefWidth="120.0" text="Import data..." />
-                                   <Label id="header2" text="CSV export">
-                                       <padding>
-                                           <Insets top="20.0" />
-                                       </padding>
-                                   </Label>
-                                   <Button alignment="CENTER" mnemonicParsing="false" onAction="#export" prefWidth="120.0" text="Export to file..." />
-                               </children>
+                            <VBox spacing="4.0">
+                                <HBox spacing="8.0">
+                                    <VBox spacing="4.0">
+                                        <CheckBox fx:id="checkStyle1" onAction="#style1" text="1st Style" />
+                                        <CheckBox fx:id="checkStyle12" onAction="#style12" text="HAPPY SKY" />
+                                    </VBox>
+                                    <VBox spacing="4.0">
+                                        <CheckBox fx:id="checkStyleSub" onAction="#styleSub" text="Substream" />
+                                        <CheckBox fx:id="checkStyle13" onAction="#style13" text="DistorteD" />
+                                    </VBox>
+                                    <VBox spacing="4.0">
+                                        <CheckBox fx:id="checkStyle2" onAction="#style2" text="2nd Style" />
+                                        <CheckBox fx:id="checkStyle14" onAction="#style14" text="GOLD" />
+                                    </VBox>
+                                    <VBox spacing="4.0">
+                                        <CheckBox fx:id="checkStyle3" onAction="#style3" text="3rd Style" />
+                                        <CheckBox fx:id="checkStyle15" onAction="#style15" text="DJ TROOPERS" />
+                                    </VBox>
+                                    <VBox spacing="4.0">
+                                        <CheckBox fx:id="checkStyle4" onAction="#style4" text="4th Style" />
+                                        <CheckBox fx:id="checkStyle16" onAction="#style16" text="EMPRESS" />
+                                    </VBox>
+                                    <VBox spacing="4.0">
+                                        <CheckBox fx:id="checkStyle5" onAction="#style5" text="5th Style" />
+                                        <CheckBox fx:id="checkStyle17" onAction="#style17" text="SIRIUS" />
+                                    </VBox>
+                                    <VBox spacing="4.0">
+                                        <CheckBox fx:id="checkStyle6" onAction="#style6" text="6th Style" />
+                                        <CheckBox fx:id="checkStyle18" onAction="#style18" text="Resort Anthem" />
+                                    </VBox>
+                                    <VBox spacing="4.0">
+                                        <CheckBox fx:id="checkStyle7" onAction="#style7" text="7th Style" />
+                                        <CheckBox fx:id="checkStyle19" onAction="#style19" text="Lincle" />
+                                    </VBox>
+                                    <VBox spacing="4.0">
+                                        <CheckBox fx:id="checkStyle8" onAction="#style8" text="8th Style" />
+                                        <CheckBox fx:id="checkStyle20" onAction="#style20" text="tricoro" />
+                                    </VBox>
+                                    <VBox spacing="4.0">
+                                        <CheckBox fx:id="checkStyle9" onAction="#style9" text="9th Style" />
+                                        <CheckBox fx:id="checkStyle21" onAction="#style21" text="SPADA" />
+                                    </VBox>
+                                    <VBox spacing="4.0">
+                                        <CheckBox fx:id="checkStyle10" onAction="#style10" text="10th Style" />
+                                        <CheckBox fx:id="checkStyle22" onAction="#style22" text="PENDUAL" />
+                                    </VBox>
+                                    <VBox spacing="4.0">
+                                        <CheckBox fx:id="checkStyle11" onAction="#style11" text="IIDX Red" />
+                                        <CheckBox fx:id="checkStyle23" onAction="#style23" text="copula" />
+                                    </VBox>
+                                </HBox>
                             </VBox>
-                        </children>
-                     </HBox>
-                     <Separator prefWidth="200.0">
-                         <VBox.margin>
-                             <Insets top="-20.0" />
-                         </VBox.margin>
-                     </Separator>
-                     <HBox alignment="CENTER_LEFT" spacing="8.0">
-                         <VBox.margin>
-                             <Insets />
-                         </VBox.margin>
-                        <children>
-                            <Button alignment="CENTER" mnemonicParsing="false" onAction="#saveSettings" prefWidth="80.0" text="Save" />
-                            <Label fx:id="settingsSaveLabel" opacity="0.0" text="Saved successfully" />
-                        </children>
-                     </HBox>
-                     <Region VBox.vgrow="ALWAYS" />
-                     <TextFlow fx:id="settingsAboutFlow" />
-                 </children>
-              </VBox>
-          </content>
-       </Tab>
-   </tabs>
+                        </HBox>
+                        <Separator prefWidth="200.0" />
+                    </VBox>
+                    <VBox spacing="4.0">
+                        <padding>
+                            <Insets bottom="8.0" left="8.0" right="8.0" />
+                        </padding>
+                        <Label id="header2" text="Level:" />
+                        <HBox spacing="8.0">
+                            <CheckBox fx:id="checkLevelAll" onAction="#levelAll" selected="true" text="All" />
+                            <Separator orientation="VERTICAL" prefHeight="200.0" />
+                            <CheckBox fx:id="checkLevel1" onAction="#level1" text="1" />
+                            <CheckBox fx:id="checkLevel2" onAction="#level2" text="2" />
+                            <CheckBox fx:id="checkLevel3" onAction="#level3" text="3" />
+                            <CheckBox fx:id="checkLevel4" onAction="#level4" text="4" />
+                            <CheckBox fx:id="checkLevel5" onAction="#level5" text="5" />
+                            <CheckBox fx:id="checkLevel6" onAction="#level6" text="6" />
+                            <CheckBox fx:id="checkLevel7" onAction="#level7" text="7" />
+                            <CheckBox fx:id="checkLevel8" onAction="#level8" text="8" />
+                            <CheckBox fx:id="checkLevel9" onAction="#level9" text="9" />
+                            <CheckBox fx:id="checkLevel10" onAction="#level10" text="10" />
+                            <CheckBox fx:id="checkLevel11" onAction="#level11" text="11" />
+                            <CheckBox fx:id="checkLevel12" onAction="#level12" text="12" />
+                        </HBox>
+                        <Separator prefWidth="200.0" />
+                    </VBox>
+                    <VBox spacing="4.0">
+                        <padding>
+                            <Insets bottom="8.0" left="8.0" right="8.0" />
+                        </padding>
+                        <Label id="header2" text="Difficulty:" />
+                        <HBox spacing="8.0">
+                            <CheckBox fx:id="checkDiffAll" onAction="#diffAll" selected="true" text="All" />
+                            <Separator orientation="VERTICAL" prefHeight="200.0" />
+                            <CheckBox fx:id="checkDiffN" onAction="#difficultyNormal" text="Normal" />
+                            <CheckBox fx:id="checkDiffH" onAction="#difficultyHyper" text="Hyper" />
+                            <CheckBox fx:id="checkDiffA" onAction="#difficultyAnother" text="Another" />
+                            <CheckBox fx:id="checkDiffB" onAction="#difficultyBlack" text="Black Another" />
+                            <CheckBox fx:id="checkDiffL" onAction="#difficultyLeggendaria" text="Leggendaria" />
+                        </HBox>
+                        <Separator prefWidth="200.0" />
+                    </VBox>
+                    <VBox spacing="4.0">
+                        <padding>
+                            <Insets bottom="8.0" left="8.0" right="8.0" />
+                        </padding>
+                        <Label id="header2" text="Clear:" />
+                        <HBox spacing="8.0">
+                            <CheckBox fx:id="checkStatusAll" onAction="#statusAll" selected="true" text="All" />
+                            <Separator orientation="VERTICAL" prefHeight="200.0" />
+                            <CheckBox fx:id="checkStatusNoplay" onAction="#statusNoplay" text="No Play" />
+                            <CheckBox fx:id="checkStatusFailed" onAction="#statusFailed" text="Failed" />
+                            <CheckBox fx:id="checkStatusAssistclear" onAction="#statusAssistclear" text="Assist Clear" />
+                            <CheckBox fx:id="checkStatusEasyclear" onAction="#statusEasyclear" text="Easy Clear" />
+                            <CheckBox fx:id="checkStatusClear" onAction="#statusClear" text="Clear" />
+                            <CheckBox fx:id="checkStatusHardclear" onAction="#statusHardclear" text="Hard Clear" />
+                            <CheckBox fx:id="checkStatusExhardclear" onAction="#statusExhardclear" text="Ex Hard Clear" />
+                            <CheckBox fx:id="checkStatusFullcombo" onAction="#statusFullcombo" text="Full Combo" />
+                        </HBox>
+                    </VBox>
+                </VBox>
+                <TableView fx:id="tableView" tableMenuButtonVisible="true" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="styleColumn" prefWidth="81.0" text="Style" />
+                        <TableColumn fx:id="titleColumn" prefWidth="240.0" text="Title" />
+                        <TableColumn fx:id="artistColumn" prefWidth="170.0" text="Artist" />
+                        <TableColumn fx:id="genreColumn" prefWidth="125.0" text="Genre" />
+                        <TableColumn fx:id="difficultyColumn" prefWidth="88.0" text="Difficulty" />
+                        <TableColumn fx:id="levelColumn" prefWidth="59.0" text="Level" />
+                        <TableColumn fx:id="ratingNColumn" prefWidth="51.0" text="RN" />
+                        <TableColumn fx:id="ratingHColumn" prefWidth="51.0" text="RH" />
+                        <TableColumn fx:id="bpmColumn" prefWidth="58.0" style="-fx-alignment: CENTER;" text="BPM" />
+                        <TableColumn fx:id="lengthColumn" prefWidth="68.0" text="Length" />
+                        <TableColumn fx:id="notesColumn" prefWidth="59.0" text="Notes" />
+                        <TableColumn fx:id="scratchColumn" prefWidth="75.0" text="Scratch" />
+                        <TableColumn fx:id="statusColumn" prefWidth="90.0" style="-fx-alignment: CENTER;" text="Clear" />
+                        <TableColumn fx:id="gradeColumn" prefWidth="104.0" style="-fx-alignment: CENTER;" text="Grade" />
+                        <TableColumn fx:id="ex_scoreColumn" prefWidth="60" text="Ex" />
+                        <TableColumn fx:id="miss_countColumn" prefWidth="60.0" text="Miss" />
+                    </columns>
+                </TableView>
+            </VBox>
+        </ScrollPane>
+    </Tab>
+    <Tab fx:id="danCourseTab" closable="false" text="Dan course">
+        <ScrollPane fitToWidth="true">
+            <VBox id="danpane" fillWidth="false" spacing="20.0">
+                <padding>
+                    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                </padding>
+                <Label id="header1" text="Dan course" />
+                <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="10.0">
+                    <Label text="Style:" />
+                    <ComboBox fx:id="danStyleSelectBox" prefWidth="261.0">
+                        <VBox.margin>
+                            <Insets bottom="10.0" top="-10.0" />
+                        </VBox.margin>
+                    </ComboBox>
+                </HBox>
+                <HBox fillHeight="false" spacing="10.0">
+                    <VBox id="dan" fillWidth="false" minWidth="200.0" prefWidth="330.0" spacing="2.0">
+                        <Label id="header1" text="Kaiden">
+                            <VBox.margin>
+                                <Insets bottom="4.0" />
+                            </VBox.margin>
+                            <graphic>
+                                <ImageView fitHeight="32.0" fitWidth="60.0" pickOnBounds="true">
+                                    <Image url="@../img/dan/ec_12dan.png" />
+                                </ImageView>
+                            </graphic>
+                        </Label>
+                        <Label fx:id="kaiden1" />
+                        <Label fx:id="kaiden2" />
+                        <Label fx:id="kaiden3" />
+                        <Label fx:id="kaiden4" />
+                    </VBox>
+                    <VBox id="dan" fillWidth="false" minWidth="200.0" prefWidth="330.0" spacing="2.0">
+                        <Label id="header1" fx:id="chuudenLabel" text="Chuuden">
+                            <VBox.margin>
+                                <Insets bottom="4.0" />
+                            </VBox.margin>
+                            <graphic>
+                                <ImageView fx:id="chuudenImage" fitHeight="32.0" fitWidth="60.0" pickOnBounds="true">
+                                    <Image url="@../img/dan/ec_11dan.png" />
+                                </ImageView>
+                            </graphic>
+                        </Label>
+                        <Label fx:id="chuuden1" />
+                        <Label fx:id="chuuden2" />
+                        <Label fx:id="chuuden3" />
+                        <Label fx:id="chuuden4" />
+                    </VBox>
+                </HBox>
+                <HBox fillHeight="false" spacing="10.0">
+                    <VBox id="dan" fillWidth="false" minWidth="200.0" prefWidth="330.0" spacing="2.0">
+                        <Label id="header1" text="10th Dan">
+                            <VBox.margin>
+                                <Insets bottom="4.0" />
+                            </VBox.margin>
+                            <graphic>
+                                <ImageView fitHeight="32.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                                    <Image url="@../img/dan/ec_10dan.png" />
+                                </ImageView>
+                            </graphic>
+                        </Label>
+                        <Label fx:id="tenthdan1" />
+                        <Label fx:id="tenthdan2" />
+                        <Label fx:id="tenthdan3" />
+                        <Label fx:id="tenthdan4" />
+                    </VBox>
+                    <VBox id="dan" fillWidth="false" minWidth="200.0" prefWidth="330.0" spacing="2.0">
+                        <Label id="header1" text="9th Dan">
+                            <VBox.margin>
+                                <Insets bottom="4.0" />
+                            </VBox.margin>
+                            <graphic>
+                                <ImageView fitHeight="32.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                                    <Image url="@../img/dan/ec_9dan.png" />
+                                </ImageView>
+                            </graphic>
+                        </Label>
+                        <Label fx:id="ninthdan1" />
+                        <Label fx:id="ninthdan2" />
+                        <Label fx:id="ninthdan3" />
+                        <Label fx:id="ninthdan4" />
+                    </VBox>
+                    <VBox id="dan" fillWidth="false" minWidth="200.0" prefWidth="330.0" spacing="2.0">
+                        <Label id="header1" text="8th Dan">
+                            <VBox.margin>
+                                <Insets bottom="4.0" />
+                            </VBox.margin>
+                            <graphic>
+                                <ImageView fitHeight="32.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                                    <Image url="@../img/dan/ec_8dan.png" />
+                                </ImageView>
+                            </graphic>
+                        </Label>
+                        <Label fx:id="eighthdan1" />
+                        <Label fx:id="eighthdan2" />
+                        <Label fx:id="eighthdan3" />
+                        <Label fx:id="eighthdan4" />
+                    </VBox>
+                </HBox>
+                <HBox fillHeight="false" spacing="10.0">
+                    <VBox id="dan" fillWidth="false" minWidth="200.0" prefWidth="330.0" spacing="2.0">
+                        <Label id="header1" text="7th Dan">
+                            <VBox.margin>
+                                <Insets bottom="4.0" />
+                            </VBox.margin>
+                            <graphic>
+                                <ImageView fitHeight="32.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                                    <Image url="@../img/dan/ec_7dan.png" />
+                                </ImageView>
+                            </graphic>
+                        </Label>
+                        <Label fx:id="seventhdan1" />
+                        <Label fx:id="seventhdan2" />
+                        <Label fx:id="seventhdan3" />
+                        <Label fx:id="seventhdan4" />
+                    </VBox>
+                    <VBox id="dan" fillWidth="false" minWidth="200.0" prefWidth="330.0" spacing="2.0">
+                        <Label id="header1" text="6th Dan">
+                            <VBox.margin>
+                                <Insets bottom="4.0" />
+                            </VBox.margin>
+                            <graphic>
+                                <ImageView fitHeight="32.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                                    <Image url="@../img/dan/ec_6dan.png" />
+                                </ImageView>
+                            </graphic>
+                        </Label>
+                        <Label fx:id="sixthdan1" />
+                        <Label fx:id="sixthdan2" />
+                        <Label fx:id="sixthdan3" />
+                        <Label fx:id="sixthdan4" />
+                    </VBox>
+                    <VBox id="dan" fillWidth="false" minWidth="200.0" prefWidth="330.0" spacing="2.0">
+                        <Label id="header1" text="5th Dan">
+                            <VBox.margin>
+                                <Insets bottom="4.0" />
+                            </VBox.margin>
+                            <graphic>
+                                <ImageView fitHeight="32.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                                    <Image url="@../img/dan/ec_5dan.png" />
+                                </ImageView>
+                            </graphic>
+                        </Label>
+                        <Label fx:id="fifthdan1" />
+                        <Label fx:id="fifthdan2" />
+                        <Label fx:id="fifthdan3" />
+                        <Label fx:id="fifthdan4" />
+                    </VBox>
+                </HBox>
+                <HBox fillHeight="false" spacing="10.0">
+                    <VBox id="dan" fillWidth="false" minWidth="200.0" prefWidth="330.0" spacing="2.0">
+                        <Label id="header1" text="4th Dan">
+                            <VBox.margin>
+                                <Insets bottom="4.0" />
+                            </VBox.margin>
+                            <graphic>
+                                <ImageView fitHeight="32.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                                    <Image url="@../img/dan/ec_4dan.png" />
+                                </ImageView>
+                            </graphic>
+                        </Label>
+                        <Label fx:id="fourthdan1" />
+                        <Label fx:id="fourthdan2" />
+                        <Label fx:id="fourthdan3" />
+                        <Label fx:id="fourthdan4" />
+                    </VBox>
+                    <VBox id="dan" fillWidth="false" minWidth="200.0" prefWidth="330.0" spacing="2.0">
+                        <Label id="header1" text="3rd Dan">
+                            <VBox.margin>
+                                <Insets bottom="4.0" />
+                            </VBox.margin>
+                            <graphic>
+                                <ImageView fitHeight="32.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                                    <Image url="@../img/dan/ec_3dan.png" />
+                                </ImageView>
+                            </graphic>
+                        </Label>
+                        <Label fx:id="thirddan1" />
+                        <Label fx:id="thirddan2" />
+                        <Label fx:id="thirddan3" />
+                        <Label fx:id="thirddan4" />
+                    </VBox>
+                    <VBox id="dan" fillWidth="false" minWidth="200.0" prefWidth="330.0" spacing="2.0">
+                        <Label id="header1" text="2nd Dan">
+                            <VBox.margin>
+                                <Insets bottom="4.0" />
+                            </VBox.margin>
+                            <graphic>
+                                <ImageView fitHeight="32.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                                    <Image url="@../img/dan/ec_2dan.png" />
+                                </ImageView>
+                            </graphic>
+                        </Label>
+                        <Label fx:id="seconddan1" />
+                        <Label fx:id="seconddan2" />
+                        <Label fx:id="seconddan3" />
+                        <Label fx:id="seconddan4" />
+                    </VBox>
+                </HBox>
+                <VBox id="dan" fillWidth="false" minWidth="200.0" prefWidth="330.0" spacing="2.0">
+                    <Label id="header1" text="1st Dan">
+                        <VBox.margin>
+                            <Insets bottom="4.0" />
+                        </VBox.margin>
+                        <graphic>
+                            <ImageView fitHeight="32.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                                <Image url="@../img/dan/ec_syodan.png" />
+                            </ImageView>
+                        </graphic>
+                    </Label>
+                    <Label fx:id="firstdan1" />
+                    <Label fx:id="firstdan2" />
+                    <Label fx:id="firstdan3" />
+                    <Label fx:id="firstdan4" />
+                </VBox>
+                <HBox fillHeight="false" spacing="10.0">
+                    <VBox id="dan" fillWidth="false" minWidth="200.0" prefWidth="330.0" spacing="2.0">
+                        <Label id="header1" text="1st Kyu">
+                            <graphic>
+                                <ImageView fitHeight="32.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                                    <Image url="@../img/dan/ec_1kyu.png" />
+                                </ImageView>
+                            </graphic>
+                            <VBox.margin>
+                                <Insets bottom="4.0" />
+                            </VBox.margin>
+                        </Label>
+                        <Label fx:id="firstkyu1" />
+                        <Label fx:id="firstkyu2" />
+                        <Label fx:id="firstkyu3" />
+                        <Label fx:id="firstkyu4" />
+                    </VBox>
+                    <VBox id="dan" fillWidth="false" minWidth="200.0" prefWidth="330.0" spacing="2.0">
+                        <Label id="header1" text="2nd Kyu">
+                            <graphic>
+                                <ImageView fitHeight="32.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                                    <Image url="@../img/dan/ec_2kyu.png" />
+                                </ImageView>
+                            </graphic>
+                            <VBox.margin>
+                                <Insets bottom="4.0" />
+                            </VBox.margin>
+                        </Label>
+                        <Label fx:id="secondkyu1" />
+                        <Label fx:id="secondkyu2" />
+                        <Label fx:id="secondkyu3" />
+                        <Label fx:id="secondkyu4" />
+                    </VBox>
+                    <VBox id="dan" fillWidth="false" minWidth="200.0" prefWidth="330.0" spacing="2.0">
+                        <Label id="header1" text="3rd Kyu">
+                            <graphic>
+                                <ImageView fitHeight="32.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                                    <Image url="@../img/dan/ec_3kyu.png" />
+                                </ImageView>
+                            </graphic>
+                            <VBox.margin>
+                                <Insets bottom="4.0" />
+                            </VBox.margin>
+                        </Label>
+                        <Label fx:id="thirdkyu1" />
+                        <Label fx:id="thirdkyu2" />
+                        <Label fx:id="thirdkyu3" />
+                        <Label fx:id="thirdkyu4" />
+                    </VBox>
+                </HBox>
+                <HBox fillHeight="false" spacing="10.0">
+                    <VBox id="dan" fillWidth="false" minWidth="200.0" prefWidth="330.0" spacing="2.0">
+                        <Label id="header1" text="4th Kyu">
+                            <graphic>
+                                <ImageView fitHeight="32.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                                    <Image url="@../img/dan/ec_4kyu.png" />
+                                </ImageView>
+                            </graphic>
+                            <VBox.margin>
+                                <Insets bottom="4.0" />
+                            </VBox.margin>
+                        </Label>
+                        <Label fx:id="fourthkyu1" />
+                        <Label fx:id="fourthkyu2" />
+                        <Label fx:id="fourthkyu3" />
+                        <Label fx:id="fourthkyu4" />
+                    </VBox>
+                    <VBox id="dan" fillWidth="false" minWidth="200.0" prefWidth="330.0" spacing="2.0">
+                        <Label id="header1" text="5th Kyu">
+                            <graphic>
+                                <ImageView fitHeight="32.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                                    <Image url="@../img/dan/ec_5kyu.png" />
+                                </ImageView>
+                            </graphic>
+                            <VBox.margin>
+                                <Insets bottom="4.0" />
+                            </VBox.margin>
+                        </Label>
+                        <Label fx:id="fifthkyu1" />
+                        <Label fx:id="fifthkyu2" />
+                        <Label fx:id="fifthkyu3" />
+                        <Label fx:id="fifthkyu4" />
+                    </VBox>
+                    <VBox id="dan" fillWidth="false" minWidth="200.0" prefWidth="330.0" spacing="2.0">
+                        <Label id="header1" text="6th Kyu">
+                            <graphic>
+                                <ImageView fitHeight="32.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                                    <Image url="@../img/dan/ec_6kyu.png" />
+                                </ImageView>
+                            </graphic>
+                            <VBox.margin>
+                                <Insets bottom="4.0" />
+                            </VBox.margin>
+                        </Label>
+                        <Label fx:id="sixthkyu1" />
+                        <Label fx:id="sixthkyu2" />
+                        <Label fx:id="sixthkyu3" />
+                        <Label fx:id="sixthkyu4" />
+                    </VBox>
+                </HBox>
+                <VBox id="dan" fillWidth="false" minWidth="230.0" prefWidth="330.0" spacing="2.0">
+                    <Label id="header1" text="7th Kyu">
+                        <graphic>
+                            <ImageView fitHeight="32.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                                <Image url="@../img/dan/ec_7kyu.png" />
+                            </ImageView>
+                        </graphic>
+                        <VBox.margin>
+                            <Insets bottom="4.0" />
+                        </VBox.margin>
+                    </Label>
+                    <Label fx:id="seventhkyu1" />
+                    <Label fx:id="seventhkyu2" />
+                    <Label fx:id="seventhkyu3" />
+                    <Label fx:id="seventhkyu4" />
+                </VBox>
+            </VBox>
+        </ScrollPane>
+    </Tab>
+    <Tab fx:id="statisticsTab" closable="false" disable="true" text="Statistics">
+        <ScrollPane fitToWidth="true">
+            <HBox id="statisticspane" fillHeight="false">
+                <padding>
+                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                </padding>
+                <VBox id="stats" minWidth="210.0" spacing="10.0" HBox.hgrow="ALWAYS">
+                    <HBox.margin>
+                        <Insets />
+                    </HBox.margin>
+                    <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                    </padding>
+                    <Label id="header1" text="Statistics">
+                        <VBox.margin>
+                            <Insets />
+                        </VBox.margin>
+                    </Label>
+                    <Label id="header2" text="Main stats">
+                        <VBox.margin>
+                            <Insets top="10.0" />
+                        </VBox.margin>
+                    </Label>
+                    <GridPane>
+                        <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        </columnConstraints>
+                        <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="23.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="23.0" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="16.0" minHeight="16.0" prefHeight="16.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="23.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="23.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="23.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="23.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="23.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="23.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="23.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="23.0" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="16.0" minHeight="16.0" prefHeight="16.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="23.0" vgrow="SOMETIMES" />
+                        </rowConstraints>
+                        <Label text="Full Combo:" GridPane.rowIndex="3" />
+                        <Label fx:id="fullcomboLabel" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <Label text="Ex Hard Clear:" GridPane.rowIndex="4" />
+                        <Label fx:id="exhardLabel" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <Label text="Hard Clear:" GridPane.rowIndex="5" />
+                        <Label fx:id="hardLabel" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <Label text="Clear:" GridPane.rowIndex="6" />
+                        <Label fx:id="clearLabel" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                        <Label text="Easy Clear:" GridPane.rowIndex="7" />
+                        <Label fx:id="easyclearLabel" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                        <Label text="Assist Clear:" GridPane.rowIndex="8" />
+                        <Label fx:id="assistclearLabel" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                        <Label text="Failed:" GridPane.rowIndex="9" />
+                        <Label fx:id="failLabel" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                        <Label text="No Play:" GridPane.rowIndex="10" />
+                        <Label fx:id="noplayLabel" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+                        <Label text="Total clears:" GridPane.rowIndex="12">
+                            <GridPane.margin>
+                                <Insets />
+                            </GridPane.margin>
+                        </Label>
+                        <Label fx:id="totalclearedLabel" GridPane.columnIndex="1" GridPane.rowIndex="12" />
+                        <Label text="DJName:" />
+                        <Label fx:id="djnameLabel" GridPane.columnIndex="1" />
+                        <Label text="PlayerID:" GridPane.rowIndex="1" />
+                        <Label fx:id="playeridLabel" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                    </GridPane>
+                    <Label id="header2" text="Clear rate">
+                        <padding>
+                            <Insets top="20.0" />
+                        </padding>
+                    </Label>
+                    <CheckBox fx:id="noPlayCheckBox" onAction="#setPieNoPlay" selected="true" text="Show &quot;No Play&quot;" />
+                    <Label id="header2" text="Completion by style">
+                        <padding>
+                            <Insets top="20.0" />
+                        </padding>
+                    </Label>
+                    <CheckBox fx:id="styleDetailsCheckBox" onAction="#setStyleBarChartDetails" text="Show details" />
+                    <Label id="header2" text="Completion by level">
+                        <padding>
+                            <Insets top="20.0" />
+                        </padding>
+                    </Label>
+                    <CheckBox fx:id="levelDetailsCheckBox" onAction="#setLevelBarChartDetails" text="Show details" />
+                </VBox>
+                <HBox>
+                    <Separator orientation="VERTICAL" prefHeight="600.0" HBox.hgrow="ALWAYS" />
+                </HBox>
+                <VBox spacing="10.0" HBox.hgrow="SOMETIMES">
+                    <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                    </padding>
+                    <HBox VBox.vgrow="ALWAYS">
+                        <PieChart fx:id="statusPieChart" clockwise="false" labelLineLength="15.0" legendSide="LEFT" maxWidth="1.7976931348623157E308" prefWidth="800.0" title="Clear rate" HBox.hgrow="ALWAYS" />
+                        <BarChart fx:id="gradeBarChart" barGap="0.0" categoryGap="4.0" legendVisible="false" maxWidth="1.7976931348623157E308" prefWidth="600.0" title="Grades" verticalGridLinesVisible="false" HBox.hgrow="ALWAYS">
+                            <xAxis>
+                                <CategoryAxis />
+                            </xAxis>
+                            <yAxis>
+                                <NumberAxis minorTickCount="2" minorTickLength="4.0" side="LEFT" tickLabelGap="5.0" />
+                            </yAxis>
+                        </BarChart>
+                    </HBox>
+                    <HBox>
+                        <StackedBarChart fx:id="customStackedBarChart" alternativeColumnFillVisible="true" animated="false" categoryGap="4.0" prefHeight="400.0" title="Completion by style" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
+                            <xAxis>
+                                <CategoryAxis side="BOTTOM" />
+                            </xAxis>
+                            <yAxis>
+                                <NumberAxis animated="false" autoRanging="false" label="Percent" minorTickCount="1" side="LEFT" />
+                            </yAxis>
+                        </StackedBarChart>
+                    </HBox>
+                    <HBox>
+                        <StackedBarChart fx:id="levelStackedBarChart" alternativeColumnFillVisible="true" animated="false" categoryGap="4.0" prefHeight="350.0" title="Completion by level" HBox.hgrow="ALWAYS">
+                            <xAxis>
+                                <CategoryAxis label="Level" side="BOTTOM" />
+                            </xAxis>
+                            <yAxis>
+                                <NumberAxis autoRanging="false" label="Percent" minorTickCount="1" side="LEFT" />
+                            </yAxis>
+                        </StackedBarChart>
+                    </HBox>
+                </VBox>
+            </HBox>
+        </ScrollPane>
+    </Tab>
+    <Tab fx:id="settingsTab" closable="false" text="Settings">
+        <VBox id="settingspane" spacing="20.0">
+            <padding>
+                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+            </padding>
+            <Label id="header1" text="Settings">
+                <VBox.margin>
+                    <Insets />
+                </VBox.margin>
+            </Label>
+            <HBox spacing="30.0">
+                <VBox spacing="10.0" HBox.hgrow="NEVER">
+                    <HBox.margin>
+                        <Insets bottom="20.0" />
+                    </HBox.margin>
+                    <Label id="header2" fx:id="settingsThemeLabel" text="Theme" />
+                    <RadioButton fx:id="settingsThemeLightRadioButton" onAction="#setThemeLight" text="Light" />
+                    <RadioButton fx:id="settingsThemeDarkRadioButton" onAction="#setThemeDark" text="Dark" />
+                    <RadioButton fx:id="settingsThemeNanahiraRadioButton" onAction="#setThemeNanahira" text="Nanahira" />
+                    <CheckBox fx:id="settingsStatusColorsCheckBox" text="Show grade colors" />
+                    <Label id="header2" fx:id="settingsSearchbarLabel" text="Searchbar">
+                        <padding>
+                            <Insets top="20.0" />
+                        </padding>
+                    </Label>
+                    <Label id="labelsmall" text="Changes need a restart to take effect" wrapText="true" />
+                    <CheckBox fx:id="settingsTitleSuggestionsCheckBox" text="Suggestions for titles" />
+                    <CheckBox fx:id="settingsArtistSuggestionsCheckBox" text="Suggestions for artists" />
+                    <Label id="header2" fx:id="settingsChartsLabel" text="Charts (via textage.cc)">
+                        <padding>
+                            <Insets top="20.0" />
+                        </padding>
+                    </Label>
+                    <RadioButton fx:id="settingsP1RadioButton" onAction="#setP1" text="Player 1 side" />
+                    <RadioButton fx:id="settingsP2RadioButton" onAction="#setP2" text="Player 2 side" />
+                    <Label id="header2" fx:id="settingsHSLabel" text="Hi-Speed">
+                        <padding>
+                            <Insets top="10.0" />
+                        </padding>
+                    </Label>
+                    <SegmentedButton fx:id="settingsHSSegmentedButton">
+                        <buttons>
+                            <fx:define>
+                                <ToggleGroup fx:id="settingsHSGroup" />
+                            </fx:define>
+                            <ToggleButton fx:id="settingsHS0ToggleButton" text="HS 0" />
+                            <ToggleButton fx:id="settingsHS1ToggleButton" text="HS 1" />
+                            <ToggleButton fx:id="settingsHS2ToggleButton" text="HS 2" />
+                            <ToggleButton fx:id="settingsHS3ToggleButton" text="HS 3" />
+                        </buttons>
+                        <padding>
+                            <Insets bottom="10.0" />
+                        </padding>
+                    </SegmentedButton>
+                    <CheckBox fx:id="settingsBattleCheckBox" text="Battle" />
+                    <CheckBox fx:id="settingsSlimCheckBox" text="Slim" />
+                    <CheckBox fx:id="settingsBWCheckBox" text="Black &amp; White" />
+                </VBox>
+                <Separator orientation="VERTICAL" prefHeight="200.0" />
+                <VBox spacing="10.0" HBox.hgrow="NEVER">
+                    <HBox.margin>
+                        <Insets bottom="20.0" />
+                    </HBox.margin>
+                    <Label id="header2" fx:id="settingsSonglistLabel" text="Songlist" />
+                    <ComboBox fx:id="settingsSonglistComboBox" minWidth="200.0" />
+                    <Label id="header2" fx:id="settingsExportLabel" text="CSV export">
+                        <padding>
+                            <Insets top="20.0" />
+                        </padding>
+                    </Label>
+                    <Button alignment="CENTER" onAction="#export" prefWidth="140.0" text="Export to file..." />
+                </VBox>
+            </HBox>
+            <Separator prefWidth="200.0">
+                <VBox.margin>
+                    <Insets top="-20.0" />
+                </VBox.margin>
+            </Separator>
+            <HBox alignment="CENTER_LEFT" spacing="8.0">
+                <VBox.margin>
+                    <Insets />
+                </VBox.margin>
+                <Button fx:id="settingsSaveButton" alignment="CENTER" onAction="#saveSettings" prefWidth="80.0" text="Save" />
+                <Label fx:id="settingsSaveLabel" opacity="0.0" text="Saved successfully" />
+            </HBox>
+            <Region VBox.vgrow="ALWAYS" />
+            <TextFlow fx:id="settingsAboutFlow" />
+        </VBox>
+    </Tab>
 </TabPane>

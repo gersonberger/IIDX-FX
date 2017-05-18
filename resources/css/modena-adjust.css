@@ -2,6 +2,21 @@
     -fx-font-family: "Verdana";
 }
 
+.label {
+    -fx-graphic-text-gap: 10px;
+}
+
+.popover > .border {
+    -fx-stroke: black;
+    -fx-stroke-width: .5;
+    -fx-fill: rgba(255, 255, 255, .9);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, .4), 15, .4, 0, 0);
+}
+
+.table-view .column-header .label{
+    -fx-text-fill: black;
+}
+
 #header1 {
     -fx-font-size: 18px;
     -fx-font-weight: bold;

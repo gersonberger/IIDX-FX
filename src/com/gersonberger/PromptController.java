@@ -14,8 +14,8 @@ import java.util.ResourceBundle;
 
 public class PromptController implements Initializable {
 
-    public static final int SUCCESS = 1;
-    public static final int ABORT = -1;
+    static final int SUCCESS = 1;
+    static final int ABORT = -1;
 
     @FXML
     private Label promptLabel;
@@ -52,11 +52,11 @@ public class PromptController implements Initializable {
         });
     }
 
-    public int getStatus() {
+    int getStatus() {
         return status;
     }
 
-    public String getValue() {
+    String getValue() {
         return promptTextField.getText();
     }
 

@@ -2,6 +2,9 @@ package com.gersonberger;
 
 import javafx.beans.property.*;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 
 public class SongEntry {
 
@@ -20,19 +23,24 @@ public class SongEntry {
     private final StringProperty bpm = new SimpleStringProperty(this, "Bpm");
     private final StringProperty length = new SimpleStringProperty(this, "Length");
     private final StringProperty notes = new SimpleStringProperty(this, "Notes");
-    private final StringProperty clear = new SimpleStringProperty(this, "Clear");
+    private final StringProperty scratch = new SimpleStringProperty(this, "Scratch");
+    private final StringProperty status = new SimpleStringProperty(this, "Status");
     private final StringProperty grade = new SimpleStringProperty(this, "Grade");
-    private final StringProperty miss = new SimpleStringProperty(this, "Miss");
-    private final StringProperty ex = new SimpleStringProperty(this, "Ex");
+    private final StringProperty miss_count = new SimpleStringProperty(this, "Miss_count");
+    private final StringProperty ex_score = new SimpleStringProperty(this, "Ex_score");
 
     private int id;
+    private String arcanaMusicId;
+    private String arcanaChartId;
+
     private String textage;
+    private int scratchRaw;
+    private int omnimix;
+
 
     public SongEntry(int id, int style, String title, String title_r, String artist, String artist_r, String genre,
-                     String difficulty, int level, int nRating, int hRating, int bpmMin, int bpmMax, int length,
-                     int notes, int clear, String grade, int miss, int ex, String textage){
-        if (title.contains("[COMMA]")) title = title.replace("[COMMA]", ",");
-        if (artist.contains("[COMMA]")) artist = artist.replace("[COMMA]", ",");
+                     int difficulty, int level, int nRating, int hRating, int bpmMin, int bpmMax, int length,
+                     int notes, int scratch, int status, String grade, int miss_count, int ex_score, String textage, int omnimix) {
         this.id = id;
         this.style.set(Style.styleToString(style));
         this.title.set(title);
@@ -40,21 +48,77 @@ public class SongEntry {
         this.artist.set(artist);
         this.artist_r.set(artist_r);
         this.genre.set(genre);
-        this.difficulty.set(difficulty);
+        this.difficulty.set(Difficulty.difficultyToString(difficulty));
         this.level.set(String.valueOf(level));
         this.nRating_s.set(formatRating(level, nRating));
         this.nRating.set(nRating);
         this.hRating_s.set(formatRating(level, hRating));
         this.hRating.set(hRating);
-        if (bpmMax == 0) this.bpm.set(String.valueOf(bpmMin));
+        if (bpmMin == bpmMax) this.bpm.set(String.valueOf(bpmMin));
         else this.bpm.set(bpmMin + "-" + bpmMax);
         this.length.set(formatLength(length));
         this.notes.set(String.valueOf(notes));
-        this.clear.set(Clear.clearToString(clear));
+        this.status.set(Status.statusToString(status));
         this.grade.set(grade);
-        this.miss.set(miss == -2 ? "" : miss == -1 ? "N/A" : String.valueOf(miss));
-        this.ex.set(ex == 0 ? "" : String.valueOf(ex));
+        this.miss_count.set(miss_count == -2 ? "" : miss_count == -1 ? "N/A" : String.valueOf(miss_count));
+        this.ex_score.set(ex_score == 0 ? "" : String.valueOf(ex_score));
+        this.scratchRaw = scratch;
+        if (scratch == -1) this.scratch.set("N/A");
+        else {
+            String scr = String.valueOf(round(100d * scratch / notes, 2));
+            if (scr.split("\\.")[1].length() < 2) scr += "0%";
+            else scr += "%";
+            this.scratch.set(scr);
+        }
         this.textage = textage;
+        this.omnimix = omnimix;
+    }
+
+    public SongEntry(int id, int style, String title, String title_r, String artist, String artist_r, String genre,
+                     int difficulty, int level, int nRating, int hRating, int bpmMin, int bpmMax, int length,
+                     int notes, int scratch, int status, String grade, int miss_count, int ex_score, String textage, int omnimix, String arcanaMusicId) {
+        this.id = id;
+        this.style.set(Style.styleToString(style));
+        this.title.set(title);
+        this.title_r.set(title_r);
+        this.artist.set(artist);
+        this.artist_r.set(artist_r);
+        this.genre.set(genre);
+        this.difficulty.set(Difficulty.difficultyToString(difficulty));
+        this.level.set(String.valueOf(level));
+        this.nRating_s.set(formatRating(level, nRating));
+        this.nRating.set(nRating);
+        this.hRating_s.set(formatRating(level, hRating));
+        this.hRating.set(hRating);
+        if (bpmMin == bpmMax) this.bpm.set(String.valueOf(bpmMin));
+        else this.bpm.set(bpmMin + "-" + bpmMax);
+        this.length.set(formatLength(length));
+        this.notes.set(String.valueOf(notes));
+        this.status.set(Status.statusToString(status));
+        this.grade.set(grade);
+        this.miss_count.set(miss_count == -2 ? "" : miss_count == -1 ? "N/A" : String.valueOf(miss_count));
+        this.ex_score.set(ex_score == 0 ? "" : String.valueOf(ex_score));
+        this.scratchRaw = scratch;
+        if (scratch == -1) this.scratch.set("N/A");
+        else {
+            String scr = String.valueOf(round(100d * scratch / notes, 2));
+            if (scr.split("\\.")[1].length() < 2) scr += "0%";
+            else scr += "%";
+            this.scratch.set(scr);
+        }
+        this.textage = textage;
+        this.omnimix = omnimix;
+        this.arcanaMusicId = arcanaMusicId;
+    }
+
+    private double round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+        if (Double.isNaN(value)) {
+            return 0.0;
+        }
+        BigDecimal bd = new BigDecimal(value);
+        bd = bd.setScale(places, RoundingMode.HALF_UP);
+        return bd.doubleValue();
     }
 
     private String formatLength(int length){
@@ -260,16 +324,16 @@ public class SongEntry {
         this.notes.set(notes);
     }
 
-    public String getClear() {
-        return clear.get();
+    public String getStatus() {
+        return status.get();
     }
 
-    public StringProperty clearProperty() {
-        return clear;
+    public StringProperty statusProperty() {
+        return status;
     }
 
-    public void setClear(String clear) {
-        this.clear.set(clear);
+    public void setStatus(String status) {
+        this.status.set(status);
     }
 
     public String getGrade() {
@@ -284,32 +348,65 @@ public class SongEntry {
         this.grade.set(grade);
     }
 
-    public String getMiss() {
-        return miss.get();
+    public String getMiss_count() {
+        return miss_count.get();
     }
 
-    public StringProperty missProperty() {
-        return miss;
+    public StringProperty miss_countProperty() {
+        return miss_count;
     }
 
-    public void setMiss(String miss) {
-        this.miss.set(miss);
+    public void setMiss_count(String miss_count) {
+        this.miss_count.set(miss_count);
     }
 
-    public String getEx() {
-        return ex.get();
+    public String getEx_score() {
+        return ex_score.get();
     }
 
-    public StringProperty exProperty() {
-        return ex;
+    public StringProperty ex_scoreProperty() {
+        return ex_score;
     }
 
-    public void setEx(String ex) {
-        this.ex.set(ex);
+    public void setEx_score(String ex_score) {
+        this.ex_score.set(ex_score);
     }
+
+    public String getScratch() {
+        return scratch.get();
+    }
+
+    public StringProperty scratchProperty() {
+        return scratch;
+    }
+
+    public void setScratch(String scratch) {
+        this.scratch.set(scratch);
+    }
+
+    public int getScratchRaw() { return scratchRaw; }
 
     public String getTextage() {
         return textage;
     }
 
+    public int getOmnimix() {
+        return omnimix;
+    }
+
+    public String getArcanaMusicId() {
+        return arcanaMusicId;
+    }
+
+    public void setArcanaMusicId(String arcanaMusicId) {
+        this.arcanaMusicId = arcanaMusicId;
+    }
+
+    public String getArcanaChartId() {
+        return arcanaChartId;
+    }
+
+    public void setArcanaChartId(String arcanaChartId) {
+        this.arcanaChartId = arcanaChartId;
+    }
 }

@@ -16,101 +16,127 @@ import java.util.Properties;
 
 public class Main extends Application {
 
-    public static final long startuptime = System.currentTimeMillis();
+    private static final long startuptime = System.currentTimeMillis();
 
-    public static final String PROGRAMNAME = "IIDX-FX";
-    public static final String PROGRAMVERSION = "1.3";
-    public static final String PROGRAMDATE = "2016-03-07";
+    static final String PROGRAMNAME = "IIDX-FX";
+    static final String PROGRAMVERSION = ProgramVersion.MAJOR_1_MINOR_4;
+    static final String PROGRAMDATE = "2017-05-18";
 
-    public static String LOCALDIR;
-    public static String SEPARATOR;
+    static String LOCALDIR;
+    static String SEPARATOR;
 
-    public static final String SCOREFILENAME = "scores.txt";
-    private static final String PROPERTYFILENAME = "set.properties";
+    static final String FILENAMEMUSICFILE = "music.json";
+    static final String FILENAMECHARTSFILE = "charts.json";
+    static final String FILENAMESCOREFILE = "scores.json";
+    private static final String FILENAMESCOREFILEOLD = "scores.txt";
+    private static final String FILENAMEPROPERTYFILE = "set.properties";
+
+    static final String FILENAMETHEMELIGHT = "modena-adjust.css";
+    static final String FILENAMETHEMEDARK = "dark.css";
+    static final String FILENAMETHEMENANAHIRA = "nanahira.css";
+    static final String FILENAMESTATUSCOLORS = "status.css";
+
+    private static final String PROPERTYNAMEVERSION = "version";
 
     private static final String PROPERTYNAMETHEME = "theme";
-    private static final String PROPERTYNAMECLEARCOLORS = "show_clearcolors";
-    private static final String PROPERTYNAMEPLAYERSIDE = "playerside";
-    private static final String PROPERTYNAMEDJNAME = "djname";
-    private static final String PROPERTYNAMEPLAYERID = "playerid";
-    private static final String PROPERTYNAMESONGLIST = "songlist";
-
-    public static final String PROPERTYNAMESTYLECOL = "stylecolumn_visible";
-    public static final String PROPERTYNAMETITLECOL = "titlecolumn_visible";
-    public static final String PROPERTYNAMEARTISTCOL = "artistcolumn_visible";
-    public static final String PROPERTYNAMEGENRECOL = "genrecolumn_visible";
-    public static final String PROPERTYNAMEDIFFICULTYCOL = "difficultycolumn_visible";
-    public static final String PROPERTYNAMELEVELCOL = "levelcolumn_visible";
-    public static final String PROPERTYNAMERATINGNCOL = "rncolumn_visible";
-    public static final String PROPERTYNAMERATINGHCOL = "rhcolumn_visible";
-    public static final String PROPERTYNAMEBPMCOL = "bpmcolumn_visible";
-    public static final String PROPERTYNAMELENGTHCOL = "lengthcolumn_visible";
-    public static final String PROPERTYNAMENOTESCOL = "notescolumn_visible";
-    public static final String PROPERTYNAMECLEARCOL = "clearcolumn_visible";
-    public static final String PROPERTYNAMEGRADECOL = "gradecolumn_visible";
-    public static final String PROPERTYNAMEEXCOL = "excolumn_visible";
-    public static final String PROPERTYNAMEMISSCOL = "misscolumn_visible";
-
+    private static final String PROPERTYNAMESTATUSCOLORS = "show_statuscolors";
     private static final String PROPERTYNAMETITLESUGGESTIONS = "show_titlesuggestions";
     private static final String PROPERTYNAMEARTISTSUGGESTIONS = "show_artistsuggestions";
+    private static final String PROPERTYNAMEPLAYERSIDE = "playerside";
+    private static final String PROPERTYNAMEHIGHSPEED = "highspeed";
+    private static final String PROPERTYNAMEBATTLE = "battle";
+    private static final String PROPERTYNAMESLIM = "slim";
+    private static final String PROPERTYNAMEBLACKWHITE = "blackwhite";
+    private static final String PROPERTYNAMESONGLIST = "songlist";
 
-    public static boolean showTitleSuggestions;
-    public static boolean showArtistSuggestions;
+    private static final String PROPERTYNAMEDJNAME = "dj_name";
+    private static final String PROPERTYNAMEPLAYERID = "iidx_id";
 
-    public static String programTheme;
-    public static final String THEMELIGHT = "light";
-    public static final String THEMEDARK = "dark";
-    public static final String THEMENANAHIRA = "nanahira";
+    static final String PROPERTYNAMESTYLECOL = "stylecolumn_visible";
+    static final String PROPERTYNAMETITLECOL = "titlecolumn_visible";
+    static final String PROPERTYNAMEARTISTCOL = "artistcolumn_visible";
+    static final String PROPERTYNAMEGENRECOL = "genrecolumn_visible";
+    static final String PROPERTYNAMEDIFFICULTYCOL = "difficultycolumn_visible";
+    static final String PROPERTYNAMELEVELCOL = "levelcolumn_visible";
+    static final String PROPERTYNAMERATINGNCOL = "rncolumn_visible";
+    static final String PROPERTYNAMERATINGHCOL = "rhcolumn_visible";
+    static final String PROPERTYNAMEBPMCOL = "bpmcolumn_visible";
+    static final String PROPERTYNAMELENGTHCOL = "lengthcolumn_visible";
+    static final String PROPERTYNAMENOTESCOL = "notescolumn_visible";
+    static final String PROPERTYNAMESTATUSCOL = "statuscolumn_visible";
+    static final String PROPERTYNAMEGRADECOL = "gradecolumn_visible";
+    static final String PROPERTYNAMEEXCOL = "excolumn_visible";
+    static final String PROPERTYNAMEMISS_COUNTCOL = "misscolumn_visible";
+    static final String PROPERTYNAMESCRATCHCOL = "scratchcolumn_visible";
 
-    public static final String FILENAMETHEMELIGHT = "modena-adjust.css";
-    public static final String FILENAMETHEMEDARK = "dark.css";
-    public static final String FILENAMETHEMENANAHIRA = "nanahira.css";
-    public static final String FILENAMECLEARCOLORS = "clear.css";
+    private static String version;
 
-    public static boolean programClearColor;
-    public static String programPlayerside;
-    public static String djname;
-    public static String playerid;
-    public static String songlist;
+    private static int os;
+    static final int WINDOWS = 1;
+    private static final int LINUX = 2;
+    private static final int MAC = 3;
+    private static final int UNKNOWN = -1;
 
-    public static int os;
-    public static final int WINDOWS = 1;
-    public static final int LINUX = 2;
-    public static final int MAC = 3;
-    public static final int UNKNOWN = 0;
+    static String programTheme;
 
     private static File scoreFile;
     private static File propFile = null;
+    static final String THEMELIGHT = "light";
+    static final String THEMEDARK = "dark";
+    static final String THEMENANAHIRA = "nanahira";
+
+    static boolean statusColor;
+    static boolean showTitleSuggestions;
+    static boolean showArtistSuggestions;
+    static String playerside;
+    static String highspeed;
+    static boolean battle;
+    static boolean slim;
+    static boolean blackwhite;
+    static String songlist;
+    static String djname;
+    static String playerid;
 
     @Override
     public void start(Stage primaryStage) throws IOException {
+
+        log(Module.INITIALIZE, "OS:  " + System.getProperty("os.name"));
+        log(Module.INITIALIZE, "VER: " + System.getProperty("os.version"));
+        log(Module.INITIALIZE, "ARC: " + System.getProperty("os.arch"));
+        log(Module.INITIALIZE, "USR: " + System.getProperty("user.name"));
+        log(Module.INITIALIZE, "HOM: " + System.getProperty("user.home"));
+        log(Module.INITIALIZE, "SEP: " + System.getProperty("file.separator"));
+        log(Module.INITIALIZE, "JAV: " + System.getProperty("java.version") + "\n");
+
         os = determineOS(System.getProperty("os.name"));
         initDir();
         initProperties();
         findScoreFile();
 
+        //maybe localization?
         Locale.setDefault(Locale.ENGLISH);
 
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/main.fxml"));
         primaryStage.getIcons().add(new Image(getClass().getResource("/img/icon32.png").toString()));
         primaryStage.getIcons().add(new Image(getClass().getResource("/img/icon256.png").toString()));
-        primaryStage.setTitle(PROGRAMNAME);
+        primaryStage.setTitle(PROGRAMNAME + " " + PROGRAMVERSION);
+
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.setWidth(1400);
         primaryStage.setHeight(846);
         primaryStage.show();
-        System.out.println("\n" + getTime() + " Application loaded (took " + (System.currentTimeMillis() - Main.startuptime) + "ms)\n");
+        Main.log(Module.INITIALIZE,"done initializing (loading time: " + (System.currentTimeMillis() - Main.startuptime) + "ms)\n");
     }
 
     public static void main(String[] args) {
         launch(args);
     }
 
-    public static String getTime() {
+    static void log(String module, String msg) {
         Date date = new Date(System.currentTimeMillis());
         DateFormat formatter = new SimpleDateFormat("HH:mm:ss:SSS");
-        return formatter.format(date);
+        System.out.println(formatter.format(date) + " [" + module.substring(0,4) + "] " + msg);
     }
 
     private int determineOS(String osName) {
@@ -142,65 +168,114 @@ public class Main extends Application {
         File folder = new File(LOCALDIR);
         if (!folder.exists()) {
             if (!folder.mkdir()) {
-                System.err.println(getTime() + " Could not create folder " + folder.getPath());
+                log(Module.INITIALIZE, "ERROR could not create folder " + folder.getPath());
                 System.exit(-1);
             }
         }
     }
 
-    public static void findScoreFile() {
-        File ScoreFile = new File(LOCALDIR + SEPARATOR + SCOREFILENAME);
+    static void findScoreFile() {
+        File ScoreFile = new File(LOCALDIR + SEPARATOR + FILENAMESCOREFILE);
         if (!ScoreFile.exists()) scoreFile = null;
         else scoreFile = ScoreFile;
     }
 
     private void initProperties() throws IOException {
-        propFile = new File(LOCALDIR + SEPARATOR + PROPERTYFILENAME);
+        propFile = new File(LOCALDIR + SEPARATOR + FILENAMEPROPERTYFILE);
         if (!propFile.exists()) {
             FileOutputStream fileOutputStream = new FileOutputStream(propFile.getPath());
             Properties properties = new Properties();
+            properties.setProperty(PROPERTYNAMEVERSION, PROGRAMVERSION);
             properties.setProperty(PROPERTYNAMETHEME, THEMELIGHT);
-            properties.setProperty(PROPERTYNAMECLEARCOLORS, String.valueOf(false));
+            properties.setProperty(PROPERTYNAMESTATUSCOLORS, String.valueOf(false));
+            properties.setProperty(PROPERTYNAMETITLESUGGESTIONS, String.valueOf(false));
+            properties.setProperty(PROPERTYNAMEARTISTSUGGESTIONS, String.valueOf(true));
             properties.setProperty(PROPERTYNAMEPLAYERSIDE, "1");
+            properties.setProperty(PROPERTYNAMEBATTLE, String.valueOf(false));
+            properties.setProperty(PROPERTYNAMESLIM, String.valueOf(false));
+            properties.setProperty(PROPERTYNAMEBLACKWHITE, String.valueOf(false));
+            properties.setProperty(PROPERTYNAMEHIGHSPEED, String.valueOf("1"));
+            properties.setProperty(PROPERTYNAMEDJNAME, String.valueOf(""));
+            properties.setProperty(PROPERTYNAMEPLAYERID, String.valueOf(""));
+            properties.setProperty(PROPERTYNAMESONGLIST, Style.OMNIMIX);
+
             properties.store(fileOutputStream, null);
             fileOutputStream.close();
+            setProperties_Default();
 
-            //default values
-            programTheme = THEMELIGHT;
-            showTitleSuggestions = false;
-            showArtistSuggestions = true;
-            programClearColor = false;
-            programPlayerside = "1";
-            djname = "";
-            playerid = "";
-            songlist = Style.OMNIMIX;
         } else {
             FileInputStream fileInputStream = new FileInputStream(propFile.getPath());
             Properties properties = new Properties();
             properties.load(fileInputStream);
-            programTheme = properties.getProperty(PROPERTYNAMETHEME, THEMELIGHT);
-            programClearColor = Boolean.valueOf(properties.getProperty(PROPERTYNAMECLEARCOLORS));
-            programPlayerside = properties.getProperty(PROPERTYNAMEPLAYERSIDE, "1");
-            showTitleSuggestions = Boolean.valueOf(properties.getProperty(PROPERTYNAMETITLESUGGESTIONS, "false"));
-            showArtistSuggestions = Boolean.valueOf(properties.getProperty(PROPERTYNAMEARTISTSUGGESTIONS, "true"));
-            djname = properties.getProperty(PROPERTYNAMEDJNAME, "");
-            playerid = properties.getProperty(PROPERTYNAMEPLAYERID, "");
-            songlist = properties.getProperty(PROPERTYNAMESONGLIST, Style.OMNIMIX);
-
             fileInputStream.close();
-        }
 
+            //handle different property versions
+            version = properties.getProperty(PROPERTYNAMEVERSION, ProgramVersion.OLDVERSION);
+
+            //version 1.4
+            if (version.equals(ProgramVersion.MAJOR_1_MINOR_4)) {
+                programTheme = properties.getProperty(PROPERTYNAMETHEME, THEMELIGHT);
+                statusColor = Boolean.valueOf(properties.getProperty(PROPERTYNAMESTATUSCOLORS, "false"));
+                showTitleSuggestions = Boolean.valueOf(properties.getProperty(PROPERTYNAMETITLESUGGESTIONS, "false"));
+                showArtistSuggestions = Boolean.valueOf(properties.getProperty(PROPERTYNAMEARTISTSUGGESTIONS, "true"));
+                playerside = properties.getProperty(PROPERTYNAMEPLAYERSIDE, "1");
+                battle = Boolean.valueOf(properties.getProperty(PROPERTYNAMEBATTLE, "false"));
+                slim = Boolean.valueOf(properties.getProperty(PROPERTYNAMESLIM, "false"));
+                blackwhite = Boolean.valueOf(properties.getProperty(PROPERTYNAMEBLACKWHITE, "false"));
+                highspeed = properties.getProperty(PROPERTYNAMEHIGHSPEED, "1");
+                djname = properties.getProperty(PROPERTYNAMEDJNAME, "");
+                playerid = properties.getProperty(PROPERTYNAMEPLAYERID, "");
+                songlist = properties.getProperty(PROPERTYNAMESONGLIST, Style.OMNIMIX);
+            }
+
+            //versions 1.0, 1.1, 1.1.1, 1.2, 1.2a, 1.2b, 1.3
+            else {
+                log(Module.INITIALIZE, "old settings detected, updating to new default settings");
+                properties.clear();
+                File ScoreFile = new File(LOCALDIR + SEPARATOR + FILENAMESCOREFILEOLD);
+                if (ScoreFile.exists()) {
+                    ScoreFile.delete();
+                }
+                setProperties_Default();
+            }
+        }
     }
 
-    public static void setProperties(boolean[] columnVisibility){
+    private void setProperties_Default() {
+        version = PROGRAMVERSION;
+        programTheme = THEMELIGHT;
+        statusColor = false;
+        showTitleSuggestions = false;
+        showArtistSuggestions = true;
+        playerside = "1";
+        highspeed = "1";
+        battle = false;
+        slim = false;
+        blackwhite = false;
+        djname = "";
+        playerid = "";
+        songlist = Style.COPULAFULL;
+    }
+
+    static void setProperties(boolean[] columnVisibility){
         if (propFile != null) {
             try {
                 FileOutputStream fileOutputStream = new FileOutputStream(propFile.getPath());
                 Properties properties = new Properties();
 
+                properties.setProperty(PROPERTYNAMEVERSION, version);
                 properties.setProperty(PROPERTYNAMETHEME, programTheme);
-                properties.setProperty(PROPERTYNAMECLEARCOLORS, String.valueOf(programClearColor));
-                properties.setProperty(PROPERTYNAMEPLAYERSIDE, String.valueOf(programPlayerside));
+                properties.setProperty(PROPERTYNAMESTATUSCOLORS, String.valueOf(statusColor));
+                properties.setProperty(PROPERTYNAMETITLESUGGESTIONS, String.valueOf(showTitleSuggestions));
+                properties.setProperty(PROPERTYNAMEARTISTSUGGESTIONS, String.valueOf(showArtistSuggestions));
+                properties.setProperty(PROPERTYNAMEPLAYERSIDE, String.valueOf(playerside));
+                properties.setProperty(PROPERTYNAMEHIGHSPEED, String.valueOf(highspeed));
+                properties.setProperty(PROPERTYNAMEBATTLE, String.valueOf(battle));
+                properties.setProperty(PROPERTYNAMESLIM, String.valueOf(slim));
+                properties.setProperty(PROPERTYNAMEBLACKWHITE, String.valueOf(blackwhite));
+                properties.setProperty(PROPERTYNAMEDJNAME, djname);
+                properties.setProperty(PROPERTYNAMEPLAYERID, playerid);
+                properties.setProperty(PROPERTYNAMESONGLIST, songlist);
 
                 properties.setProperty(PROPERTYNAMESTYLECOL, String.valueOf(columnVisibility[0]));
                 properties.setProperty(PROPERTYNAMETITLECOL, String.valueOf(columnVisibility[1]));
@@ -213,16 +288,11 @@ public class Main extends Application {
                 properties.setProperty(PROPERTYNAMEBPMCOL, String.valueOf(columnVisibility[8]));
                 properties.setProperty(PROPERTYNAMELENGTHCOL, String.valueOf(columnVisibility[9]));
                 properties.setProperty(PROPERTYNAMENOTESCOL, String.valueOf(columnVisibility[10]));
-                properties.setProperty(PROPERTYNAMECLEARCOL, String.valueOf(columnVisibility[11]));
+                properties.setProperty(PROPERTYNAMESTATUSCOL, String.valueOf(columnVisibility[11]));
                 properties.setProperty(PROPERTYNAMEGRADECOL, String.valueOf(columnVisibility[12]));
                 properties.setProperty(PROPERTYNAMEEXCOL, String.valueOf(columnVisibility[13]));
-                properties.setProperty(PROPERTYNAMEMISSCOL, String.valueOf(columnVisibility[14]));
-
-                properties.setProperty(PROPERTYNAMETITLESUGGESTIONS, String.valueOf(showTitleSuggestions));
-                properties.setProperty(PROPERTYNAMEARTISTSUGGESTIONS, String.valueOf(showArtistSuggestions));
-                properties.setProperty(PROPERTYNAMEDJNAME, djname);
-                properties.setProperty(PROPERTYNAMEPLAYERID, playerid);
-                properties.setProperty(PROPERTYNAMESONGLIST, songlist);
+                properties.setProperty(PROPERTYNAMEMISS_COUNTCOL, String.valueOf(columnVisibility[14]));
+                properties.setProperty(PROPERTYNAMESCRATCHCOL, String.valueOf(columnVisibility[15]));
 
                 properties.store(fileOutputStream, null);
                 fileOutputStream.close();
@@ -232,11 +302,15 @@ public class Main extends Application {
         }
     }
 
-    public static File getScoreFile() {
+    static int getOS() {
+        return os;
+    }
+
+    static File getScoreFile() {
         return scoreFile;
     }
 
-    public static File getPropFile() {
+    static File getPropFile() {
         return propFile;
     }
 

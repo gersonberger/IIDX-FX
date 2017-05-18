@@ -1,7 +1,27 @@
 package com.gersonberger;
 
 
-public class Dan {
+class Dan {
+
+    private static final String[] kaiden23 = {"☆12 (A) perditus†paradisus", "☆12 (A) 灼熱Beach Side Bunny", "☆12 (A) 卑弥呼", "☆12 (A) 冥"};
+    private static final String[] chuuden23 = {"☆12 (A) BITTER CHOCOLATE STRIKER", "☆12 (A) Reflux", "☆12 (A) MENDES", "☆12 (A) DIAMOND CROSSING"};
+    private static final String[] tenthdan23 = {"☆12 (A) invoker", "☆12 (A) Colorful Cookie", "☆12 (A) Proof of the existence", "☆12 (A) reunion"};
+    private static final String[] ninthdan23 = {"☆11 (A) Acid Pumper", "☆11 (H) Chrono Diver -PENDULUMs-", "☆11 (A) Cookie Bouquets", "☆12 (A) The Sampling Paradise"};
+    private static final String[] eighthdan23 = {"☆10 (H) リリーゼと炎龍レーヴァテイン", "☆10 (A) end of world", "☆10 (A) rottel-da-sun", "☆12 (H) gigadelic"};
+    private static final String[] seventhdan23 = {"☆10 (H) BRAINSTORM", "☆10 (A) Twelfth Style", "☆10 (H) Übertreffen", "☆10 (H) THE SAFARI"};
+    private static final String[] sixthdan23 = {"☆9 (H) Apocalypse ～dirge of swans～", "☆9 (H) 黒髪乱れし修羅となりて", "☆9 (H) naughty girl@Queen's Palace", "☆9 (H) bloomin' feeling"};
+    private static final String[] fifthdan23 = {"☆8 (H) smooooch・∀・", "☆8 (H) Mermaid girl", "☆9 (H) MIRACLE MEETS", "☆9 (H) NEW GENERATION -もう、お前しか見えない-"};
+    private static final String[] fourthdan23 = {"☆8 (H) era (nostalmix)", "☆8 (H) 虹色", "☆8 (H) TA・DA☆YO・SHI", "☆8 (H) R5"};
+    private static final String[] thirddan23 = {"☆7 (H) かげぬい ～Ver.BENIBOTAN～", "☆8 (H) Presto", "☆7 (H) BRIDAL FESTIVAL!!!", "☆8 (H) CaptivAte～裁き～"};
+    private static final String[] seconddan23 = {"☆7 (H) Monkey Dance", "☆7 (H) Zenius -I- vanisher", "☆7 (H) Drive Me Crazy", "☆7 (H) Abyss"};
+    private static final String[] firstdan23 = {"☆6 (N) Blind Justice ～Torn souls, Hurt Faiths～", "☆6 (H) Funny shuffle", "☆7 (N) GOLD RUSH", "☆6 (H) I Was The One (80's EUROBEAT STYLE)"};
+    private static final String[] firstkyu23 = {"☆6 (N) BREATH", "☆6 (N) quasar", "☆6 (N) MENDES", "☆6 (H) With your Smile"};
+    private static final String[] secondkyu23 = {"☆6 (N) sync", "☆5 (N) satfinal", "☆5 (N) 合体せよ！ストロングイェーガー！！(Ryu☆ remix)", "☆5 (H) ライオン好き"};
+    private static final String[] thirdkyu23 = {"☆5 (N) 405nm (Ryu☆mix)", "☆5 (N) alla turca con passione", "☆5 (N) SigSig", "☆5 (H) REINCARNATION"};
+    private static final String[] fourthkyu23 = {"☆4 (N) Fly you to the star", "☆4 (N) サヨナラ・ヘヴン", "☆4 (N) ƒƒƒƒƒ", "☆5 (N) She is my wife"};
+    private static final String[] fifthkyu23 = {"☆4 (N) 突撃！ガラスのニーソ姫！", "☆4 (N) NoN-Fiction Story!", "☆4 (N) avant-guerre", "☆4 (N) バビロニア"};
+    private static final String[] sixthkyu23 = {"☆3 (N) I'm so Happy", "☆3 (N) かずあそび", "☆3 (N) diagram", "☆3 (N) Element of SPADA"};
+    private static final String[] seventhkyu23 = {"☆2 (N) Liquid Crystal Girl feat. echo", "☆2 (N) 中華急行", "☆2 (N) Eternal Tears", "☆2 (N) CALL"};
 
     private static final String[] kaiden22 = {"☆12 (A) 嘆きの樹", "☆12 (A) 灼熱Beach Side Bunny", "☆12 (A) 卑弥呼", "☆12 (A) 冥"};
     private static final String[] tenthdan22 = {"☆12 (A) Adularia", "☆12 (A) ワルツ第17番 ト短調\"大犬のワルツ\"", "☆12 (A) 不沈艦CANDY", "☆12 (A) The Limbo"};
@@ -136,6 +156,9 @@ public class Dan {
     private static final String[] sixthkyu16 = {"☆3 (N) 走馬灯 -The Last Song-", "☆3 (H) I Was The One", "☆3 (N) D.A.N.C.E.!", "☆3 (N) We are Disっ娘よっつ打ち命"};
     private static final String[] seventhkyu16 = {"☆1 (N) 5.1.1.", "☆2 (N) desolation", "☆2 (N) Dr.LOVE", "☆2 (N) earth scape"};
 
+    private static final String[][] dan23 = {kaiden23, tenthdan23, ninthdan23, eighthdan23, seventhdan23, sixthdan23,
+            fifthdan23, fourthdan23, thirddan23, seconddan23, firstdan23, firstkyu23, secondkyu23, thirdkyu23,
+            fourthkyu23, fifthkyu23, sixthkyu23, seventhkyu23, chuuden23};
     private static final String[][] dan22 = {kaiden22, tenthdan22, ninthdan22, eighthdan22, seventhdan22, sixthdan22,
             fifthdan22, fourthdan22, thirddan22, seconddan22, firstdan22, firstkyu22, secondkyu22, thirdkyu22,
             fourthkyu22, fifthkyu22, sixthkyu22, seventhkyu22};
@@ -158,6 +181,6 @@ public class Dan {
             fifthdan16, fourthdan16, thirddan16, seconddan16, firstdan16, firstkyu16, secondkyu16, thirdkyu16,
             fourthkyu16, fifthkyu16, sixthkyu16, seventhkyu16};
 
-    public static final String[][][] danData = {dan22, dan21, dan20, dan19, dan18, dan17, dan16};
+    static final String[][][] danData = {dan23, dan22, dan21, dan20, dan19, dan18, dan17, dan16};
 
 }

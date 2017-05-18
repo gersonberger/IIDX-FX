@@ -38,15 +38,25 @@
 
 .progress-indicator {
     -fx-progress-color: black;
-    -fx-accent: white;
 }
 
 .progress-indicator .tick {
-    -fx-background-color: black;
+    -fx-background-color: rgba(255,255,200);
 }
 
 .progress-indicator .percentage {
     -fx-fill: null;
+}
+
+.popover > .border {
+    -fx-stroke: black;
+    -fx-stroke-width: .5;
+    -fx-fill: rgba(255, 230, 230, .9);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, .2), 15, .4, 0, 0);
+}
+
+.table-view .column-header .label{
+    -fx-text-fill: black;
 }
 
 #header1 {
@@ -92,7 +102,7 @@
 }
 
 #dan {
-    -fx-background-color: rgba(255,255,255,0.7);
+    -fx-background-color: rgba(255,255,255,0.8);
     -fx-background-radius: 10px;
     -fx-padding: 10;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 8, 0, 0, 2);
