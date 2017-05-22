@@ -17,6 +17,7 @@ package com.gersonberger;
 
 class ProgramVersion {
 
+    static String MAJOR_1_MINOR_4_REVISION_1 = "1.4.1";
     static String MAJOR_1_MINOR_4 = "1.4";
     static String OLDVERSION = "OLDVERSION";
 

@@ -36,6 +36,7 @@ class Stats {
         int status;
         int level;
         for (SongEntry songEntry : masterData) {
+            if (songEntry.getOmnimix() == 1 && Main.songlist.equals(Style.COPULAFULL)) continue;
             style = Style.styleToInt(songEntry.getStyle());
             grade = songEntry.getGrade().equals("") ? Grade.NONE_INT : Grade.gradeToInt(songEntry.getGrade().split(" ")[0]);
             status = Status.statusToInt(songEntry.getStatus());

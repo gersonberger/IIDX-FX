@@ -696,6 +696,9 @@ public class MainController implements Initializable {
         ex_scoreColumn.setVisible(Boolean.valueOf(properties.getProperty(Main.PROPERTYNAMEEXCOL, "false")));
         miss_countColumn.setVisible(Boolean.valueOf(properties.getProperty(Main.PROPERTYNAMEMISS_COUNTCOL, "false")));
 
+        //column order
+        applyColumnOrder(Main.colorder);
+
         //column automatic resizing
         tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         styleColumn.setMaxWidth(1f * Integer.MAX_VALUE * 81);
@@ -808,6 +811,39 @@ public class MainController implements Initializable {
         scratchColumn.setComparator(getScratchComparator());
     }
 
+    private String getColumnOrder() {
+        String order = "";
+        for (TableColumn<SongEntry, ?> column : tableView.getColumns()) {
+            if (column.equals(styleColumn)) order += "0,";
+            else if (column.equals(titleColumn)) order += "1,";
+            else if (column.equals(artistColumn)) order += "2,";
+            else if (column.equals(genreColumn)) order += "3,";
+            else if (column.equals(difficultyColumn)) order += "4,";
+            else if (column.equals(levelColumn)) order += "5,";
+            else if (column.equals(ratingNColumn)) order += "6,";
+            else if (column.equals(ratingHColumn)) order += "7,";
+            else if (column.equals(bpmColumn)) order += "8,";
+            else if (column.equals(lengthColumn)) order += "9,";
+            else if (column.equals(notesColumn)) order += "10,";
+            else if (column.equals(scratchColumn)) order += "11,";
+            else if (column.equals(statusColumn)) order += "12,";
+            else if (column.equals(gradeColumn)) order += "13,";
+            else if (column.equals(ex_scoreColumn)) order += "14,";
+            else if (column.equals(miss_countColumn)) order += "15,";
+        }
+        return order.substring(0, order.length()-1);
+    }
+
+    private void applyColumnOrder(String order) {
+        ObservableList<TableColumn<SongEntry, ?>> columns = tableView.getColumns();
+        final List<TableColumn<SongEntry, ?>> defaultColumns = Collections.unmodifiableList(new ArrayList<>(columns));
+        columns.clear();
+        String[] cols = order.split(",");
+        for (String col : cols) {
+            columns.add(defaultColumns.get(Integer.valueOf(col)));
+        }
+    }
+
     private void initTable() {
         masterData = FXCollections.observableArrayList();
         List<SongEntry> entries = new ArrayList<>();
@@ -886,6 +922,7 @@ public class MainController implements Initializable {
             if (scoreArr != null) {
                 for (int j = 0; j < scoreArr.length(); j++) {
                     JSONObject score = (JSONObject) scoreArr.get(j);
+                    if (!score.has(nameMusicId)) System.out.println(musicId);
                     if (musicId.equals(score.getString(nameMusicId))) {
                         int score_difficulty = score.getInt(nameDifficulty);
                         if (score_difficulty == Difficulty.BLACKANOTHER_INT && isLeggendaria(id)) {
@@ -2044,7 +2081,7 @@ public class MainController implements Initializable {
             }
 
             if (refresh) refreshTable();
-
+            Main.colorder = getColumnOrder();
             boolean[] columnVisibility = {styleColumn.isVisible(), titleColumn.isVisible(), artistColumn.isVisible(),
                     genreColumn.isVisible(), difficultyColumn.isVisible(), levelColumn.isVisible(),
                     ratingNColumn.isVisible(), ratingHColumn.isVisible(), bpmColumn.isVisible(), lengthColumn.isVisible(),
@@ -2202,9 +2239,9 @@ public class MainController implements Initializable {
     private void initStatistics() {
         stats = new Stats(masterData);
 
-        noPlayCheckBox.setSelected(true);
-        styleDetailsCheckBox.setSelected(false);
-        levelDetailsCheckBox.setSelected(false);
+        noPlayCheckBox.setSelected(Main.statsClearrateNoplay);
+        styleDetailsCheckBox.setSelected(Main.statsStyleCompletionDetails);
+        levelDetailsCheckBox.setSelected(Main.statsLevelCompletionDetails);
 
         playeridLabel.setText(Main.playerid);
         djnameLabel.setText((Main.djname).toUpperCase());
@@ -2222,55 +2259,11 @@ public class MainController implements Initializable {
         fillGradeBarChart();
         fillCustomStackedBarChart(false);
         fillLevelBarChart(false);
+
+        if (!Main.statsClearrateNoplay) setPieNoPlay();
+        setStyleBarChartDetails();
+        setLevelBarChartDetails();
     }
-
-    //inaccurate
-    /* private int calcDJPoints(){
-        double djpoints = 0, currentDJP, toAddDJP = 0;
-        ObservableList<SongEntry> data = masterData;
-        FXCollections.sort(data, (o1, o2) -> o1.getId() > o2.getId() ? 1 : o1.getId() < o2.getId() ? -1 : 0);
-        int oldid = 0, newid = 0;
-        for (SongEntry songEntry : data) {
-            if (oldid == 0 && newid == 0) oldid = songEntry.getId();
-            newid = songEntry.getId();
-            if (newid > oldid) {
-                oldid = newid;
-                djpoints += toAddDJP;
-                toAddDJP = 0;
-            }
-
-            int c;
-            switch (songEntry.getStatus()) {
-                case Status.FULLCOMBO:
-                    c = 30;
-                    break;
-                case Status.EXHARDCLEAR:
-                    c = 25;
-                    break;
-                case Status.HARDCLEAR:
-                    c = 20;
-                    break;
-                case Status.CLEAR:
-                    c = 10;
-                    break;
-                case Status.EASYCLEAR:
-                    c = 5;
-                    break;
-                default:
-                    c = 0;
-            }
-
-            int l = 0;
-            double p = songEntry.getEx_score().equals("") ? 0 : Double.valueOf(songEntry.getEx_score()) / (double)(2 * Integer.valueOf(songEntry.getNotes()));
-            if (p > (double)8/9) l = 20;
-            else if (p > (double)7/9) l = 15;
-            else if (p > (double)6/9) l = 10;
-
-            currentDJP = songEntry.getEx_score().equals("") ? 0 : Double.valueOf(songEntry.getEx_score()) * (double)(100 + c + l) / 10000;
-            if (currentDJP > toAddDJP) toAddDJP = currentDJP;
-        }
-        return (int)djpoints;
-    } */
 
     private void fillStatusPieChart() {
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
@@ -2313,6 +2306,7 @@ public class MainController implements Initializable {
             statusPieChart.getData().add(new PieChart.Data(Status.NOPLAY, stats.getAllStatus(Status.NOPLAY_INT)));
             setPieTooltips();
         }
+        Main.statsClearrateNoplay = noPlayCheckBox.isSelected();
     }
 
     private void fillGradeBarChart() {
@@ -2408,6 +2402,7 @@ public class MainController implements Initializable {
         } else {
             fillCustomStackedBarChart(false);
         }
+        Main.statsStyleCompletionDetails = styleDetailsCheckBox.isSelected();
     }
 
     private void fillLevelBarChart(boolean details) {
@@ -2477,6 +2472,7 @@ public class MainController implements Initializable {
         } else {
             fillLevelBarChart(false);
         }
+        Main.statsLevelCompletionDetails = levelDetailsCheckBox.isSelected();
     }
 
 
@@ -2701,6 +2697,7 @@ public class MainController implements Initializable {
     private void quit() {
         ((Stage) scene.getWindow()).close();
         //save settings on exit
+        Main.colorder = getColumnOrder();
         boolean[] columnVisibility = {styleColumn.isVisible(), titleColumn.isVisible(), artistColumn.isVisible(),
                 genreColumn.isVisible(), difficultyColumn.isVisible(), levelColumn.isVisible(),
                 ratingNColumn.isVisible(), ratingHColumn.isVisible(), bpmColumn.isVisible(), lengthColumn.isVisible(),

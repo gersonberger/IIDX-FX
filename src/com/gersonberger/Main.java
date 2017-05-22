@@ -19,8 +19,8 @@ public class Main extends Application {
     private static final long startuptime = System.currentTimeMillis();
 
     static final String PROGRAMNAME = "IIDX-FX";
-    static final String PROGRAMVERSION = ProgramVersion.MAJOR_1_MINOR_4;
-    static final String PROGRAMDATE = "2017-05-18";
+    static final String PROGRAMVERSION = ProgramVersion.MAJOR_1_MINOR_4_REVISION_1;
+    static final String PROGRAMDATE = "2017-05-22";
 
     static String LOCALDIR;
     static String SEPARATOR;
@@ -52,6 +52,8 @@ public class Main extends Application {
     private static final String PROPERTYNAMEDJNAME = "dj_name";
     private static final String PROPERTYNAMEPLAYERID = "iidx_id";
 
+    static final String PROPERTYNAMECOLORDER = "colorder";
+
     static final String PROPERTYNAMESTYLECOL = "stylecolumn_visible";
     static final String PROPERTYNAMETITLECOL = "titlecolumn_visible";
     static final String PROPERTYNAMEARTISTCOL = "artistcolumn_visible";
@@ -68,6 +70,9 @@ public class Main extends Application {
     static final String PROPERTYNAMEEXCOL = "excolumn_visible";
     static final String PROPERTYNAMEMISS_COUNTCOL = "misscolumn_visible";
     static final String PROPERTYNAMESCRATCHCOL = "scratchcolumn_visible";
+    static final String PROPERTYNAMESTATSCLEARRATENOPLAY = "stats_clearrate_noplay";
+    static final String PROPERTYNAMESTATSCOMPLETIONSTYLEDETAILS = "stats_stylecompletion_details";
+    static final String PROPERTYNAMESTATSCOMPLETIONLEVELDETAILS = "stats_levelcompletion_details";
 
     private static String version;
 
@@ -96,6 +101,11 @@ public class Main extends Application {
     static String songlist;
     static String djname;
     static String playerid;
+    static String colorder;
+
+    static boolean statsClearrateNoplay;
+    static boolean statsStyleCompletionDetails;
+    static boolean statsLevelCompletionDetails;
 
     @Override
     public void start(Stage primaryStage) throws IOException {
@@ -198,6 +208,10 @@ public class Main extends Application {
             properties.setProperty(PROPERTYNAMEDJNAME, String.valueOf(""));
             properties.setProperty(PROPERTYNAMEPLAYERID, String.valueOf(""));
             properties.setProperty(PROPERTYNAMESONGLIST, Style.OMNIMIX);
+            properties.setProperty(PROPERTYNAMECOLORDER, "0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15");
+            properties.setProperty(PROPERTYNAMESTATSCLEARRATENOPLAY, String.valueOf(true));
+            properties.setProperty(PROPERTYNAMESTATSCOMPLETIONSTYLEDETAILS, String.valueOf(false));
+            properties.setProperty(PROPERTYNAMESTATSCOMPLETIONLEVELDETAILS, String.valueOf(false));
 
             properties.store(fileOutputStream, null);
             fileOutputStream.close();
@@ -226,6 +240,34 @@ public class Main extends Application {
                 djname = properties.getProperty(PROPERTYNAMEDJNAME, "");
                 playerid = properties.getProperty(PROPERTYNAMEPLAYERID, "");
                 songlist = properties.getProperty(PROPERTYNAMESONGLIST, Style.OMNIMIX);
+                colorder = "0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15";
+                statsClearrateNoplay = true;
+                statsStyleCompletionDetails = false;
+                statsLevelCompletionDetails = false;
+                version = PROGRAMVERSION;
+
+                log(Module.INITIALIZE, "updated settings from " + ProgramVersion.MAJOR_1_MINOR_4 + " to " + ProgramVersion.MAJOR_1_MINOR_4_REVISION_1);
+            }
+
+            //version 1.4.1
+            else if (version.equals(ProgramVersion.MAJOR_1_MINOR_4_REVISION_1)) {
+                programTheme = properties.getProperty(PROPERTYNAMETHEME, THEMELIGHT);
+                statusColor = Boolean.valueOf(properties.getProperty(PROPERTYNAMESTATUSCOLORS, "false"));
+                showTitleSuggestions = Boolean.valueOf(properties.getProperty(PROPERTYNAMETITLESUGGESTIONS, "false"));
+                showArtistSuggestions = Boolean.valueOf(properties.getProperty(PROPERTYNAMEARTISTSUGGESTIONS, "true"));
+                playerside = properties.getProperty(PROPERTYNAMEPLAYERSIDE, "1");
+                battle = Boolean.valueOf(properties.getProperty(PROPERTYNAMEBATTLE, "false"));
+                slim = Boolean.valueOf(properties.getProperty(PROPERTYNAMESLIM, "false"));
+                blackwhite = Boolean.valueOf(properties.getProperty(PROPERTYNAMEBLACKWHITE, "false"));
+                highspeed = properties.getProperty(PROPERTYNAMEHIGHSPEED, "1");
+                djname = properties.getProperty(PROPERTYNAMEDJNAME, "");
+                playerid = properties.getProperty(PROPERTYNAMEPLAYERID, "");
+                songlist = properties.getProperty(PROPERTYNAMESONGLIST, Style.OMNIMIX);
+                colorder = properties.getProperty(PROPERTYNAMECOLORDER, "0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15");
+                statsClearrateNoplay = Boolean.valueOf(properties.getProperty(PROPERTYNAMESTATSCLEARRATENOPLAY, "true"));
+                statsStyleCompletionDetails = Boolean.valueOf(properties.getProperty(PROPERTYNAMESTATSCOMPLETIONSTYLEDETAILS, "false"));
+                statsLevelCompletionDetails = Boolean.valueOf(properties.getProperty(PROPERTYNAMESTATSCOMPLETIONLEVELDETAILS, "false"));
+                version = PROGRAMVERSION;
             }
 
             //versions 1.0, 1.1, 1.1.1, 1.2, 1.2a, 1.2b, 1.3
@@ -255,6 +297,10 @@ public class Main extends Application {
         djname = "";
         playerid = "";
         songlist = Style.COPULAFULL;
+        colorder = "0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15";
+        statsClearrateNoplay = true;
+        statsStyleCompletionDetails = false;
+        statsLevelCompletionDetails = false;
     }
 
     static void setProperties(boolean[] columnVisibility){
@@ -276,6 +322,10 @@ public class Main extends Application {
                 properties.setProperty(PROPERTYNAMEDJNAME, djname);
                 properties.setProperty(PROPERTYNAMEPLAYERID, playerid);
                 properties.setProperty(PROPERTYNAMESONGLIST, songlist);
+                properties.setProperty(PROPERTYNAMECOLORDER, colorder);
+                properties.setProperty(PROPERTYNAMESTATSCLEARRATENOPLAY, String.valueOf(statsClearrateNoplay));
+                properties.setProperty(PROPERTYNAMESTATSCOMPLETIONSTYLEDETAILS, String.valueOf(statsStyleCompletionDetails));
+                properties.setProperty(PROPERTYNAMESTATSCOMPLETIONLEVELDETAILS, String.valueOf(statsLevelCompletionDetails));
 
                 properties.setProperty(PROPERTYNAMESTYLECOL, String.valueOf(columnVisibility[0]));
                 properties.setProperty(PROPERTYNAMETITLECOL, String.valueOf(columnVisibility[1]));
