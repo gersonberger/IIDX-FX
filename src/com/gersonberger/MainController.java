@@ -26,7 +26,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.TextFlow;
 import javafx.scene.web.WebEngine;
@@ -51,6 +53,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.awt.*;
+import java.awt.ScrollPane;
 import java.awt.datatransfer.StringSelection;
 import java.io.*;
 import java.math.BigDecimal;
@@ -479,6 +482,32 @@ public class MainController implements Initializable {
     @FXML
     private TextFlow settingsAboutFlow;
 
+    /***** JSON KEYS*****/
+    private final String jsonKeyId = "i";
+    private final String jsonKeyMusicId = "mi";
+    private final String jsonKeyStyle = "s";
+    private final String jsonKeyTitle = "t";
+    private final String jsonKeyTitleR = "tr";
+    private final String jsonKeyArtist = "a";
+    private final String jsonKeyArtistR = "ar";
+    private final String jsonKeyGenre = "g";
+    private final String jsonKeyDifficulty = "d";
+    private final String jsonKeyLevel = "l";
+    private final String jsonKeyRatingN = "rn";
+    private final String jsonKeyRatingH = "rh";
+    private final String jsonKeyBpmMin = "b-";
+    private final String jsonKeyBpmMax = "b+";
+    private final String jsonKeyLength = "ln";
+    private final String jsonKeyNotes = "n";
+    private final String jsonKeyScratchNotes = "ns";
+    private final String jsonKeyTextage = "tx";
+    private final String jsonKeyOmnimix = "o";
+    private final String jsonKeyStatus = "s";
+    private final String jsonKeyEx_score = "e";
+    private final String jsonKeyMiss_count = "m";
+    private final String jsonKeyRivalName = "n";
+    private final String jsonKeyRivalScores = "sc";
+
     /***** MISC *****/
     @FXML
     private VBox mainBox;
@@ -872,48 +901,25 @@ public class MainController implements Initializable {
             scoreArr = new JSONArray(json);
         }
 
-        final String nameId = "i";
-        final String nameMusicId = "mi";
-        final String nameStyle = "s";
-        final String nameTitle = "t";
-        final String nameTitleR = "tr";
-        final String nameArtist = "a";
-        final String nameArtistR = "ar";
-        final String nameGenre = "g";
-        final String nameDifficulty = "d";
-        final String nameLevel = "l";
-        final String nameRatingN = "rn";
-        final String nameRatingH = "rh";
-        final String nameBpmMin = "b-";
-        final String nameBpmMax = "b+";
-        final String nameLength = "ln";
-        final String nameNotes = "n";
-        final String nameScratchNotes = "ns";
-        final String nameTextage = "tx";
-        final String nameOmnimix = "o";
-        final String nameStatus = "s";
-        final String nameEx_score = "e";
-        final String nameMiss_count = "m";
-
         for (int i = 0; i < chartsArr.length(); i++) {
             JSONObject chart = (JSONObject) chartsArr.get(i);
-            int id = chart.getInt(nameId);
-            String musicId = chart.getString(nameMusicId);
+            int id = chart.getInt(jsonKeyId);
+            String musicId = chart.getString(jsonKeyMusicId);
             int style = 0;
             String title = null;
             String title_r = null;
             String artist = null;
             String artist_r = null;
             String genre = null;
-            int difficulty = chart.getInt(nameDifficulty);
-            int level = chart.getInt(nameLevel);
-            int nRating = chart.getInt(nameRatingN);
-            int hRating = chart.getInt(nameRatingH);
-            int bpmMin = chart.getInt(nameBpmMin);
-            int bpmMax = chart.getInt(nameBpmMax);
-            int length = chart.getInt(nameLength);
-            int notes = chart.getInt(nameNotes);
-            int scratch = chart.getInt(nameScratchNotes);
+            int difficulty = chart.getInt(jsonKeyDifficulty);
+            int level = chart.getInt(jsonKeyLevel);
+            int nRating = chart.getInt(jsonKeyRatingN);
+            int hRating = chart.getInt(jsonKeyRatingH);
+            int bpmMin = chart.getInt(jsonKeyBpmMin);
+            int bpmMax = chart.getInt(jsonKeyBpmMax);
+            int length = chart.getInt(jsonKeyLength);
+            int notes = chart.getInt(jsonKeyNotes);
+            int scratch = chart.getInt(jsonKeyScratchNotes);
             int status = 0;
             int ex_score = 0;
             String grade = "";
@@ -922,15 +928,15 @@ public class MainController implements Initializable {
             if (scoreArr != null) {
                 for (int j = 0; j < scoreArr.length(); j++) {
                     JSONObject score = (JSONObject) scoreArr.get(j);
-                    if (!score.has(nameMusicId)) System.out.println(musicId);
-                    if (musicId.equals(score.getString(nameMusicId))) {
-                        int score_difficulty = score.getInt(nameDifficulty);
+                    if (!score.has(jsonKeyMusicId)) System.out.println(musicId);
+                    if (musicId.equals(score.getString(jsonKeyMusicId))) {
+                        int score_difficulty = score.getInt(jsonKeyDifficulty);
                         if (score_difficulty == Difficulty.BLACKANOTHER_INT && isLeggendaria(id)) {
                             score_difficulty = Difficulty.LEGGENDARIA_INT;
                         }
                         if (difficulty == score_difficulty) {
-                            status = score.getInt(nameStatus);
-                            ex_score = score.getInt(nameEx_score);
+                            status = score.getInt(jsonKeyStatus);
+                            ex_score = score.getInt(jsonKeyEx_score);
                             String percentage = String.valueOf(round(ex_score / (notes * 2d) * 100));
                             if (percentage.length() <= 4) {
                                 if (percentage.length() == 4 && percentage.charAt(2) == '.') {
@@ -940,7 +946,7 @@ public class MainController implements Initializable {
                                 }
                             }
                             grade = Grade.percentageToString(ex_score, notes) + " (" + percentage + "%)";
-                            miss_count = score.getInt(nameMiss_count);
+                            miss_count = score.getInt(jsonKeyMiss_count);
                             break;
                         }
                     }
@@ -950,16 +956,16 @@ public class MainController implements Initializable {
             String textage = null;
             int omnimix = -1;
             for (int j = 0; j < musicArr.length(); j++) {
-                if (id == ((JSONObject) musicArr.get(j)).getInt(nameId)) {
+                if (id == ((JSONObject) musicArr.get(j)).getInt(jsonKeyId)) {
                     JSONObject music = (JSONObject) musicArr.get(j);
-                    style = music.getInt(nameStyle);
-                    title = music.getString(nameTitle);
-                    title_r = music.getString(nameTitleR);
-                    artist = music.getString(nameArtist);
-                    artist_r = music.getString(nameArtistR);
-                    genre = music.getString(nameGenre);
-                    textage = music.getString(nameTextage);
-                    omnimix = music.getInt(nameOmnimix);
+                    style = music.getInt(jsonKeyStyle);
+                    title = music.getString(jsonKeyTitle);
+                    title_r = music.getString(jsonKeyTitleR);
+                    artist = music.getString(jsonKeyArtist);
+                    artist_r = music.getString(jsonKeyArtistR);
+                    genre = music.getString(jsonKeyGenre);
+                    textage = music.getString(jsonKeyTextage);
+                    omnimix = music.getInt(jsonKeyOmnimix);
                     break;
                 }
             }
@@ -2081,6 +2087,7 @@ public class MainController implements Initializable {
             }
 
             if (refresh) refreshTable();
+
             Main.colorder = getColumnOrder();
             boolean[] columnVisibility = {styleColumn.isVisible(), titleColumn.isVisible(), artistColumn.isVisible(),
                     genreColumn.isVisible(), difficultyColumn.isVisible(), levelColumn.isVisible(),
@@ -2537,7 +2544,7 @@ public class MainController implements Initializable {
                 } else {
                     JSONObject jsObj = new JSONObject();
                     jsObj.put("id", entry.getId());
-                    if (entry.getArcanaMusicId() != null) jsObj.put("arcanaid", entry.getArcanaMusicId());
+                    if (entry.getMusicId() != null) jsObj.put("arcanaid", entry.getMusicId());
                     jsObj.put("style", Style.styleToInt(entry.getStyle()));
                     jsObj.put("title", entry.getTitle());
                     jsObj.put("title_r", entry.getTitle_r());

@@ -30,8 +30,8 @@ public class SongEntry {
     private final StringProperty ex_score = new SimpleStringProperty(this, "Ex_score");
 
     private int id;
-    private String arcanaMusicId;
-    private String arcanaChartId;
+    private String musicId;
+    private String chartId;
 
     private String textage;
     private int scratchRaw;
@@ -107,8 +107,9 @@ public class SongEntry {
             this.scratch.set(scr);
         }
         this.textage = textage;
+        //if (id > 21xxx)
         this.omnimix = omnimix;
-        this.arcanaMusicId = arcanaMusicId;
+        this.musicId = arcanaMusicId;
     }
 
     private double round(double value, int places) {
@@ -394,19 +395,19 @@ public class SongEntry {
         return omnimix;
     }
 
-    public String getArcanaMusicId() {
-        return arcanaMusicId;
+    public String getMusicId() {
+        return musicId;
     }
 
-    public void setArcanaMusicId(String arcanaMusicId) {
-        this.arcanaMusicId = arcanaMusicId;
+    public void setMusicId(String musicId) {
+        this.musicId = musicId;
     }
 
-    public String getArcanaChartId() {
-        return arcanaChartId;
+    public String getChartId() {
+        return chartId;
     }
 
-    public void setArcanaChartId(String arcanaChartId) {
-        this.arcanaChartId = arcanaChartId;
+    public void setChartId(String chartId) {
+        this.chartId = chartId;
     }
 }
