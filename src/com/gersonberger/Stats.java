@@ -7,111 +7,175 @@ import java.util.Arrays;
 
 class Stats {
 
-    //statsAllStatus[status]
+    //statsAllStatus[status][difficulty]
     //status: 0=noplay, 1=failed, ..., 7=fullcombo
-    private int[] statsAllStatus = new int[8];
+    //difficulty: 0=normal, 1=hyper, 2=another
+    //level: 0=level 1, 1=level 2, 11=level 12
+    private int[][][] statsAllStatus = new int[8][3][12];
 
     //statsAllGrade[grade]
     //grade: 0=none, 1=F, 2=E, ..., 7=AA, 8=AAA, 8=MAX
-    private int[] statsAllGrade = new int[10];
+    //difficulty: 0=normal, 1=hyper, 2=another
+    //level: 0=level 1, 1=level 2, 11=level 12
+    private int[][][] statsAllGrade = new int[10][3][12];
 
-    //statsLevel[level][status]
-    //level: 0=1, 1=2, ..., 11=12
-    //status: 0=noplay, 1=failed, ..., 7=fullcombo
-    private int[][] statsLevel = new int[12][8];
-
-    //statsLevel[style][status]
+    //statsStyle[style][status]
     //style: 0=1st Style, 1=Substream, ..., 23=copula
     //status: 0=noplay, 1=failed, ..., 7=fullcombo
-    private int[][] statsStyle = new int[24][8];
+    //difficulty: 0=normal, 1=hyper, 2=another
+    //level: 0=level 1, 1=level 2, 11=level 12
+    private int[][][][] statsStyle = new int[24][8][3][12];
 
 
     Stats(ObservableList<SongEntry> masterData){
         //init array with 0
-        for (int[] row : statsLevel) Arrays.fill(row, 0);
-        for (int[] row : statsStyle) Arrays.fill(row, 0);
+        for (int[][][] grid3 : statsStyle) {
+            for (int[][] grid2 : grid3) {
+                for (int[] grid : grid2) {
+                    Arrays.fill(grid, 0);
+                }
+            }
+        }
 
         int style;
         int grade;
         int status;
         int level;
+        int difficulty;
         for (SongEntry songEntry : masterData) {
             if (songEntry.getOmnimix() == 1 && Main.songlist.equals(Style.COPULAFULL)) continue;
             style = Style.styleToInt(songEntry.getStyle());
             grade = songEntry.getGrade().equals("") ? Grade.NONE_INT : Grade.gradeToInt(songEntry.getGrade().split(" ")[0]);
             status = Status.statusToInt(songEntry.getStatus());
             level = Integer.valueOf(songEntry.getLevel()) - 1;
+            switch (songEntry.getDifficulty()) {
+                case Difficulty.NORMAL:
+                    difficulty = Difficulty.NORMAL_INT;
+                    break;
+                case Difficulty.HYPER:
+                    difficulty = Difficulty.HYPER_INT;
+                    break;
+                case Difficulty.ANOTHER:
+                case Difficulty.BLACKANOTHER:
+                case Difficulty.LEGGENDARIA:
+                    difficulty = Difficulty.ANOTHER_INT;
+                    break;
+                default:
+                    difficulty = Difficulty.ANOTHER_INT;
+            }
+            difficulty--;
 
-            statsAllStatus[status]++;
-            statsAllGrade[grade]++;
-            statsLevel[level][status]++;
-            statsStyle[style][status]++;
+            statsAllStatus[status][difficulty][level]++;
+            statsAllGrade[grade][difficulty][level]++;
+            statsStyle[style][status][difficulty][level]++;
         }
     }
 
-    int getAllStatus(int status) {
-        return statsAllStatus[status];
-    }
-
-    int getAllGrade(int grade) {
-        return statsAllGrade[grade];
-    }
-
-    int getTotalClears() {
-        return getAllStatus(Status.CLEAR_INT) + getAllStatus(Status.HARDCLEAR_INT) + getAllStatus(Status.EXHARDCLEAR_INT) + getAllStatus(Status.FULLCOMBO_INT);
-    }
-
-    int getTotal() {
-        return getAllStatus(Status.NOPLAY_INT) + getAllStatus(Status.FAILED_INT) + getAllStatus(Status.ASSISTCLEAR_INT) + getAllStatus(Status.EASYCLEAR_INT)
-            + getAllStatus(Status.CLEAR_INT) + getAllStatus(Status.HARDCLEAR_INT) + getAllStatus(Status.EXHARDCLEAR_INT) + getAllStatus(Status.FULLCOMBO_INT);
-    }
-
-    int getTotalPlayed() {
-        return getAllStatus(Status.FAILED_INT) + getAllStatus(Status.ASSISTCLEAR_INT) + getAllStatus(Status.EASYCLEAR_INT)
-        + getAllStatus(Status.CLEAR_INT) + getAllStatus(Status.HARDCLEAR_INT) + getAllStatus(Status.EXHARDCLEAR_INT) + getAllStatus(Status.FULLCOMBO_INT);
-    }
-
-    int getAllStyle(int style) {
+    int getAllStatus(int status, int levelLow, int levelHigh, int... difficulty) {
         int val = 0;
-        for (int i = 0; i < statsStyle[style].length; i++) {
-            val += statsStyle[style][i];
+        if (difficulty.length == 0) difficulty = new int[]{1, 2, 3};
+        for (int d : difficulty) {
+            for (int l = levelLow; l <= levelHigh; l++) {
+                val += statsAllStatus[status][d - 1][l - 1];
+            }
+
         }
         return val;
     }
 
-    int getAllLevel(int level) {
-        level--;
+    int getAllGrade(int grade, int levelLow, int levelHigh, int... difficulty) {
         int val = 0;
-        for (int i = 0; i < statsLevel[level].length; i++) {
-            val += statsLevel[level][i];
+        if (difficulty.length == 0) difficulty = new int[]{1, 2, 3};
+        for (int d : difficulty) {
+            for (int l = levelLow; l <= levelHigh; l++) {
+                val += statsAllGrade[grade][d - 1][l - 1];
+            }
         }
         return val;
     }
 
-    int getLevelStatus(int level, int status) {
-        return statsLevel[level - 1][status];
+    int getTotalClears(int levelLow, int levelHigh, int... difficulty) {
+        return getAllStatus(Status.CLEAR_INT, levelLow, levelHigh, difficulty) +
+                getAllStatus(Status.HARDCLEAR_INT, levelLow, levelHigh, difficulty) +
+                getAllStatus(Status.EXHARDCLEAR_INT, levelLow, levelHigh, difficulty) +
+                getAllStatus(Status.FULLCOMBO_INT, levelLow, levelHigh, difficulty);
     }
 
-    int getLevelCleared(int level) {
-        level--;
-        return statsLevel[level][Status.CLEAR_INT] + statsLevel[level][Status.HARDCLEAR_INT] + statsLevel[level][Status.EXHARDCLEAR_INT] + statsLevel[level][Status.FULLCOMBO_INT];
+    int getTotal(int levelLow, int levelHigh, int... difficulty) {
+        return getAllStatus(Status.NOPLAY_INT, levelLow, levelHigh, difficulty) +
+                getAllStatus(Status.FAILED_INT, levelLow, levelHigh, difficulty) +
+                getAllStatus(Status.ASSISTCLEAR_INT, levelLow, levelHigh, difficulty) +
+                getAllStatus(Status.EASYCLEAR_INT, levelLow, levelHigh, difficulty) +
+                getAllStatus(Status.CLEAR_INT, levelLow, levelHigh, difficulty) +
+                getAllStatus(Status.HARDCLEAR_INT, levelLow, levelHigh, difficulty) +
+                getAllStatus(Status.EXHARDCLEAR_INT, levelLow, levelHigh, difficulty) +
+                getAllStatus(Status.FULLCOMBO_INT, levelLow, levelHigh, difficulty);
     }
 
-    int getLevelNotCleared(int level) {
-        level--;
-        return statsLevel[level][Status.NOPLAY_INT] + statsLevel[level][Status.FAILED_INT] + statsLevel[level][Status.ASSISTCLEAR_INT] + statsLevel[level][Status.EASYCLEAR_INT];
+    int getTotalPlayed(int levelLow, int levelHigh, int... difficulty) {
+        return getAllStatus(Status.FAILED_INT, levelLow, levelHigh, difficulty) +
+                getAllStatus(Status.ASSISTCLEAR_INT, levelLow, levelHigh, difficulty) +
+                getAllStatus(Status.EASYCLEAR_INT, levelLow, levelHigh, difficulty) +
+                getAllStatus(Status.CLEAR_INT, levelLow, levelHigh, difficulty) +
+                getAllStatus(Status.HARDCLEAR_INT, levelLow, levelHigh, difficulty) +
+                getAllStatus(Status.EXHARDCLEAR_INT, levelLow, levelHigh, difficulty) +
+                getAllStatus(Status.FULLCOMBO_INT, levelLow, levelHigh, difficulty);
     }
 
-    int getStyleStatus(int style, int status) {
-        return statsStyle[style][status];
+    int getAllStyle(int style, int levelLow, int levelHigh, int... difficulty) {
+        int val = 0;
+        if (difficulty.length == 0) difficulty = new int[]{1, 2, 3};
+        for (int s = 0; s < statsStyle[style].length; s++) {
+            for (int d : difficulty) {
+                for (int l = levelLow; l <= levelHigh; l++) {
+                    val += statsStyle[style][s][d - 1][l - 1];
+                }
+            }
+        }
+        return val;
     }
 
-    int getStyleCleared(int style) {
-        return statsStyle[style][Status.CLEAR_INT] + statsStyle[style][Status.HARDCLEAR_INT] + statsStyle[style][Status.EXHARDCLEAR_INT] + statsStyle[style][Status.FULLCOMBO_INT];
+    int getStyleStatus(int style, int status, int levelLow, int levelHigh, int... difficulty) {
+        int val = 0;
+        if (difficulty.length == 0) difficulty = new int[]{1,2,3};
+        for (int d : difficulty) {
+            for (int l = levelLow; l <= levelHigh; l++) {
+                val += statsStyle[style][status][d - 1][l - 1];
+            }
+        }
+        return val;
     }
 
-    int getStyleNotCleared(int style) {
-        return statsStyle[style][Status.NOPLAY_INT] + statsStyle[style][Status.FAILED_INT] + statsStyle[style][Status.ASSISTCLEAR_INT] + statsStyle[style][Status.EASYCLEAR_INT];
+    int getStyleCleared(int style, int levelLow, int levelHigh, int... difficulty) {
+        levelLow--;
+        levelHigh--;
+        int val = 0;
+        if (difficulty.length == 0) difficulty = new int[]{1,2,3};
+        for (int d : difficulty) {
+            for (int l = levelLow; l <= levelHigh; l++) {
+                val +=statsStyle[style][Status.CLEAR_INT][d - 1][l];
+                val +=statsStyle[style][Status.HARDCLEAR_INT][d - 1][l];
+                val +=statsStyle[style][Status.EXHARDCLEAR_INT][d - 1][l];
+                val +=statsStyle[style][Status.FULLCOMBO_INT][d - 1][l];
+            }
+        }
+        return val;
+    }
+
+    int getStyleNotCleared(int style, int levelLow, int levelHigh, int... difficulty) {
+        levelLow--;
+        levelHigh--;
+        int val = 0;
+        if (difficulty.length == 0) difficulty = new int[]{1,2,3};
+        for (int d : difficulty) {
+            for (int l = levelLow; l <= levelHigh; l++) {
+                val += statsStyle[style][Status.NOPLAY_INT][d - 1][l];
+                val += statsStyle[style][Status.FAILED_INT][d - 1][l];
+                val += statsStyle[style][Status.ASSISTCLEAR_INT][d - 1][l];
+                val += statsStyle[style][Status.EASYCLEAR_INT][d - 1][l];
+            }
+        }
+        return val;
     }
 
 }

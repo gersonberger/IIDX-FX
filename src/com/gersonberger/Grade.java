@@ -93,21 +93,21 @@ class Grade {
             case MAX:
                 return -1;
             case AAA:
-                return (notes * 2 + 1) - ex;
+                return (notes * 2) - ex;
             case AA:
-                return (notes * 2 * 8 / 9 + 1) - ex;
+                return (int)(Math.ceil((notes * 2) * 8d / 9d) - ex);
             case A:
-                return (notes * 2 * 7 / 9 + 1) - ex;
+                return (int)(Math.ceil(notes * 2 * 7d / 9d) - ex);
             case B:
-                return (notes * 2 * 6 / 9 + 1) - ex;
+                return (int)(Math.ceil(notes * 2 * 6d / 9d) - ex);
             case C:
-                return (notes * 2 * 5 / 9 + 1) - ex;
+                return (int)(Math.ceil(notes * 2 * 5d / 9d) - ex);
             case D:
-                return (notes * 2 * 4 / 9 + 1) - ex;
+                return (int)(Math.ceil(notes * 2 * 4d / 9d) - ex);
             case E:
-                return (notes * 2 * 3 / 9 + 1) - ex;
+                return (int)(Math.ceil(notes * 2 * 3d / 9d) - ex);
             case F:
-                return (notes * 2 * 2 / 9 + 1) - ex;
+                return (int)(Math.ceil(notes * 2 * 2d / 9d) - ex);
             default:
                 return -1;
         }

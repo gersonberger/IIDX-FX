@@ -2,6 +2,7 @@ package com.gersonberger;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
 import javafx.scene.web.WebEvent;
 import javafx.stage.Stage;
 
@@ -11,7 +12,7 @@ public class AlertController {
     private Stage dialogStage;
 
     @FXML
-    private Label alertLabel;
+    private VBox labelVbox;
 
     public void setDialogStage(Stage dialogStage, WebEvent param) {
         this.dialogStage = dialogStage;
@@ -29,10 +30,12 @@ public class AlertController {
                 dialogStage.getScene().getStylesheets().add(getClass().getResource("/css/" + Main.FILENAMETHEMELIGHT).toExternalForm());
                 break;
         }
-        alertLabel.setText(param.getData().toString());
+        Label label = new Label(param.getData().toString());
+        label.setWrapText(true);
+        labelVbox.getChildren().add(label);
     }
 
-    public void setDialogStage(Stage dialogStage, String title, String message) {
+    public void setDialogStage(Stage dialogStage, String title, String... messages) {
         this.dialogStage = dialogStage;
         switch (Main.programTheme) {
             case Main.THEMELIGHT:
@@ -49,7 +52,11 @@ public class AlertController {
                 break;
         }
         dialogStage.setTitle(title);
-        alertLabel.setText(message);
+        for (String message : messages) {
+            Label label = new Label(message);
+            label.setWrapText(true);
+            labelVbox.getChildren().add(label);
+        }
     }
 
     @FXML

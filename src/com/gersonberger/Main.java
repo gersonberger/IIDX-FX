@@ -19,8 +19,8 @@ public class Main extends Application {
     private static final long startuptime = System.currentTimeMillis();
 
     static final String PROGRAMNAME = "IIDX-FX";
-    static final String PROGRAMVERSION = ProgramVersion.MAJOR_1_MINOR_4_REVISION_2;
-    static final String PROGRAMDATE = "2017-05-23";
+    static final String PROGRAMVERSION = ProgramVersion.MAJOR_1_MINOR_4_REVISION_3;
+    static final String PROGRAMDATE = "2017-08-22";
 
     static String LOCALDIR;
     static String SEPARATOR;
@@ -53,7 +53,7 @@ public class Main extends Application {
     private static final String PROPERTYNAMEDJNAME = "dj_name";
     private static final String PROPERTYNAMEPLAYERID = "iidx_id";
 
-    static final String PROPERTYNAMECOLORDER = "colorder";
+    private static final String PROPERTYNAMECOLORDER = "colorder";
 
     static final String PROPERTYNAMESTYLECOL = "stylecolumn_visible";
     static final String PROPERTYNAMETITLECOL = "titlecolumn_visible";
@@ -71,17 +71,22 @@ public class Main extends Application {
     static final String PROPERTYNAMEEXCOL = "excolumn_visible";
     static final String PROPERTYNAMEMISS_COUNTCOL = "misscolumn_visible";
     static final String PROPERTYNAMESCRATCHCOL = "scratchcolumn_visible";
+
+    static final String PROPERTYNAMESTATSNORMAL = "stats_normal";
+    static final String PROPERTYNAMESTATSHYPER = "stats_hyper";
+    static final String PROPERTYNAMESTATSANOTHER = "stats_another";
     static final String PROPERTYNAMESTATSCLEARRATENOPLAY = "stats_clearrate_noplay";
     static final String PROPERTYNAMESTATSCOMPLETIONSTYLEDETAILS = "stats_stylecompletion_details";
-    static final String PROPERTYNAMESTATSCOMPLETIONLEVELDETAILS = "stats_levelcompletion_details";
+    static final String PROPERTYNAMESTATSLEVELLOW = "stats_level_low";
+    static final String PROPERTYNAMESTATSLEVELHIGH = "stats_level_high";
+
 
     private static String version;
 
     private static int os;
     static final int WINDOWS = 1;
-    private static final int LINUX = 2;
-    private static final int MAC = 3;
-    private static final int UNKNOWN = -1;
+    static final int LINUX = 2;
+    static final int MAC = 3;
 
     static String programTheme;
 
@@ -104,9 +109,13 @@ public class Main extends Application {
     static String playerid;
     static String colorder;
 
-    static boolean statsClearrateNoplay;
+    static boolean statsNormal;
+    static boolean statsHyper;
+    static boolean statsAnother;
+    static boolean statsPieNoplay;
     static boolean statsStyleCompletionDetails;
-    static boolean statsLevelCompletionDetails;
+    static int statsLevelLow;
+    static int statsLevelHigh;
 
     @Override
     public void start(Stage primaryStage) throws IOException {
@@ -154,7 +163,9 @@ public class Main extends Application {
         if (osName.toLowerCase().contains("win")) return WINDOWS;
         if (osName.toLowerCase().contains("nux") || osName.toLowerCase().contains("nix")) return LINUX;
         if (osName.toLowerCase().contains("mac")) return MAC;
-        return UNKNOWN;
+        System.err.println("UNKNOWN OPERATING SYSTEM");
+        System.exit(-1);
+        return 0;
     }
 
     private void initDir(){
@@ -210,13 +221,17 @@ public class Main extends Application {
             properties.setProperty(PROPERTYNAMEPLAYERID, String.valueOf(""));
             properties.setProperty(PROPERTYNAMESONGLIST, Style.OMNIMIX);
             properties.setProperty(PROPERTYNAMECOLORDER, "0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15");
+            properties.setProperty(PROPERTYNAMESTATSNORMAL, String.valueOf(true));
+            properties.setProperty(PROPERTYNAMESTATSHYPER, String.valueOf(true));
+            properties.setProperty(PROPERTYNAMESTATSANOTHER, String.valueOf(true));
             properties.setProperty(PROPERTYNAMESTATSCLEARRATENOPLAY, String.valueOf(true));
             properties.setProperty(PROPERTYNAMESTATSCOMPLETIONSTYLEDETAILS, String.valueOf(false));
-            properties.setProperty(PROPERTYNAMESTATSCOMPLETIONLEVELDETAILS, String.valueOf(false));
+            properties.setProperty(PROPERTYNAMESTATSLEVELLOW, "1");
+            properties.setProperty(PROPERTYNAMESTATSLEVELHIGH, "12");
 
             properties.store(fileOutputStream, null);
             fileOutputStream.close();
-            setProperties_Default();
+            setPropertiesDefault();
 
         } else {
             FileInputStream fileInputStream = new FileInputStream(propFile.getPath());
@@ -242,9 +257,13 @@ public class Main extends Application {
                 playerid = properties.getProperty(PROPERTYNAMEPLAYERID, "");
                 songlist = properties.getProperty(PROPERTYNAMESONGLIST, Style.OMNIMIX);
                 colorder = "0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15";
-                statsClearrateNoplay = true;
-                statsStyleCompletionDetails = false;
-                statsLevelCompletionDetails = false;
+                statsNormal = Boolean.valueOf(properties.getProperty(PROPERTYNAMESTATSNORMAL, "true"));
+                statsHyper = Boolean.valueOf(properties.getProperty(PROPERTYNAMESTATSHYPER, "true"));
+                statsAnother = Boolean.valueOf(properties.getProperty(PROPERTYNAMESTATSANOTHER, "true"));
+                statsPieNoplay = Boolean.valueOf(properties.getProperty(PROPERTYNAMESTATSCLEARRATENOPLAY, "true"));
+                statsStyleCompletionDetails = Boolean.valueOf(properties.getProperty(PROPERTYNAMESTATSCOMPLETIONSTYLEDETAILS, "false"));
+                statsLevelLow = Integer.valueOf(properties.getProperty(PROPERTYNAMESTATSLEVELLOW, "1"));
+                statsLevelHigh = Integer.valueOf(properties.getProperty(PROPERTYNAMESTATSLEVELHIGH, "12"));
                 version = PROGRAMVERSION;
 
                 log(Module.INITIALIZE, "updated settings from " + ProgramVersion.MAJOR_1_MINOR_4 + " to " + PROGRAMVERSION);
@@ -265,9 +284,13 @@ public class Main extends Application {
                 playerid = properties.getProperty(PROPERTYNAMEPLAYERID, "");
                 songlist = properties.getProperty(PROPERTYNAMESONGLIST, Style.OMNIMIX);
                 colorder = properties.getProperty(PROPERTYNAMECOLORDER, "0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15");
-                statsClearrateNoplay = Boolean.valueOf(properties.getProperty(PROPERTYNAMESTATSCLEARRATENOPLAY, "true"));
+                statsNormal = Boolean.valueOf(properties.getProperty(PROPERTYNAMESTATSNORMAL, "true"));
+                statsHyper = Boolean.valueOf(properties.getProperty(PROPERTYNAMESTATSHYPER, "true"));
+                statsAnother = Boolean.valueOf(properties.getProperty(PROPERTYNAMESTATSANOTHER, "true"));
+                statsPieNoplay = Boolean.valueOf(properties.getProperty(PROPERTYNAMESTATSCLEARRATENOPLAY, "true"));
                 statsStyleCompletionDetails = Boolean.valueOf(properties.getProperty(PROPERTYNAMESTATSCOMPLETIONSTYLEDETAILS, "false"));
-                statsLevelCompletionDetails = Boolean.valueOf(properties.getProperty(PROPERTYNAMESTATSCOMPLETIONLEVELDETAILS, "false"));
+                statsLevelLow = Integer.valueOf(properties.getProperty(PROPERTYNAMESTATSLEVELLOW, "1"));
+                statsLevelHigh = Integer.valueOf(properties.getProperty(PROPERTYNAMESTATSLEVELHIGH, "12"));
                 version = PROGRAMVERSION;
 
                 log(Module.INITIALIZE, "updated settings from " + ProgramVersion.MAJOR_1_MINOR_4_REVISION_1 + " to " + PROGRAMVERSION);
@@ -288,9 +311,40 @@ public class Main extends Application {
                 playerid = properties.getProperty(PROPERTYNAMEPLAYERID, "");
                 songlist = properties.getProperty(PROPERTYNAMESONGLIST, Style.OMNIMIX);
                 colorder = properties.getProperty(PROPERTYNAMECOLORDER, "0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15");
-                statsClearrateNoplay = Boolean.valueOf(properties.getProperty(PROPERTYNAMESTATSCLEARRATENOPLAY, "true"));
+                statsNormal = Boolean.valueOf(properties.getProperty(PROPERTYNAMESTATSNORMAL, "true"));
+                statsHyper = Boolean.valueOf(properties.getProperty(PROPERTYNAMESTATSHYPER, "true"));
+                statsAnother = Boolean.valueOf(properties.getProperty(PROPERTYNAMESTATSANOTHER, "true"));
+                statsPieNoplay = Boolean.valueOf(properties.getProperty(PROPERTYNAMESTATSCLEARRATENOPLAY, "true"));
                 statsStyleCompletionDetails = Boolean.valueOf(properties.getProperty(PROPERTYNAMESTATSCOMPLETIONSTYLEDETAILS, "false"));
-                statsLevelCompletionDetails = Boolean.valueOf(properties.getProperty(PROPERTYNAMESTATSCOMPLETIONLEVELDETAILS, "false"));
+                statsLevelLow = Integer.valueOf(properties.getProperty(PROPERTYNAMESTATSLEVELLOW, "1"));
+                statsLevelHigh = Integer.valueOf(properties.getProperty(PROPERTYNAMESTATSLEVELHIGH, "12"));
+                version = PROGRAMVERSION;
+
+                log(Module.INITIALIZE, "updated settings from " + ProgramVersion.MAJOR_1_MINOR_4_REVISION_2 + " to " + PROGRAMVERSION);
+            }
+
+            //version 1.4.3
+            else if (version.equals(ProgramVersion.MAJOR_1_MINOR_4_REVISION_3)) {
+                programTheme = properties.getProperty(PROPERTYNAMETHEME, THEMELIGHT);
+                statusColor = Boolean.valueOf(properties.getProperty(PROPERTYNAMESTATUSCOLORS, "false"));
+                showTitleSuggestions = Boolean.valueOf(properties.getProperty(PROPERTYNAMETITLESUGGESTIONS, "false"));
+                showArtistSuggestions = Boolean.valueOf(properties.getProperty(PROPERTYNAMEARTISTSUGGESTIONS, "true"));
+                playerside = properties.getProperty(PROPERTYNAMEPLAYERSIDE, "1");
+                battle = Boolean.valueOf(properties.getProperty(PROPERTYNAMEBATTLE, "false"));
+                slim = Boolean.valueOf(properties.getProperty(PROPERTYNAMESLIM, "false"));
+                blackwhite = Boolean.valueOf(properties.getProperty(PROPERTYNAMEBLACKWHITE, "false"));
+                highspeed = properties.getProperty(PROPERTYNAMEHIGHSPEED, "1");
+                djname = properties.getProperty(PROPERTYNAMEDJNAME, "");
+                playerid = properties.getProperty(PROPERTYNAMEPLAYERID, "");
+                songlist = properties.getProperty(PROPERTYNAMESONGLIST, Style.OMNIMIX);
+                colorder = properties.getProperty(PROPERTYNAMECOLORDER, "0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15");
+                statsNormal = Boolean.valueOf(properties.getProperty(PROPERTYNAMESTATSNORMAL, "true"));
+                statsHyper = Boolean.valueOf(properties.getProperty(PROPERTYNAMESTATSHYPER, "true"));
+                statsAnother = Boolean.valueOf(properties.getProperty(PROPERTYNAMESTATSANOTHER, "true"));
+                statsPieNoplay = Boolean.valueOf(properties.getProperty(PROPERTYNAMESTATSCLEARRATENOPLAY, "true"));
+                statsStyleCompletionDetails = Boolean.valueOf(properties.getProperty(PROPERTYNAMESTATSCOMPLETIONSTYLEDETAILS, "false"));
+                statsLevelLow = Integer.valueOf(properties.getProperty(PROPERTYNAMESTATSLEVELLOW, "1"));
+                statsLevelHigh = Integer.valueOf(properties.getProperty(PROPERTYNAMESTATSLEVELHIGH, "12"));
                 version = PROGRAMVERSION;
             }
 
@@ -302,12 +356,12 @@ public class Main extends Application {
                 if (ScoreFile.exists()) {
                     ScoreFile.delete();
                 }
-                setProperties_Default();
+                setPropertiesDefault();
             }
         }
     }
 
-    private void setProperties_Default() {
+    private void setPropertiesDefault() {
         version = PROGRAMVERSION;
         programTheme = THEMELIGHT;
         statusColor = false;
@@ -322,10 +376,13 @@ public class Main extends Application {
         playerid = "";
         songlist = Style.COPULAFULL;
         colorder = "0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15";
-        statsClearrateNoplay = true;
+        statsNormal = true;
+        statsHyper = true;
+        statsAnother = true;
+        statsPieNoplay = true;
         statsStyleCompletionDetails = false;
-        statsLevelCompletionDetails = false;
-
+        statsLevelLow = 1;
+        statsLevelHigh = 12;
     }
 
     static void setProperties(boolean[] columnVisibility){
@@ -348,9 +405,13 @@ public class Main extends Application {
                 properties.setProperty(PROPERTYNAMEPLAYERID, playerid);
                 properties.setProperty(PROPERTYNAMESONGLIST, songlist);
                 properties.setProperty(PROPERTYNAMECOLORDER, colorder);
-                properties.setProperty(PROPERTYNAMESTATSCLEARRATENOPLAY, String.valueOf(statsClearrateNoplay));
+                properties.setProperty(PROPERTYNAMESTATSNORMAL, String.valueOf(statsNormal));
+                properties.setProperty(PROPERTYNAMESTATSHYPER, String.valueOf(statsHyper));
+                properties.setProperty(PROPERTYNAMESTATSANOTHER, String.valueOf(statsAnother));
+                properties.setProperty(PROPERTYNAMESTATSCLEARRATENOPLAY, String.valueOf(statsPieNoplay));
                 properties.setProperty(PROPERTYNAMESTATSCOMPLETIONSTYLEDETAILS, String.valueOf(statsStyleCompletionDetails));
-                properties.setProperty(PROPERTYNAMESTATSCOMPLETIONLEVELDETAILS, String.valueOf(statsLevelCompletionDetails));
+                properties.setProperty(PROPERTYNAMESTATSLEVELLOW, String.valueOf(statsLevelLow));
+                properties.setProperty(PROPERTYNAMESTATSLEVELHIGH, String.valueOf(statsLevelHigh));
 
                 properties.setProperty(PROPERTYNAMESTYLECOL, String.valueOf(columnVisibility[0]));
                 properties.setProperty(PROPERTYNAMETITLECOL, String.valueOf(columnVisibility[1]));

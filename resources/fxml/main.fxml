@@ -29,6 +29,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.TextFlow?>
+<?import org.controlsfx.control.RangeSlider?>
 <?import org.controlsfx.control.SegmentedButton?>
 
 <?import javafx.scene.control.ToggleGroup?>
@@ -540,13 +541,13 @@
             </VBox>
         </ScrollPane>
     </Tab>
-    <Tab fx:id="statisticsTab" closable="false" disable="true" text="Statistics">
+    <Tab fx:id="statisticsTab" closable="false" text="Statistics">
         <ScrollPane fitToWidth="true">
             <HBox id="statisticspane" fillHeight="false">
                 <padding>
                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                 </padding>
-                <VBox id="stats" minWidth="210.0" spacing="10.0" HBox.hgrow="ALWAYS">
+                <VBox id="stats" minWidth="220.0" spacing="10.0" HBox.hgrow="ALWAYS">
                     <HBox.margin>
                         <Insets />
                     </HBox.margin>
@@ -565,7 +566,7 @@
                     </Label>
                     <GridPane>
                         <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="110.0" />
                             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                         </columnConstraints>
                         <rowConstraints>
@@ -584,50 +585,58 @@
                             <RowConstraints minHeight="10.0" prefHeight="23.0" vgrow="SOMETIMES" />
                         </rowConstraints>
                         <Label text="Full Combo:" GridPane.rowIndex="3" />
-                        <Label fx:id="fullcomboLabel" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <Label fx:id="statsFullcomboLabel" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                         <Label text="Ex Hard Clear:" GridPane.rowIndex="4" />
-                        <Label fx:id="exhardLabel" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <Label fx:id="statsExhardLabel" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                         <Label text="Hard Clear:" GridPane.rowIndex="5" />
-                        <Label fx:id="hardLabel" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <Label fx:id="statsHardLabel" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                         <Label text="Clear:" GridPane.rowIndex="6" />
-                        <Label fx:id="clearLabel" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                        <Label fx:id="statsClearLabel" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                         <Label text="Easy Clear:" GridPane.rowIndex="7" />
-                        <Label fx:id="easyclearLabel" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                        <Label fx:id="statsEasyclearLabel" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                         <Label text="Assist Clear:" GridPane.rowIndex="8" />
-                        <Label fx:id="assistclearLabel" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                        <Label fx:id="statsAssistclearLabel" GridPane.columnIndex="1" GridPane.rowIndex="8" />
                         <Label text="Failed:" GridPane.rowIndex="9" />
-                        <Label fx:id="failLabel" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                        <Label fx:id="statsFailLabel" GridPane.columnIndex="1" GridPane.rowIndex="9" />
                         <Label text="No Play:" GridPane.rowIndex="10" />
-                        <Label fx:id="noplayLabel" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+                        <Label fx:id="statsNoplayLabel" GridPane.columnIndex="1" GridPane.rowIndex="10" />
                         <Label text="Total clears:" GridPane.rowIndex="12">
                             <GridPane.margin>
                                 <Insets />
                             </GridPane.margin>
                         </Label>
-                        <Label fx:id="totalclearedLabel" GridPane.columnIndex="1" GridPane.rowIndex="12" />
+                        <Label fx:id="statsTotalclearedLabel" GridPane.columnIndex="1" GridPane.rowIndex="12" />
                         <Label text="DJName:" />
-                        <Label fx:id="djnameLabel" GridPane.columnIndex="1" />
+                        <Label fx:id="statsDjnameLabel" GridPane.columnIndex="1" />
                         <Label text="PlayerID:" GridPane.rowIndex="1" />
-                        <Label fx:id="playeridLabel" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label fx:id="statsPlayeridLabel" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                     </GridPane>
+                    <Label id="header2" text="Difficulty">
+                        <padding>
+                            <Insets top="20.0" />
+                        </padding>
+                    </Label>
+                    <CheckBox fx:id="statsDifficultyNormal" onAction="#updateStats" text="Normal" />
+                    <CheckBox fx:id="statsDifficultyHyper" onAction="#updateStats" text="Hyper" />
+                    <CheckBox fx:id="statsDifficultyAnother" onAction="#updateStats" text="Another" />
+               <Label id="header2" text="Level">
+                  <padding>
+                     <Insets top="20.0" />
+                  </padding>
+               </Label>
+               <RangeSlider fx:id="statsLevelRangeSlider" lowValue="1" highValue="12" majorTickUnit="1.0" min="1.0" max="12.0" minorTickCount="0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
                     <Label id="header2" text="Clear rate">
                         <padding>
                             <Insets top="20.0" />
                         </padding>
                     </Label>
-                    <CheckBox fx:id="noPlayCheckBox" onAction="#setPieNoPlay" selected="true" text="Show &quot;No Play&quot;" />
+                    <CheckBox fx:id="statsPieNoPlayCheckBox" onAction="#setPieNoPlay" selected="true" text="Show &quot;No Play&quot;" />
                     <Label id="header2" text="Completion by style">
                         <padding>
                             <Insets top="20.0" />
                         </padding>
                     </Label>
-                    <CheckBox fx:id="styleDetailsCheckBox" onAction="#setStyleBarChartDetails" text="Show details" />
-                    <Label id="header2" text="Completion by level">
-                        <padding>
-                            <Insets top="20.0" />
-                        </padding>
-                    </Label>
-                    <CheckBox fx:id="levelDetailsCheckBox" onAction="#setLevelBarChartDetails" text="Show details" />
+                    <CheckBox fx:id="statsStyleDetailsCheckBox" onAction="#setStyleBarChartDetails" text="Show details" />
                 </VBox>
                 <HBox>
                     <Separator orientation="VERTICAL" prefHeight="600.0" HBox.hgrow="ALWAYS" />
@@ -637,8 +646,8 @@
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                     </padding>
                     <HBox VBox.vgrow="ALWAYS">
-                        <PieChart fx:id="statusPieChart" clockwise="false" labelLineLength="15.0" legendSide="LEFT" maxWidth="1.7976931348623157E308" prefWidth="800.0" title="Clear rate" HBox.hgrow="ALWAYS" />
-                        <BarChart fx:id="gradeBarChart" barGap="0.0" categoryGap="4.0" legendVisible="false" maxWidth="1.7976931348623157E308" prefWidth="600.0" title="Grades" verticalGridLinesVisible="false" HBox.hgrow="ALWAYS">
+                        <PieChart fx:id="statsStatusPieChart" labelLineLength="15.0" legendSide="LEFT" maxWidth="1.7976931348623157E308" prefWidth="800.0" title="Clear rate" HBox.hgrow="ALWAYS" />
+                        <BarChart fx:id="statsGradeBarChart" barGap="0.0" categoryGap="4.0" legendVisible="false" maxWidth="1.7976931348623157E308" prefWidth="600.0" title="Grades" verticalGridLinesVisible="false" HBox.hgrow="ALWAYS">
                             <xAxis>
                                 <CategoryAxis />
                             </xAxis>
@@ -648,22 +657,12 @@
                         </BarChart>
                     </HBox>
                     <HBox>
-                        <StackedBarChart fx:id="customStackedBarChart" alternativeColumnFillVisible="true" animated="false" categoryGap="4.0" prefHeight="400.0" title="Completion by style" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
+                        <StackedBarChart fx:id="statsStyleStackedBarChart" alternativeColumnFillVisible="true" animated="false" categoryGap="4.0" prefHeight="400.0" title="Completion by style" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
                             <xAxis>
                                 <CategoryAxis side="BOTTOM" />
                             </xAxis>
                             <yAxis>
                                 <NumberAxis animated="false" autoRanging="false" label="Percent" minorTickCount="1" side="LEFT" />
-                            </yAxis>
-                        </StackedBarChart>
-                    </HBox>
-                    <HBox>
-                        <StackedBarChart fx:id="levelStackedBarChart" alternativeColumnFillVisible="true" animated="false" categoryGap="4.0" prefHeight="350.0" title="Completion by level" HBox.hgrow="ALWAYS">
-                            <xAxis>
-                                <CategoryAxis label="Level" side="BOTTOM" />
-                            </xAxis>
-                            <yAxis>
-                                <NumberAxis autoRanging="false" label="Percent" minorTickCount="1" side="LEFT" />
                             </yAxis>
                         </StackedBarChart>
                     </HBox>
@@ -690,15 +689,15 @@
                     <RadioButton fx:id="settingsThemeLightRadioButton" onAction="#setThemeLight" text="Light" />
                     <RadioButton fx:id="settingsThemeDarkRadioButton" onAction="#setThemeDark" text="Dark" />
                     <RadioButton fx:id="settingsThemeNanahiraRadioButton" onAction="#setThemeNanahira" text="Nanahira" />
-                    <CheckBox fx:id="settingsStatusColorsCheckBox" text="Show grade colors" />
+                    <CheckBox fx:id="settingsStatusColorsCheckBox" onAction="#setGradeColors" text="Show grade colors" />
                     <Label id="header2" fx:id="settingsSearchbarLabel" text="Searchbar">
                         <padding>
                             <Insets top="20.0" />
                         </padding>
                     </Label>
                     <Label id="labelsmall" text="Changes need a restart to take effect" wrapText="true" />
-                    <CheckBox fx:id="settingsTitleSuggestionsCheckBox" text="Suggestions for titles" />
-                    <CheckBox fx:id="settingsArtistSuggestionsCheckBox" text="Suggestions for artists" />
+                    <CheckBox fx:id="settingsTitleSuggestionsCheckBox" onAction="#setSuggestions" text="Suggestions for titles" />
+                    <CheckBox fx:id="settingsArtistSuggestionsCheckBox" onAction="#setSuggestions" text="Suggestions for artists" />
                     <Label id="header2" fx:id="settingsChartsLabel" text="Charts (via textage.cc)">
                         <padding>
                             <Insets top="20.0" />
@@ -716,18 +715,18 @@
                             <fx:define>
                                 <ToggleGroup fx:id="settingsHSGroup" />
                             </fx:define>
-                            <ToggleButton fx:id="settingsHS0ToggleButton" text="HS 0" />
-                            <ToggleButton fx:id="settingsHS1ToggleButton" text="HS 1" />
-                            <ToggleButton fx:id="settingsHS2ToggleButton" text="HS 2" />
-                            <ToggleButton fx:id="settingsHS3ToggleButton" text="HS 3" />
+                            <ToggleButton fx:id="settingsHS0ToggleButton" onAction="#setHiSpeed" text="HS 0" />
+                            <ToggleButton fx:id="settingsHS1ToggleButton" onAction="#setHiSpeed" text="HS 1" />
+                            <ToggleButton fx:id="settingsHS2ToggleButton" onAction="#setHiSpeed" text="HS 2" />
+                            <ToggleButton fx:id="settingsHS3ToggleButton" onAction="#setHiSpeed" text="HS 3" />
                         </buttons>
                         <padding>
                             <Insets bottom="10.0" />
                         </padding>
                     </SegmentedButton>
-                    <CheckBox fx:id="settingsBattleCheckBox" text="Battle" />
-                    <CheckBox fx:id="settingsSlimCheckBox" text="Slim" />
-                    <CheckBox fx:id="settingsBWCheckBox" text="Black &amp; White" />
+                    <CheckBox fx:id="settingsBattleCheckBox" onAction="#setBattle" text="Battle" />
+                    <CheckBox fx:id="settingsSlimCheckBox" onAction="#setSlim" text="Slim" />
+                    <CheckBox fx:id="settingsBWCheckBox" onAction="#setBW" text="Black &amp; White" />
                 </VBox>
                 <Separator orientation="VERTICAL" prefHeight="200.0" />
                 <VBox spacing="10.0" HBox.hgrow="NEVER">
@@ -741,7 +740,16 @@
                             <Insets top="20.0" />
                         </padding>
                     </Label>
-                    <Button alignment="CENTER" onAction="#export" prefWidth="140.0" text="Export to file..." />
+                    <Button alignment="CENTER" onAction="#export" prefWidth="150.0" text="Export to file..." />
+                    <Label id="header2" fx:id="settingsUpdateApplicationLabel" text="Update">
+                        <padding>
+                            <Insets top="20.0" />
+                        </padding>
+                    </Label>
+                    <HBox alignment="CENTER_LEFT" spacing="8.0">
+                        <Button fx:id="settingsUpdateApplicationButton" onAction="#checkUpdate" prefWidth="150.0" text="Check for updates..." />
+                        <Label fx:id="settingsUpdateApplicationsStatusLabel" opacity="0.0" text="IIDX-FX is up to date!" />
+                    </HBox>
                 </VBox>
             </HBox>
             <Separator prefWidth="200.0">
@@ -753,8 +761,7 @@
                 <VBox.margin>
                     <Insets />
                 </VBox.margin>
-                <Button fx:id="settingsSaveButton" alignment="CENTER" onAction="#saveSettings" prefWidth="80.0" text="Save" />
-                <Label fx:id="settingsSaveLabel" opacity="0.0" text="Saved successfully" />
+                <Label fx:id="settingsSaveLabel" opacity="0.0" text="Saved!" />
             </HBox>
             <Region VBox.vgrow="ALWAYS" />
             <TextFlow fx:id="settingsAboutFlow" />

@@ -4,6 +4,7 @@ import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
@@ -26,9 +27,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.TextFlow;
 import javafx.scene.web.WebEngine;
@@ -39,31 +37,24 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Callback;
 import javafx.util.Duration;
-import netscape.javascript.JSObject;
-import org.apache.http.HttpHeaders;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClientBuilder;
 import org.controlsfx.control.PopOver;
+import org.controlsfx.control.RangeSlider;
 import org.controlsfx.control.SegmentedButton;
 import org.controlsfx.control.textfield.TextFields;
 import org.controlsfx.glyphfont.Glyph;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.awt.*;
-import java.awt.ScrollPane;
 import java.awt.datatransfer.StringSelection;
 import java.io.*;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.net.*;
-import java.text.SimpleDateFormat;
+import java.net.URL;
+import java.net.UnknownHostException;
 import java.util.*;
 import java.util.List;
-
-import static java.lang.Thread.sleep;
 
 
 public class MainController implements Initializable {
@@ -392,41 +383,45 @@ public class MainController implements Initializable {
 
     /***** STATISTICS *****/
     @FXML
-    private Label djnameLabel;
+    private Label statsDjnameLabel;
     @FXML
-    private Label playeridLabel;
+    private Label statsPlayeridLabel;
     @FXML
-    private Label fullcomboLabel;
+    private Label statsFullcomboLabel;
     @FXML
-    private Label exhardLabel;
+    private Label statsExhardLabel;
     @FXML
-    private Label hardLabel;
+    private Label statsHardLabel;
     @FXML
-    private Label clearLabel;
+    private Label statsClearLabel;
     @FXML
-    private Label easyclearLabel;
+    private Label statsEasyclearLabel;
     @FXML
-    private Label assistclearLabel;
+    private Label statsAssistclearLabel;
     @FXML
-    private Label failLabel;
+    private Label statsFailLabel;
     @FXML
-    private Label noplayLabel;
+    private Label statsNoplayLabel;
     @FXML
-    private Label totalclearedLabel;
+    private Label statsTotalclearedLabel;
     @FXML
-    private PieChart statusPieChart;
+    private PieChart statsStatusPieChart;
     @FXML
-    private BarChart gradeBarChart;
+    private BarChart statsGradeBarChart;
     @FXML
-    private StackedBarChart customStackedBarChart;
+    private StackedBarChart statsStyleStackedBarChart;
     @FXML
-    private StackedBarChart levelStackedBarChart;
+    private CheckBox statsPieNoPlayCheckBox;
     @FXML
-    private CheckBox noPlayCheckBox;
+    private CheckBox statsDifficultyNormal;
     @FXML
-    private CheckBox styleDetailsCheckBox;
+    private CheckBox statsDifficultyHyper;
     @FXML
-    private CheckBox levelDetailsCheckBox;
+    private CheckBox statsDifficultyAnother;
+    @FXML
+    private RangeSlider statsLevelRangeSlider;
+    @FXML
+    private CheckBox statsStyleDetailsCheckBox;
 
     /***** SETTINGS *****/
     @FXML
@@ -476,13 +471,17 @@ public class MainController implements Initializable {
     @FXML
     private Label settingsExportLabel;
     @FXML
-    private Button settingsSaveButton;
+    private Label settingsUpdateApplicationLabel;
+    @FXML
+    private Button settingsUpdateApplicationButton;
+    @FXML
+    private Label settingsUpdateApplicationsStatusLabel;
     @FXML
     private Label settingsSaveLabel;
     @FXML
     private TextFlow settingsAboutFlow;
 
-    /***** JSON KEYS*****/
+    /***** JSON KEYS *****/
     private final String jsonKeyId = "i";
     private final String jsonKeyMusicId = "mi";
     private final String jsonKeyStyle = "s";
@@ -505,8 +504,6 @@ public class MainController implements Initializable {
     private final String jsonKeyStatus = "s";
     private final String jsonKeyEx_score = "e";
     private final String jsonKeyMiss_count = "m";
-    private final String jsonKeyRivalName = "n";
-    private final String jsonKeyRivalScores = "sc";
 
     /***** MISC *****/
     @FXML
@@ -520,11 +517,13 @@ public class MainController implements Initializable {
     @FXML
     private Label matchLabel;
 
-    private static final int NETWORKERRORAUTHORIZATION = -20;
-    private static final int NETWORKERRORPROFILE = -21;
-    private static final int NETWORKERRORSERVER = -22;
+    private int numCols = 16;
 
-    private static final String glyphFont = "FontAwesome";
+    private static final int UPDATESERVER404ERROR = -30;
+    private static final int UPDATESERVERFORMATERROR = -31;
+    private static final int UPDATECONNECTIONERROR = -32;
+
+    private static final String GLYPHFONT = "FontAwesome";
 
     private Scene scene;
     private Set<String> titleSuggestions = new HashSet<>();
@@ -534,8 +533,7 @@ public class MainController implements Initializable {
 
     private boolean filtersVisible = false;
     private boolean settingsSaveAnimationPlaying = false;
-
-    private ServerSocket serverSocket;
+    private boolean settingsUpdateApplicationAnimationPlaying = false;
 
     private Stats stats;
 
@@ -554,20 +552,20 @@ public class MainController implements Initializable {
         }));
 
         //glyphs
-        songsTab.setGraphic(new Glyph(glyphFont, '\uf03a'));
-        danCourseTab.setGraphic(new Glyph(glyphFont, '\uf005'));
-        statisticsTab.setGraphic(new Glyph(glyphFont, '\uf080'));
-        settingsTab.setGraphic(new Glyph(glyphFont, '\uf013'));
+        songsTab.setGraphic(new Glyph(GLYPHFONT, '\uf03a'));
+        danCourseTab.setGraphic(new Glyph(GLYPHFONT, '\uf005'));
+        statisticsTab.setGraphic(new Glyph(GLYPHFONT, '\uf080'));
+        settingsTab.setGraphic(new Glyph(GLYPHFONT, '\uf013'));
 
-        filterButton.setGraphic(new Glyph(glyphFont, '\uf0b0'));
+        filterButton.setGraphic(new Glyph(GLYPHFONT, '\uf0b0'));
 
-        settingsThemeLabel.setGraphic(new Glyph(glyphFont, '\uf1fc'));
-        settingsSearchbarLabel.setGraphic(new Glyph(glyphFont, '\uf002'));
-        settingsChartsLabel.setGraphic(new Glyph(glyphFont, '\uf0c9'));
-        settingsHSLabel.setGraphic(new Glyph(glyphFont, '\uf0e4'));
-        settingsSonglistLabel.setGraphic(new Glyph(glyphFont, '\uf022'));
-        settingsExportLabel.setGraphic(new Glyph(glyphFont, '\uf15c'));
-        settingsSaveButton.setGraphic(new Glyph(glyphFont, '\uf0c7'));
+        settingsThemeLabel.setGraphic(new Glyph(GLYPHFONT, '\uf1fc'));
+        settingsSearchbarLabel.setGraphic(new Glyph(GLYPHFONT, '\uf002'));
+        settingsChartsLabel.setGraphic(new Glyph(GLYPHFONT, '\uf0c9'));
+        settingsHSLabel.setGraphic(new Glyph(GLYPHFONT, '\uf0e4'));
+        settingsSonglistLabel.setGraphic(new Glyph(GLYPHFONT, '\uf022'));
+        settingsExportLabel.setGraphic(new Glyph(GLYPHFONT, '\uf15c'));
+        settingsUpdateApplicationLabel.setGraphic(new Glyph(GLYPHFONT, '\uf021'));
 
         Platform.runLater(() -> {
             scene = tableView.getScene();
@@ -636,6 +634,9 @@ public class MainController implements Initializable {
         //set songlist
         settingsSonglistComboBox.getItems().addAll(Style.OMNIMIX, Style.COPULAFULL);
         settingsSonglistComboBox.setValue(Main.songlist);
+        settingsSonglistComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (!oldValue.equals(newValue)) saveSettings(true);
+        });
 
         //set aboutlink
         Hyperlink aboutHyperlink = new Hyperlink("About");
@@ -644,17 +645,10 @@ public class MainController implements Initializable {
 
         //init main data
         initTable();
-        setSuggestions();
+        addSuggestions();
         initDan();
         initStatistics();
-
-        //initial sort AC-style
-        titleColumn.setSortType(TableColumn.SortType.ASCENDING);
-        levelColumn.setSortType(TableColumn.SortType.ASCENDING);
-        styleColumn.setSortType(TableColumn.SortType.DESCENDING);
-        tableView.getSortOrder().add(styleColumn);
-        tableView.getSortOrder().add(levelColumn);
-        tableView.getSortOrder().add(titleColumn);
+        sortAC();
 
         refreshTable();
     }
@@ -725,8 +719,8 @@ public class MainController implements Initializable {
         ex_scoreColumn.setVisible(Boolean.valueOf(properties.getProperty(Main.PROPERTYNAMEEXCOL, "false")));
         miss_countColumn.setVisible(Boolean.valueOf(properties.getProperty(Main.PROPERTYNAMEMISS_COUNTCOL, "false")));
 
-        //column order
-        applyColumnOrder(Main.colorder);
+        //tablecolumn order listener
+        tableView.getColumns().addListener((ListChangeListener<TableColumn<SongEntry, ?>>) change -> saveSettings(false));
 
         //column automatic resizing
         tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
@@ -842,34 +836,78 @@ public class MainController implements Initializable {
 
     private String getColumnOrder() {
         String order = "";
-        for (TableColumn<SongEntry, ?> column : tableView.getColumns()) {
-            if (column.equals(styleColumn)) order += "0,";
-            else if (column.equals(titleColumn)) order += "1,";
-            else if (column.equals(artistColumn)) order += "2,";
-            else if (column.equals(genreColumn)) order += "3,";
-            else if (column.equals(difficultyColumn)) order += "4,";
-            else if (column.equals(levelColumn)) order += "5,";
-            else if (column.equals(ratingNColumn)) order += "6,";
-            else if (column.equals(ratingHColumn)) order += "7,";
-            else if (column.equals(bpmColumn)) order += "8,";
-            else if (column.equals(lengthColumn)) order += "9,";
-            else if (column.equals(notesColumn)) order += "10,";
-            else if (column.equals(scratchColumn)) order += "11,";
-            else if (column.equals(statusColumn)) order += "12,";
-            else if (column.equals(gradeColumn)) order += "13,";
-            else if (column.equals(ex_scoreColumn)) order += "14,";
-            else if (column.equals(miss_countColumn)) order += "15,";
+        ObservableList<TableColumn<SongEntry, ?>> columns = tableView.getColumns();
+        if (columns.size() == numCols) {
+            for (TableColumn<SongEntry, ?> column : columns) {
+                if (column.equals(styleColumn)) order += "0,";
+                else if (column.equals(titleColumn)) order += "1,";
+                else if (column.equals(artistColumn)) order += "2,";
+                else if (column.equals(genreColumn)) order += "3,";
+                else if (column.equals(difficultyColumn)) order += "4,";
+                else if (column.equals(levelColumn)) order += "5,";
+                else if (column.equals(ratingNColumn)) order += "6,";
+                else if (column.equals(ratingHColumn)) order += "7,";
+                else if (column.equals(bpmColumn)) order += "8,";
+                else if (column.equals(lengthColumn)) order += "9,";
+                else if (column.equals(notesColumn)) order += "10,";
+                else if (column.equals(scratchColumn)) order += "11,";
+                else if (column.equals(statusColumn)) order += "12,";
+                else if (column.equals(gradeColumn)) order += "13,";
+                else if (column.equals(ex_scoreColumn)) order += "14,";
+                else if (column.equals(miss_countColumn)) order += "15,";
+            }
+            return order.substring(0, order.length() - 1);
         }
-        return order.substring(0, order.length()-1);
+        return Main.colorder;
     }
 
     private void applyColumnOrder(String order) {
-        ObservableList<TableColumn<SongEntry, ?>> columns = tableView.getColumns();
-        final List<TableColumn<SongEntry, ?>> defaultColumns = Collections.unmodifiableList(new ArrayList<>(columns));
-        columns.clear();
         String[] cols = order.split(",");
-        for (String col : cols) {
-            columns.add(defaultColumns.get(Integer.valueOf(col)));
+        if (cols.length == numCols) {
+            ObservableList<TableColumn<SongEntry, ?>> columns = tableView.getColumns();
+            columns.clear();
+            for (String col : cols) {
+                columns.add(getDefaultOrderColumn(Integer.valueOf(col)));
+            }
+        }
+    }
+
+    private TableColumn<SongEntry, ?> getDefaultOrderColumn(int num) {
+        switch (num) {
+            case 0:
+                return styleColumn;
+            case 1:
+                return titleColumn;
+            case 2:
+                return artistColumn;
+            case 3:
+                return genreColumn;
+            case 4:
+                return difficultyColumn;
+            case 5:
+                return levelColumn;
+            case 6:
+                return ratingNColumn;
+            case 7:
+                return ratingHColumn;
+            case 8:
+                return bpmColumn;
+            case 9:
+                return lengthColumn;
+            case 10:
+                return notesColumn;
+            case 11:
+                return scratchColumn;
+            case 12:
+                return statusColumn;
+            case 13:
+                return gradeColumn;
+            case 14:
+                return ex_scoreColumn;
+            case 15:
+                return miss_countColumn;
+            default:
+                return null;
         }
     }
 
@@ -960,8 +998,10 @@ public class MainController implements Initializable {
                     JSONObject music = (JSONObject) musicArr.get(j);
                     style = music.getInt(jsonKeyStyle);
                     title = music.getString(jsonKeyTitle);
+                    titleSuggestions.add(title);
                     title_r = music.getString(jsonKeyTitleR);
                     artist = music.getString(jsonKeyArtist);
+                    artistSuggestions.add(artist);
                     artist_r = music.getString(jsonKeyArtistR);
                     genre = music.getString(jsonKeyGenre);
                     textage = music.getString(jsonKeyTextage);
@@ -973,21 +1013,38 @@ public class MainController implements Initializable {
             entries.add(
                     new SongEntry(
                             id, style, title, title_r, artist, artist_r, genre, difficulty, level, nRating, hRating,
-                            bpmMin, bpmMax, length, notes, scratch, status, grade, miss_count, ex_score, textage, omnimix, musicId
+                            bpmMin, bpmMax, length, notes, scratch, status, grade, miss_count, ex_score, textage,
+                            omnimix, musicId
                     )
             );
 
         }
 
-        Main.log(Module.INITIALIZE, "created " + entries.size() + " entries");
+        log(Module.INITIALIZE, "created " + entries.size() + " entries");
         masterData.addAll(entries);
-        Main.log(Module.INITIALIZE, "added entries to masterdata");
+        log(Module.INITIALIZE, "added entries to masterdata");
+
         try {
             initColumns();
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        //column order
+        applyColumnOrder(Main.colorder);
+
+        //set data
         setTableData(masterData);
+    }
+
+    private void sortAC() {
+        //sort AC-style
+        titleColumn.setSortType(TableColumn.SortType.ASCENDING);
+        levelColumn.setSortType(TableColumn.SortType.ASCENDING);
+        styleColumn.setSortType(TableColumn.SortType.DESCENDING);
+        tableView.getSortOrder().add(styleColumn);
+        tableView.getSortOrder().add(levelColumn);
+        tableView.getSortOrder().add(titleColumn);
     }
 
     private JSONArray createLocalJsonArray(String path) {
@@ -1841,6 +1898,9 @@ public class MainController implements Initializable {
         settingsThemeLightRadioButton.setSelected(true);
         settingsThemeDarkRadioButton.setSelected(false);
         settingsThemeNanahiraRadioButton.setSelected(false);
+        if (!Main.programTheme.equals(Main.THEMELIGHT)) {
+            saveSettings(true);
+        }
     }
 
     @FXML
@@ -1848,6 +1908,9 @@ public class MainController implements Initializable {
         settingsThemeLightRadioButton.setSelected(false);
         settingsThemeDarkRadioButton.setSelected(true);
         settingsThemeNanahiraRadioButton.setSelected(false);
+        if (!Main.programTheme.equals(Main.THEMEDARK)) {
+            saveSettings(true);
+        }
     }
 
     @FXML
@@ -1855,6 +1918,9 @@ public class MainController implements Initializable {
         settingsThemeLightRadioButton.setSelected(false);
         settingsThemeDarkRadioButton.setSelected(false);
         settingsThemeNanahiraRadioButton.setSelected(true);
+        if (!Main.programTheme.equals(Main.THEMENANAHIRA)) {
+            saveSettings(true);
+        }
     }
 
     @FXML
@@ -1879,15 +1945,203 @@ public class MainController implements Initializable {
     }
 
     @FXML
+    private void setGradeColors() {
+        refreshTable();
+        saveSettings(true);
+    }
+
+    @FXML
+    private void setSuggestions() {
+        saveSettings(true);
+    }
+
+    @FXML
     private void setP1() {
         settingsP1RadioButton.setSelected(true);
         settingsP2RadioButton.setSelected(false);
+        saveSettings(true);
     }
 
     @FXML
     private void setP2() {
         settingsP2RadioButton.setSelected(true);
         settingsP1RadioButton.setSelected(false);
+        saveSettings(true);
+    }
+
+    @FXML
+    private void setHiSpeed() {
+        saveSettings(true);
+    }
+
+    @FXML
+    private void setBattle() {
+        saveSettings(true);
+    }
+
+    @FXML
+    private void setSlim() {
+        saveSettings(true);
+    }
+
+    @FXML
+    private void setBW() {
+        saveSettings(true);
+    }
+
+    private void alertPopup(int code) {
+        switch (code) {
+            case UPDATESERVER404ERROR:
+                alertPopup("Update server error",
+                        "Update server could not be reached.",
+                        "Please try again later.");
+                break;
+            case UPDATESERVERFORMATERROR:
+                alertPopup("Update server error",
+                        "Update server returned malformed message.",
+                        "Please try again later.");
+                break;
+            case UPDATECONNECTIONERROR:
+                alertPopup("Update server error",
+                        "Couldn't reach update server.",
+                        "Check your internet connection and try again.");
+                break;
+        }
+    }
+
+    private void alertPopup(String title, String... messages) {
+        Toolkit.getDefaultToolkit().beep();
+        Platform.runLater(() -> {
+            try {
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(getClass().getResource("/fxml/alert.fxml"));
+                VBox page = loader.load();
+                Stage dialogStage = new Stage();
+                dialogStage.initModality(Modality.APPLICATION_MODAL);
+                dialogStage.initStyle(StageStyle.DECORATED);
+                dialogStage.getIcons().add(new Image(getClass().getResource("/img/icon32.png").toString()));
+                dialogStage.getIcons().add(new Image(getClass().getResource("/img/icon256.png").toString()));
+                dialogStage.setResizable(false);
+                Scene scene = new Scene(page);
+                dialogStage.setScene(scene);
+                AlertController controller = loader.getController();
+                controller.setDialogStage(dialogStage, title, messages);
+                dialogStage.showAndWait();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    @FXML
+    private void checkUpdate() {
+        if (!settingsUpdateApplicationAnimationPlaying) {
+            settingsUpdateApplicationButton.setDisable(true);
+
+            String newversion = null;
+            String url = null;
+            int size = -1;
+
+            BufferedReader reader = null;
+            try {
+                reader = new BufferedReader(new InputStreamReader(new URL("http://iidxfx.xn--t8j3b7dyd.xn--q9jyb4c/update.json").openStream()));
+                StringBuilder buffer = new StringBuilder();
+                int read;
+                char[] chars = new char[1024];
+                while ((read = reader.read(chars)) != -1) {
+                    buffer.append(chars, 0, read);
+                }
+
+                JSONObject json = new JSONObject(buffer.toString());
+                newversion = json.getString("version");
+                url = json.getString("url");
+                size = json.getInt("size");
+
+            } catch (UnknownHostException e) {
+                log(Module.UPDATER, "couldn't reach update server");
+                alertPopup(UPDATECONNECTIONERROR);
+            } catch (FileNotFoundException e) {
+                log(Module.UPDATER, "server responded 404");
+                alertPopup(UPDATESERVER404ERROR);
+
+            } catch (JSONException e) {
+                log(Module.UPDATER, "update message in wrong format");
+                alertPopup(UPDATESERVERFORMATERROR);
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                if (reader != null) {
+                    try {
+                        reader.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                settingsUpdateApplicationButton.setDisable(false);
+            }
+
+            if (checkUpdate(newversion)) {
+                log(Module.UPDATER, "new version available: " + newversion);
+                updater(newversion, url, size);
+            } else {
+                log(Module.UPDATER, Main.PROGRAMNAME + " is up to date");
+
+                // play animation
+                settingsUpdateApplicationAnimationPlaying = true;
+                FadeTransition ft3 = new FadeTransition(Duration.millis(300), settingsUpdateApplicationsStatusLabel);
+                ft3.setFromValue(1);
+                ft3.setToValue(0);
+                ft3.setOnFinished(event2 -> settingsUpdateApplicationAnimationPlaying = false);
+
+                FadeTransition ft2 = new FadeTransition(Duration.millis(1500), settingsUpdateApplicationsStatusLabel);
+                ft2.setOnFinished(event -> ft3.play());
+
+                FadeTransition ft1 = new FadeTransition(Duration.millis(300), settingsUpdateApplicationsStatusLabel);
+                ft1.setFromValue(0);
+                ft1.setToValue(1);
+                ft1.setOnFinished(event -> ft2.play());
+
+                new Thread(ft1::play).start();
+
+            }
+            settingsUpdateApplicationButton.setDisable(false);
+
+        }
+    }
+
+    private boolean checkUpdate(String newver) {
+        String[] o = Main.PROGRAMVERSION.split("\\.");
+        String[] n = newver.split("\\.");
+
+        for (int i = 0; i < 3; i++) {
+            int oi = o.length > i ? Integer.valueOf(o[i]) : 0;
+            int ni = n.length > i ? Integer.valueOf(n[i]) : 0;
+            if (oi < ni) return true;
+        }
+
+        return false;
+    }
+
+    private void updater(String newversion, String url, int size) {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/fxml/updater.fxml"));
+            VBox page = loader.load();
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle(Main.PROGRAMNAME);
+            dialogStage.initModality(Modality.APPLICATION_MODAL);
+            dialogStage.getIcons().add(new Image(getClass().getResource("/img/icon32.png").toString()));
+            dialogStage.getIcons().add(new Image(getClass().getResource("/img/icon256.png").toString()));
+            dialogStage.setResizable(false);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+            UpdaterController controller = loader.getController();
+            controller.setDialogStage(dialogStage, newversion, url, size);
+            dialogStage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -1910,6 +2164,7 @@ public class MainController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        saveSettings(false);
     }
 
     /***** DAN *****/
@@ -2041,76 +2296,77 @@ public class MainController implements Initializable {
         }
     }
 
-    private void setSuggestions() {
+    private void addSuggestions() {
         if (Main.showTitleSuggestions) suggestions.addAll(titleSuggestions);
         if (Main.showArtistSuggestions) suggestions.addAll(artistSuggestions);
         TextFields.bindAutoCompletion(filterField, suggestions);
         if (suggestions.size() > 0)
-            Main.log(Module.INITIALIZE, "added " + suggestions.size() + " suggestions to searchbar");
+            log(Module.INITIALIZE, "added " + suggestions.size() + " suggestions to searchbar");
     }
 
     @FXML
-    private void saveSettings() {
-        //prevent overload by clicking the button too much
-        if (!settingsSaveAnimationPlaying) {
+    private void saveSettings(boolean animation) {
+
+        //theme
+        if (settingsThemeLightRadioButton.isSelected() && !Main.programTheme.equals(Main.THEMELIGHT)) {
+            Main.programTheme = Main.THEMELIGHT;
+            applyTheme();
+        } else if (settingsThemeDarkRadioButton.isSelected() && !Main.programTheme.equals(Main.THEMEDARK)) {
+            Main.programTheme = Main.THEMEDARK;
+            applyTheme();
+        } else if (settingsThemeNanahiraRadioButton.isSelected() && !Main.programTheme.equals(Main.THEMENANAHIRA)) {
+            Main.programTheme = Main.THEMENANAHIRA;
+            applyTheme();
+        }
+
+        boolean refresh = false;
+        if (settingsStatusColorsCheckBox.isSelected() != Main.statusColor) {
+            Main.statusColor = settingsStatusColorsCheckBox.isSelected();
+            refresh = true;
+        }
+
+        Main.showTitleSuggestions = settingsTitleSuggestionsCheckBox.isSelected();
+        Main.showArtistSuggestions = settingsArtistSuggestionsCheckBox.isSelected();
+        Main.playerside = settingsP1RadioButton.isSelected() ? "1" : "2";
+        Main.highspeed = settingsHS0ToggleButton.isSelected() ? "0" : settingsHS1ToggleButton.isSelected() ? "1" : settingsHS2ToggleButton.isSelected() ? "2" : "3";
+        Main.battle = settingsBattleCheckBox.isSelected();
+        Main.slim = settingsSlimCheckBox.isSelected();
+        Main.blackwhite = settingsBWCheckBox.isSelected();
+
+        if (!settingsSonglistComboBox.getValue().equals(Main.songlist)) {
+            Main.songlist = settingsSonglistComboBox.getValue();
+            initStatistics();
+            refresh = true;
+        }
+
+        if (refresh) refreshTable();
+
+        Main.colorder = getColumnOrder();
+        boolean[] columnVisibility = {styleColumn.isVisible(), titleColumn.isVisible(), artistColumn.isVisible(),
+                genreColumn.isVisible(), difficultyColumn.isVisible(), levelColumn.isVisible(),
+                ratingNColumn.isVisible(), ratingHColumn.isVisible(), bpmColumn.isVisible(), lengthColumn.isVisible(),
+                notesColumn.isVisible(), statusColumn.isVisible(), gradeColumn.isVisible(), ex_scoreColumn.isVisible(),
+                miss_countColumn.isVisible(), scratchColumn.isVisible()};
+
+        //save to file
+        Main.setProperties(columnVisibility);
+
+        //play animation
+        if (animation && !settingsSaveAnimationPlaying) {
             settingsSaveAnimationPlaying = true;
-            boolean refresh = false;
+            FadeTransition ft3 = new FadeTransition(Duration.millis(300), settingsSaveLabel);
+            ft3.setFromValue(1);
+            ft3.setToValue(0);
+            ft3.setOnFinished(event2 -> settingsSaveAnimationPlaying = false);
 
-            if (settingsThemeLightRadioButton.isSelected() && !Main.programTheme.equals(Main.THEMELIGHT)) {
-                Main.programTheme = Main.THEMELIGHT;
-                applyTheme();
-            } else if (settingsThemeDarkRadioButton.isSelected() && !Main.programTheme.equals(Main.THEMEDARK)) {
-                Main.programTheme = Main.THEMEDARK;
-                applyTheme();
-            } else if (settingsThemeNanahiraRadioButton.isSelected() && !Main.programTheme.equals(Main.THEMENANAHIRA)) {
-                Main.programTheme = Main.THEMENANAHIRA;
-                applyTheme();
-            }
+            FadeTransition ft2 = new FadeTransition(Duration.millis(1500), settingsSaveLabel);
+            ft2.setOnFinished(event -> ft3.play());
 
-            if (settingsStatusColorsCheckBox.isSelected() != Main.statusColor) {
-                Main.statusColor = settingsStatusColorsCheckBox.isSelected();
-                refresh = true;
-            }
-
-            Main.showTitleSuggestions = settingsTitleSuggestionsCheckBox.isSelected();
-            Main.showArtistSuggestions = settingsArtistSuggestionsCheckBox.isSelected();
-            Main.playerside = settingsP1RadioButton.isSelected() ? "1" : "2";
-            Main.highspeed = settingsHS0ToggleButton.isSelected() ? "0" : settingsHS1ToggleButton.isSelected() ? "1" : settingsHS2ToggleButton.isSelected() ? "2" : "3";
-            Main.battle = settingsBattleCheckBox.isSelected();
-            Main.slim = settingsSlimCheckBox.isSelected();
-            Main.blackwhite = settingsBWCheckBox.isSelected();
-
-            if (!settingsSonglistComboBox.getValue().equals(Main.songlist)) {
-                Main.songlist = settingsSonglistComboBox.getValue();
-                initStatistics();
-                refresh = true;
-            }
-
-            if (refresh) refreshTable();
-
-            Main.colorder = getColumnOrder();
-            boolean[] columnVisibility = {styleColumn.isVisible(), titleColumn.isVisible(), artistColumn.isVisible(),
-                    genreColumn.isVisible(), difficultyColumn.isVisible(), levelColumn.isVisible(),
-                    ratingNColumn.isVisible(), ratingHColumn.isVisible(), bpmColumn.isVisible(), lengthColumn.isVisible(),
-                    notesColumn.isVisible(), statusColumn.isVisible(), gradeColumn.isVisible(), ex_scoreColumn.isVisible(),
-                    miss_countColumn.isVisible(), scratchColumn.isVisible()};
-            Main.setProperties(columnVisibility);
-
-            FadeTransition ft2 = new FadeTransition(Duration.millis(300), settingsSaveLabel);
-            ft2.setFromValue(1);
-            ft2.setToValue(0);
-            ft2.setOnFinished(event2 -> settingsSaveAnimationPlaying = false);
             FadeTransition ft1 = new FadeTransition(Duration.millis(300), settingsSaveLabel);
             ft1.setFromValue(0);
             ft1.setToValue(1);
-            ft1.setOnFinished(event1 -> new Thread(() -> {
-                try {
-                    sleep(1500);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                ft2.play();
-            }).run());
+            ft1.setOnFinished(event -> ft2.play());
+
             new Thread(ft1::play).start();
         }
     }
@@ -2232,7 +2488,7 @@ public class MainController implements Initializable {
                 || id == 5208 || id == 5209 || id == 4212 || id == 4214 || id == 4215)
             str = String.valueOf(Style.OTHERINT);
         else str = String.valueOf(getStyleFromID(id));
-        if (str.equals("-1")) str = "s";
+        if (str.equals("1")) str = "s";
         return str;
     }
 
@@ -2246,105 +2502,212 @@ public class MainController implements Initializable {
     private void initStatistics() {
         stats = new Stats(masterData);
 
-        noPlayCheckBox.setSelected(Main.statsClearrateNoplay);
-        styleDetailsCheckBox.setSelected(Main.statsStyleCompletionDetails);
-        levelDetailsCheckBox.setSelected(Main.statsLevelCompletionDetails);
+        statsPieNoPlayCheckBox.setSelected(Main.statsPieNoplay);
+        statsStyleDetailsCheckBox.setSelected(Main.statsStyleCompletionDetails);
+        statsLevelRangeSlider.setLowValue(1);
+        statsLevelRangeSlider.setHighValue(12);
 
-        playeridLabel.setText(Main.playerid);
-        djnameLabel.setText((Main.djname).toUpperCase());
-        fullcomboLabel.setText(String.valueOf(stats.getAllStatus(Status.FULLCOMBO_INT)));
-        exhardLabel.setText(String.valueOf(stats.getAllStatus(Status.EXHARDCLEAR_INT)));
-        hardLabel.setText(String.valueOf(stats.getAllStatus(Status.HARDCLEAR_INT)));
-        clearLabel.setText(String.valueOf(stats.getAllStatus(Status.CLEAR_INT)));
-        easyclearLabel.setText(String.valueOf(stats.getAllStatus(Status.EASYCLEAR_INT)));
-        assistclearLabel.setText(String.valueOf(stats.getAllStatus(Status.ASSISTCLEAR_INT)));
-        failLabel.setText(String.valueOf(stats.getAllStatus(Status.FAILED_INT)));
-        noplayLabel.setText(String.valueOf(stats.getAllStatus(Status.NOPLAY_INT)));
-        totalclearedLabel.setText(String.valueOf(stats.getTotalClears()));
+        statsPlayeridLabel.setText(Main.playerid);
+        statsDjnameLabel.setText((Main.djname).toUpperCase());
+        statsFullcomboLabel.setText(String.valueOf(stats.getAllStatus(Status.FULLCOMBO_INT, getStatsLevelLow(), getStatsLevelHigh())));
+        statsExhardLabel.setText(String.valueOf(stats.getAllStatus(Status.EXHARDCLEAR_INT, getStatsLevelLow(), getStatsLevelHigh())));
+        statsHardLabel.setText(String.valueOf(stats.getAllStatus(Status.HARDCLEAR_INT, getStatsLevelLow(), getStatsLevelHigh())));
+        statsClearLabel.setText(String.valueOf(stats.getAllStatus(Status.CLEAR_INT, getStatsLevelLow(), getStatsLevelHigh())));
+        statsEasyclearLabel.setText(String.valueOf(stats.getAllStatus(Status.EASYCLEAR_INT, getStatsLevelLow(), getStatsLevelHigh())));
+        statsAssistclearLabel.setText(String.valueOf(stats.getAllStatus(Status.ASSISTCLEAR_INT, getStatsLevelLow(), getStatsLevelHigh())));
+        statsFailLabel.setText(String.valueOf(stats.getAllStatus(Status.FAILED_INT, getStatsLevelLow(), getStatsLevelHigh())));
+        statsNoplayLabel.setText(String.valueOf(stats.getAllStatus(Status.NOPLAY_INT, getStatsLevelLow(), getStatsLevelHigh())));
+        statsTotalclearedLabel.setText(String.valueOf(stats.getTotalClears(getStatsLevelLow(), getStatsLevelHigh())));
 
         fillStatusPieChart();
         fillGradeBarChart();
-        fillCustomStackedBarChart(false);
-        fillLevelBarChart(false);
+        fillStyleBarChart(false);
 
-        if (!Main.statsClearrateNoplay) setPieNoPlay();
+        if (!Main.statsPieNoplay) setPieNoPlay();
         setStyleBarChartDetails();
-        setLevelBarChartDetails();
+
+        statsDifficultyNormal.setSelected(Main.statsNormal);
+        statsDifficultyHyper.setSelected(Main.statsHyper);
+        statsDifficultyAnother.setSelected(Main.statsAnother);
+
+        statsLevelRangeSlider.setLowValue(Main.statsLevelLow);
+        statsLevelRangeSlider.setHighValue(Main.statsLevelHigh);
+
+        statsLevelRangeSlider.lowValueProperty().addListener((observable, oldValue, newValue) -> updateStats());
+        statsLevelRangeSlider.highValueProperty().addListener((observable, oldValue, newValue) -> updateStats());
+
+        updateStats();
+    }
+
+    private int getStatsLevelLow() {
+        return (int)statsLevelRangeSlider.getLowValue();
+    }
+
+    private int getStatsLevelHigh() {
+        return (int)statsLevelRangeSlider.getHighValue();
     }
 
     private void fillStatusPieChart() {
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
-        if (stats.getAllStatus(Status.FULLCOMBO_INT) > 0)
-            pieChartData.add(new PieChart.Data(Status.FULLCOMBO, stats.getAllStatus(Status.FULLCOMBO_INT)));
-        if (stats.getAllStatus(Status.EXHARDCLEAR_INT) > 0)
-            pieChartData.add(new PieChart.Data(Status.EXHARDCLEAR, stats.getAllStatus(Status.EXHARDCLEAR_INT)));
-        if (stats.getAllStatus(Status.HARDCLEAR_INT) > 0)
-            pieChartData.add(new PieChart.Data(Status.HARDCLEAR, stats.getAllStatus(Status.HARDCLEAR_INT)));
-        if (stats.getAllStatus(Status.CLEAR_INT) > 0)
-            pieChartData.add(new PieChart.Data(Status.CLEAR, stats.getAllStatus(Status.CLEAR_INT)));
-        if (stats.getAllStatus(Status.EASYCLEAR_INT) > 0)
-            pieChartData.add(new PieChart.Data(Status.EASYCLEAR, stats.getAllStatus(Status.EASYCLEAR_INT)));
-        if (stats.getAllStatus(Status.ASSISTCLEAR_INT) > 0)
-            pieChartData.add(new PieChart.Data(Status.ASSISTCLEAR, stats.getAllStatus(Status.ASSISTCLEAR_INT)));
-        if (stats.getAllStatus(Status.FAILED_INT) > 0)
-            pieChartData.add(new PieChart.Data(Status.FAILED, stats.getAllStatus(Status.FAILED_INT)));
-        if (stats.getAllStatus(Status.NOPLAY_INT) > 0)
-            pieChartData.add(new PieChart.Data(Status.NOPLAY, stats.getAllStatus(Status.NOPLAY_INT)));
-        statusPieChart.setData(pieChartData);
+        pieChartData.add(new PieChart.Data(Status.NOPLAY, stats.getAllStatus(Status.NOPLAY_INT, getStatsLevelLow(), getStatsLevelHigh())));
+        pieChartData.add(new PieChart.Data(Status.FAILED, stats.getAllStatus(Status.FAILED_INT, getStatsLevelLow(), getStatsLevelHigh())));
+        pieChartData.add(new PieChart.Data(Status.ASSISTCLEAR, stats.getAllStatus(Status.ASSISTCLEAR_INT, getStatsLevelLow(), getStatsLevelHigh())));
+        pieChartData.add(new PieChart.Data(Status.EASYCLEAR, stats.getAllStatus(Status.EASYCLEAR_INT, getStatsLevelLow(), getStatsLevelHigh())));
+        pieChartData.add(new PieChart.Data(Status.CLEAR, stats.getAllStatus(Status.CLEAR_INT, getStatsLevelLow(), getStatsLevelHigh())));
+        pieChartData.add(new PieChart.Data(Status.HARDCLEAR, stats.getAllStatus(Status.HARDCLEAR_INT, getStatsLevelLow(), getStatsLevelHigh())));
+        pieChartData.add(new PieChart.Data(Status.EXHARDCLEAR, stats.getAllStatus(Status.EXHARDCLEAR_INT, getStatsLevelLow(), getStatsLevelHigh())));
+        pieChartData.add(new PieChart.Data(Status.FULLCOMBO, stats.getAllStatus(Status.FULLCOMBO_INT, getStatsLevelLow(), getStatsLevelHigh())));
+        statsStatusPieChart.setData(pieChartData);
+        setPieTooltips();
+    }
+
+    private void updateStatusPieChart(int levelLow, int levelHigh, int... difficulty) {
+        ObservableList<PieChart.Data> pieChartData = statsStatusPieChart.getData();
+        if (statsPieNoPlayCheckBox.isSelected()) {
+            pieChartData.get(0).setPieValue(stats.getAllStatus(Status.NOPLAY_INT, levelLow, levelHigh, difficulty));
+        }
+        else {
+            pieChartData.get(0).setPieValue(0);
+        }
+        pieChartData.get(1).setPieValue(stats.getAllStatus(Status.FAILED_INT, levelLow, levelHigh, difficulty));
+        pieChartData.get(2).setPieValue(stats.getAllStatus(Status.ASSISTCLEAR_INT, levelLow, levelHigh, difficulty));
+        pieChartData.get(3).setPieValue(stats.getAllStatus(Status.EASYCLEAR_INT, levelLow, levelHigh, difficulty));
+        pieChartData.get(4).setPieValue(stats.getAllStatus(Status.CLEAR_INT, levelLow, levelHigh, difficulty));
+        pieChartData.get(5).setPieValue(stats.getAllStatus(Status.HARDCLEAR_INT, levelLow, levelHigh, difficulty));
+        pieChartData.get(6).setPieValue(stats.getAllStatus(Status.EXHARDCLEAR_INT, levelLow, levelHigh, difficulty));
+        pieChartData.get(7).setPieValue(stats.getAllStatus(Status.FULLCOMBO_INT, levelLow, levelHigh, difficulty));
         setPieTooltips();
     }
 
     private void setPieTooltips() {
-        for (PieChart.Data data : statusPieChart.getData()) {
-            if (noPlayCheckBox.isSelected()) {
-                Tooltip.install(data.getNode(), new Tooltip(round(100 * data.getPieValue() / stats.getTotal()) + "%"));
-            } else {
-                Tooltip.install(data.getNode(), new Tooltip(round(100 * data.getPieValue() / stats.getTotalPlayed()) + "%"));
+        for (PieChart.Data data : statsStatusPieChart.getData()) {
+            if (statsPieNoPlayCheckBox.isSelected()) {
+                Tooltip.install(data.getNode(), new Tooltip(round(100d * stats.getAllStatus(Status.statusToInt(data.getName()), getStatsLevelLow(), getStatsLevelHigh(), getSelectedDifficulty()) / stats.getTotal(getStatsLevelLow(), getStatsLevelHigh(), getSelectedDifficulty())) + "%"));
+            }
+            else {
+                Tooltip.install(data.getNode(), new Tooltip(round(100d * stats.getAllStatus(Status.statusToInt(data.getName()), getStatsLevelLow(), getStatsLevelHigh(), getSelectedDifficulty()) / stats.getTotalPlayed(getStatsLevelLow(), getStatsLevelHigh(), getSelectedDifficulty())) + "%"));
             }
         }
     }
 
     @FXML
     private void setPieNoPlay() {
-        if (!noPlayCheckBox.isSelected()) {
-            statusPieChart.getData().remove(statusPieChart.getData().size() - 1);
-            setPieTooltips();
-        } else {
-            statusPieChart.getData().add(new PieChart.Data(Status.NOPLAY, stats.getAllStatus(Status.NOPLAY_INT)));
-            setPieTooltips();
+        if (!statsPieNoPlayCheckBox.isSelected()) {
+            statsStatusPieChart.getData().get(0).setPieValue(0);
         }
-        Main.statsClearrateNoplay = noPlayCheckBox.isSelected();
+        else {
+            statsStatusPieChart.getData().get(0).setPieValue(stats.getAllStatus(Status.NOPLAY_INT, getStatsLevelLow(), getStatsLevelHigh(), getSelectedDifficulty()));
+        }
+        setPieTooltips();
+        Main.statsPieNoplay = statsPieNoPlayCheckBox.isSelected();
+        saveSettings(false);
+    }
+
+    private int[] getSelectedDifficulty() {
+        if (statsDifficultyNormal.isSelected() && !statsDifficultyHyper.isSelected() && !statsDifficultyAnother.isSelected())
+            return new int[]{Difficulty.NORMAL_INT};
+        else if (!statsDifficultyNormal.isSelected() && statsDifficultyHyper.isSelected() && !statsDifficultyAnother.isSelected())
+            return new int[]{Difficulty.HYPER_INT};
+        else if (!statsDifficultyNormal.isSelected() && !statsDifficultyHyper.isSelected() && statsDifficultyAnother.isSelected())
+            return new int[]{Difficulty.ANOTHER_INT};
+        else if (statsDifficultyNormal.isSelected() && statsDifficultyHyper.isSelected() && !statsDifficultyAnother.isSelected())
+            return new int[]{Difficulty.NORMAL_INT, Difficulty.HYPER_INT};
+        else if (statsDifficultyNormal.isSelected() && !statsDifficultyHyper.isSelected() && statsDifficultyAnother.isSelected())
+            return new int[]{Difficulty.NORMAL_INT, Difficulty.ANOTHER_INT};
+        else if (!statsDifficultyNormal.isSelected() && statsDifficultyHyper.isSelected() && statsDifficultyAnother.isSelected())
+            return new int[]{Difficulty.HYPER_INT, Difficulty.ANOTHER_INT};
+        else
+            return new int[]{Difficulty.NORMAL_INT, Difficulty.HYPER_INT, Difficulty.ANOTHER_INT};
+    }
+
+    @FXML
+    private void updateStats() {
+        int levelLow = getStatsLevelLow();
+        int levelHigh = getStatsLevelHigh();
+        int[] difficulty = getSelectedDifficulty();
+        if (statsDifficultyNormal.isSelected() || statsDifficultyHyper.isSelected() || statsDifficultyAnother.isSelected()) {
+
+            statsFullcomboLabel.setText(String.valueOf(stats.getAllStatus(Status.FULLCOMBO_INT, getStatsLevelLow(), getStatsLevelHigh(), difficulty)));
+            statsExhardLabel.setText(String.valueOf(stats.getAllStatus(Status.EXHARDCLEAR_INT, getStatsLevelLow(), getStatsLevelHigh(), difficulty)));
+            statsHardLabel.setText(String.valueOf(stats.getAllStatus(Status.HARDCLEAR_INT, getStatsLevelLow(), getStatsLevelHigh(), difficulty)));
+            statsClearLabel.setText(String.valueOf(stats.getAllStatus(Status.CLEAR_INT, getStatsLevelLow(), getStatsLevelHigh(), difficulty)));
+            statsEasyclearLabel.setText(String.valueOf(stats.getAllStatus(Status.EASYCLEAR_INT, getStatsLevelLow(), getStatsLevelHigh(), difficulty)));
+            statsAssistclearLabel.setText(String.valueOf(stats.getAllStatus(Status.ASSISTCLEAR_INT, getStatsLevelLow(), getStatsLevelHigh(), difficulty)));
+            statsFailLabel.setText(String.valueOf(stats.getAllStatus(Status.FAILED_INT, getStatsLevelLow(), getStatsLevelHigh(), difficulty)));
+            statsNoplayLabel.setText(String.valueOf(stats.getAllStatus(Status.NOPLAY_INT, getStatsLevelLow(), getStatsLevelHigh(), difficulty)));
+            statsTotalclearedLabel.setText(String.valueOf(stats.getTotalClears(getStatsLevelLow(), getStatsLevelHigh(), difficulty)));
+
+            updateStatusPieChart(levelLow, levelHigh, difficulty);
+            updateGradeBarChart(levelLow, levelHigh, difficulty);
+            updateStyleBarChart(levelLow, levelHigh, difficulty);
+
+            Main.statsNormal = statsDifficultyNormal.isSelected();
+            Main.statsHyper = statsDifficultyHyper.isSelected();
+            Main.statsAnother = statsDifficultyAnother.isSelected();
+            Main.statsPieNoplay = statsPieNoPlayCheckBox.isSelected();
+            Main.statsStyleCompletionDetails = statsStyleDetailsCheckBox.isSelected();
+            Main.statsLevelLow = (int)statsLevelRangeSlider.getLowValue();
+            Main.statsLevelHigh = (int)statsLevelRangeSlider.getHighValue();
+            saveSettings(false);
+        }
     }
 
     private void fillGradeBarChart() {
         ObservableList<BarChart.Data> barChartData = FXCollections.observableArrayList();
-        if (stats.getAllGrade(Grade.MAX_INT) > 0)
-            barChartData.add(new BarChart.Data<>(Grade.MAX, stats.getAllGrade(Grade.MAX_INT)));
-        if (stats.getAllGrade(Grade.MAX_INT) + stats.getAllGrade(Grade.AAA_INT) > 0)
-            barChartData.add(new BarChart.Data<>(Grade.AAA, stats.getAllGrade(Grade.AAA_INT)));
-        if (stats.getAllGrade(Grade.MAX_INT) + stats.getAllGrade(Grade.AAA_INT) + stats.getAllGrade(Grade.AA_INT) > 0)
-            barChartData.add(new BarChart.Data<>(Grade.AA, stats.getAllGrade(Grade.AA_INT)));
-        barChartData.add(new BarChart.Data<>(Grade.A, stats.getAllGrade(Grade.A_INT)));
-        if (stats.getAllGrade(Grade.F_INT) + stats.getAllGrade(Grade.E_INT) + stats.getAllGrade(Grade.D_INT) + stats.getAllGrade(Grade.C_INT) + stats.getAllGrade(Grade.B_INT) > 0)
-            barChartData.add(new BarChart.Data<>(Grade.B, stats.getAllGrade(Grade.B_INT)));
-        if (stats.getAllGrade(Grade.F_INT) + stats.getAllGrade(Grade.E_INT) + stats.getAllGrade(Grade.D_INT) + stats.getAllGrade(Grade.C_INT) > 0)
-            barChartData.add(new BarChart.Data<>(Grade.C, stats.getAllGrade(Grade.C_INT)));
-        if (stats.getAllGrade(Grade.F_INT) + stats.getAllGrade(Grade.E_INT) + stats.getAllGrade(Grade.D_INT) > 0)
-            barChartData.add(new BarChart.Data<>(Grade.D, stats.getAllGrade(Grade.D_INT)));
-        if (stats.getAllGrade(Grade.F_INT) + stats.getAllGrade(Grade.E_INT) > 0)
-            barChartData.add(new BarChart.Data<>(Grade.E, stats.getAllGrade(Grade.E_INT)));
-        if (stats.getAllGrade(Grade.F_INT) > 0)
-            barChartData.add(new BarChart.Data<>(Grade.F, stats.getAllGrade(Grade.F_INT)));
+        if (stats.getAllGrade(Grade.MAX_INT, getStatsLevelLow(), getStatsLevelHigh()) > 0)
+            barChartData.add(new BarChart.Data<>(Grade.MAX, stats.getAllGrade(Grade.MAX_INT, getStatsLevelLow(), getStatsLevelHigh())));
+        if (stats.getAllGrade(Grade.MAX_INT, getStatsLevelLow(), getStatsLevelHigh()) +
+                stats.getAllGrade(Grade.AAA_INT, getStatsLevelLow(), getStatsLevelHigh()) > 0)
+            barChartData.add(new BarChart.Data<>(Grade.AAA, stats.getAllGrade(Grade.AAA_INT, getStatsLevelLow(), getStatsLevelHigh())));
+        if (stats.getAllGrade(Grade.MAX_INT, getStatsLevelLow(), getStatsLevelHigh()) +
+                stats.getAllGrade(Grade.AAA_INT, getStatsLevelLow(), getStatsLevelHigh()) +
+                stats.getAllGrade(Grade.AA_INT, getStatsLevelLow(), getStatsLevelHigh()) > 0)
+            barChartData.add(new BarChart.Data<>(Grade.AA, stats.getAllGrade(Grade.AA_INT, getStatsLevelLow(), getStatsLevelHigh())));
+        barChartData.add(new BarChart.Data<>(Grade.A, stats.getAllGrade(Grade.A_INT, getStatsLevelLow(), getStatsLevelHigh())));
+        if (stats.getAllGrade(Grade.F_INT, getStatsLevelLow(), getStatsLevelHigh()) +
+                stats.getAllGrade(Grade.E_INT, getStatsLevelLow(), getStatsLevelHigh()) +
+                stats.getAllGrade(Grade.D_INT, getStatsLevelLow(), getStatsLevelHigh()) +
+                stats.getAllGrade(Grade.C_INT, getStatsLevelLow(), getStatsLevelHigh()) +
+                stats.getAllGrade(Grade.B_INT, getStatsLevelLow(), getStatsLevelHigh()) > 0)
+            barChartData.add(new BarChart.Data<>(Grade.B, stats.getAllGrade(Grade.B_INT, getStatsLevelLow(), getStatsLevelHigh())));
+        if (stats.getAllGrade(Grade.F_INT, getStatsLevelLow(), getStatsLevelHigh()) +
+                stats.getAllGrade(Grade.E_INT, getStatsLevelLow(), getStatsLevelHigh()) +
+                stats.getAllGrade(Grade.D_INT, getStatsLevelLow(), getStatsLevelHigh()) +
+                stats.getAllGrade(Grade.C_INT, getStatsLevelLow(), getStatsLevelHigh()) > 0)
+            barChartData.add(new BarChart.Data<>(Grade.C, stats.getAllGrade(Grade.C_INT, getStatsLevelLow(), getStatsLevelHigh())));
+        if (stats.getAllGrade(Grade.F_INT, getStatsLevelLow(), getStatsLevelHigh()) +
+                stats.getAllGrade(Grade.E_INT, getStatsLevelLow(), getStatsLevelHigh()) +
+                stats.getAllGrade(Grade.D_INT, getStatsLevelLow(), getStatsLevelHigh()) > 0)
+            barChartData.add(new BarChart.Data<>(Grade.D, stats.getAllGrade(Grade.D_INT, getStatsLevelLow(), getStatsLevelHigh())));
+        if (stats.getAllGrade(Grade.F_INT, getStatsLevelLow(), getStatsLevelHigh()) +
+                stats.getAllGrade(Grade.E_INT, getStatsLevelLow(), getStatsLevelHigh()) > 0)
+            barChartData.add(new BarChart.Data<>(Grade.E, stats.getAllGrade(Grade.E_INT, getStatsLevelLow(), getStatsLevelHigh())));
+        if (stats.getAllGrade(Grade.F_INT, getStatsLevelLow(), getStatsLevelHigh()) > 0)
+            barChartData.add(new BarChart.Data<>(Grade.F, stats.getAllGrade(Grade.F_INT, getStatsLevelLow(), getStatsLevelHigh())));
         ObservableList<BarChart.Series> barChartSeries = FXCollections.observableArrayList(new BarChart.Series("Grade", barChartData));
-        gradeBarChart.setData(barChartSeries);
+        statsGradeBarChart.setData(barChartSeries);
 
+        setGradeBarChartTooltips();
+    }
+
+    private void setGradeBarChartTooltips() {
+        ObservableList<BarChart.Data> barChartData = ((XYChart.Series) statsGradeBarChart.getData().get(0)).getData();
         for (BarChart.Data data : barChartData) {
             Tooltip.install(data.getNode(), new Tooltip(String.valueOf(data.getYValue())));
         }
     }
 
-    private void fillCustomStackedBarChart(boolean details) {
-        customStackedBarChart.getData().clear();
+    private void updateGradeBarChart(int levelLow, int levelHigh, int... difficulty) {
+        ObservableList<BarChart.Data> barChartData = ((XYChart.Series) statsGradeBarChart.getData().get(0)).getData();
+        for (XYChart.Data data : barChartData) {
+            data.setYValue(stats.getAllGrade(Grade.gradeToInt(data.getXValue().toString()), levelLow, levelHigh, difficulty));
+        }
+        setGradeBarChartTooltips();
+    }
+
+    private void fillStyleBarChart(boolean details) {
+        statsStyleStackedBarChart.setAnimated(false);
+        statsStyleStackedBarChart.getData().clear();
         if (details) {
             XYChart.Series<String, Number> npSeries = new XYChart.Series<>();
             npSeries.setName(Status.NOPLAY);
@@ -2365,19 +2728,28 @@ public class MainController implements Initializable {
 
             for (String styleStr : Style.ALLSTYLES) {
                 int style = Style.styleToInt(styleStr);
-                int styleSongs = stats.getAllStyle(style);
-                npSeries.getData().add(new XYChart.Data<>(styleStr, (double) 100 * stats.getStyleStatus(style, Status.NOPLAY_INT) / styleSongs));
-                fSeries.getData().add(new XYChart.Data<>(styleStr, (double) 100 * stats.getStyleStatus(style, Status.FAILED_INT) / styleSongs));
-                acSeries.getData().add(new XYChart.Data<>(styleStr, (double) 100 * stats.getStyleStatus(style, Status.ASSISTCLEAR_INT) / styleSongs));
-                ecSeries.getData().add(new XYChart.Data<>(styleStr, (double) 100 * stats.getStyleStatus(style, Status.EASYCLEAR_INT) / styleSongs));
-                cSeries.getData().add(new XYChart.Data<>(styleStr, (double) 100 * stats.getStyleStatus(style, Status.CLEAR_INT) / styleSongs));
-                hcSeries.getData().add(new XYChart.Data<>(styleStr, (double) 100 * stats.getStyleStatus(style, Status.HARDCLEAR_INT) / styleSongs));
-                exSeries.getData().add(new XYChart.Data<>(styleStr, (double) 100 * stats.getStyleStatus(style, Status.EXHARDCLEAR_INT) / styleSongs));
-                fcSeries.getData().add(new XYChart.Data<>(styleStr, (double) 100 * stats.getStyleStatus(style, Status.FULLCOMBO_INT) / styleSongs));
+                int styleSongs = stats.getAllStyle(style, getStatsLevelLow(), getStatsLevelHigh());
+                npSeries.getData().add(new XYChart.Data<>(styleStr,
+                        (double) 100 * stats.getStyleStatus(style, Status.NOPLAY_INT, getStatsLevelLow(), getStatsLevelHigh()) / styleSongs));
+                fSeries.getData().add(new XYChart.Data<>(styleStr,
+                        (double) 100 * stats.getStyleStatus(style, Status.FAILED_INT, getStatsLevelLow(), getStatsLevelHigh()) / styleSongs));
+                acSeries.getData().add(new XYChart.Data<>(styleStr,
+                        (double) 100 * stats.getStyleStatus(style, Status.ASSISTCLEAR_INT, getStatsLevelLow(), getStatsLevelHigh()) / styleSongs));
+                ecSeries.getData().add(new XYChart.Data<>(styleStr,
+                        (double) 100 * stats.getStyleStatus(style, Status.EASYCLEAR_INT, getStatsLevelLow(), getStatsLevelHigh()) / styleSongs));
+                cSeries.getData().add(new XYChart.Data<>(styleStr,
+                        (double) 100 * stats.getStyleStatus(style, Status.CLEAR_INT, getStatsLevelLow(), getStatsLevelHigh()) / styleSongs));
+                hcSeries.getData().add(new XYChart.Data<>(styleStr,
+                        (double) 100 * stats.getStyleStatus(style, Status.HARDCLEAR_INT, getStatsLevelLow(), getStatsLevelHigh()) / styleSongs));
+                exSeries.getData().add(new XYChart.Data<>(styleStr,
+                        (double) 100 * stats.getStyleStatus(style, Status.EXHARDCLEAR_INT, getStatsLevelLow(), getStatsLevelHigh()) / styleSongs));
+                fcSeries.getData().add(new XYChart.Data<>(styleStr,
+                        (double) 100 * stats.getStyleStatus(style, Status.FULLCOMBO_INT, getStatsLevelLow(), getStatsLevelHigh()) / styleSongs));
             }
 
-            customStackedBarChart.getData().addAll(npSeries, fSeries, acSeries, ecSeries, cSeries, hcSeries, exSeries, fcSeries);
-        } else {
+            statsStyleStackedBarChart.getData().addAll(npSeries, fSeries, acSeries, ecSeries, cSeries, hcSeries, exSeries, fcSeries);
+        }
+        else {
             XYChart.Series<String, Number> cSeries = new XYChart.Series<>();
             cSeries.setName("Cleared");
             XYChart.Series<String, Number> ncSeries = new XYChart.Series<>();
@@ -2385,103 +2757,97 @@ public class MainController implements Initializable {
 
             for (String styleStr : Style.ALLSTYLES) {
                 int style = Style.styleToInt(styleStr);
-                cSeries.getData().add(new XYChart.Data<>(styleStr, (double) 100 * stats.getStyleCleared(style) / stats.getAllStyle(style)));
-                ncSeries.getData().add(new XYChart.Data<>(styleStr, (double) 100 * stats.getStyleNotCleared(style) / stats.getAllStyle(style)));
+                cSeries.getData().add(new XYChart.Data<>(styleStr,
+                        (double) 100 * stats.getStyleCleared(style, getStatsLevelLow(), getStatsLevelHigh()) / stats.getAllStyle(style, getStatsLevelLow(), getStatsLevelHigh())));
+                ncSeries.getData().add(new XYChart.Data<>(styleStr,
+                        (double) 100 * stats.getStyleNotCleared(style, getStatsLevelLow(), getStatsLevelHigh()) / stats.getAllStyle(style, getStatsLevelLow(), getStatsLevelHigh())));
             }
 
-            customStackedBarChart.getData().addAll(cSeries, ncSeries);
+            statsStyleStackedBarChart.getData().addAll(cSeries, ncSeries);
         }
 
         //add tooltips
-        for (int i = 0; i < customStackedBarChart.getData().size(); i++) {
-            XYChart.Series series = (XYChart.Series) customStackedBarChart.getData().get(i);
+        for (int i = 0; i < statsStyleStackedBarChart.getData().size(); i++) {
+            XYChart.Series series = (XYChart.Series) statsStyleStackedBarChart.getData().get(i);
             for (int j = 0; j < series.getData().size(); j++) {
                 XYChart.Data data = ((XYChart.Data) series.getData().get(j));
-                Tooltip.install(data.getNode(), new Tooltip(round((double) data.getYValue()) + "%"));
+                double val = Double.isNaN((double)data.getYValue()) ? 0 : (double)data.getYValue();
+                Tooltip.install(data.getNode(), new Tooltip(round(val) + "%"));
+            }
+        }
+    }
+
+    private void updateStyleBarChart(int levelLow, int levelHigh, int... difficulty) {
+        statsStyleStackedBarChart.setAnimated(true);
+        boolean details = statsStyleDetailsCheckBox.isSelected();
+        if (details) {
+            XYChart.Series<String, Number> npSeries = (XYChart.Series<String, Number>) statsStyleStackedBarChart.getData().get(0);
+            XYChart.Series<String, Number> fSeries = (XYChart.Series<String, Number>) statsStyleStackedBarChart.getData().get(1);
+            XYChart.Series<String, Number> acSeries = (XYChart.Series<String, Number>) statsStyleStackedBarChart.getData().get(2);
+            XYChart.Series<String, Number> ecSeries = (XYChart.Series<String, Number>) statsStyleStackedBarChart.getData().get(3);
+            XYChart.Series<String, Number> cSeries = (XYChart.Series<String, Number>) statsStyleStackedBarChart.getData().get(4);
+            XYChart.Series<String, Number> hcSeries = (XYChart.Series<String, Number>) statsStyleStackedBarChart.getData().get(5);
+            XYChart.Series<String, Number> exSeries = (XYChart.Series<String, Number>) statsStyleStackedBarChart.getData().get(6);
+            XYChart.Series<String, Number> fcSeries = (XYChart.Series<String, Number>) statsStyleStackedBarChart.getData().get(7);
+
+            for (int i = 0; i < Style.ALLSTYLES.length; i++) {
+                String styleStr = Style.ALLSTYLES[i];
+                int style = Style.styleToInt(styleStr);
+                int styleSongs = stats.getAllStyle(style, levelLow, levelHigh, difficulty);
+                double npVal = (double) 100 * stats.getStyleStatus(style, Status.NOPLAY_INT, levelLow, levelHigh, difficulty) / styleSongs;
+                double fVal = (double) 100 * stats.getStyleStatus(style, Status.FAILED_INT, levelLow, levelHigh, difficulty) / styleSongs;
+                double acVal = (double) 100 * stats.getStyleStatus(style, Status.ASSISTCLEAR_INT, levelLow, levelHigh, difficulty) / styleSongs;
+                double ecVal = (double) 100 * stats.getStyleStatus(style, Status.EASYCLEAR_INT, levelLow, levelHigh, difficulty) / styleSongs;
+                double cVal = (double) 100 * stats.getStyleStatus(style, Status.CLEAR_INT, levelLow, levelHigh, difficulty) / styleSongs;
+                double hcVal = (double) 100 * stats.getStyleStatus(style, Status.HARDCLEAR_INT, levelLow, levelHigh, difficulty) / styleSongs;
+                double exVal = (double) 100 * stats.getStyleStatus(style, Status.EXHARDCLEAR_INT, levelLow, levelHigh, difficulty) / styleSongs;
+                double fcVal = (double) 100 * stats.getStyleStatus(style, Status.FULLCOMBO_INT, levelLow, levelHigh, difficulty) / styleSongs;
+                npSeries.getData().get(i).setYValue(Double.isNaN(npVal) ? 0d : npVal);
+                fSeries.getData().get(i).setYValue(Double.isNaN(fVal) ? 0d : fVal);
+                acSeries.getData().get(i).setYValue(Double.isNaN(acVal) ? 0d : acVal);
+                ecSeries.getData().get(i).setYValue(Double.isNaN(ecVal) ? 0d : ecVal);
+                cSeries.getData().get(i).setYValue(Double.isNaN(cVal) ? 0d : cVal);
+                hcSeries.getData().get(i).setYValue(Double.isNaN(hcVal) ? 0d : hcVal);
+                exSeries.getData().get(i).setYValue(Double.isNaN(exVal) ? 0d : exVal);
+                fcSeries.getData().get(i).setYValue(Double.isNaN(fcVal) ? 0d : fcVal);
+            }
+        }
+        else {
+            XYChart.Series<String, Number> cSeries = (XYChart.Series<String, Number>) statsStyleStackedBarChart.getData().get(0);
+            XYChart.Series<String, Number> ncSeries = (XYChart.Series<String, Number>) statsStyleStackedBarChart.getData().get(1);
+
+            for (int i = 0; i < Style.ALLSTYLES.length; i++) {
+                String styleStr = Style.ALLSTYLES[i];
+                int style = Style.styleToInt(styleStr);
+                double cVal = (double) 100 * stats.getStyleCleared(style, levelLow, levelHigh, difficulty) / stats.getAllStyle(style, levelLow, levelHigh, difficulty);
+                double ncVal = (double) 100 * stats.getStyleNotCleared(style, levelLow, levelHigh, difficulty) / stats.getAllStyle(style, levelLow, levelHigh, difficulty);
+                cSeries.getData().get(i).setYValue(Double.isNaN(cVal) ? 0d : cVal);
+                ncSeries.getData().get(i).setYValue(Double.isNaN(ncVal) ? 0d : ncVal);
+            }
+        }
+
+        //add tooltips
+        for (int i = 0; i < statsStyleStackedBarChart.getData().size(); i++) {
+            XYChart.Series series = (XYChart.Series) statsStyleStackedBarChart.getData().get(i);
+            for (int j = 0; j < series.getData().size(); j++) {
+                XYChart.Data data = ((XYChart.Data) series.getData().get(j));
+                double val = Double.isNaN(Double.valueOf(data.getYValue().toString())) ? 0 : (double)data.getYValue();
+                Tooltip.install(data.getNode(), new Tooltip(round(val) + "%"));
             }
         }
     }
 
     @FXML
     private void setStyleBarChartDetails() {
-        if (styleDetailsCheckBox.isSelected()) {
-            fillCustomStackedBarChart(true);
+        if (statsStyleDetailsCheckBox.isSelected()) {
+            fillStyleBarChart(true);
         } else {
-            fillCustomStackedBarChart(false);
+            fillStyleBarChart(false);
         }
-        Main.statsStyleCompletionDetails = styleDetailsCheckBox.isSelected();
+        updateStyleBarChart(getStatsLevelLow(), getStatsLevelHigh(), getSelectedDifficulty());
+        Main.statsStyleCompletionDetails = statsStyleDetailsCheckBox.isSelected();
+        saveSettings(false);
     }
-
-    private void fillLevelBarChart(boolean details) {
-        levelStackedBarChart.getData().clear();
-
-        if (details) {
-            XYChart.Series<String, Number> npSeries = new XYChart.Series<>();
-            npSeries.setName(Status.NOPLAY);
-            XYChart.Series<String, Number> fSeries = new XYChart.Series<>();
-            fSeries.setName(Status.FAILED);
-            XYChart.Series<String, Number> acSeries = new XYChart.Series<>();
-            acSeries.setName(Status.ASSISTCLEAR);
-            XYChart.Series<String, Number> ecSeries = new XYChart.Series<>();
-            ecSeries.setName(Status.EASYCLEAR);
-            XYChart.Series<String, Number> cSeries = new XYChart.Series<>();
-            cSeries.setName(Status.CLEAR);
-            XYChart.Series<String, Number> hcSeries = new XYChart.Series<>();
-            hcSeries.setName(Status.HARDCLEAR);
-            XYChart.Series<String, Number> exSeries = new XYChart.Series<>();
-            exSeries.setName(Status.EXHARDCLEAR);
-            XYChart.Series<String, Number> fcSeries = new XYChart.Series<>();
-            fcSeries.setName(Status.FULLCOMBO);
-
-            for (int level = 1; level <= 12; level++) {
-                int levelSongs = stats.getAllLevel(level);
-                npSeries.getData().add(new XYChart.Data<>(String.valueOf(level), (double) 100 * stats.getLevelStatus(level, Status.NOPLAY_INT) / levelSongs));
-                fSeries.getData().add(new XYChart.Data<>(String.valueOf(level), (double) 100 * stats.getLevelStatus(level, Status.FAILED_INT) / levelSongs));
-                acSeries.getData().add(new XYChart.Data<>(String.valueOf(level), (double) 100 * stats.getLevelStatus(level, Status.ASSISTCLEAR_INT) / levelSongs));
-                ecSeries.getData().add(new XYChart.Data<>(String.valueOf(level), (double) 100 * stats.getLevelStatus(level, Status.EASYCLEAR_INT) / levelSongs));
-                cSeries.getData().add(new XYChart.Data<>(String.valueOf(level), (double) 100 * stats.getLevelStatus(level, Status.CLEAR_INT) / levelSongs));
-                hcSeries.getData().add(new XYChart.Data<>(String.valueOf(level), (double) 100 * stats.getLevelStatus(level, Status.HARDCLEAR_INT) / levelSongs));
-                exSeries.getData().add(new XYChart.Data<>(String.valueOf(level), (double) 100 * stats.getLevelStatus(level, Status.EXHARDCLEAR_INT) / levelSongs));
-                fcSeries.getData().add(new XYChart.Data<>(String.valueOf(level), (double) 100 * stats.getLevelStatus(level, Status.FULLCOMBO_INT) / levelSongs));
-            }
-
-            levelStackedBarChart.getData().addAll(npSeries, fSeries, acSeries, ecSeries, cSeries, hcSeries, exSeries, fcSeries);
-        } else {
-            XYChart.Series<String, Number> cSeries = new XYChart.Series<>();
-            cSeries.setName("Cleared");
-            XYChart.Series<String, Number> ncSeries = new XYChart.Series<>();
-            ncSeries.setName("Not Cleared");
-
-            for (int level = 1; level <= 12; level++) {
-                int levelSongs = stats.getAllLevel(level);
-                cSeries.getData().add(new XYChart.Data<>(String.valueOf(level), (double) 100 * stats.getLevelCleared(level) / levelSongs));
-                ncSeries.getData().add(new XYChart.Data<>(String.valueOf(level), (double) 100 * stats.getLevelNotCleared(level) / levelSongs));
-            }
-
-            levelStackedBarChart.getData().addAll(cSeries, ncSeries);
-        }
-
-        //add tooltips
-        for (int i = 0; i < levelStackedBarChart.getData().size(); i++) {
-            XYChart.Series series = (XYChart.Series) levelStackedBarChart.getData().get(i);
-            for (int j = 0; j < series.getData().size(); j++) {
-                XYChart.Data data = (XYChart.Data) series.getData().get(j);
-                Tooltip.install(data.getNode(), new Tooltip(round((double) data.getYValue()) + "%"));
-            }
-        }
-
-    }
-
-    @FXML
-    private void setLevelBarChartDetails() {
-        if (levelDetailsCheckBox.isSelected()) {
-            fillLevelBarChart(true);
-        } else {
-            fillLevelBarChart(false);
-        }
-        Main.statsLevelCompletionDetails = levelDetailsCheckBox.isSelected();
-    }
-
 
     /***** EXPORT *****/
     @FXML
@@ -2681,6 +3047,7 @@ public class MainController implements Initializable {
     }
 
     private double round(double value) {
+        if (new Double(value).isNaN() || new Double(value).isInfinite()) return 0d;
         BigDecimal bd = new BigDecimal(value);
         bd = bd.setScale(2, RoundingMode.HALF_UP);
         return bd.doubleValue();
@@ -2700,17 +3067,16 @@ public class MainController implements Initializable {
         tableView.refresh();
     }
 
+    private void log(String module, String message) {
+        Main.log(module, message);
+    }
+
     @FXML
     private void quit() {
         ((Stage) scene.getWindow()).close();
+
         //save settings on exit
-        Main.colorder = getColumnOrder();
-        boolean[] columnVisibility = {styleColumn.isVisible(), titleColumn.isVisible(), artistColumn.isVisible(),
-                genreColumn.isVisible(), difficultyColumn.isVisible(), levelColumn.isVisible(),
-                ratingNColumn.isVisible(), ratingHColumn.isVisible(), bpmColumn.isVisible(), lengthColumn.isVisible(),
-                notesColumn.isVisible(), statusColumn.isVisible(), gradeColumn.isVisible(), ex_scoreColumn.isVisible(),
-                miss_countColumn.isVisible(), scratchColumn.isVisible()};
-        Main.setProperties(columnVisibility);
+        saveSettings(false);
     }
 
 }
