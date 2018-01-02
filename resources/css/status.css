@@ -26,3 +26,8 @@
 .fullcombo {
     -fx-background-color: linear-gradient(to right, rgba(242,15,15,0.5) 0%, rgba(248,189,85,0.5) 14%, rgba(192,254,86,0.5) 28%, rgba(93,251,193,0.5) 43%, rgba(100,194,248,0.5) 57%, rgba(190,74,247,0.5) 71%, rgba(237,95,194,0.5) 85%, rgba(239,80,76,0.5) 100%);
 }
+
+.status {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+}

@@ -26,6 +26,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.TextFlow;
@@ -43,7 +44,6 @@ import org.controlsfx.control.SegmentedButton;
 import org.controlsfx.control.textfield.TextFields;
 import org.controlsfx.glyphfont.Glyph;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.awt.*;
@@ -51,8 +51,8 @@ import java.awt.datatransfer.StringSelection;
 import java.io.*;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.net.ServerSocket;
 import java.net.URL;
-import java.net.UnknownHostException;
 import java.util.*;
 import java.util.List;
 
@@ -158,6 +158,8 @@ public class MainController implements Initializable {
     private CheckBox checkStyle22;
     @FXML
     private CheckBox checkStyle23;
+    @FXML
+    private CheckBox checkStyle24;
 
     /***** LEVEL BUTTONS *****/
     @FXML
@@ -224,6 +226,8 @@ public class MainController implements Initializable {
     /***** DAN *****/
     @FXML
     private ComboBox<String> danStyleSelectBox;
+    @FXML
+    private VBox chuudenBox;
     @FXML
     private Label kaiden1;
     @FXML
@@ -471,12 +475,6 @@ public class MainController implements Initializable {
     @FXML
     private Label settingsExportLabel;
     @FXML
-    private Label settingsUpdateApplicationLabel;
-    @FXML
-    private Button settingsUpdateApplicationButton;
-    @FXML
-    private Label settingsUpdateApplicationsStatusLabel;
-    @FXML
     private Label settingsSaveLabel;
     @FXML
     private TextFlow settingsAboutFlow;
@@ -519,10 +517,6 @@ public class MainController implements Initializable {
 
     private int numCols = 16;
 
-    private static final int UPDATESERVER404ERROR = -30;
-    private static final int UPDATESERVERFORMATERROR = -31;
-    private static final int UPDATECONNECTIONERROR = -32;
-
     private static final String GLYPHFONT = "FontAwesome";
 
     private Scene scene;
@@ -533,7 +527,6 @@ public class MainController implements Initializable {
 
     private boolean filtersVisible = false;
     private boolean settingsSaveAnimationPlaying = false;
-    private boolean settingsUpdateApplicationAnimationPlaying = false;
 
     private Stats stats;
 
@@ -565,7 +558,6 @@ public class MainController implements Initializable {
         settingsHSLabel.setGraphic(new Glyph(GLYPHFONT, '\uf0e4'));
         settingsSonglistLabel.setGraphic(new Glyph(GLYPHFONT, '\uf022'));
         settingsExportLabel.setGraphic(new Glyph(GLYPHFONT, '\uf15c'));
-        settingsUpdateApplicationLabel.setGraphic(new Glyph(GLYPHFONT, '\uf021'));
 
         Platform.runLater(() -> {
             scene = tableView.getScene();
@@ -579,10 +571,13 @@ public class MainController implements Initializable {
         //hide mainpage filterbox
         mainBox.getChildren().remove(filterBox);
 
-        //enable statistics if scores exist
-        if (Main.getScoreFile() != null) {
-            statisticsTab.setDisable(false);
-        }
+        //close key combination for tabs
+        tabPane.setOnKeyPressed(event -> {
+            if (event.isControlDown() && event.getCode().equals(KeyCode.W) &&
+                    tabPane.getSelectionModel().getSelectedItem().isClosable()) {
+                tabPane.getTabs().remove(tabPane.getSelectionModel().getSelectedItem());
+            }
+        });
 
         //theme toggles
         switch (Main.programTheme) {
@@ -632,7 +627,7 @@ public class MainController implements Initializable {
         if (Main.blackwhite) settingsBWCheckBox.setSelected(true);
 
         //set songlist
-        settingsSonglistComboBox.getItems().addAll(Style.OMNIMIX, Style.COPULAFULL);
+        settingsSonglistComboBox.getItems().addAll(Style.OMNIMIX, Style.CURRENTSTYLEFULL);
         settingsSonglistComboBox.setValue(Main.songlist);
         settingsSonglistComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
             if (!oldValue.equals(newValue)) saveSettings(true);
@@ -688,6 +683,7 @@ public class MainController implements Initializable {
                                 default:
                             }
                         }
+                        this.getStyleClass().add("status");
                         setText(item);
                     }
                 };
@@ -721,25 +717,6 @@ public class MainController implements Initializable {
 
         //tablecolumn order listener
         tableView.getColumns().addListener((ListChangeListener<TableColumn<SongEntry, ?>>) change -> saveSettings(false));
-
-        //column automatic resizing
-        tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-        styleColumn.setMaxWidth(1f * Integer.MAX_VALUE * 81);
-        titleColumn.setMaxWidth(1f * Integer.MAX_VALUE * 240);
-        artistColumn.setMaxWidth(1f * Integer.MAX_VALUE * 170);
-        genreColumn.setMaxWidth(1f * Integer.MAX_VALUE * 125);
-        difficultyColumn.setMaxWidth(1f * Integer.MAX_VALUE * 88);
-        levelColumn.setMaxWidth(1f * Integer.MAX_VALUE * 59);
-        ratingNColumn.setMaxWidth(1f * Integer.MAX_VALUE * 51);
-        ratingHColumn.setMaxWidth(1f * Integer.MAX_VALUE * 51);
-        bpmColumn.setMaxWidth(1f * Integer.MAX_VALUE * 58);
-        lengthColumn.setMaxWidth(1f * Integer.MAX_VALUE * 68);
-        notesColumn.setMaxWidth(1f * Integer.MAX_VALUE * 59);
-        statusColumn.setMaxWidth(1f * Integer.MAX_VALUE * 90);
-        gradeColumn.setMaxWidth(1f * Integer.MAX_VALUE * 104);
-        ex_scoreColumn.setMaxWidth(1f * Integer.MAX_VALUE * 60);
-        miss_countColumn.setMaxWidth(1f * Integer.MAX_VALUE * 60);
-        scratchColumn.setMaxWidth(1f * Integer.MAX_VALUE * 70);
 
         //contextmenu
         tableView.setRowFactory(param -> {
@@ -823,8 +800,8 @@ public class MainController implements Initializable {
         styleColumn.setComparator(getStyleComparator());
         difficultyColumn.setComparator(getDifficultyComparator());
         levelColumn.setComparator(getIntegerComparator());
-        ratingNColumn.setComparator(getRatingComparator());
-        ratingHColumn.setComparator(getRatingComparator());
+        ratingNColumn.setComparator(getRatingComparator(ratingNColumn));
+        ratingHColumn.setComparator(getRatingComparator(ratingHColumn));
         bpmColumn.setComparator(getBpmComparator());
         notesColumn.setComparator(getIntegerComparator());
         statusColumn.setComparator(getStatusComparator());
@@ -835,26 +812,26 @@ public class MainController implements Initializable {
     }
 
     private String getColumnOrder() {
-        String order = "";
+        StringBuilder order = new StringBuilder();
         ObservableList<TableColumn<SongEntry, ?>> columns = tableView.getColumns();
         if (columns.size() == numCols) {
             for (TableColumn<SongEntry, ?> column : columns) {
-                if (column.equals(styleColumn)) order += "0,";
-                else if (column.equals(titleColumn)) order += "1,";
-                else if (column.equals(artistColumn)) order += "2,";
-                else if (column.equals(genreColumn)) order += "3,";
-                else if (column.equals(difficultyColumn)) order += "4,";
-                else if (column.equals(levelColumn)) order += "5,";
-                else if (column.equals(ratingNColumn)) order += "6,";
-                else if (column.equals(ratingHColumn)) order += "7,";
-                else if (column.equals(bpmColumn)) order += "8,";
-                else if (column.equals(lengthColumn)) order += "9,";
-                else if (column.equals(notesColumn)) order += "10,";
-                else if (column.equals(scratchColumn)) order += "11,";
-                else if (column.equals(statusColumn)) order += "12,";
-                else if (column.equals(gradeColumn)) order += "13,";
-                else if (column.equals(ex_scoreColumn)) order += "14,";
-                else if (column.equals(miss_countColumn)) order += "15,";
+                if (column.equals(styleColumn)) order.append("0,");
+                else if (column.equals(titleColumn)) order.append("1,");
+                else if (column.equals(artistColumn)) order.append("2,");
+                else if (column.equals(genreColumn)) order.append("3,");
+                else if (column.equals(difficultyColumn)) order.append("4,");
+                else if (column.equals(levelColumn)) order.append("5,");
+                else if (column.equals(ratingNColumn)) order.append("6,");
+                else if (column.equals(ratingHColumn)) order.append("7,");
+                else if (column.equals(bpmColumn)) order.append("8,");
+                else if (column.equals(lengthColumn)) order.append("9,");
+                else if (column.equals(notesColumn)) order.append("10,");
+                else if (column.equals(scratchColumn)) order.append("11,");
+                else if (column.equals(statusColumn)) order.append("12,");
+                else if (column.equals(gradeColumn)) order.append("13,");
+                else if (column.equals(ex_scoreColumn)) order.append("14,");
+                else if (column.equals(miss_countColumn)) order.append("15,");
             }
             return order.substring(0, order.length() - 1);
         }
@@ -920,14 +897,14 @@ public class MainController implements Initializable {
         JSONArray scoreArr = null;
 
         if (Main.getScoreFile() != null) {
-            String json = "";
+            StringBuilder json = new StringBuilder();
             try {
                 FileInputStream scoreFileInputStream = new FileInputStream(Main.getScoreFile());
                 InputStreamReader scoreInputStreamReader = new InputStreamReader(scoreFileInputStream, "UTF-8");
                 BufferedReader bufferedReader = new BufferedReader(scoreInputStreamReader);
                 String line = bufferedReader.readLine();
                 while (line != null) {
-                    json += line;
+                    json.append(line);
                     line = bufferedReader.readLine();
                 }
                 scoreFileInputStream.close();
@@ -936,7 +913,7 @@ public class MainController implements Initializable {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            scoreArr = new JSONArray(json);
+            scoreArr = new JSONArray(json.toString());
         }
 
         for (int i = 0; i < chartsArr.length(); i++) {
@@ -966,7 +943,6 @@ public class MainController implements Initializable {
             if (scoreArr != null) {
                 for (int j = 0; j < scoreArr.length(); j++) {
                     JSONObject score = (JSONObject) scoreArr.get(j);
-                    if (!score.has(jsonKeyMusicId)) System.out.println(musicId);
                     if (musicId.equals(score.getString(jsonKeyMusicId))) {
                         int score_difficulty = score.getInt(jsonKeyDifficulty);
                         if (score_difficulty == Difficulty.BLACKANOTHER_INT && isLeggendaria(id)) {
@@ -1048,19 +1024,19 @@ public class MainController implements Initializable {
     }
 
     private JSONArray createLocalJsonArray(String path) {
-        String str = "";
+        StringBuilder str = new StringBuilder();
         InputStream jsonInputStream = getClass().getResourceAsStream("/data/" + path);
         try {
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(jsonInputStream, "UTF-8"));
             String line = bufferedReader.readLine();
             while (line != null) {
-                str += line;
+                str.append(line);
                 line = bufferedReader.readLine();
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return new JSONArray(str);
+        return new JSONArray(str.toString());
     }
 
     private void setTableData(final ObservableList<SongEntry> masterData) {
@@ -1101,7 +1077,8 @@ public class MainController implements Initializable {
                             (!songEntry.getStyle().equals(Style.TRICORO) || !checkStyle20.isSelected()) &&
                             (!songEntry.getStyle().equals(Style.SPADA) || !checkStyle21.isSelected()) &&
                             (!songEntry.getStyle().equals(Style.PENDUAL) || !checkStyle22.isSelected()) &&
-                            (!songEntry.getStyle().equals(Style.COPULA) || !checkStyle23.isSelected()))
+                            (!songEntry.getStyle().equals(Style.COPULA) || !checkStyle23.isSelected()) &&
+                            (!songEntry.getStyle().equals(Style.SINOBUZ) || !checkStyle24.isSelected()))
                         return false;
                 }
 
@@ -1134,7 +1111,7 @@ public class MainController implements Initializable {
 
                 //status filter
                 if (!checkStatusAll.isSelected()) {
-                    if ((!songEntry.getStatus().equals(Status.NOPLAY_NOTEXT) || !checkStatusNoplay.isSelected()) &&
+                    if ((!songEntry.getStatus().equals(Status.NOPLAY) || !checkStatusNoplay.isSelected()) &&
                             (!songEntry.getStatus().equals(Status.FAILED) || !checkStatusFailed.isSelected()) &&
                             (!songEntry.getStatus().equals(Status.ASSISTCLEAR) || !checkStatusAssistclear.isSelected()) &&
                             (!songEntry.getStatus().equals(Status.EASYCLEAR) || !checkStatusEasyclear.isSelected()) &&
@@ -1178,7 +1155,7 @@ public class MainController implements Initializable {
             int notes = Integer.valueOf(entry.getNotes());
             int ex_score = entry.getEx_score().equals("") ? 0 : Integer.valueOf(entry.getEx_score());
             String txt = Grade.getNextGrade(grade) + " -" + Grade.getDifferenceNextGrade(grade, notes, ex_score);
-            if (grade.equals(Grade.MAX)) txt = "STAY COOL!!";
+            if (grade.equals(Grade.MAX)) txt = "STAY COOL";
             Label label = new Label(txt);
             label.setPadding(new Insets(12));
 
@@ -1226,7 +1203,7 @@ public class MainController implements Initializable {
             float f2 = Style.styleToInt(o2);
             if (f1 == -1) f1 = 1.5f;
             if (f2 == -1) f2 = 1.5f;
-            return f1 > f2 ? 1 : f1 < f2 ? -1 : 0;
+            return Float.compare(f1, f2);
         };
     }
 
@@ -1234,21 +1211,21 @@ public class MainController implements Initializable {
         return (o1, o2) -> {
             int i1 = Difficulty.difficultyToInt(o1);
             int i2 = Difficulty.difficultyToInt(o2);
-            return i1 > i2 ? 1 : i1 < i2 ? -1 : 0;
+            return Integer.compare(i1, i2);
         };
     }
 
-    private Comparator<String> getRatingComparator() {
+    private Comparator<String> getRatingComparator(TableColumn<SongEntry, String> col) {
         return (o1, o2) -> {
             if (o1.equals(o2)) return 0;
 
-            if (o1.equals(Rating.LOW)) return -1;
-            if (o2.equals(Rating.LOW)) return 1;
-            if (o1.equals(Rating.NA)) return 1;
-            if (o2.equals(Rating.NA)) return -1;
+            if (o1.contains(".") && !o2.contains(".")) return col.getSortType() == TableColumn.SortType.ASCENDING ? -1 : 1;
+            if (!o1.contains(".") && o2.contains(".")) return col.getSortType() == TableColumn.SortType.ASCENDING ? 1 : -1;
 
-            if (o1.contains(".") && !o2.contains(".")) return -1;
-            if (!o1.contains(".") && o2.contains(".")) return 1;
+            if (o1.equals(Rating.LOW)) return col.getSortType() == TableColumn.SortType.ASCENDING ? 1 : -1;
+            if (o2.equals(Rating.LOW)) return col.getSortType() == TableColumn.SortType.ASCENDING ? -1 : 1;
+            if (o1.equals(Rating.NA)) return col.getSortType() == TableColumn.SortType.ASCENDING ? 1 : -1;
+            if (o2.equals(Rating.NA)) return col.getSortType() == TableColumn.SortType.ASCENDING ? -1 : 1;
 
             if (o1.contains(".") && o2.contains(".")) {
                 int value1 = Integer.parseInt(o1.substring(0, o1.indexOf(".")));
@@ -1262,6 +1239,7 @@ public class MainController implements Initializable {
                     if (value1 != value2) return value1 < value2 ? -1 : 1;
                 }
             }
+
             return 0;
         };
     }
@@ -1285,10 +1263,10 @@ public class MainController implements Initializable {
                 s2[0] = Integer.parseInt(o2);
                 s2[1] = 0;
             }
-            if (s1[1] == 0 || s2[1] == 0) return s1[0] > s2[0] ? 1 : s1[0] < s2[0] ? -1 : 0;
+            if (s1[1] == 0 || s2[1] == 0) return Integer.compare(s1[0], s2[0]);
             else {
-                if (s1[0] != s2[0]) return s1[0] > s2[0] ? 1 : s1[0] < s2[0] ? -1 : 0;
-                else return s1[1] > s2[1] ? 1 : s1[1] < s2[1] ? -1 : 0;
+                if (s1[0] != s2[0]) return Integer.compare(s1[0], s2[0]);
+                else return Integer.compare(s1[1], s2[1]);
             }
         };
     }
@@ -1359,7 +1337,7 @@ public class MainController implements Initializable {
             if (o2.equals("N/A")) return miss_countColumn.getSortType() == TableColumn.SortType.ASCENDING ? -1 : 1;
             int i1 = Integer.valueOf(o1);
             int i2 = Integer.valueOf(o2);
-            return i1 > i2 ? 1 : i1 < i2 ? -1 : 0;
+            return Integer.compare(i1, i2);
         };
     }
 
@@ -1528,6 +1506,7 @@ public class MainController implements Initializable {
             checkStyle21.setSelected(false);
             checkStyle22.setSelected(false);
             checkStyle23.setSelected(false);
+            checkStyle24.setSelected(false);
         }
         checkStyleAll.setSelected(checkStyleAll.isSelected());
         refreshTable();
@@ -1725,6 +1704,14 @@ public class MainController implements Initializable {
         refreshTable();
     }
 
+    @FXML
+    private void style24() {
+        if (checkStyle24.isSelected()) checkStyleAll.setSelected(false);
+        checkStyle24.setSelected(checkStyle24.isSelected());
+        styleempty();
+        refreshTable();
+    }
+
     private void styleempty() {
         if (!checkStyle1.isSelected() && !checkStyleSub.isSelected() && !checkStyle2.isSelected() &&
                 !checkStyle3.isSelected() && !checkStyle4.isSelected() && !checkStyle5.isSelected() &&
@@ -1733,7 +1720,8 @@ public class MainController implements Initializable {
                 !checkStyle12.isSelected() && !checkStyle13.isSelected() && !checkStyle14.isSelected() &&
                 !checkStyle15.isSelected() && !checkStyle16.isSelected() && !checkStyle17.isSelected() &&
                 !checkStyle18.isSelected() && !checkStyle19.isSelected() && !checkStyle20.isSelected() &&
-                !checkStyle21.isSelected() && !checkStyle22.isSelected() && !checkStyle23.isSelected())
+                !checkStyle21.isSelected() && !checkStyle22.isSelected() && !checkStyle23.isSelected() &&
+                !checkStyle24.isSelected())
             checkStyleAll.setSelected(true);
     }
 
@@ -1989,159 +1977,14 @@ public class MainController implements Initializable {
         saveSettings(true);
     }
 
-    private void alertPopup(int code) {
-        switch (code) {
-            case UPDATESERVER404ERROR:
-                alertPopup("Update server error",
-                        "Update server could not be reached.",
-                        "Please try again later.");
-                break;
-            case UPDATESERVERFORMATERROR:
-                alertPopup("Update server error",
-                        "Update server returned malformed message.",
-                        "Please try again later.");
-                break;
-            case UPDATECONNECTIONERROR:
-                alertPopup("Update server error",
-                        "Couldn't reach update server.",
-                        "Check your internet connection and try again.");
-                break;
-        }
-    }
-
-    private void alertPopup(String title, String... messages) {
-        Toolkit.getDefaultToolkit().beep();
-        Platform.runLater(() -> {
-            try {
-                FXMLLoader loader = new FXMLLoader();
-                loader.setLocation(getClass().getResource("/fxml/alert.fxml"));
-                VBox page = loader.load();
-                Stage dialogStage = new Stage();
-                dialogStage.initModality(Modality.APPLICATION_MODAL);
-                dialogStage.initStyle(StageStyle.DECORATED);
-                dialogStage.getIcons().add(new Image(getClass().getResource("/img/icon32.png").toString()));
-                dialogStage.getIcons().add(new Image(getClass().getResource("/img/icon256.png").toString()));
-                dialogStage.setResizable(false);
-                Scene scene = new Scene(page);
-                dialogStage.setScene(scene);
-                AlertController controller = loader.getController();
-                controller.setDialogStage(dialogStage, title, messages);
-                dialogStage.showAndWait();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
+    @FXML
+    private void setEnableRivals() {
+        saveSettings(true);
     }
 
     @FXML
-    private void checkUpdate() {
-        if (!settingsUpdateApplicationAnimationPlaying) {
-            settingsUpdateApplicationButton.setDisable(true);
-
-            String newversion = null;
-            String url = null;
-            int size = -1;
-
-            BufferedReader reader = null;
-            try {
-                reader = new BufferedReader(new InputStreamReader(new URL("http://iidxfx.xn--t8j3b7dyd.xn--q9jyb4c/update.json").openStream()));
-                StringBuilder buffer = new StringBuilder();
-                int read;
-                char[] chars = new char[1024];
-                while ((read = reader.read(chars)) != -1) {
-                    buffer.append(chars, 0, read);
-                }
-
-                JSONObject json = new JSONObject(buffer.toString());
-                newversion = json.getString("version");
-                url = json.getString("url");
-                size = json.getInt("size");
-
-            } catch (UnknownHostException e) {
-                log(Module.UPDATER, "couldn't reach update server");
-                alertPopup(UPDATECONNECTIONERROR);
-            } catch (FileNotFoundException e) {
-                log(Module.UPDATER, "server responded 404");
-                alertPopup(UPDATESERVER404ERROR);
-
-            } catch (JSONException e) {
-                log(Module.UPDATER, "update message in wrong format");
-                alertPopup(UPDATESERVERFORMATERROR);
-            }
-            catch (IOException e) {
-                e.printStackTrace();
-            } finally {
-                if (reader != null) {
-                    try {
-                        reader.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-                settingsUpdateApplicationButton.setDisable(false);
-            }
-
-            if (checkUpdate(newversion)) {
-                log(Module.UPDATER, "new version available: " + newversion);
-                updater(newversion, url, size);
-            } else {
-                log(Module.UPDATER, Main.PROGRAMNAME + " is up to date");
-
-                // play animation
-                settingsUpdateApplicationAnimationPlaying = true;
-                FadeTransition ft3 = new FadeTransition(Duration.millis(300), settingsUpdateApplicationsStatusLabel);
-                ft3.setFromValue(1);
-                ft3.setToValue(0);
-                ft3.setOnFinished(event2 -> settingsUpdateApplicationAnimationPlaying = false);
-
-                FadeTransition ft2 = new FadeTransition(Duration.millis(1500), settingsUpdateApplicationsStatusLabel);
-                ft2.setOnFinished(event -> ft3.play());
-
-                FadeTransition ft1 = new FadeTransition(Duration.millis(300), settingsUpdateApplicationsStatusLabel);
-                ft1.setFromValue(0);
-                ft1.setToValue(1);
-                ft1.setOnFinished(event -> ft2.play());
-
-                new Thread(ft1::play).start();
-
-            }
-            settingsUpdateApplicationButton.setDisable(false);
-
-        }
-    }
-
-    private boolean checkUpdate(String newver) {
-        String[] o = Main.PROGRAMVERSION.split("\\.");
-        String[] n = newver.split("\\.");
-
-        for (int i = 0; i < 3; i++) {
-            int oi = o.length > i ? Integer.valueOf(o[i]) : 0;
-            int ni = n.length > i ? Integer.valueOf(n[i]) : 0;
-            if (oi < ni) return true;
-        }
-
-        return false;
-    }
-
-    private void updater(String newversion, String url, int size) {
-        try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/fxml/updater.fxml"));
-            VBox page = loader.load();
-            Stage dialogStage = new Stage();
-            dialogStage.setTitle(Main.PROGRAMNAME);
-            dialogStage.initModality(Modality.APPLICATION_MODAL);
-            dialogStage.getIcons().add(new Image(getClass().getResource("/img/icon32.png").toString()));
-            dialogStage.getIcons().add(new Image(getClass().getResource("/img/icon256.png").toString()));
-            dialogStage.setResizable(false);
-            Scene scene = new Scene(page);
-            dialogStage.setScene(scene);
-            UpdaterController controller = loader.getController();
-            controller.setDialogStage(dialogStage, newversion, url, size);
-            dialogStage.showAndWait();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    private void setIncludeNetworkRivals() {
+        saveSettings(true);
     }
 
     @FXML
@@ -2169,39 +2012,28 @@ public class MainController implements Initializable {
 
     /***** DAN *****/
     private void initDan() {
-        danStyleSelectBox.setValue(Style.COPULAFULL);
-        danStyleSelectBox.getItems().addAll(Style.COPULAFULL, Style.PENDUALFULL, Style.SPADAFULL, Style.TRICOROFULL, Style.LINCLEFULL,
+        danStyleSelectBox.setValue(Style.CURRENTSTYLEFULL);
+        danStyleSelectBox.getItems().addAll(Style.SINOBUZFULL, Style.COPULAFULL, Style.PENDUALFULL, Style.SPADAFULL, Style.TRICOROFULL, Style.LINCLEFULL,
                 Style.RESORTANTHEMFULL, Style.SIRIUSFULL, Style.EMPRESSFULL);
         danStyleSelectBox.valueProperty().addListener((observable, oldValue, newValue) -> setDanData(Style.styleFullToInt(newValue)));
 
-        //Chuuden
-        chuuden1.setText(Dan.danData[0][18][0]);
-        chuuden2.setText(Dan.danData[0][18][1]);
-        chuuden3.setText(Dan.danData[0][18][2]);
-        chuuden4.setText(Dan.danData[0][18][3]);
-
-        setDanData(Style.COPULAINT);
+        setDanData(Style.CURRENTSTYLEINT);
     }
 
     private void setDanData(int style) {
-        if (style == Style.COPULAINT) {
-            chuudenImage.setVisible(true);
-            chuudenLabel.setVisible(true);
-            chuuden1.setVisible(true);
-            chuuden2.setVisible(true);
-            chuuden3.setVisible(true);
-            chuuden4.setVisible(true);
+        //show/hide chuuden
+        if (style >= Style.COPULAINT) {
+            chuuden1.setText(Dan.danData[Style.CURRENTSTYLEINT - style][18][0]);
+            chuuden2.setText(Dan.danData[Style.CURRENTSTYLEINT - style][18][1]);
+            chuuden3.setText(Dan.danData[Style.CURRENTSTYLEINT - style][18][2]);
+            chuuden4.setText(Dan.danData[Style.CURRENTSTYLEINT - style][18][3]);
+            chuudenBox.setVisible(true);
         } else {
-            chuudenImage.setVisible(false);
-            chuudenLabel.setVisible(false);
-            chuuden1.setVisible(false);
-            chuuden2.setVisible(false);
-            chuuden3.setVisible(false);
-            chuuden4.setVisible(false);
+            chuudenBox.setVisible(false);
         }
 
-        style = 23 - style;
-        for (int i = 0; i < 18; i++) {
+        style = Style.CURRENTSTYLEINT - style;
+        for (int i = 0; i <= 17; i++) {
             if (i == 0) {
                 kaiden1.setText(Dan.danData[style][i][0]);
                 kaiden2.setText(Dan.danData[style][i][1]);
@@ -2287,7 +2119,7 @@ public class MainController implements Initializable {
                 sixthkyu2.setText(Dan.danData[style][i][1]);
                 sixthkyu3.setText(Dan.danData[style][i][2]);
                 sixthkyu4.setText(Dan.danData[style][i][3]);
-            } else if (i == 17) {
+            } else {
                 seventhkyu1.setText(Dan.danData[style][i][0]);
                 seventhkyu2.setText(Dan.danData[style][i][1]);
                 seventhkyu3.setText(Dan.danData[style][i][2]);
@@ -2549,14 +2381,14 @@ public class MainController implements Initializable {
 
     private void fillStatusPieChart() {
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
-        pieChartData.add(new PieChart.Data(Status.NOPLAY, stats.getAllStatus(Status.NOPLAY_INT, getStatsLevelLow(), getStatsLevelHigh())));
-        pieChartData.add(new PieChart.Data(Status.FAILED, stats.getAllStatus(Status.FAILED_INT, getStatsLevelLow(), getStatsLevelHigh())));
-        pieChartData.add(new PieChart.Data(Status.ASSISTCLEAR, stats.getAllStatus(Status.ASSISTCLEAR_INT, getStatsLevelLow(), getStatsLevelHigh())));
-        pieChartData.add(new PieChart.Data(Status.EASYCLEAR, stats.getAllStatus(Status.EASYCLEAR_INT, getStatsLevelLow(), getStatsLevelHigh())));
-        pieChartData.add(new PieChart.Data(Status.CLEAR, stats.getAllStatus(Status.CLEAR_INT, getStatsLevelLow(), getStatsLevelHigh())));
-        pieChartData.add(new PieChart.Data(Status.HARDCLEAR, stats.getAllStatus(Status.HARDCLEAR_INT, getStatsLevelLow(), getStatsLevelHigh())));
-        pieChartData.add(new PieChart.Data(Status.EXHARDCLEAR, stats.getAllStatus(Status.EXHARDCLEAR_INT, getStatsLevelLow(), getStatsLevelHigh())));
-        pieChartData.add(new PieChart.Data(Status.FULLCOMBO, stats.getAllStatus(Status.FULLCOMBO_INT, getStatsLevelLow(), getStatsLevelHigh())));
+        pieChartData.add(new PieChart.Data(Status.NOPLAY_FULL, stats.getAllStatus(Status.NOPLAY_INT, getStatsLevelLow(), getStatsLevelHigh())));
+        pieChartData.add(new PieChart.Data(Status.FAILED_FULL, stats.getAllStatus(Status.FAILED_INT, getStatsLevelLow(), getStatsLevelHigh())));
+        pieChartData.add(new PieChart.Data(Status.ASSISTCLEAR_FULL, stats.getAllStatus(Status.ASSISTCLEAR_INT, getStatsLevelLow(), getStatsLevelHigh())));
+        pieChartData.add(new PieChart.Data(Status.EASYCLEAR_FULL, stats.getAllStatus(Status.EASYCLEAR_INT, getStatsLevelLow(), getStatsLevelHigh())));
+        pieChartData.add(new PieChart.Data(Status.CLEAR_FULL, stats.getAllStatus(Status.CLEAR_INT, getStatsLevelLow(), getStatsLevelHigh())));
+        pieChartData.add(new PieChart.Data(Status.HARDCLEAR_FULL, stats.getAllStatus(Status.HARDCLEAR_INT, getStatsLevelLow(), getStatsLevelHigh())));
+        pieChartData.add(new PieChart.Data(Status.EXHARDCLEAR_FULL, stats.getAllStatus(Status.EXHARDCLEAR_INT, getStatsLevelLow(), getStatsLevelHigh())));
+        pieChartData.add(new PieChart.Data(Status.FULLCOMBO_FULL, stats.getAllStatus(Status.FULLCOMBO_INT, getStatsLevelLow(), getStatsLevelHigh())));
         statsStatusPieChart.setData(pieChartData);
         setPieTooltips();
     }
@@ -2710,21 +2542,21 @@ public class MainController implements Initializable {
         statsStyleStackedBarChart.getData().clear();
         if (details) {
             XYChart.Series<String, Number> npSeries = new XYChart.Series<>();
-            npSeries.setName(Status.NOPLAY);
+            npSeries.setName(Status.NOPLAY_FULL);
             XYChart.Series<String, Number> fSeries = new XYChart.Series<>();
-            fSeries.setName(Status.FAILED);
+            fSeries.setName(Status.FAILED_FULL);
             XYChart.Series<String, Number> acSeries = new XYChart.Series<>();
-            acSeries.setName(Status.ASSISTCLEAR);
+            acSeries.setName(Status.ASSISTCLEAR_FULL);
             XYChart.Series<String, Number> ecSeries = new XYChart.Series<>();
-            ecSeries.setName(Status.EASYCLEAR);
+            ecSeries.setName(Status.EASYCLEAR_FULL);
             XYChart.Series<String, Number> cSeries = new XYChart.Series<>();
-            cSeries.setName(Status.CLEAR);
+            cSeries.setName(Status.CLEAR_FULL);
             XYChart.Series<String, Number> hcSeries = new XYChart.Series<>();
-            hcSeries.setName(Status.HARDCLEAR);
+            hcSeries.setName(Status.HARDCLEAR_FULL);
             XYChart.Series<String, Number> exSeries = new XYChart.Series<>();
-            exSeries.setName(Status.EXHARDCLEAR);
+            exSeries.setName(Status.EXHARDCLEAR_FULL);
             XYChart.Series<String, Number> fcSeries = new XYChart.Series<>();
-            fcSeries.setName(Status.FULLCOMBO);
+            fcSeries.setName(Status.FULLCOMBO_FULL);
 
             for (String styleStr : Style.ALLSTYLES) {
                 int style = Style.styleToInt(styleStr);
@@ -2862,6 +2694,7 @@ public class MainController implements Initializable {
         FileChooser.ExtensionFilter txtFilter = new FileChooser.ExtensionFilter("Text file (*.txt)", "*.txt");
         fileChooser.getExtensionFilters().add(txtFilter);
         FileChooser.ExtensionFilter jsonFilter = new FileChooser.ExtensionFilter("JSON file (*.json)", "*.json");
+        fileChooser.getExtensionFilters().add(jsonFilter);
         File file = fileChooser.showSaveDialog(scene.getWindow());
         if (fileChooser.getSelectedExtensionFilter() != null) {
             if (fileChooser.getSelectedExtensionFilter().equals(csvFilter)) exportCSV(file);
@@ -2910,7 +2743,6 @@ public class MainController implements Initializable {
                 } else {
                     JSONObject jsObj = new JSONObject();
                     jsObj.put("id", entry.getId());
-                    if (entry.getMusicId() != null) jsObj.put("arcanaid", entry.getMusicId());
                     jsObj.put("style", Style.styleToInt(entry.getStyle()));
                     jsObj.put("title", entry.getTitle());
                     jsObj.put("title_r", entry.getTitle_r());

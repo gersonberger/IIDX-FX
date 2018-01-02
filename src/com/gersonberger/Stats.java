@@ -7,24 +7,24 @@ import java.util.Arrays;
 
 class Stats {
 
-    //statsAllStatus[status][difficulty]
+    //statsAllStatus[status][difficulty][difficulty][level]
     //status: 0=noplay, 1=failed, ..., 7=fullcombo
     //difficulty: 0=normal, 1=hyper, 2=another
     //level: 0=level 1, 1=level 2, 11=level 12
     private int[][][] statsAllStatus = new int[8][3][12];
 
-    //statsAllGrade[grade]
+    //statsAllGrade[grade][difficulty][level]
     //grade: 0=none, 1=F, 2=E, ..., 7=AA, 8=AAA, 8=MAX
     //difficulty: 0=normal, 1=hyper, 2=another
     //level: 0=level 1, 1=level 2, 11=level 12
     private int[][][] statsAllGrade = new int[10][3][12];
 
-    //statsStyle[style][status]
+    //statsStyle[style][status][difficulty][level]
     //style: 0=1st Style, 1=Substream, ..., 23=copula
     //status: 0=noplay, 1=failed, ..., 7=fullcombo
     //difficulty: 0=normal, 1=hyper, 2=another
     //level: 0=level 1, 1=level 2, 11=level 12
-    private int[][][][] statsStyle = new int[24][8][3][12];
+    private int[][][][] statsStyle = new int[Style.CURRENTSTYLEINT + 1][8][3][12];
 
 
     Stats(ObservableList<SongEntry> masterData){
@@ -43,7 +43,7 @@ class Stats {
         int level;
         int difficulty;
         for (SongEntry songEntry : masterData) {
-            if (songEntry.getOmnimix() == 1 && Main.songlist.equals(Style.COPULAFULL)) continue;
+            if (songEntry.getOmnimix() == 1 && Main.songlist.equals(Style.CURRENTSTYLEFULL)) continue;
             style = Style.styleToInt(songEntry.getStyle());
             grade = songEntry.getGrade().equals("") ? Grade.NONE_INT : Grade.gradeToInt(songEntry.getGrade().split(" ")[0]);
             status = Status.statusToInt(songEntry.getStatus());

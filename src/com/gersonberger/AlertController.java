@@ -16,20 +16,7 @@ public class AlertController {
 
     public void setDialogStage(Stage dialogStage, WebEvent param) {
         this.dialogStage = dialogStage;
-        switch (Main.programTheme) {
-            case Main.THEMELIGHT:
-                dialogStage.getScene().getStylesheets().add(getClass().getResource("/css/" + Main.FILENAMETHEMELIGHT).toExternalForm());
-                break;
-            case Main.THEMEDARK:
-                dialogStage.getScene().getStylesheets().add(getClass().getResource("/css/" + Main.FILENAMETHEMEDARK).toExternalForm());
-                break;
-            case Main.THEMENANAHIRA:
-                dialogStage.getScene().getStylesheets().add(getClass().getResource("/css/" + Main.FILENAMETHEMENANAHIRA).toExternalForm());
-                break;
-            default:
-                dialogStage.getScene().getStylesheets().add(getClass().getResource("/css/" + Main.FILENAMETHEMELIGHT).toExternalForm());
-                break;
-        }
+        setTheme();
         Label label = new Label(param.getData().toString());
         label.setWrapText(true);
         labelVbox.getChildren().add(label);
@@ -37,6 +24,16 @@ public class AlertController {
 
     public void setDialogStage(Stage dialogStage, String title, String... messages) {
         this.dialogStage = dialogStage;
+        setTheme();
+        dialogStage.setTitle(title);
+        for (String message : messages) {
+            Label label = new Label(message);
+            label.setWrapText(true);
+            labelVbox.getChildren().add(label);
+        }
+    }
+
+    private void setTheme() {
         switch (Main.programTheme) {
             case Main.THEMELIGHT:
                 dialogStage.getScene().getStylesheets().add(getClass().getResource("/css/" + Main.FILENAMETHEMELIGHT).toExternalForm());
@@ -50,12 +47,6 @@ public class AlertController {
             default:
                 dialogStage.getScene().getStylesheets().add(getClass().getResource("/css/" + Main.FILENAMETHEMELIGHT).toExternalForm());
                 break;
-        }
-        dialogStage.setTitle(title);
-        for (String message : messages) {
-            Label label = new Label(message);
-            label.setWrapText(true);
-            labelVbox.getChildren().add(label);
         }
     }
 

@@ -41,3 +41,8 @@
 .progress-indicator .percentage {
     -fx-fill: null;
 }
+
+.chart-pie-label-line {
+    -fx-stroke: #bbb;
+    -fx-fill: #bbb;
+}

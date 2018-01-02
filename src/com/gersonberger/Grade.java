@@ -50,31 +50,6 @@ class Grade {
         }
     }
 
-    static String gradeToString(int grade) {
-        switch (grade) {
-            case F_INT:
-                return F;
-            case E_INT:
-                return E;
-            case D_INT:
-                return D;
-            case C_INT:
-                return C;
-            case B_INT:
-                return B;
-            case A_INT:
-                return A;
-            case AA_INT:
-                return AA;
-            case AAA_INT:
-                return AAA;
-            case MAX_INT:
-                return MAX;
-            default:
-                return NONE;
-        }
-    }
-
     static String percentageToString(int ex_score, int notes) {
         double percentage = ex_score / (notes * 2d);
         if (percentage == 1d) return MAX;

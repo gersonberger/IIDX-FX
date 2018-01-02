@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class PromptController implements Initializable {
+public class PromptController {
 
     static final int SUCCESS = 1;
     static final int ABORT = -1;
@@ -24,10 +24,6 @@ public class PromptController implements Initializable {
 
     private Stage dialogStage;
     private int status = ABORT;
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-    }
 
     public void setDialogStage(Stage dialogStage, PromptData param) {
         this.dialogStage = dialogStage;

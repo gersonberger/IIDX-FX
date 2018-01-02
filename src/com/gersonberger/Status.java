@@ -3,26 +3,23 @@ package com.gersonberger;
 
 class Status {
 
-    /** offer short version string of clears?
-     * static final String NOPLAY_NOTEXT = "";
-     * static final String FAILED = "FLD";
-     * static final String ASSISTCLEAR = "AC";
-     * static final String EASYCLEAR = "EC";
-     * static final String CLEAR = "CLR";
-     * static final String HARDCLEAR = "HC";
-     * static final String EXHARDCLEAR = "EXHC";
-     * static final String FULLCOMBO = "FC";
-     **/
+    static final String NOPLAY = "";
+    static final String FAILED = "F";
+    static final String ASSISTCLEAR = "AC";
+    static final String EASYCLEAR = "EC";
+    static final String CLEAR = "NC";
+    static final String HARDCLEAR = "HC";
+    static final String EXHARDCLEAR = "EXHC";
+    static final String FULLCOMBO = "FC";
 
-    static final String NOPLAY_NOTEXT = "";
-    static final String NOPLAY = "No Play";
-    static final String FAILED = "Failed";
-    static final String ASSISTCLEAR = "Assist Clear";
-    static final String EASYCLEAR = "Easy Clear";
-    static final String CLEAR = "Clear";
-    static final String HARDCLEAR = "Hard Clear";
-    static final String EXHARDCLEAR = "Ex Hard Clear";
-    static final String FULLCOMBO = "Full Combo";
+    static final String NOPLAY_FULL = "No Play";
+    static final String FAILED_FULL = "Failed";
+    static final String ASSISTCLEAR_FULL = "Assist Clear";
+    static final String EASYCLEAR_FULL = "Easy Clear";
+    static final String CLEAR_FULL = "Clear";
+    static final String HARDCLEAR_FULL = "Hard Clear";
+    static final String EXHARDCLEAR_FULL = "Ex Hard Clear";
+    static final String FULLCOMBO_FULL = "Full Combo";
 
     static final int NOPLAY_INT = 0;
     static final int FAILED_INT = 1;
@@ -50,7 +47,7 @@ class Status {
             case FULLCOMBO_INT:
                 return FULLCOMBO;
             default:
-                return NOPLAY_NOTEXT;
+                return NOPLAY;
         }
     }
 

@@ -7,6 +7,7 @@ public class Style {
 
     static final String OMNIMIX = "Omnimix";
 
+    static final String SINOBUZ = "SINOBUZ";
     static final String COPULA = "copula";
     static final String PENDUAL = "PENDUAL";
     static final String SPADA = "SPADA";
@@ -33,10 +34,12 @@ public class Style {
     static final String FIRSTSTYLE = "1st Style";
     static final String OTHER = "Other";
 
+
     static final String[] ALLSTYLES = {FIRSTSTYLE, SUBSTREAM, SECONDSTYLE, THIRDSTYLE, FOURTHSTYLE, FIFTHSTYLE,
             SIXTHSTYLE, SEVENTHSTYLE, EIGHTHSTYLE, NINTHSTYLE, TENTHSTYLE, IIDXRED, HAPPYSKY, DISTORTED, GOLD,
-            DJTROOPERS, EMPRESS, SIRIUS, RESORTANTHEM, LINCLE, TRICORO, SPADA, PENDUAL, COPULA};
+            DJTROOPERS, EMPRESS, SIRIUS, RESORTANTHEM, LINCLE, TRICORO, SPADA, PENDUAL, COPULA, SINOBUZ};
 
+    static final int SINOBUZINT = 24;
     static final int COPULAINT = 23;
     static final int PENDUALINT = 22;
     static final int SPADAINT = 21;
@@ -63,6 +66,7 @@ public class Style {
     static final int FIRSTSTYLEINT = 0;
     static final int OTHERINT = -1;
 
+    static final String SINOBUZFULL = beatmania + " " + SINOBUZINT + " " + SINOBUZ;
     static final String COPULAFULL = beatmania + " " + COPULAINT + " " + COPULA;
     static final String PENDUALFULL = beatmania + " " + PENDUALINT + " " + PENDUAL;
     static final String SPADAFULL = beatmania + " " + SPADAINT + " " + SPADA;
@@ -72,8 +76,14 @@ public class Style {
     static final String SIRIUSFULL = beatmania + " " + SIRIUSINT + " " + SIRIUS;
     static final String EMPRESSFULL = beatmania + " " + EMPRESSINT + " " + EMPRESS;
 
+    static final String CURRENTSTYLE = SINOBUZ;
+    static final int CURRENTSTYLEINT = SINOBUZINT;
+    static final String CURRENTSTYLEFULL = SINOBUZFULL;
+
     static int styleFullToInt(String style) {
         switch (style) {
+            case SINOBUZFULL:
+                return SINOBUZINT;
             case COPULAFULL:
                 return COPULAINT;
             case PENDUALFULL:
@@ -145,6 +155,8 @@ public class Style {
                 return PENDUALINT;
             case COPULA:
                 return COPULAINT;
+            case SINOBUZ:
+                return SINOBUZINT;
             default:
                 return OTHERINT;
         }
@@ -200,6 +212,8 @@ public class Style {
                 return PENDUAL;
             case COPULAINT:
                 return COPULA;
+            case SINOBUZINT:
+                return SINOBUZ;
             default:
                 return OTHER;
         }

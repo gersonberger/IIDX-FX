@@ -7,7 +7,6 @@ class Module {
     static String AUTHORIZATION = "AUTH";
     static String DEBUG = "DBUG";
     static String INITIALIZE = "INIT";
-    static String RIVAL = "RIVL";
     static String UPDATER = "UPDT";
 
 }

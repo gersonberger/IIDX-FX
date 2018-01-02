@@ -19,8 +19,8 @@ public class Main extends Application {
     private static final long startuptime = System.currentTimeMillis();
 
     static final String PROGRAMNAME = "IIDX-FX";
-    static final String PROGRAMVERSION = ProgramVersion.MAJOR_1_MINOR_4_REVISION_3;
-    static final String PROGRAMDATE = "2017-08-22";
+    static final String PROGRAMVERSION = ProgramVersion.MAJOR_1_MINOR_5;
+    static final String PROGRAMDATE = "2018-01-02";
 
     static String LOCALDIR;
     static String SEPARATOR;
@@ -28,7 +28,6 @@ public class Main extends Application {
     static final String FILENAMEMUSICFILE = "music.json";
     static final String FILENAMECHARTSFILE = "charts.json";
     static final String FILENAMESCOREFILE = "scores.json";
-    static final String FILENAMERIVALIDS = "rivalids.json";
     private static final String FILENAMESCOREFILEOLD = "scores.txt";
     private static final String FILENAMEPROPERTYFILE = "set.properties";
 
@@ -133,7 +132,6 @@ public class Main extends Application {
         initProperties();
         findScoreFile();
 
-        //maybe localization?
         Locale.setDefault(Locale.ENGLISH);
 
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/main.fxml"));
@@ -325,6 +323,35 @@ public class Main extends Application {
 
             //version 1.4.3
             else if (version.equals(ProgramVersion.MAJOR_1_MINOR_4_REVISION_3)) {
+                programTheme = properties.getProperty(PROPERTYNAMETHEME, THEMELIGHT);
+                statusColor = Boolean.valueOf(properties.getProperty(PROPERTYNAMESTATUSCOLORS, "false"));
+                showTitleSuggestions = Boolean.valueOf(properties.getProperty(PROPERTYNAMETITLESUGGESTIONS, "false"));
+                showArtistSuggestions = Boolean.valueOf(properties.getProperty(PROPERTYNAMEARTISTSUGGESTIONS, "true"));
+                playerside = properties.getProperty(PROPERTYNAMEPLAYERSIDE, "1");
+                battle = Boolean.valueOf(properties.getProperty(PROPERTYNAMEBATTLE, "false"));
+                slim = Boolean.valueOf(properties.getProperty(PROPERTYNAMESLIM, "false"));
+                blackwhite = Boolean.valueOf(properties.getProperty(PROPERTYNAMEBLACKWHITE, "false"));
+                highspeed = properties.getProperty(PROPERTYNAMEHIGHSPEED, "1");
+                djname = properties.getProperty(PROPERTYNAMEDJNAME, "");
+                playerid = properties.getProperty(PROPERTYNAMEPLAYERID, "");
+                songlist = properties.getProperty(PROPERTYNAMESONGLIST, Style.CURRENTSTYLEFULL);
+                colorder = properties.getProperty(PROPERTYNAMECOLORDER, "0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15");
+                statsNormal = Boolean.valueOf(properties.getProperty(PROPERTYNAMESTATSNORMAL, "true"));
+                statsHyper = Boolean.valueOf(properties.getProperty(PROPERTYNAMESTATSHYPER, "true"));
+                statsAnother = Boolean.valueOf(properties.getProperty(PROPERTYNAMESTATSANOTHER, "true"));
+                statsPieNoplay = Boolean.valueOf(properties.getProperty(PROPERTYNAMESTATSCLEARRATENOPLAY, "true"));
+                statsStyleCompletionDetails = Boolean.valueOf(properties.getProperty(PROPERTYNAMESTATSCOMPLETIONSTYLEDETAILS, "false"));
+                statsLevelLow = Integer.valueOf(properties.getProperty(PROPERTYNAMESTATSLEVELLOW, "1"));
+                statsLevelHigh = Integer.valueOf(properties.getProperty(PROPERTYNAMESTATSLEVELHIGH, "12"));
+                version = PROGRAMVERSION;
+
+                if (songlist.equals(Style.COPULAFULL)) songlist = Style.CURRENTSTYLEFULL;
+
+                log(Module.INITIALIZE, "updated settings from " + ProgramVersion.MAJOR_1_MINOR_4_REVISION_3 + " to " + PROGRAMVERSION);
+            }
+
+            //version 1.5
+            else if (version.equals(ProgramVersion.MAJOR_1_MINOR_5)) {
                 programTheme = properties.getProperty(PROPERTYNAMETHEME, THEMELIGHT);
                 statusColor = Boolean.valueOf(properties.getProperty(PROPERTYNAMESTATUSCOLORS, "false"));
                 showTitleSuggestions = Boolean.valueOf(properties.getProperty(PROPERTYNAMETITLESUGGESTIONS, "false"));

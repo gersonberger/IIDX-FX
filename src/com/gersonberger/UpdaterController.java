@@ -81,7 +81,7 @@ public class UpdaterController {
     @FXML
     private void handleDownload() {
 
-        // get current executable path
+        //get current executable path
         String fileloc = getClass().getProtectionDomain().getCodeSource().getLocation().getPath();
         if (Main.getOS() == Main.LINUX) {
             fileloc = fileloc.substring(0, fileloc.lastIndexOf("/") + 1);
@@ -91,7 +91,7 @@ public class UpdaterController {
 
         FileChooser fileChooser = new FileChooser();
 
-        // set init directory and filename
+        //set init directory and filename
         File initialDirectory = new File(fileloc);
         if (initialDirectory.isDirectory()) {
             fileChooser.setInitialDirectory(initialDirectory);
@@ -113,8 +113,10 @@ public class UpdaterController {
                     if (responseCode == HttpURLConnection.HTTP_OK) {
                         log(Module.UPDATER, "content-type: " + httpConn.getContentType());
 
-                        // note: can not update progress to progressbar since s-ul.eu
-                        // doesn't provide content-length in http-header
+                        //note: can not update progress to progressbar since s-ul.eu
+                        //doesn't provide content-length in http-header
+
+                        //resolved by putting filesize in metafile
 
                         InputStream inputStream = httpConn.getInputStream();
                         FileOutputStream outputStream = new FileOutputStream(file.getPath());
@@ -139,9 +141,8 @@ public class UpdaterController {
                         newApplication = file;
 
                         log(Module.UPDATER, "new version downloaded to: " + file.getPath());
-
                     }
-                    // else handle httpcode
+                    //else handle httpcode
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
