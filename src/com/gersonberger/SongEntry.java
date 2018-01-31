@@ -8,26 +8,49 @@ import java.math.RoundingMode;
 
 public class SongEntry {
 
-    private final StringProperty style = new SimpleStringProperty(this, "Style");
-    private final StringProperty title = new SimpleStringProperty(this, "Title");
-    private final StringProperty title_r = new SimpleStringProperty(this, "Title_r");
-    private final StringProperty artist = new SimpleStringProperty(this, "Artist");
-    private final StringProperty artist_r = new SimpleStringProperty(this, "Artist_r");
-    private final StringProperty genre = new SimpleStringProperty(this, "Genre");
-    private final StringProperty difficulty = new SimpleStringProperty(this, "Difficulty");
-    private final StringProperty level = new SimpleStringProperty(this, "Level");
-    private final IntegerProperty nRating = new SimpleIntegerProperty(this, "nRating");
-    private final StringProperty nRating_s = new SimpleStringProperty(this, "nRating_s");
-    private final StringProperty hRating_s = new SimpleStringProperty(this, "hRating_s");
-    private final IntegerProperty hRating = new SimpleIntegerProperty(this, "hRating");
-    private final StringProperty bpm = new SimpleStringProperty(this, "Bpm");
-    private final StringProperty length = new SimpleStringProperty(this, "Length");
-    private final StringProperty notes = new SimpleStringProperty(this, "Notes");
-    private final StringProperty scratch = new SimpleStringProperty(this, "Scratch");
-    private final StringProperty status = new SimpleStringProperty(this, "Status");
-    private final StringProperty grade = new SimpleStringProperty(this, "Grade");
-    private final StringProperty miss_count = new SimpleStringProperty(this, "Miss_count");
-    private final StringProperty ex_score = new SimpleStringProperty(this, "Ex_score");
+    static final String KEY_STYLE = "Style";
+    static final String KEY_TITLE = "Title";
+    private static final String KEY_TITLE_R = "Title_r";
+    static final String KEY_ARTIST = "Artist";
+    private static final String KEY_ARTIST_R = "Artist_r";
+    static final String KEY_GENRE = "Genre";
+    static final String KEY_DIFFICULTY = "Difficulty";
+    static final String KEY_LEVEL = "Level";
+    private static final String KEY_N_RATING = "nRating";
+    static final String KEY_N_RATING_S = "nRating_s";
+    private static final String KEY_H_RATING = "hRating";
+    static final String KEY_H_RATING_S = "hRating_s";
+    static final String KEY_BPM = "Bpm";
+    static final String KEY_LENGTH = "Length";
+    static final String KEY_NOTES = "Notes";
+    static final String KEY_SCRATCH = "Scratch";
+    static final String KEY_STATUS = "Status";
+    static final String KEY_GRADE = "Grade";
+    static final String KEY_MISS_COUNT = "Miss_count";
+    static final String KEY_EX_SCORE = "Ex_score";
+    static final String KEY_TIMESTAMP = "Timestamp";
+
+    private final StringProperty style = new SimpleStringProperty(this, KEY_STYLE);
+    private final StringProperty title = new SimpleStringProperty(this, KEY_TITLE);
+    private final StringProperty title_r = new SimpleStringProperty(this, KEY_TITLE_R);
+    private final StringProperty artist = new SimpleStringProperty(this, KEY_ARTIST);
+    private final StringProperty artist_r = new SimpleStringProperty(this, KEY_ARTIST_R);
+    private final StringProperty genre = new SimpleStringProperty(this, KEY_GENRE);
+    private final StringProperty difficulty = new SimpleStringProperty(this, KEY_DIFFICULTY);
+    private final StringProperty level = new SimpleStringProperty(this, KEY_LEVEL);
+    private final IntegerProperty nRating = new SimpleIntegerProperty(this, KEY_N_RATING);
+    private final StringProperty nRating_s = new SimpleStringProperty(this, KEY_N_RATING_S);
+    private final IntegerProperty hRating = new SimpleIntegerProperty(this, KEY_H_RATING);
+    private final StringProperty hRating_s = new SimpleStringProperty(this, KEY_H_RATING_S);
+    private final StringProperty bpm = new SimpleStringProperty(this, KEY_BPM);
+    private final StringProperty length = new SimpleStringProperty(this, KEY_LENGTH);
+    private final StringProperty notes = new SimpleStringProperty(this, KEY_NOTES);
+    private final StringProperty scratch = new SimpleStringProperty(this, KEY_SCRATCH);
+    private final StringProperty status = new SimpleStringProperty(this, KEY_STATUS);
+    private final StringProperty grade = new SimpleStringProperty(this, KEY_GRADE);
+    private final StringProperty miss_count = new SimpleStringProperty(this, KEY_MISS_COUNT);
+    private final StringProperty ex_score = new SimpleStringProperty(this, KEY_EX_SCORE);
+    private final StringProperty timestamp = new SimpleStringProperty(this, KEY_TIMESTAMP);
 
     private int id;
     private String musicId;
@@ -76,7 +99,8 @@ public class SongEntry {
 
     public SongEntry(int id, int style, String title, String title_r, String artist, String artist_r, String genre,
                      int difficulty, int level, int nRating, int hRating, int bpmMin, int bpmMax, int length,
-                     int notes, int scratch, int status, String grade, int miss_count, int ex_score, String textage, int omnimix, String arcanaMusicId) {
+                     int notes, int scratch, int status, String grade, int miss_count, int ex_score, String textage,
+                     int omnimix, String arcanaMusicId, String timestamp) {
         this.id = id;
         this.style.set(Style.styleToString(style));
         this.title.set(title);
@@ -110,6 +134,8 @@ public class SongEntry {
         //if (id > 21xxx)
         this.omnimix = omnimix;
         this.musicId = arcanaMusicId;
+        this.timestamp.set(timestamp);
+
     }
 
     private double round(double value, int places) {
@@ -139,10 +165,6 @@ public class SongEntry {
         if (level == 12 && rating > 15) return level + "." + Rating.PLUS15;
         if (rating > 0 && rating <= 15) return level + "." + rating;
         else return Rating.ERROR;
-    }
-
-    public int getId() {
-        return id;
     }
 
     public String getStyle() {
@@ -265,18 +287,6 @@ public class SongEntry {
         this.nRating_s.set(nRating_s);
     }
 
-    public String gethRating_s() {
-        return hRating_s.get();
-    }
-
-    public StringProperty hRating_sProperty() {
-        return hRating_s;
-    }
-
-    public void sethRating_s(String hRating_s) {
-        this.hRating_s.set(hRating_s);
-    }
-
     public int gethRating() {
         return hRating.get();
     }
@@ -287,6 +297,18 @@ public class SongEntry {
 
     public void sethRating(int hRating) {
         this.hRating.set(hRating);
+    }
+
+    public String gethRating_s() {
+        return hRating_s.get();
+    }
+
+    public StringProperty hRating_sProperty() {
+        return hRating_s;
+    }
+
+    public void sethRating_s(String hRating_s) {
+        this.hRating_s.set(hRating_s);
     }
 
     public String getBpm() {
@@ -323,6 +345,18 @@ public class SongEntry {
 
     public void setNotes(String notes) {
         this.notes.set(notes);
+    }
+
+    public String getScratch() {
+        return scratch.get();
+    }
+
+    public StringProperty scratchProperty() {
+        return scratch;
+    }
+
+    public void setScratch(String scratch) {
+        this.scratch.set(scratch);
     }
 
     public String getStatus() {
@@ -373,26 +407,24 @@ public class SongEntry {
         this.ex_score.set(ex_score);
     }
 
-    public String getScratch() {
-        return scratch.get();
+    public String getTimestamp() {
+        return timestamp.get();
     }
 
-    public StringProperty scratchProperty() {
-        return scratch;
+    public StringProperty timestampProperty() {
+        return timestamp;
     }
 
-    public void setScratch(String scratch) {
-        this.scratch.set(scratch);
+    public void setTimestamp(String timestamp) {
+        this.timestamp.set(timestamp);
     }
 
-    public int getScratchRaw() { return scratchRaw; }
-
-    public String getTextage() {
-        return textage;
+    public int getId() {
+        return id;
     }
 
-    public int getOmnimix() {
-        return omnimix;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getMusicId() {
@@ -409,5 +441,29 @@ public class SongEntry {
 
     public void setChartId(String chartId) {
         this.chartId = chartId;
+    }
+
+    public String getTextage() {
+        return textage;
+    }
+
+    public void setTextage(String textage) {
+        this.textage = textage;
+    }
+
+    public int getScratchRaw() {
+        return scratchRaw;
+    }
+
+    public void setScratchRaw(int scratchRaw) {
+        this.scratchRaw = scratchRaw;
+    }
+
+    public int getOmnimix() {
+        return omnimix;
+    }
+
+    public void setOmnimix(int omnimix) {
+        this.omnimix = omnimix;
     }
 }

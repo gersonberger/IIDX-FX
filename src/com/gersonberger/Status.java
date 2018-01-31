@@ -72,6 +72,27 @@ class Status {
         }
     }
 
+    static int statusFullToInt(String clear) {
+        switch (clear) {
+            case FAILED_FULL:
+                return FAILED_INT;
+            case ASSISTCLEAR_FULL:
+                return ASSISTCLEAR_INT;
+            case EASYCLEAR_FULL:
+                return EASYCLEAR_INT;
+            case CLEAR_FULL:
+                return CLEAR_INT;
+            case HARDCLEAR_FULL:
+                return HARDCLEAR_INT;
+            case EXHARDCLEAR_FULL:
+                return EXHARDCLEAR_INT;
+            case FULLCOMBO_FULL:
+                return FULLCOMBO_INT;
+            default:
+                return NOPLAY_INT;
+        }
+    }
+
     static int networkStatusToInt(String clear) {
         switch (clear) {
             case "NO_PLAY":

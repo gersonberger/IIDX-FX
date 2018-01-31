@@ -30,8 +30,7 @@ public class AboutController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        if (Main.programTheme.equals(Main.THEMEDARK))
-            logoImageView.setImage(new Image(getClass().getResource("/img/logo_dark.png").toString()));
+        if (Main.programTheme.equals(Main.THEMEDARK)) logoImageView.setImage(new Image(getClass().getResource("/img/logo_dark.png").toString()));
         else logoImageView.setImage(new Image(getClass().getResource("/img/logo.png").toString()));
 
         nameLabel.setText(Main.PROGRAMNAME + " (" + System.getProperty("os.arch") + ")");

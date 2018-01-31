@@ -51,7 +51,6 @@ import java.awt.datatransfer.StringSelection;
 import java.io.*;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.net.ServerSocket;
 import java.net.URL;
 import java.util.*;
 import java.util.List;
@@ -106,6 +105,8 @@ public class MainController implements Initializable {
     private TableColumn<SongEntry, String> ex_scoreColumn;
     @FXML
     private TableColumn<SongEntry, String> scratchColumn;
+    @FXML
+    private TableColumn<SongEntry, String> timestampColumn;
 
     /***** STYLE BUTTONS *****/
     @FXML
@@ -473,6 +474,10 @@ public class MainController implements Initializable {
     @FXML
     private ComboBox<String> settingsSonglistComboBox;
     @FXML
+    private Label settingsDateformatLabel;
+    @FXML
+    private ComboBox<String> settingsDateformatComboBox;
+    @FXML
     private Label settingsExportLabel;
     @FXML
     private Label settingsSaveLabel;
@@ -502,6 +507,7 @@ public class MainController implements Initializable {
     private final String jsonKeyStatus = "s";
     private final String jsonKeyEx_score = "e";
     private final String jsonKeyMiss_count = "m";
+    private final String jsonKeyTimestamp = "t";
 
     /***** MISC *****/
     @FXML
@@ -557,6 +563,7 @@ public class MainController implements Initializable {
         settingsChartsLabel.setGraphic(new Glyph(GLYPHFONT, '\uf0c9'));
         settingsHSLabel.setGraphic(new Glyph(GLYPHFONT, '\uf0e4'));
         settingsSonglistLabel.setGraphic(new Glyph(GLYPHFONT, '\uf022'));
+        settingsDateformatLabel.setGraphic(new Glyph(GLYPHFONT, '\uf073'));
         settingsExportLabel.setGraphic(new Glyph(GLYPHFONT, '\uf15c'));
 
         Platform.runLater(() -> {
@@ -578,6 +585,11 @@ public class MainController implements Initializable {
                 tabPane.getTabs().remove(tabPane.getSelectionModel().getSelectedItem());
             }
         });
+
+        //enable statistics if scores exist
+        if (Main.getScoreFile() != null) {
+            statisticsTab.setDisable(false);
+        }
 
         //theme toggles
         switch (Main.programTheme) {
@@ -621,6 +633,8 @@ public class MainController implements Initializable {
                 settingsHS1ToggleButton.setSelected(true);
         }
 
+        //TODO: make segmented button not deselectable
+
         //textage option toggles
         if (Main.battle) settingsBattleCheckBox.setSelected(true);
         if (Main.slim) settingsSlimCheckBox.setSelected(true);
@@ -631,6 +645,16 @@ public class MainController implements Initializable {
         settingsSonglistComboBox.setValue(Main.songlist);
         settingsSonglistComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
             if (!oldValue.equals(newValue)) saveSettings(true);
+        });
+
+        //set dateformat
+        settingsDateformatComboBox.getItems().addAll(Main.DATEFORMAT_USA, Main.DATEFORMAT_EU, Main.DATEFORMAT_ISO8601);
+        settingsDateformatComboBox.setValue(Main.dateformat);
+        settingsDateformatComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (!oldValue.equals(newValue)) {
+                refreshTable();
+                saveSettings(true);
+            }
         });
 
         //set aboutlink
@@ -714,6 +738,7 @@ public class MainController implements Initializable {
         gradeColumn.setVisible(Boolean.valueOf(properties.getProperty(Main.PROPERTYNAMEGRADECOL, "false")));
         ex_scoreColumn.setVisible(Boolean.valueOf(properties.getProperty(Main.PROPERTYNAMEEXCOL, "false")));
         miss_countColumn.setVisible(Boolean.valueOf(properties.getProperty(Main.PROPERTYNAMEMISS_COUNTCOL, "false")));
+        timestampColumn.setVisible(Boolean.valueOf(properties.getProperty(Main.PROPERTYNAMETIMESTAMPCOL, "false")));
 
         //tablecolumn order listener
         tableView.getColumns().addListener((ListChangeListener<TableColumn<SongEntry, ?>>) change -> saveSettings(false));
@@ -753,22 +778,23 @@ public class MainController implements Initializable {
         });
 
         //set columns
-        styleColumn.setCellValueFactory(new PropertyValueFactory<>("Style"));
-        titleColumn.setCellValueFactory(new PropertyValueFactory<>("Title"));
-        artistColumn.setCellValueFactory(new PropertyValueFactory<>("Artist"));
-        genreColumn.setCellValueFactory(new PropertyValueFactory<>("Genre"));
-        difficultyColumn.setCellValueFactory(new PropertyValueFactory<>("Difficulty"));
-        levelColumn.setCellValueFactory(new PropertyValueFactory<>("Level"));
-        ratingNColumn.setCellValueFactory(new PropertyValueFactory<>("nRating_s"));
-        ratingHColumn.setCellValueFactory(new PropertyValueFactory<>("hRating_s"));
-        bpmColumn.setCellValueFactory(new PropertyValueFactory<>("Bpm"));
-        lengthColumn.setCellValueFactory(new PropertyValueFactory<>("Length"));
-        notesColumn.setCellValueFactory(new PropertyValueFactory<>("Notes"));
-        scratchColumn.setCellValueFactory(new PropertyValueFactory<>("Scratch"));
-        statusColumn.setCellValueFactory(new PropertyValueFactory<>("Status"));
-        gradeColumn.setCellValueFactory(new PropertyValueFactory<>("Grade"));
-        miss_countColumn.setCellValueFactory(new PropertyValueFactory<>("Miss_count"));
-        ex_scoreColumn.setCellValueFactory(new PropertyValueFactory<>("Ex_score"));
+        styleColumn.setCellValueFactory(new PropertyValueFactory<>(SongEntry.KEY_STYLE));
+        titleColumn.setCellValueFactory(new PropertyValueFactory<>(SongEntry.KEY_TITLE));
+        artistColumn.setCellValueFactory(new PropertyValueFactory<>(SongEntry.KEY_ARTIST));
+        genreColumn.setCellValueFactory(new PropertyValueFactory<>(SongEntry.KEY_GENRE));
+        difficultyColumn.setCellValueFactory(new PropertyValueFactory<>(SongEntry.KEY_DIFFICULTY));
+        levelColumn.setCellValueFactory(new PropertyValueFactory<>(SongEntry.KEY_LEVEL));
+        ratingNColumn.setCellValueFactory(new PropertyValueFactory<>(SongEntry.KEY_N_RATING_S));
+        ratingHColumn.setCellValueFactory(new PropertyValueFactory<>(SongEntry.KEY_H_RATING_S));
+        bpmColumn.setCellValueFactory(new PropertyValueFactory<>(SongEntry.KEY_BPM));
+        lengthColumn.setCellValueFactory(new PropertyValueFactory<>(SongEntry.KEY_LENGTH));
+        notesColumn.setCellValueFactory(new PropertyValueFactory<>(SongEntry.KEY_NOTES));
+        scratchColumn.setCellValueFactory(new PropertyValueFactory<>(SongEntry.KEY_SCRATCH));
+        statusColumn.setCellValueFactory(new PropertyValueFactory<>(SongEntry.KEY_STATUS));
+        gradeColumn.setCellValueFactory(new PropertyValueFactory<>(SongEntry.KEY_GRADE));
+        miss_countColumn.setCellValueFactory(new PropertyValueFactory<>(SongEntry.KEY_MISS_COUNT));
+        ex_scoreColumn.setCellValueFactory(new PropertyValueFactory<>(SongEntry.KEY_EX_SCORE));
+        timestampColumn.setCellValueFactory(new PropertyValueFactory<>(SongEntry.KEY_TIMESTAMP));
 
         //status theming via css/status.css if selected in settings
         cellFactoryStatusColors(statusColumn);
@@ -796,6 +822,34 @@ public class MainController implements Initializable {
             }
         });
 
+        timestampColumn.setCellFactory(new Callback<TableColumn<SongEntry, String>, TableCell<SongEntry, String>>() {
+            @Override
+            public TableCell<SongEntry, String> call(TableColumn<SongEntry, String> param) {
+                return new TableCell<SongEntry, String>() {
+                    @Override
+                    public void updateItem(String item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (item != null && !item.isEmpty()) {
+                            switch (Main.dateformat) {
+                                case Main.DATEFORMAT_USA:
+                                    String[] date = item.split("T")[0].split("-");
+                                    item = date[1] + "/" + date[2] + "/" + date[0];
+                                    break;
+                                case Main.DATEFORMAT_EU:
+                                    date = item.split("T")[0].split("-");
+                                    item = date[2] + "." + date[1] + "." + date[0];
+                                    break;
+                                case Main.DATEFORMAT_ISO8601:
+                                    item = item.split("T")[0];
+                                    break;
+                            }
+                        }
+                        setText(item);
+                    }
+                };
+            }
+        });
+
         //custom comparators
         styleColumn.setComparator(getStyleComparator());
         difficultyColumn.setComparator(getDifficultyComparator());
@@ -809,6 +863,7 @@ public class MainController implements Initializable {
         miss_countColumn.setComparator(getMiss_countComparator());
         ex_scoreColumn.setComparator(getEx_scoreComparator());
         scratchColumn.setComparator(getScratchComparator());
+        timestampColumn.setComparator(getTimestampComparator());
     }
 
     private String getColumnOrder() {
@@ -832,6 +887,7 @@ public class MainController implements Initializable {
                 else if (column.equals(gradeColumn)) order.append("13,");
                 else if (column.equals(ex_scoreColumn)) order.append("14,");
                 else if (column.equals(miss_countColumn)) order.append("15,");
+                else if (column.equals(timestampColumn)) order.append("16,");
             }
             return order.substring(0, order.length() - 1);
         }
@@ -883,6 +939,8 @@ public class MainController implements Initializable {
                 return ex_scoreColumn;
             case 15:
                 return miss_countColumn;
+            case 16:
+                return timestampColumn;
             default:
                 return null;
         }
@@ -939,15 +997,23 @@ public class MainController implements Initializable {
             int ex_score = 0;
             String grade = "";
             int miss_count = -2;
+            String timestamp = "";
 
             if (scoreArr != null) {
                 for (int j = 0; j < scoreArr.length(); j++) {
                     JSONObject score = (JSONObject) scoreArr.get(j);
                     if (musicId.equals(score.getString(jsonKeyMusicId))) {
                         int score_difficulty = score.getInt(jsonKeyDifficulty);
+
+                        // fix for Scripted Connection⇒ long mix
+                        if (id == 21201) {
+                            score_difficulty = Difficulty.BLACKANOTHER_INT;
+                        }
+
                         if (score_difficulty == Difficulty.BLACKANOTHER_INT && isLeggendaria(id)) {
                             score_difficulty = Difficulty.LEGGENDARIA_INT;
                         }
+
                         if (difficulty == score_difficulty) {
                             status = score.getInt(jsonKeyStatus);
                             ex_score = score.getInt(jsonKeyEx_score);
@@ -961,6 +1027,9 @@ public class MainController implements Initializable {
                             }
                             grade = Grade.percentageToString(ex_score, notes) + " (" + percentage + "%)";
                             miss_count = score.getInt(jsonKeyMiss_count);
+                            if (score.has(jsonKeyTimestamp)) {
+                                timestamp = score.getString(jsonKeyTimestamp);
+                            }
                             break;
                         }
                     }
@@ -990,7 +1059,7 @@ public class MainController implements Initializable {
                     new SongEntry(
                             id, style, title, title_r, artist, artist_r, genre, difficulty, level, nRating, hRating,
                             bpmMin, bpmMax, length, notes, scratch, status, grade, miss_count, ex_score, textage,
-                            omnimix, musicId
+                            omnimix, musicId, timestamp
                     )
             );
 
@@ -1349,6 +1418,31 @@ public class MainController implements Initializable {
                 return ex_scoreColumn.getSortType() == TableColumn.SortType.ASCENDING ? -1 : 1;
             if (!o1.equals(o2)) return Integer.valueOf(o1) > Integer.valueOf(o2) ? 1 : -1;
             return 0;
+        };
+    }
+
+    private Comparator<String> getTimestampComparator() {
+        return (o1, o2) -> {
+            if (o1 == null || o1.equals(""))
+                return timestampColumn.getSortType() == TableColumn.SortType.ASCENDING ? 1 : -1;
+            if (o2 == null || o2.equals(""))
+                return timestampColumn.getSortType() == TableColumn.SortType.ASCENDING ? -1 : 1;
+            int year1 = Integer.valueOf(o1.substring(0, 4));
+            int year2 = Integer.valueOf(o2.substring(0, 4));
+
+            if (year1 > year2) return 1;
+            else if (year1 < year2) return -1;
+            else {
+                int month1 = Integer.valueOf(o1.substring(5,7));
+                int month2 = Integer.valueOf(o2.substring(5,7));
+                if (month1 > month2) return 1;
+                else if (month1 < month2) return -1;
+                else {
+                    int day1 = Integer.valueOf(o1.substring(8,10));
+                    int day2 = Integer.valueOf(o2.substring(8,10));
+                    return Integer.compare(day1, day2);
+                }
+            }
         };
     }
 
@@ -1978,16 +2072,6 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    private void setEnableRivals() {
-        saveSettings(true);
-    }
-
-    @FXML
-    private void setIncludeNetworkRivals() {
-        saveSettings(true);
-    }
-
-    @FXML
     private void about() {
         try {
             FXMLLoader loader = new FXMLLoader();
@@ -2178,7 +2262,9 @@ public class MainController implements Initializable {
                 genreColumn.isVisible(), difficultyColumn.isVisible(), levelColumn.isVisible(),
                 ratingNColumn.isVisible(), ratingHColumn.isVisible(), bpmColumn.isVisible(), lengthColumn.isVisible(),
                 notesColumn.isVisible(), statusColumn.isVisible(), gradeColumn.isVisible(), ex_scoreColumn.isVisible(),
-                miss_countColumn.isVisible(), scratchColumn.isVisible()};
+                miss_countColumn.isVisible(), scratchColumn.isVisible(), timestampColumn.isVisible()};
+
+        Main.dateformat = settingsDateformatComboBox.getValue();
 
         //save to file
         Main.setProperties(columnVisibility);
@@ -2325,9 +2411,11 @@ public class MainController implements Initializable {
     }
 
     private boolean isLeggendaria(int id) {
-        return id == 22102 || id == 22103 || id == 22104 || id == 22101 || id == 22105 || id == 21102 || id == 21100
-                || id == 21104 || id == 21103 || id == 21101 || id == 21106 || id == 21105 || id == 18100
-                || id == 5100 || id == 4100;
+        return id == 23100 || id == 23101 || id == 22107 || id == 22106 || id == 22102 || id == 22103 || id == 22104 ||
+                id == 22101 || id == 22105 || id == 21102 || id == 21100 || id == 21104 || id == 21103 || id == 21101 ||
+                id == 21106 || id == 21105 || id == 21107 || id == 20105 || id == 20103 || id == 20104 || id == 18100 ||
+                id == 17101 || id == 16103 || id == 16102 || id == 16101 || id == 15102 || id == 15101 || id == 14101 ||
+                id == 14100 ||id == 5100 || id == 4100;
     }
 
     /***** STATISTICS *****/
@@ -2414,9 +2502,8 @@ public class MainController implements Initializable {
     private void setPieTooltips() {
         for (PieChart.Data data : statsStatusPieChart.getData()) {
             if (statsPieNoPlayCheckBox.isSelected()) {
-                Tooltip.install(data.getNode(), new Tooltip(round(100d * stats.getAllStatus(Status.statusToInt(data.getName()), getStatsLevelLow(), getStatsLevelHigh(), getSelectedDifficulty()) / stats.getTotal(getStatsLevelLow(), getStatsLevelHigh(), getSelectedDifficulty())) + "%"));
-            }
-            else {
+                Tooltip.install(data.getNode(), new Tooltip(round(100d * stats.getAllStatus(Status.statusFullToInt(data.getName()), getStatsLevelLow(), getStatsLevelHigh(), getSelectedDifficulty()) / stats.getTotal(getStatsLevelLow(), getStatsLevelHigh(), getSelectedDifficulty())) + "%"));
+            } else {
                 Tooltip.install(data.getNode(), new Tooltip(round(100d * stats.getAllStatus(Status.statusToInt(data.getName()), getStatsLevelLow(), getStatsLevelHigh(), getSelectedDifficulty()) / stats.getTotalPlayed(getStatsLevelLow(), getStatsLevelHigh(), getSelectedDifficulty())) + "%"));
             }
         }
@@ -2691,14 +2778,11 @@ public class MainController implements Initializable {
         fileChooser.setInitialFileName("IIDX-FX_data.csv");
         FileChooser.ExtensionFilter csvFilter = new FileChooser.ExtensionFilter("Comma-separated values (*.csv)", "*.csv");
         fileChooser.getExtensionFilters().add(csvFilter);
-        FileChooser.ExtensionFilter txtFilter = new FileChooser.ExtensionFilter("Text file (*.txt)", "*.txt");
-        fileChooser.getExtensionFilters().add(txtFilter);
         FileChooser.ExtensionFilter jsonFilter = new FileChooser.ExtensionFilter("JSON file (*.json)", "*.json");
         fileChooser.getExtensionFilters().add(jsonFilter);
         File file = fileChooser.showSaveDialog(scene.getWindow());
         if (fileChooser.getSelectedExtensionFilter() != null) {
             if (fileChooser.getSelectedExtensionFilter().equals(csvFilter)) exportCSV(file);
-            else if (fileChooser.getSelectedExtensionFilter().equals(txtFilter)) exportCSV(file);
             else if (fileChooser.getSelectedExtensionFilter().equals(jsonFilter)) exportJSON(file);
         }
     }
@@ -2743,6 +2827,7 @@ public class MainController implements Initializable {
                 } else {
                     JSONObject jsObj = new JSONObject();
                     jsObj.put("id", entry.getId());
+                    if (entry.getMusicId() != null) jsObj.put("arcanaid", entry.getMusicId());
                     jsObj.put("style", Style.styleToInt(entry.getStyle()));
                     jsObj.put("title", entry.getTitle());
                     jsObj.put("title_r", entry.getTitle_r());
@@ -2769,6 +2854,7 @@ public class MainController implements Initializable {
                         chartObject.put("bpmmin", Integer.valueOf(bpm));
                         chartObject.put("bpmmax", Integer.valueOf(bpm));
                     }
+                    chartObject.put("timestamp", entry.getTimestamp());
                     chartArray.put(chartObject);
 
                     jsObj.put("charts", chartArray);
@@ -2793,7 +2879,7 @@ public class MainController implements Initializable {
             try {
                 OutputStream outputStream = new FileOutputStream(file.getPath());
                 PrintWriter printWriter = new PrintWriter(new OutputStreamWriter(outputStream, "UTF-8"));
-                printWriter.println("\"SongID\",\"Style\",\"Title\",\"Artist\",\"Genre\",\"Difficulty\",\"Level\",\"Normal Rating\",\"Hard Rating\",\"BPM\",\"Length\",\"Notes\",\"Scratch Notes\",\"Omnimix\",\"Status\",\"Grade\",\"Percent\",\"Ex Score\",\"Miss Count\"");
+                printWriter.println("\"SongID\",\"Style\",\"Title\",\"Artist\",\"Genre\",\"Difficulty\",\"Level\",\"Normal Rating\",\"Hard Rating\",\"BPM\",\"Length\",\"Notes\",\"Scratch Notes\",\"Omnimix\",\"Status\",\"Grade\",\"Percent\",\"Ex Score\",\"Miss Count\",\"Timestamp\"");
                 for (SongEntry songEntry : masterData) {
                     int songid = songEntry.getId();
                     String style = "\"" + songEntry.getStyle() + "\"";
@@ -2814,10 +2900,11 @@ public class MainController implements Initializable {
                     String percent = songEntry.getGrade().equals("") ? "" : "\"" + songEntry.getGrade().split(" ")[1].substring(1, songEntry.getGrade().split(" ")[1].length() - 1) + "\"";
                     String ex_score = songEntry.getEx_score().equals("") ? "" : songEntry.getEx_score();
                     String miss_count = songEntry.getMiss_count().equals("") ? "" : songEntry.getMiss_count();
+                    String timestamp = songEntry.getTimestamp().equals("") ? "" : "\"" + songEntry.getTimestamp() + "\"";
 
                     String line = songid + "," + style + "," + title + "," + artist + "," + genre + "," + difficulty +
                             "," + level + "," + nRating + "," + hRating + "," + bpm + "," + length + "," + notes + "," + scratch_notes + "," + omnimix + "," +
-                            status + "," + grade + "," + percent + "," + ex_score + "," + miss_count;
+                            status + "," + grade + "," + percent + "," + ex_score + "," + miss_count + "," + timestamp;
 
                     printWriter.println(line);
                 }

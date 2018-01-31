@@ -19,8 +19,8 @@ public class Main extends Application {
     private static final long startuptime = System.currentTimeMillis();
 
     static final String PROGRAMNAME = "IIDX-FX";
-    static final String PROGRAMVERSION = ProgramVersion.MAJOR_1_MINOR_5;
-    static final String PROGRAMDATE = "2018-01-02";
+    static final String PROGRAMVERSION = ProgramVersion.MAJOR_1_MINOR_5_REVISION_1;
+    static final String PROGRAMDATE = "2018-01-31";
 
     static String LOCALDIR;
     static String SEPARATOR;
@@ -48,11 +48,11 @@ public class Main extends Application {
     private static final String PROPERTYNAMESLIM = "slim";
     private static final String PROPERTYNAMEBLACKWHITE = "blackwhite";
     private static final String PROPERTYNAMESONGLIST = "songlist";
+    private static final String PROPERTYNAMECOLORDER = "colorder";
+    private static final String PROPERTYNAMEDATEFORMAT = "dateformat";
 
     private static final String PROPERTYNAMEDJNAME = "dj_name";
     private static final String PROPERTYNAMEPLAYERID = "iidx_id";
-
-    private static final String PROPERTYNAMECOLORDER = "colorder";
 
     static final String PROPERTYNAMESTYLECOL = "stylecolumn_visible";
     static final String PROPERTYNAMETITLECOL = "titlecolumn_visible";
@@ -70,14 +70,15 @@ public class Main extends Application {
     static final String PROPERTYNAMEEXCOL = "excolumn_visible";
     static final String PROPERTYNAMEMISS_COUNTCOL = "misscolumn_visible";
     static final String PROPERTYNAMESCRATCHCOL = "scratchcolumn_visible";
+    static final String PROPERTYNAMETIMESTAMPCOL = "timestampcolumn_visible";
 
-    static final String PROPERTYNAMESTATSNORMAL = "stats_normal";
-    static final String PROPERTYNAMESTATSHYPER = "stats_hyper";
-    static final String PROPERTYNAMESTATSANOTHER = "stats_another";
-    static final String PROPERTYNAMESTATSCLEARRATENOPLAY = "stats_clearrate_noplay";
-    static final String PROPERTYNAMESTATSCOMPLETIONSTYLEDETAILS = "stats_stylecompletion_details";
-    static final String PROPERTYNAMESTATSLEVELLOW = "stats_level_low";
-    static final String PROPERTYNAMESTATSLEVELHIGH = "stats_level_high";
+    private static final String PROPERTYNAMESTATSNORMAL = "stats_normal";
+    private static final String PROPERTYNAMESTATSHYPER = "stats_hyper";
+    private static final String PROPERTYNAMESTATSANOTHER = "stats_another";
+    private static final String PROPERTYNAMESTATSCLEARRATENOPLAY = "stats_clearrate_noplay";
+    private static final String PROPERTYNAMESTATSCOMPLETIONSTYLEDETAILS = "stats_stylecompletion_details";
+    private static final String PROPERTYNAMESTATSLEVELLOW = "stats_level_low";
+    private static final String PROPERTYNAMESTATSLEVELHIGH = "stats_level_high";
 
 
     private static String version;
@@ -85,7 +86,7 @@ public class Main extends Application {
     private static int os;
     static final int WINDOWS = 1;
     static final int LINUX = 2;
-    static final int MAC = 3;
+    private static final int MAC = 3;
 
     static String programTheme;
 
@@ -94,6 +95,11 @@ public class Main extends Application {
     static final String THEMELIGHT = "light";
     static final String THEMEDARK = "dark";
     static final String THEMENANAHIRA = "nanahira";
+
+    private static final String DEFAULTCOLORDER = "0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16";
+    static final String DATEFORMAT_USA = "MM/DD/YYYY";
+    static final String DATEFORMAT_EU = "DD.MM.YYYY";
+    static final String DATEFORMAT_ISO8601 = "YYYY-MM-DD";
 
     static boolean statusColor;
     static boolean showTitleSuggestions;
@@ -107,6 +113,7 @@ public class Main extends Application {
     static String djname;
     static String playerid;
     static String colorder;
+    static String dateformat;
 
     static boolean statsNormal;
     static boolean statsHyper;
@@ -132,6 +139,7 @@ public class Main extends Application {
         initProperties();
         findScoreFile();
 
+        //maybe localization?
         Locale.setDefault(Locale.ENGLISH);
 
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/main.fxml"));
@@ -218,7 +226,8 @@ public class Main extends Application {
             properties.setProperty(PROPERTYNAMEDJNAME, String.valueOf(""));
             properties.setProperty(PROPERTYNAMEPLAYERID, String.valueOf(""));
             properties.setProperty(PROPERTYNAMESONGLIST, Style.OMNIMIX);
-            properties.setProperty(PROPERTYNAMECOLORDER, "0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15");
+            properties.setProperty(PROPERTYNAMECOLORDER, DEFAULTCOLORDER);
+            properties.setProperty(PROPERTYNAMEDATEFORMAT, DATEFORMAT_USA);
             properties.setProperty(PROPERTYNAMESTATSNORMAL, String.valueOf(true));
             properties.setProperty(PROPERTYNAMESTATSHYPER, String.valueOf(true));
             properties.setProperty(PROPERTYNAMESTATSANOTHER, String.valueOf(true));
@@ -254,7 +263,11 @@ public class Main extends Application {
                 djname = properties.getProperty(PROPERTYNAMEDJNAME, "");
                 playerid = properties.getProperty(PROPERTYNAMEPLAYERID, "");
                 songlist = properties.getProperty(PROPERTYNAMESONGLIST, Style.OMNIMIX);
-                colorder = "0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15";
+                if (!songlist.equals(Style.CURRENTSTYLEFULL) && !songlist.equals(Style.OMNIMIX)) {
+                    songlist = Style.OMNIMIX;
+                }
+                colorder = DEFAULTCOLORDER;
+                dateformat = DATEFORMAT_USA;
                 statsNormal = Boolean.valueOf(properties.getProperty(PROPERTYNAMESTATSNORMAL, "true"));
                 statsHyper = Boolean.valueOf(properties.getProperty(PROPERTYNAMESTATSHYPER, "true"));
                 statsAnother = Boolean.valueOf(properties.getProperty(PROPERTYNAMESTATSANOTHER, "true"));
@@ -281,7 +294,10 @@ public class Main extends Application {
                 djname = properties.getProperty(PROPERTYNAMEDJNAME, "");
                 playerid = properties.getProperty(PROPERTYNAMEPLAYERID, "");
                 songlist = properties.getProperty(PROPERTYNAMESONGLIST, Style.OMNIMIX);
-                colorder = properties.getProperty(PROPERTYNAMECOLORDER, "0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15");
+                if (!songlist.equals(Style.CURRENTSTYLEFULL) && !songlist.equals(Style.OMNIMIX)) songlist = Style.OMNIMIX;
+                colorder = properties.getProperty(PROPERTYNAMECOLORDER, DEFAULTCOLORDER);
+                if (colorder.split(",").length == 16) colorder = colorder + ",16";
+                dateformat = properties.getProperty(PROPERTYNAMEDATEFORMAT, DATEFORMAT_USA);
                 statsNormal = Boolean.valueOf(properties.getProperty(PROPERTYNAMESTATSNORMAL, "true"));
                 statsHyper = Boolean.valueOf(properties.getProperty(PROPERTYNAMESTATSHYPER, "true"));
                 statsAnother = Boolean.valueOf(properties.getProperty(PROPERTYNAMESTATSANOTHER, "true"));
@@ -308,7 +324,10 @@ public class Main extends Application {
                 djname = properties.getProperty(PROPERTYNAMEDJNAME, "");
                 playerid = properties.getProperty(PROPERTYNAMEPLAYERID, "");
                 songlist = properties.getProperty(PROPERTYNAMESONGLIST, Style.OMNIMIX);
-                colorder = properties.getProperty(PROPERTYNAMECOLORDER, "0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15");
+                if (!songlist.equals(Style.CURRENTSTYLEFULL) && !songlist.equals(Style.OMNIMIX)) songlist = Style.OMNIMIX;
+                colorder = properties.getProperty(PROPERTYNAMECOLORDER, DEFAULTCOLORDER);
+                if (colorder.split(",").length == 16) colorder = colorder + ",16";
+                dateformat = properties.getProperty(PROPERTYNAMEDATEFORMAT, DATEFORMAT_USA);
                 statsNormal = Boolean.valueOf(properties.getProperty(PROPERTYNAMESTATSNORMAL, "true"));
                 statsHyper = Boolean.valueOf(properties.getProperty(PROPERTYNAMESTATSHYPER, "true"));
                 statsAnother = Boolean.valueOf(properties.getProperty(PROPERTYNAMESTATSANOTHER, "true"));
@@ -334,8 +353,11 @@ public class Main extends Application {
                 highspeed = properties.getProperty(PROPERTYNAMEHIGHSPEED, "1");
                 djname = properties.getProperty(PROPERTYNAMEDJNAME, "");
                 playerid = properties.getProperty(PROPERTYNAMEPLAYERID, "");
-                songlist = properties.getProperty(PROPERTYNAMESONGLIST, Style.CURRENTSTYLEFULL);
-                colorder = properties.getProperty(PROPERTYNAMECOLORDER, "0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15");
+                songlist = properties.getProperty(PROPERTYNAMESONGLIST, Style.OMNIMIX);
+                if (!songlist.equals(Style.CURRENTSTYLEFULL) && !songlist.equals(Style.OMNIMIX)) songlist = Style.OMNIMIX;
+                colorder = properties.getProperty(PROPERTYNAMECOLORDER, DEFAULTCOLORDER);
+                if (colorder.split(",").length == 16) colorder = colorder + ",16";
+                dateformat = properties.getProperty(PROPERTYNAMEDATEFORMAT, DATEFORMAT_USA);
                 statsNormal = Boolean.valueOf(properties.getProperty(PROPERTYNAMESTATSNORMAL, "true"));
                 statsHyper = Boolean.valueOf(properties.getProperty(PROPERTYNAMESTATSHYPER, "true"));
                 statsAnother = Boolean.valueOf(properties.getProperty(PROPERTYNAMESTATSANOTHER, "true"));
@@ -364,7 +386,36 @@ public class Main extends Application {
                 djname = properties.getProperty(PROPERTYNAMEDJNAME, "");
                 playerid = properties.getProperty(PROPERTYNAMEPLAYERID, "");
                 songlist = properties.getProperty(PROPERTYNAMESONGLIST, Style.OMNIMIX);
-                colorder = properties.getProperty(PROPERTYNAMECOLORDER, "0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15");
+                if (!songlist.equals(Style.CURRENTSTYLEFULL) && !songlist.equals(Style.OMNIMIX)) songlist = Style.OMNIMIX;
+                colorder = properties.getProperty(PROPERTYNAMECOLORDER, DEFAULTCOLORDER);
+                if (colorder.split(",").length == 16) colorder = colorder + ",16";
+                dateformat = properties.getProperty(PROPERTYNAMEDATEFORMAT, DATEFORMAT_USA);
+                statsNormal = Boolean.valueOf(properties.getProperty(PROPERTYNAMESTATSNORMAL, "true"));
+                statsHyper = Boolean.valueOf(properties.getProperty(PROPERTYNAMESTATSHYPER, "true"));
+                statsAnother = Boolean.valueOf(properties.getProperty(PROPERTYNAMESTATSANOTHER, "true"));
+                statsPieNoplay = Boolean.valueOf(properties.getProperty(PROPERTYNAMESTATSCLEARRATENOPLAY, "true"));
+                statsStyleCompletionDetails = Boolean.valueOf(properties.getProperty(PROPERTYNAMESTATSCOMPLETIONSTYLEDETAILS, "false"));
+                statsLevelLow = Integer.valueOf(properties.getProperty(PROPERTYNAMESTATSLEVELLOW, "1"));
+                statsLevelHigh = Integer.valueOf(properties.getProperty(PROPERTYNAMESTATSLEVELHIGH, "12"));
+                version = PROGRAMVERSION;
+            }
+
+            //version 1.5.1
+            else if (version.equals(ProgramVersion.MAJOR_1_MINOR_5_REVISION_1)) {
+                programTheme = properties.getProperty(PROPERTYNAMETHEME, THEMELIGHT);
+                statusColor = Boolean.valueOf(properties.getProperty(PROPERTYNAMESTATUSCOLORS, "false"));
+                showTitleSuggestions = Boolean.valueOf(properties.getProperty(PROPERTYNAMETITLESUGGESTIONS, "false"));
+                showArtistSuggestions = Boolean.valueOf(properties.getProperty(PROPERTYNAMEARTISTSUGGESTIONS, "true"));
+                playerside = properties.getProperty(PROPERTYNAMEPLAYERSIDE, "1");
+                battle = Boolean.valueOf(properties.getProperty(PROPERTYNAMEBATTLE, "false"));
+                slim = Boolean.valueOf(properties.getProperty(PROPERTYNAMESLIM, "false"));
+                blackwhite = Boolean.valueOf(properties.getProperty(PROPERTYNAMEBLACKWHITE, "false"));
+                highspeed = properties.getProperty(PROPERTYNAMEHIGHSPEED, "1");
+                djname = properties.getProperty(PROPERTYNAMEDJNAME, "");
+                playerid = properties.getProperty(PROPERTYNAMEPLAYERID, "");
+                songlist = properties.getProperty(PROPERTYNAMESONGLIST, Style.OMNIMIX);
+                colorder = properties.getProperty(PROPERTYNAMECOLORDER, DEFAULTCOLORDER);
+                dateformat = properties.getProperty(PROPERTYNAMEDATEFORMAT, DATEFORMAT_USA);
                 statsNormal = Boolean.valueOf(properties.getProperty(PROPERTYNAMESTATSNORMAL, "true"));
                 statsHyper = Boolean.valueOf(properties.getProperty(PROPERTYNAMESTATSHYPER, "true"));
                 statsAnother = Boolean.valueOf(properties.getProperty(PROPERTYNAMESTATSANOTHER, "true"));
@@ -401,8 +452,9 @@ public class Main extends Application {
         blackwhite = false;
         djname = "";
         playerid = "";
-        songlist = Style.COPULAFULL;
-        colorder = "0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15";
+        songlist = Style.OMNIMIX;
+        colorder = DEFAULTCOLORDER;
+        dateformat = DATEFORMAT_USA;
         statsNormal = true;
         statsHyper = true;
         statsAnother = true;
@@ -432,6 +484,7 @@ public class Main extends Application {
                 properties.setProperty(PROPERTYNAMEPLAYERID, playerid);
                 properties.setProperty(PROPERTYNAMESONGLIST, songlist);
                 properties.setProperty(PROPERTYNAMECOLORDER, colorder);
+                properties.setProperty(PROPERTYNAMEDATEFORMAT, dateformat);
                 properties.setProperty(PROPERTYNAMESTATSNORMAL, String.valueOf(statsNormal));
                 properties.setProperty(PROPERTYNAMESTATSHYPER, String.valueOf(statsHyper));
                 properties.setProperty(PROPERTYNAMESTATSANOTHER, String.valueOf(statsAnother));
@@ -456,6 +509,7 @@ public class Main extends Application {
                 properties.setProperty(PROPERTYNAMEEXCOL, String.valueOf(columnVisibility[13]));
                 properties.setProperty(PROPERTYNAMEMISS_COUNTCOL, String.valueOf(columnVisibility[14]));
                 properties.setProperty(PROPERTYNAMESCRATCHCOL, String.valueOf(columnVisibility[15]));
+                properties.setProperty(PROPERTYNAMETIMESTAMPCOL, String.valueOf(columnVisibility[16]));
 
                 properties.store(fileOutputStream, null);
                 fileOutputStream.close();

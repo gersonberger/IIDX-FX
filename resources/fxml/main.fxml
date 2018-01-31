@@ -207,6 +207,7 @@
                         <TableColumn fx:id="gradeColumn" prefWidth="105.0" style="-fx-alignment: CENTER;" text="Grade" />
                         <TableColumn fx:id="ex_scoreColumn" prefWidth="55" text="Ex" />
                         <TableColumn fx:id="miss_countColumn" prefWidth="55.0" text="Miss" />
+                        <TableColumn fx:id="timestampColumn" prefWidth="90.0" style="-fx-alignment: CENTER;" text="Timestamp" />
                     </columns>
                 </TableView>
             </VBox>
@@ -680,11 +681,7 @@
             <padding>
                 <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
             </padding>
-            <Label id="header1" text="Settings">
-                <VBox.margin>
-                    <Insets />
-                </VBox.margin>
-            </Label>
+            <Label id="header1" text="Settings" />
             <HBox spacing="30.0">
                 <VBox spacing="10.0" HBox.hgrow="NEVER">
                     <HBox.margin>
@@ -740,6 +737,12 @@
                     </HBox.margin>
                     <Label id="header2" fx:id="settingsSonglistLabel" text="Songlist" />
                     <ComboBox fx:id="settingsSonglistComboBox" minWidth="200.0" />
+                    <Label id="header2" fx:id="settingsDateformatLabel" text="Dateformat">
+                        <padding>
+                            <Insets top="20.0" />
+                        </padding>
+                    </Label>
+                    <ComboBox fx:id="settingsDateformatComboBox" minWidth="200.0" />
                     <Label id="header2" fx:id="settingsExportLabel" text="CSV export">
                         <padding>
                             <Insets top="20.0" />
